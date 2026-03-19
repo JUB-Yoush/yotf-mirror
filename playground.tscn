@@ -1,25 +1,30 @@
-[gd_scene load_steps=14 format=3 uid="uid://chj7s770vcrql"]
+[gd_scene load_steps=12 format=3 uid="uid://chj7s770vcrql"]
 
-[ext_resource type="Texture2D" uid="uid://de73ntwycpuf" path="res://sprites/moomin.png" id="1_ii7jh"]
+[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player.tscn" id="1_uxvxc"]
+[ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="2_egm0w"]
 
-[sub_resource type="Environment" id="Environment_ww0tg"]
-background_energy_multiplier = 5.0
-ambient_light_energy = 10.0
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_joder"]
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_xwp7e"]
+[sub_resource type="Sky" id="Sky_irf28"]
+sky_material = SubResource("PanoramaSkyMaterial_joder")
 
-[sub_resource type="Compositor" id="Compositor_56tel"]
+[sub_resource type="Environment" id="Environment_deq46"]
+background_energy_multiplier = 16.0
+sky = SubResource("Sky_irf28")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.48
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_apc5x"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kivu"]
-albedo_texture = ExtResource("1_ii7jh")
+[sub_resource type="Compositor" id="Compositor_6q5ri"]
 
-[sub_resource type="Gradient" id="Gradient_7mts1"]
+[sub_resource type="Gradient" id="Gradient_73e43"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_e4pvq"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_otrri"]
 noise_type = 2
 frequency = 0.03
 cellular_jitter = 3.0
@@ -31,12 +36,12 @@ domain_warp_fractal_type = 2
 domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_06ada"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jcxh"]
 seamless = true
-color_ramp = SubResource("Gradient_7mts1")
-noise = SubResource("FastNoiseLite_e4pvq")
+color_ramp = SubResource("Gradient_73e43")
+noise = SubResource("FastNoiseLite_otrri")
 
-[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_7x4h2"]
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_whnal"]
 _shader_parameters = {
 "bias_distance": 512.0,
 "blend_sharpness": 0.87,
@@ -53,56 +58,30 @@ _shader_parameters = {
 "noise1_scale": 0.04,
 "noise2_scale": 0.076,
 "noise3_scale": 0.225,
-"noise_texture": SubResource("NoiseTexture2D_06ada"),
+"noise_texture": SubResource("NoiseTexture2D_7jcxh"),
 "projection_angular_division": 2.0,
 "projection_threshold": 0.8,
 "world_space_normal_blend": true
 }
+world_background = 0
 show_checkered = true
-show_region_grid = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hsoq"]
-transparency = 4
-cull_mode = 2
-vertex_color_use_as_albedo = true
-backlight_enabled = true
-backlight = Color(0.5, 0.5, 0.5, 1)
-distance_fade_mode = 1
-distance_fade_min_distance = 128.0
-distance_fade_max_distance = 96.0
-
-[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_qvova"]
-generated_type = 1
-height_offset = 0.5
-material_override = SubResource("StandardMaterial3D_1hsoq")
-last_lod = 0
-last_shadow_lod = 0
-lod0_range = 128.0
-
-[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_tdyt0"]
-mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_qvova")])
 
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ww0tg")
-camera_attributes = SubResource("CameraAttributesPractical_xwp7e")
-compositor = SubResource("Compositor_56tel")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72015, 7.51285)
-
-[node name="Capsule" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15747, 0)
-mesh = SubResource("CapsuleMesh_apc5x")
-surface_material_override/0 = SubResource("StandardMaterial3D_3kivu")
+environment = SubResource("Environment_deq46")
+camera_attributes = SubResource("CameraAttributesPractical_dikcb")
+compositor = SubResource("Compositor_6q5ri")
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 data_directory = "res://terrain"
-material = SubResource("Terrain3DMaterial_7x4h2")
-assets = SubResource("Terrain3DAssets_tdyt0")
-show_grid = true
+material = SubResource("Terrain3DMaterial_whnal")
+assets = ExtResource("2_egm0w")
+collision_mask = 3
 show_checkered = true
-show_region_grid = true
 top_level = true
 metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_uxvxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0873, 0)
+MOVE_SPEED = 10.0

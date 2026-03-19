@@ -29,8 +29,13 @@ extends CharacterBody3D
 func _physics_process(p_delta) -> void:
 	var direction: Vector3 = get_camera_relative_input()
 	var h_veloc: Vector2 = Vector2(direction.x, direction.z).normalized() * MOVE_SPEED
+	
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+		
 	if Input.is_key_pressed(KEY_SHIFT):
 		h_veloc *= 2
+		
 	velocity.x = h_veloc.x
 	velocity.z = h_veloc.y
 	if gravity_enabled:
@@ -41,13 +46,13 @@ func _physics_process(p_delta) -> void:
 # Returns the input vector relative to the camera. Forward is always the direction the camera is facing
 func get_camera_relative_input() -> Vector3:
 	var input_dir: Vector3 = Vector3.ZERO
-	if Input.is_key_pressed(KEY_A): # Left
+	if Input.is_action_pressed("left"): # Left
 		input_dir -= %Camera3D.global_transform.basis.x
-	if Input.is_key_pressed(KEY_D): # Right
+	if Input.is_action_pressed("right"): # Right
 		input_dir += %Camera3D.global_transform.basis.x
-	if Input.is_key_pressed(KEY_W): # Forward
+	if Input.is_action_pressed("up"): # Forward
 		input_dir -= %Camera3D.global_transform.basis.z
-	if Input.is_key_pressed(KEY_S): # Backward
+	if Input.is_action_pressed("down"): # Backward
 		input_dir += %Camera3D.global_transform.basis.z
 	if Input.is_key_pressed(KEY_E) or Input.is_key_pressed(KEY_SPACE): # Up
 		velocity.y += JUMP_SPEED + MOVE_SPEED*.016
@@ -66,7 +71,7 @@ func _input(p_event: InputEvent) -> void:
 			MOVE_SPEED = clamp(MOVE_SPEED + 5, 5, 9999)
 		elif p_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			MOVE_SPEED = clamp(MOVE_SPEED - 5, 5, 9999)
-	
+		
 	elif p_event is InputEventKey:
 		if p_event.pressed:
 			if p_event.keycode == KEY_V:

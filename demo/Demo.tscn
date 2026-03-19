@@ -88,6 +88,7 @@ collision_mask = 3
 
 [node name="Player" parent="." instance=ExtResource("3_ht63y")]
 transform = Transform3D(0.176947, 0, -0.98422, 0, 1, 0, 0.98422, 0, 0.176947, 223.143, 105.348, -1833.08)
+MOVE_SPEED = 30.0
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 data_directory = "res://demo/data"

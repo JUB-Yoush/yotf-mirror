@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://domhm87hbhbg1"]
+[gd_scene load_steps=9 format=3 uid="uid://btp1pisa8eq5g"]
 
-[ext_resource type="Script" path="res://demo/src/Player.gd" id="1_nm1yx"]
-[ext_resource type="Script" path="res://demo/src/CameraManager.gd" id="2_loos7"]
+[ext_resource type="Script" path="res://demo/src/Player.gd" id="1_ft0o7"]
+[ext_resource type="Script" path="res://demo/src/CameraManager.gd" id="2_k4byd"]
+[ext_resource type="Texture2D" uid="uid://de73ntwycpuf" path="res://sprites/moomin.png" id="3_gvduh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -10,15 +11,18 @@ height = 1.5
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1ql3"]
+albedo_texture = ExtResource("3_gvduh")
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lsqiy"]
+material = SubResource("StandardMaterial3D_w1ql3")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_nm1yx")
-MOVE_SPEED = 10.0
+script = ExtResource("1_ft0o7")
 
 [node name="CameraManager" type="Node3D" parent="."]
-script = ExtResource("2_loos7")
+script = ExtResource("2_k4byd")
 
 [node name="Arm" type="SpringArm3D" parent="CameraManager"]
 unique_name_in_owner = true
