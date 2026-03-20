@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" path="res://player/player-3rd.gd" id="1_8u0wu"]
 [ext_resource type="Script" path="res://demo/src/CameraManager.gd" id="2_k4byd"]
-[ext_resource type="PackedScene" uid="uid://d225wq7mjq2qk" path="res://player/model/sophia.tscn" id="2_r3g8a"]
 [ext_resource type="Texture2D" uid="uid://de73ntwycpuf" path="res://sprites/moomin.png" id="3_gvduh"]
+[ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://player/sophia_skin.tscn" id="4_q3wd3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwhhq"]
-height = 1.5
+radius = 0.219345
+height = 1.62326
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
 
@@ -17,6 +18,8 @@ albedo_texture = ExtResource("3_gvduh")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lsqiy"]
 material = SubResource("StandardMaterial3D_w1ql3")
+radius = 0.219345
+height = 1.62326
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -24,17 +27,16 @@ floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_8u0wu")
 
-[node name="Sophia" parent="." instance=ExtResource("2_r3g8a")]
-
 [node name="CameraManager" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
 script = ExtResource("2_k4byd")
 
 [node name="Arm" type="SpringArm3D" parent="CameraManager"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 2.32515, -0.0321627)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
 shape = SubResource("SphereShape3D_smq6u")
-spring_length = 6.0
-margin = 0.5
+spring_length = 2.0
+margin = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="CameraManager/Arm"]
 unique_name_in_owner = true
@@ -42,7 +44,7 @@ near = 0.25
 far = 16384.0
 
 [node name="CollisionShapeBody" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
 shape = SubResource("CapsuleShape3D_lwhhq")
 
 [node name="CollisionShapeRay" type="CollisionShape3D" parent="."]
@@ -50,6 +52,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 
 shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_lsqiy")
+
+[node name="SophiaSkin" parent="." instance=ExtResource("4_q3wd3")]
+script = null

@@ -2,24 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dywyaxkhoatye"
-path.s3tc="res://.godot/imported/sophia_diffuse.png-60e0725bd17aeb8fdaf61b6e90591763.s3tc.ctex"
+uid="uid://6jb7dt4d54ck"
+path="res://.godot/imported/sophia_diffuse.png-60e0725bd17aeb8fdaf61b6e90591763.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
-generator_parameters={
-"md5": "d3fb152f19dfc69273ad1256a179fa1c"
-}
+generator_parameters={}
 
 [deps]
 
 source_file="res://player/model/sophia_diffuse.png"
-dest_files=["res://.godot/imported/sophia_diffuse.png-60e0725bd17aeb8fdaf61b6e90591763.s3tc.ctex"]
+dest_files=["res://.godot/imported/sophia_diffuse.png-60e0725bd17aeb8fdaf61b6e90591763.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://chj7s770vcrql"]
+[gd_scene load_steps=14 format=3 uid="uid://chj7s770vcrql"]
 
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player/player.tscn" id="1_uxvxc"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="2_egm0w"]
@@ -66,6 +66,11 @@ _shader_parameters = {
 world_background = 0
 show_checkered = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_o74y8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dpvq1"]
+size = Vector3(10, 8, 2)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -83,4 +88,15 @@ top_level = true
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_uxvxc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0873, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761548, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92932, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, 0, 0.818613, 0)
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.818613, 0)
+shape = SubResource("BoxShape3D_dpvq1")
