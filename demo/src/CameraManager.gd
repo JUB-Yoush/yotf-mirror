@@ -10,7 +10,6 @@ const CAMERA_RATIO: float = .625
 @onready var _camera_yaw: Node3D = self
 @onready var _camera_pitch: Node3D = %Arm
 
-
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 

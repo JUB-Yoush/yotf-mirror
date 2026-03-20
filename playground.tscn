@@ -84,4 +84,3 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_uxvxc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0873, 0)
-MOVE_SPEED = 10.0

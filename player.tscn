@@ -19,6 +19,8 @@ material = SubResource("StandardMaterial3D_w1ql3")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
+floor_stop_on_slope = false
+floor_constant_speed = true
 script = ExtResource("1_ft0o7")
 
 [node name="CameraManager" type="Node3D" parent="."]
