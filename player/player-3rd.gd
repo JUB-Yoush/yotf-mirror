@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var FLY_SPEED: float = 2.0
 @export var JUMP_SPEED: float = 10.0
 @export var WEIGHT: float = 2.0
+@export var ROTATION_SPEED: float = 10.0
 
 @export var first_person: bool = false : 
 	set(p_value):
@@ -28,11 +29,17 @@ extends CharacterBody3D
 		$CollisionShapeBody.disabled = ! collision_enabled
 		$CollisionShapeRay.disabled = ! collision_enabled
 
+@onready var _skin: Node3D = %SophiaSkin
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _physics_process(p_delta: float) -> void:
 	var direction: Vector3 = get_camera_relative_input()
 	var h_veloc: Vector2 = Vector2(direction.x, direction.z).normalized() * MOVE_SPEED
+	
+	if direction != Vector3.ZERO:
+		var target_angle: float = atan2(direction.x, direction.z)
+		_skin.rotation.y = lerp_angle(_skin.rotation.y, target_angle, ROTATION_SPEED * p_delta)
 	
 	if Input.is_action_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_SPEED
