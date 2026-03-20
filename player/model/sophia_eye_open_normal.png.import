@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://8nu2tr7buete"
+path.s3tc="res://.godot/imported/sophia_eye_open_normal.png-1252f12639b93a2d80dc84ce24348135.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "dd880f96a96a8d16c164a64787250029"
+}
+
+[deps]
+
+source_file="res://player/model/sophia_eye_open_normal.png"
+dest_files=["res://.godot/imported/sophia_eye_open_normal.png-1252f12639b93a2d80dc84ce24348135.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://player/sophia_eye_open_normal.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://btp1pisa8eq5g"]
+[gd_scene load_steps=10 format=3 uid="uid://btp1pisa8eq5g"]
 
-[ext_resource type="Script" path="res://player-3rd.gd" id="1_8u0wu"]
+[ext_resource type="Script" path="res://player/player-3rd.gd" id="1_8u0wu"]
 [ext_resource type="Script" path="res://demo/src/CameraManager.gd" id="2_k4byd"]
+[ext_resource type="PackedScene" uid="uid://d225wq7mjq2qk" path="res://player/model/sophia.tscn" id="2_r3g8a"]
 [ext_resource type="Texture2D" uid="uid://de73ntwycpuf" path="res://sprites/moomin.png" id="3_gvduh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
@@ -22,6 +23,8 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_8u0wu")
+
+[node name="Sophia" parent="." instance=ExtResource("2_r3g8a")]
 
 [node name="CameraManager" type="Node3D" parent="."]
 script = ExtResource("2_k4byd")
@@ -48,4 +51,5 @@ shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_lsqiy")

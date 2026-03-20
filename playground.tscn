@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://chj7s770vcrql"]
 
-[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player.tscn" id="1_uxvxc"]
+[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player/player.tscn" id="1_uxvxc"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="2_egm0w"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_joder"]

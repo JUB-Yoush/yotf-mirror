@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c86jo2ng5bw7d"
+path.s3tc="res://.godot/imported/sophia_normal.png-a1e5aab5f6a3a6012ccf2521af9673df.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "298a25eded77ffe49d6eeb5cb93d6347"
+}
+
+[deps]
+
+source_file="res://player/model/sophia_normal.png"
+dest_files=["res://.godot/imported/sophia_normal.png-a1e5aab5f6a3a6012ccf2521af9673df.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://player/sophia_normal.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
