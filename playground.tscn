@@ -1,20 +1,36 @@
-[gd_scene load_steps=14 format=3 uid="uid://chj7s770vcrql"]
+[gd_scene load_steps=18 format=3 uid="uid://chj7s770vcrql"]
 
+[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://environment/sky_with_stars.tres" id="1_jxgxc"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player/player.tscn" id="1_uxvxc"]
+[ext_resource type="Texture2D" uid="uid://cje8nu2m5sxox" path="res://environment/moon.png" id="2_al8xd"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="2_egm0w"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_joder"]
+[sub_resource type="Curve" id="Curve_32geb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6r7rs"]
+curve = SubResource("Curve_32geb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_goqqs"]
+shader = ExtResource("1_jxgxc")
+shader_parameter/top_color = Color(0.404124, 0.367682, 0.881581, 1)
+shader_parameter/bottom_color = Color(0.205362, 0.806278, 0.807743, 1)
+shader_parameter/moon_direction = Vector3(1, 1, 0)
+shader_parameter/moon_size = 0.05
+shader_parameter/gradient_curve = SubResource("CurveTexture_6r7rs")
+shader_parameter/moon_texture = ExtResource("2_al8xd")
 
 [sub_resource type="Sky" id="Sky_irf28"]
-sky_material = SubResource("PanoramaSkyMaterial_joder")
+sky_material = SubResource("ShaderMaterial_goqqs")
+radiance_size = 1
 
 [sub_resource type="Environment" id="Environment_deq46"]
-background_energy_multiplier = 16.0
+background_mode = 2
 sky = SubResource("Sky_irf28")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.48
+ambient_light_color = Color(0.797434, 0.870958, 0.983935, 1)
+ambient_light_sky_contribution = 0.8
+ambient_light_energy = 10.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
 

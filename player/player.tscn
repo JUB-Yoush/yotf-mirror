@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://btp1pisa8eq5g"]
+[gd_scene load_steps=8 format=3 uid="uid://btp1pisa8eq5g"]
 
 [ext_resource type="Script" path="res://player/player-3rd.gd" id="1_8u0wu"]
 [ext_resource type="Script" path="res://player/camera-manager.gd" id="2_0km3k"]
 [ext_resource type="Script" path="res://player/camera-follow.gd" id="3_bbwjh"]
-[ext_resource type="Texture2D" uid="uid://de73ntwycpuf" path="res://sprites/moomin.png" id="3_gvduh"]
 [ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://player/sophia_skin.tscn" id="4_q3wd3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
@@ -13,14 +12,6 @@ radius = 0.219345
 height = 1.62326
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1ql3"]
-albedo_texture = ExtResource("3_gvduh")
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_lsqiy"]
-material = SubResource("StandardMaterial3D_w1ql3")
-radius = 0.219345
-height = 1.62326
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -34,7 +25,6 @@ script = ExtResource("2_0km3k")
 
 [node name="Arm" type="SpringArm3D" parent="CameraManager"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_smq6u")
 spring_length = 4.0
 margin = 0.5
@@ -43,7 +33,6 @@ margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CameraManager"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 near = 0.25
 far = 16384.0
 script = ExtResource("3_bbwjh")
@@ -57,11 +46,4 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 
 shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="SophiaSkin" parent="." instance=ExtResource("4_q3wd3")]
-unique_name_in_owner = true
 script = null
-
-[node name="Body" type="MeshInstance3D" parent="SophiaSkin"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_lsqiy")
-skeleton = NodePath("../..")

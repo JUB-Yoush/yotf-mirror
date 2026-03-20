@@ -29,7 +29,7 @@ extends CharacterBody3D
 		$CollisionShapeBody.disabled = ! collision_enabled
 		$CollisionShapeRay.disabled = ! collision_enabled
 
-@onready var _skin: Node3D = %SophiaSkin
+@onready var _skin: Node3D = $SophiaSkin
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
