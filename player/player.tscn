@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://btp1pisa8eq5g"]
 
-[ext_resource type="Script" uid="uid://d1chii2yvhagn" path="res://player/player-3rd.gd" id="1_8u0wu"]
-[ext_resource type="Script" uid="uid://vdwbjfhgkbhr" path="res://player/camera-manager.gd" id="2_0km3k"]
-[ext_resource type="Script" uid="uid://dis2qfs1i0scc" path="res://player/camera-follow.gd" id="3_bbwjh"]
-[ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://player/sophia_skin.tscn" id="4_q3wd3"]
+[ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://player/PlayerController.cs" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://player/CameraManager.cs" id="2_yw30f"]
+[ext_resource type="Script" uid="uid://cg7i77y0de057" path="res://player/CameraFollow.cs" id="3_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://player/skin.tscn" id="4_q3wd3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -13,15 +13,16 @@ height = 1.62326
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
 
-[node name="Player" type="CharacterBody3D" unique_id=678823562]
+[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("_skin")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
-script = ExtResource("1_8u0wu")
+script = ExtResource("1_yw30f")
+_skin = NodePath("Skin")
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
-script = ExtResource("2_0km3k")
+script = ExtResource("2_yw30f")
 
 [node name="Arm" type="SpringArm3D" parent="CameraManager" unique_id=1403693957]
 unique_name_in_owner = true
@@ -35,7 +36,7 @@ margin = 0.5
 unique_name_in_owner = true
 near = 0.25
 far = 16384.0
-script = ExtResource("3_bbwjh")
+script = ExtResource("3_qjkh3")
 
 [node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
@@ -45,5 +46,5 @@ shape = SubResource("CapsuleShape3D_lwhhq")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 shape = SubResource("SeparationRayShape3D_twc2s")
 
-[node name="SophiaSkin" parent="." unique_id=1540283524 instance=ExtResource("4_q3wd3")]
+[node name="Skin" parent="." unique_id=1540283524 instance=ExtResource("4_q3wd3")]
 script = null
