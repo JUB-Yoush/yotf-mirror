@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://chj7s770vcrql"]
+[gd_scene format=3 uid="uid://chj7s770vcrql"]
 
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://environment/sky_with_stars.tres" id="1_jxgxc"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://player/player.tscn" id="1_uxvxc"]
@@ -19,19 +19,19 @@ offsets = PackedFloat32Array(0, 0.225537)
 frequency = 0.8433
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vwgkw"]
-seamless = true
-color_ramp = SubResource("Gradient_5xh0q")
 noise = SubResource("FastNoiseLite_6j8fm")
+color_ramp = SubResource("Gradient_5xh0q")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_goqqs"]
 shader = ExtResource("1_jxgxc")
 shader_parameter/top_color = Color(0.404124, 0.367682, 0.881581, 1)
 shader_parameter/bottom_color = Color(0.205362, 0.806278, 0.807743, 1)
-shader_parameter/moon_direction = Vector3(1, 1, 0)
-shader_parameter/moon_size = 0.05
 shader_parameter/gradient_curve = SubResource("CurveTexture_6r7rs")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_vwgkw")
 shader_parameter/moon_texture = ExtResource("2_al8xd")
+shader_parameter/moon_direction = Vector3(1, 1, 0)
+shader_parameter/moon_size = 0.05
 
 [sub_resource type="Sky" id="Sky_irf28"]
 sky_material = SubResource("ShaderMaterial_goqqs")
@@ -72,9 +72,9 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jcxh"]
-seamless = true
-color_ramp = SubResource("Gradient_73e43")
 noise = SubResource("FastNoiseLite_otrri")
+color_ramp = SubResource("Gradient_73e43")
+seamless = true
 
 [sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_whnal"]
 _shader_parameters = {
@@ -106,14 +106,14 @@ show_checkered = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_dpvq1"]
 size = Vector3(10, 8, 2)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=1686587910]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_deq46")
 camera_attributes = SubResource("CameraAttributesPractical_dikcb")
 compositor = SubResource("Compositor_6q5ri")
 
-[node name="Terrain3D" type="Terrain3D" parent="."]
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=112118215]
 data_directory = "res://terrain"
 material = SubResource("Terrain3DMaterial_whnal")
 assets = ExtResource("2_egm0w")
@@ -122,16 +122,16 @@ show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("1_uxvxc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761548, 0)
+[node name="Player" parent="." unique_id=12258220 instance=ExtResource("1_uxvxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032303, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1296565829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92932, 5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2065793896]
 transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, 0, 0.818613, 0)
 mesh = SubResource("BoxMesh_o74y8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=402964624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.818613, 0)
 shape = SubResource("BoxShape3D_dpvq1")

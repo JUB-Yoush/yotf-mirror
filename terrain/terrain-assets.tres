@@ -1,4 +1,4 @@
-[gd_resource type="Terrain3DAssets" load_steps=3 format=3 uid="uid://b2o2hlpw7px8q"]
+[gd_resource type="Terrain3DAssets" format=3 uid="uid://b2o2hlpw7px8q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ekdsc"]
 transparency = 4

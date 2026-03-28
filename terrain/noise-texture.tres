@@ -1,4 +1,4 @@
-[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://ddub361a0t25u"]
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://ddub361a0t25u"]
 
 [sub_resource type="Gradient" id="Gradient_fcgq8"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -17,6 +17,6 @@ domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
 [resource]
-seamless = true
-color_ramp = SubResource("Gradient_fcgq8")
 noise = SubResource("FastNoiseLite_fmw5b")
+color_ramp = SubResource("Gradient_fcgq8")
+seamless = true
