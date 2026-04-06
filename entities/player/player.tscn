@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://btp1pisa8eq5g"]
+
+[ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://entities/player/PlayerController.cs" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://entities/player/CameraManager.cs" id="2_yw30f"]
+[ext_resource type="Script" uid="uid://cg7i77y0de057" path="res://entities/player/CameraFollow.cs" id="3_qjkh3"]
+[ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://entities/player/ProceduralAnimator.cs" id="4_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://entities/player/Skin.tscn" id="5_fkugw"]
+[ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://entities/toplevel_scenes/InputManager.cs" id="6_8fjmc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwhhq"]
+radius = 0.219345
+height = 1.62326
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
+
+[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("_skin", "_proceduralAnimator", "_camera", "_collisionShapeBody")]
+collision_layer = 2
+floor_stop_on_slope = false
+floor_constant_speed = true
+script = ExtResource("1_yw30f")
+_skin = NodePath("Skin")
+_proceduralAnimator = NodePath("ProceduralAnimator")
+_camera = NodePath("CameraManager/Camera3D")
+_collisionShapeBody = NodePath("CollisionShapeBody")
+
+[node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
+script = ExtResource("2_yw30f")
+
+[node name="Arm" type="SpringArm3D" parent="CameraManager" unique_id=1403693957]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_smq6u")
+spring_length = 4.0
+margin = 0.5
+
+[node name="ArmPosition" type="Node3D" parent="CameraManager/Arm" unique_id=1721492418]
+
+[node name="Camera3D" type="Camera3D" parent="CameraManager" unique_id=285023851]
+unique_name_in_owner = true
+near = 0.25
+far = 16384.0
+script = ExtResource("3_qjkh3")
+
+[node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
+shape = SubResource("CapsuleShape3D_lwhhq")
+debug_color = Color(0.16352478, 0.9584989, 0.5340781, 1)
+
+[node name="CollisionShapeRay" type="CollisionShape3D" parent="." unique_id=243987572]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_twc2s")
+
+[node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
+
+[node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_spineBone", "_rayCastL", "_rayCastR", "_footTargetL", "_footTargetR")]
+script = ExtResource("4_qjkh3")
+_spineBone = NodePath("../Skin/rig/Skeleton3D/Spine")
+_rayCastL = NodePath("../Skin/rig/FootRaycast_Left")
+_rayCastR = NodePath("../Skin/rig/FootRaycast_Right")
+_footTargetL = NodePath("../Skin/rig/FootTarget_Left")
+_footTargetR = NodePath("../Skin/rig/FootTarget_Right")
+
+[node name="InputManager" type="Node" parent="." unique_id=970712292]
+script = ExtResource("6_8fjmc")
+
+[editable path="Skin"]
