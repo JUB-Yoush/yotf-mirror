@@ -5,7 +5,7 @@ public partial class Skin : Node3D
     private bool _blink = true;
     private AnimationTree _animationTree;
     private AnimationNodeStateMachinePlayback _stateMachine;
-    private string _moveTiltPath = "parameters/StateMachine/Move/tilt/add_amount";
+    private readonly string _moveTiltPath = "parameters/StateMachine/Move/tilt/add_amount";
 
     private float _runTilt = 0.0f;
     public float RunTilt

@@ -11,19 +11,19 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwhhq"]
 radius = 0.219345
-height = 1.62326
+height = 1.4714888
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
 
-[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("_skin", "_proceduralAnimator", "_camera", "_collisionShapeBody")]
+[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("_skin", "_camera", "_collisionShapeBody", "_proceduralAnimator")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
 _skin = NodePath("Skin")
-_proceduralAnimator = NodePath("ProceduralAnimator")
 _camera = NodePath("CameraManager/Camera3D")
 _collisionShapeBody = NodePath("CollisionShapeBody")
+_proceduralAnimator = NodePath("ProceduralAnimator")
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
@@ -44,7 +44,7 @@ far = 16384.0
 script = ExtResource("3_qjkh3")
 
 [node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822874, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7469884, 0)
 shape = SubResource("CapsuleShape3D_lwhhq")
 debug_color = Color(0.16352478, 0.9584989, 0.5340781, 1)
 
@@ -54,13 +54,14 @@ shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
 
-[node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_spineBone", "_rayCastL", "_rayCastR", "_footTargetL", "_footTargetR")]
+[node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_skeleton", "_camera", "_raycastLeft", "_raycastRight", "_footTargetLeft", "_footTargetRight")]
 script = ExtResource("4_qjkh3")
-_spineBone = NodePath("../Skin/rig/Skeleton3D/Spine")
-_rayCastL = NodePath("../Skin/rig/FootRaycast_Left")
-_rayCastR = NodePath("../Skin/rig/FootRaycast_Right")
-_footTargetL = NodePath("../Skin/rig/FootTarget_Left")
-_footTargetR = NodePath("../Skin/rig/FootTarget_Right")
+_skeleton = NodePath("../Skin/rig/Skeleton3D")
+_camera = NodePath("../CameraManager")
+_raycastLeft = NodePath("../Skin/rig/FootRaycast_Left")
+_raycastRight = NodePath("../Skin/rig/FootRaycast_Right")
+_footTargetLeft = NodePath("../Skin/rig/FootTarget_Left")
+_footTargetRight = NodePath("../Skin/rig/FootTarget_Right")
 
 [node name="InputManager" type="Node" parent="." unique_id=970712292]
 script = ExtResource("6_8fjmc")

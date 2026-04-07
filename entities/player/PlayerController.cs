@@ -1,47 +1,45 @@
-using System.Collections;
 using Godot;
 
 public partial class PlayerController : CharacterBody3D
 {
+    // ====================== REFERENCES ======================
     [ExportCategory("References")]
     [Export]
-    private Node3D _skin;
-    private Vector3 _skinRestPosition;
-    [Export]
-    private ProceduralAnimator _proceduralAnimator;
+    internal Node3D _skin;
+    internal Vector3 _skinRestPosition;
     [Export]
     private Camera3D _camera;
     [Export]
     private CollisionShape3D _collisionShapeBody;
-    private Vector3 _collisionPivot;
+    internal Vector3 _collisionPivot;
 
+    // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
-    [Export]
-    public float moveSpeed = 3.0f;
+    [Export(PropertyHint.Range, "1,50")]
+    public float MoveSpeed = 3.0f;
 
     [Export]
-    public float jumpSpeed = 7.0f;
+    public float JumpSpeed = 7.0f;
 
     [Export]
-    public float weight = 2.0f;
+    public float Weight = 2.0f;
 
     [Export]
-    public float rotationSpeed = 10.0f;
+    public float RotationSpeed = 10.0f;
+
+    internal float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     [ExportCategory("Swim Movement")]
-    [Export]
-    public float swimSpeed = 10.0f;
+    [Export(PropertyHint.Range, "5,50")]
+    public float SwimSpeed = 10.0f;
 
     [Export]
-    public float swimRotationSpeed = 5.0f;
+    public float SwimRotationSpeed = 5.0f;
 
     [Export]
-    public float swimDamping = 5.0f;
+    public float SwimDamping = 2.0f;
 
-    private bool _swimming = false;
-    private float _swimYaw = 0f;
-    private float _swimPitch = 0f;
-
+    // ====================== DEBUG CONFIG ======================
     [ExportCategory("Debug")]
     private bool _firstPerson = false;
 
@@ -78,26 +76,7 @@ public partial class PlayerController : CharacterBody3D
     }
 
     [Export]
-    public float flySpeed = 2.0f;
-
-    private bool _gravityEnabled = true;
-    private float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
-
-    [Export]
-    public bool GravityEnabled
-    {
-        get => _gravityEnabled;
-        set
-        {
-            _gravityEnabled = value;
-            if (!_gravityEnabled)
-            {
-                Vector3 velo = Velocity;
-                velo.Y = 0;
-                Velocity = velo;
-            }
-        }
-    }
+    public float FlySpeed = 2.0f;
 
     private bool _collisionEnabled = true;
 
@@ -113,159 +92,89 @@ public partial class PlayerController : CharacterBody3D
         }
     }
 
+    // ====================== INTERNAL STATE ======================
+    [Export]
+    private ProceduralAnimator _proceduralAnimator;
+
+    private IPlayerState _currentState;
+    public PlayerState State => _currentState.Type;
+    private float _yawVelocity;
+    public float YawVelocity
+    {
+        get => _yawVelocity;
+        private set => _yawVelocity = value;
+    }
+
+    private readonly WalkingState _walkingState = new();
+    private readonly FlyingState _flyingState = new();
+    private readonly SwimmingState _swimmingState = new();
+
     public override void _Ready()
     {
-        Input.SetMouseMode(Input.MouseModeEnum.Captured);
         _camera ??= GetNode<Camera3D>("%Camera3D");
-        
+
         _skin ??= GetNode<Node3D>("Skin");
         _skinRestPosition = _skin.Position;
-        
-        _proceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
 
         _collisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
         _collisionPivot = _collisionShapeBody.Position;
+
+        _proceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
+
+        _currentState = _walkingState;
+        _walkingState.Enter(this);
     }
 
+#if DEBUG
     public override void _Process(double delta)
     {
         if (Input.IsKeyPressed(Key.KpAdd) || Input.IsKeyPressed(Key.Equal))
-            moveSpeed = Mathf.Clamp(moveSpeed + 0.5f, 5, 9999);
+            MoveSpeed = Mathf.Clamp(MoveSpeed + 0.5f, 5, 9999);
         if (Input.IsKeyPressed(Key.KpSubtract) || Input.IsKeyPressed(Key.Minus))
-            moveSpeed = Mathf.Clamp(moveSpeed - 0.5f, 5, 9999);
+            MoveSpeed = Mathf.Clamp(MoveSpeed - 0.5f, 5, 9999);
     }
+#endif
 
     public override void _PhysicsProcess(double delta)
     {
-        float pDelta = (float)delta;
+        _currentState.Update(this, (float)delta);
+    }
 
-        if (_swimming)
+    internal void SetState(IPlayerState newState)
+    {
+        if (_currentState == newState) return;
+        _currentState?.Exit(this);
+        _currentState = newState;
+        _currentState.Enter(this);
+        _proceduralAnimator.OnStateChanged(newState.Type);
+    }
+
+    internal void UpdateBodyDirection(Vector3 direction, float delta)
+    {
+        if (direction == Vector3.Zero)
         {
-            ProcessSwimming(pDelta);
+            YawVelocity = 0f;
             return;
         }
+        float targetAngle = Mathf.Atan2(direction.X, direction.Z);
+        float prevYaw = _skin.Rotation.Y;
+        _skin.Rotation = _skin.Rotation with { Y = Mathf.LerpAngle(prevYaw, targetAngle, RotationSpeed * delta) };
 
-        if (!_gravityEnabled)
-        {
-            ProcessFlying(pDelta);
-            return;
-        }
-
-        ProcessWalking(pDelta);
+        // update yaw velocity for animation purposes
+        YawVelocity = Mathf.AngleDifference(prevYaw, _skin.Rotation.Y) / delta;
     }
 
-    private void ProcessWalking(float delta)
-    {
-        Vector3 direction = GetCameraRelativeDirection();
-        Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * moveSpeed;
-
-        if (direction != Vector3.Zero)
-        {
-            float targetAngle = Mathf.Atan2(direction.X, direction.Z);
-            Vector3 skinRot = _skin.Rotation;
-            skinRot.Y = Mathf.LerpAngle(skinRot.Y, targetAngle, rotationSpeed * delta);
-            _skin.Rotation = skinRot;
-        }
-
-        Vector3 velocity = Velocity;
-
-        if (Input.IsActionPressed("jump") && IsOnFloor())
-            velocity.Y = jumpSpeed;
-
-        if (Input.IsKeyPressed(Key.Shift))
-            hVeloc *= 2;
-
-        velocity.X = hVeloc.X;
-        velocity.Z = hVeloc.Y;
-
-        if (!IsOnFloor())
-            velocity.Y -= _gravity * weight * delta;
-
-        Velocity = velocity;
-        MoveAndSlide();
-    }
-
-    private void ProcessFlying(float delta)
-    {
-        Vector3 direction = GetCameraRelativeDirection();
-        Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * moveSpeed;
-
-        if (direction != Vector3.Zero)
-        {
-            float targetAngle = Mathf.Atan2(direction.X, direction.Z);
-            Vector3 skinRot = _skin.Rotation;
-            skinRot.Y = Mathf.LerpAngle(skinRot.Y, targetAngle, rotationSpeed * delta);
-            _skin.Rotation = skinRot;
-        }
-
-        Vector3 velocity = Velocity;
-
-        if (Input.IsActionPressed("move_modifier"))
-            hVeloc *= 2;
-
-        velocity.X = hVeloc.X;
-        velocity.Z = hVeloc.Y;
-
-        if (Input.IsKeyPressed(Key.E))
-            velocity.Y += flySpeed + moveSpeed * 0.016f;
-        if (Input.IsKeyPressed(Key.Q))
-            velocity.Y -= flySpeed + moveSpeed * 0.016f;
-
-        Velocity = velocity;
-        MoveAndSlide();
-    }
-
-    private void ProcessSwimming(float delta)
-    {
-        float yawInput = Input.GetActionStrength("right") - Input.GetActionStrength("left");
-        float pitchInput = Input.GetActionStrength("up") - Input.GetActionStrength("down");
-
-        _swimYaw -= yawInput * swimRotationSpeed * delta;
-        _swimPitch -= pitchInput * swimRotationSpeed * delta;
-
-        UpdateBodyRotation(new Vector3(_swimPitch, _swimYaw, 0f));
-
-        if (Input.IsActionPressed("move_modifier"))
-            Velocity = _skin.GlobalTransform.Basis.Y * swimSpeed;
-        else
-            Velocity = Velocity.Lerp(Vector3.Zero, swimDamping * delta);
-
-        MoveAndSlide();
-    }
-
-    private void UpdateBodyRotation(Vector3 rotation)
+    internal void UpdateBodyRotation(Vector3 rotation)
     {
         Basis rotBasis = Basis.FromEuler(rotation);
 
         _collisionShapeBody.Rotation = rotation;
 
-        // skin should pivot around the capsule center instead of the feet
         _skin.Rotation = rotation;
         _skin.Position = _collisionPivot + rotBasis * (_skinRestPosition - _collisionPivot);
     }
 
-    private void EnterSwimMode()
-    {
-        _swimming = true;
-        GravityEnabled = false;
-        _proceduralAnimator.Enabled = false;
-        _swimYaw = _skin.Rotation.Y;
-        _swimPitch = _skin.Rotation.X;
-    }
-
-    private void ExitSwimMode()
-    {
-        _swimming = false;
-        GravityEnabled = true;
-        _proceduralAnimator.Enabled = true;
-        Vector3 rotation = _skin.Rotation;
-        rotation.X = 0f;
-        UpdateBodyRotation(rotation);
-        _swimPitch = 0f;
-    }
-
-    // Returns the input vector relative to the camera. Forward is always the direction the camera is facing
-    private Vector3 GetCameraRelativeDirection()
+    internal Vector3 GetCameraRelativeDirection()
     {
         Vector3 inputDir = Vector3.Zero;
 
@@ -277,6 +186,7 @@ public partial class PlayerController : CharacterBody3D
         return inputDir;
     }
 
+#if DEBUG
     public override void _Input(InputEvent pEvent)
     {
         if (pEvent is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
@@ -284,10 +194,10 @@ public partial class PlayerController : CharacterBody3D
             switch (mouseEvent.ButtonIndex)
             {
                 case MouseButton.WheelUp:
-                    moveSpeed = Mathf.Clamp(moveSpeed, 2, 500);
+                    MoveSpeed = Mathf.Clamp(MoveSpeed + 5, 2, 500);
                     break;
                 case MouseButton.WheelDown:
-                    moveSpeed = Mathf.Clamp(moveSpeed, 2, 500);
+                    MoveSpeed = Mathf.Clamp(MoveSpeed - 5, 2, 500);
                     break;
             }
         }
@@ -299,24 +209,16 @@ public partial class PlayerController : CharacterBody3D
                     FirstPerson = !FirstPerson;
                     break;
                 case Key.G:
-                    GravityEnabled = !GravityEnabled;
+                    SetState(_currentState == _flyingState ? _walkingState : _flyingState);
                     break;
                 case Key.C:
                     CollisionEnabled = !CollisionEnabled;
                     break;
-                case Key.Q:
-                case Key.E:
-                    Vector3 v = Velocity;
-                    v.Y = 0;
-                    Velocity = v;
-                    break;
                 case Key.F:
-                    if (_swimming)
-                        ExitSwimMode();
-                    else
-                        EnterSwimMode();
+                    SetState(_currentState == _swimmingState ? _walkingState : _swimmingState);
                     break;
             }
         }
     }
+#endif
 }

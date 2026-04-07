@@ -5,34 +5,51 @@ public partial class ProceduralAnimator : Node3D
     private PlayerController _player;
 
     [Export]
-    private BoneAttachment3D _spineBone;
+    private Skeleton3D _skeleton;
+    [Export]
+    private CameraManager _camera;
+    private const int _spineBoneIdx = 0;
+    private const int _chestBoneIdx = 3;
+    private const int _neckBoneIdx = 4;
 
-    private const float _predictionScale = 0.8f;
+    // ======================== HEAD LOOK =======================
+    private const float _headLookMaxAngle = Mathf.Pi / 6f;
+    private const float _headLookWeight = 0.2f;
+    private const float _headLookSpeed = 2f;
+    private float _currentHeadYaw = 0f;
+
+    // ======================== WALKING =======================
+    private const float _predictionScale = 0.6f;
     private const float _stepThreshold = 1f;
     private const float _stepHeight = 0.2f;
     private const float _stepSpeed = 3.0f;
     private const float _hipBobAmount = 0.05f;
 
-    [Export]
-    private RayCast3D _rayCastL;
+    // ======================== SWIMMING =======================
+    private const float _swimPaddleFrequency = 2.0f;
+    private const float _swimPaddleAmplitude = 0.15f;
+    private float _swimTime = 0f;
 
     [Export]
-    private RayCast3D _rayCastR;
+    private RayCast3D _raycastLeft;
 
     [Export]
-    private Marker3D _footTargetL;
+    private RayCast3D _raycastRight;
 
     [Export]
-    private Marker3D _footTargetR;
+    private Marker3D _footTargetLeft;
+
+    [Export]
+    private Marker3D _footTargetRight;
 
     private class FootState
     {
-        public Vector3 plantedPos;
-        public Vector3 stepStartPos;
-        public Vector3 stepTargetPos;
-        public Vector3 desiredPos;
-        public bool isStepping;
-        public float stepT;
+        public Vector3 PlantedPos;
+        public Vector3 StepStartPos;
+        public Vector3 StepTargetPos;
+        public Vector3 DesiredPos;
+        public bool IsStepping;
+        public float StepT;
     }
 
     private FootState _footStateL;
@@ -41,148 +58,219 @@ public partial class ProceduralAnimator : Node3D
     private Vector3 _restingPosR;
     private float _rootBoneRestY;
 
-    private bool _enabled = true;
-    public bool Enabled
-    {
-        get => _enabled;
-        set
-        {
-            _enabled = value;
-            if (!_enabled)
-                _spineBone.Position = _spineBone.Position with { Y = _rootBoneRestY };
-        }
-    }
+    private PlayerState _state = PlayerState.Walking;
 
     public override void _Ready()
     {
-        _player ??= GetParent<PlayerController>();
-        _rayCastL ??= GetNode<RayCast3D>("../Skin/Rig/FootRaycast_Left");
-        _rayCastR ??= GetNode<RayCast3D>("../Skin/Rig/FootRaycast_Right");
-        _footTargetL ??= GetNode<Marker3D>("../Skin/Rig/FootTarget_Left");
-        _footTargetR ??= GetNode<Marker3D>("../Skin/Rig/FootTarget_Right");
-        _spineBone ??= GetNode<BoneAttachment3D>("../Skin/Rig/Skeleton3D/Spine");
+        _player = GetParent<PlayerController>();
 
-        _rootBoneRestY = _spineBone.Position.Y;
+        _rootBoneRestY = _skeleton.GetBonePosePosition(_spineBoneIdx).Y;
 
-        _restingPosL = _footTargetL.Position;
-        _restingPosR = _footTargetR.Position;
+        _restingPosL = _footTargetLeft.Position;
+        _restingPosR = _footTargetRight.Position;
 
         Vector3 worldRestL = ToGlobal(_restingPosL);
         Vector3 worldRestR = ToGlobal(_restingPosR);
 
         _footStateL = new FootState
         {
-            plantedPos = worldRestL,
-            stepStartPos = worldRestL,
-            stepTargetPos = worldRestL,
-            desiredPos = worldRestL,
-            isStepping = false,
-            stepT = 1f,
+            PlantedPos = worldRestL,
+            StepStartPos = worldRestL,
+            StepTargetPos = worldRestL,
+            DesiredPos = worldRestL,
+            IsStepping = false,
+            StepT = 1f,
         };
 
         _footStateR = new FootState
         {
-            plantedPos = worldRestR,
-            stepStartPos = worldRestR,
-            stepTargetPos = worldRestR,
-            desiredPos = worldRestR,
-            isStepping = false,
-            stepT = 1f,
+            PlantedPos = worldRestR,
+            StepStartPos = worldRestR,
+            StepTargetPos = worldRestR,
+            DesiredPos = worldRestR,
+            IsStepping = false,
+            StepT = 1f,
         };
     }
 
     public override void _Process(double delta)
     {
-        if (!_enabled)
-            return;
-        InterpolateStep(_footStateL, _footTargetL, delta);
-        InterpolateStep(_footStateR, _footTargetR, delta);
-        InterpolateHips();
-
-        if (ShouldStep(_footStateL, _footStateR))
+        float d = (float)delta;
+        switch (_state)
         {
-            GD.Print(
-                "Stepping left, distance: ",
-                _footStateL.plantedPos.DistanceTo(_footStateL.desiredPos)
-            );
-            TriggerStep(_footStateL);
-        }
-
-        if (ShouldStep(_footStateR, _footStateL))
-        {
-            GD.Print(
-                "Stepping right, distance: ",
-                _footStateR.plantedPos.DistanceTo(_footStateR.desiredPos)
-            );
-            TriggerStep(_footStateR);
+            case PlayerState.Walking:
+            case PlayerState.Flying:
+                ProcessWalkAnimation(d);
+                break;
+            case PlayerState.Swimming:
+                ProcessSwimAnimation(d);
+                break;
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!_enabled)
-            return;
-        UpdateDesiredPositions();
+        if (_state != PlayerState.Swimming)
+            UpdateDesiredPositions();
+    }
+
+    internal void OnStateChanged(PlayerState newState)
+    {
+        _state = newState;
+        if (newState == PlayerState.Swimming)
+        {
+            Vector3 currSpinePos = _skeleton.GetBonePosePosition(_spineBoneIdx);
+            currSpinePos.Y = _rootBoneRestY;
+            _skeleton.SetBonePosePosition(_spineBoneIdx, currSpinePos);
+
+            Quaternion currChestRot = _skeleton.GetBonePoseRotation(_chestBoneIdx);
+            currChestRot.X = -Mathf.DegToRad(20f);
+            _skeleton.SetBonePoseRotation(_chestBoneIdx, currChestRot);
+
+            Quaternion currNeckRot = _skeleton.GetBonePoseRotation(_neckBoneIdx);
+            currNeckRot.X = -Mathf.DegToRad(10f);
+            _skeleton.SetBonePoseRotation(_neckBoneIdx, currNeckRot);
+
+            _swimTime = 0f;
+        }
+        else
+        {
+            Vector3 currentSpinePos = _skeleton.GetBonePosePosition(_spineBoneIdx);
+            currentSpinePos.Y = _rootBoneRestY;
+            _skeleton.SetBonePosePosition(_spineBoneIdx, currentSpinePos);
+
+            Quaternion currentChestRot = _skeleton.GetBonePoseRotation(_chestBoneIdx);
+            currentChestRot.X = 0f;
+            _skeleton.SetBonePoseRotation(_chestBoneIdx, currentChestRot);
+
+            Quaternion currentNeckRot = _skeleton.GetBonePoseRotation(_neckBoneIdx);
+            currentNeckRot.X = 0f;
+            _skeleton.SetBonePoseRotation(_neckBoneIdx, currentNeckRot);
+
+            // Prevent IK snap when re-entering walk/fly
+            _footTargetLeft.GlobalPosition = _footStateL.PlantedPos;
+            _footTargetRight.GlobalPosition = _footStateR.PlantedPos;
+        }
+    }
+
+    private void ProcessWalkAnimation(float delta)
+    {
+        InterpolateStep(_footStateL, _footTargetLeft, delta);
+        InterpolateStep(_footStateR, _footTargetRight, delta);
+        InterpolateHips();
+
+        if (ShouldStep(_footStateL, _footStateR))
+            TriggerStep(_footStateL);
+
+        if (ShouldStep(_footStateR, _footStateL))
+            TriggerStep(_footStateR);
+    }
+
+    private void ProcessSwimAnimation(float delta)
+    {
+        UpdateHeadLook(delta);
+
+        Vector3 velocity = _player.Velocity;
+
+        _swimTime += delta;
+        float angle = _swimTime * _swimPaddleFrequency * Mathf.Tau;
+        float velocityScale = velocity.Length() / _player.SwimSpeed;
+
+        // alternating sine wave for feet paddling
+        float leftY = Mathf.Cos(angle) * _stepHeight * velocityScale;
+        float leftZ = (Mathf.Sin(angle) - 1f) * _swimPaddleAmplitude * velocityScale;
+
+        float rightY = Mathf.Cos(angle + Mathf.Pi) * _stepHeight * velocityScale;
+        float rightZ = (Mathf.Sin(angle + Mathf.Pi) - 1f) * _swimPaddleAmplitude * velocityScale;
+
+        _footTargetLeft.Position = _restingPosL + new Vector3(0f, leftY, leftZ);
+        _footTargetRight.Position = _restingPosR + new Vector3(0f, rightY, rightZ);
     }
 
     private void UpdateDesiredPositions()
     {
-        Vector3 worldRestL = GlobalTransform * _restingPosL;
-        Vector3 worldRestR = GlobalTransform * _restingPosR;
+        Vector3 velocity = _player.Velocity;
 
-        _footStateL.desiredPos = _rayCastL.IsColliding()
-            ? _rayCastL.GetCollisionPoint()
+        Vector3 worldRestL = ToGlobal(_restingPosL);
+        Vector3 worldRestR = ToGlobal(_restingPosR);
+
+        _footStateL.DesiredPos = _raycastLeft.IsColliding()
+            ? _raycastLeft.GetCollisionPoint()
             : worldRestL;
 
-        _footStateR.desiredPos = _rayCastR.IsColliding()
-            ? _rayCastR.GetCollisionPoint()
+        _footStateR.DesiredPos = _raycastRight.IsColliding()
+            ? _raycastRight.GetCollisionPoint()
             : worldRestR;
 
-        _footStateL.desiredPos += _player.Velocity.Normalized() * _predictionScale;
-        _footStateR.desiredPos += _player.Velocity.Normalized() * _predictionScale;
+        if (velocity != Vector3.Zero)
+        {
+            Vector3 prediction = velocity.Normalized() * _predictionScale;
+            _footStateL.DesiredPos += prediction;
+            _footStateR.DesiredPos += prediction;
+        }
     }
 
     private static bool ShouldStep(FootState foot, FootState otherFoot)
     {
-        if (otherFoot.isStepping)
+        if (otherFoot.IsStepping)
             return false;
 
-        bool meetsThreshold = foot.plantedPos.DistanceTo(foot.desiredPos) > _stepThreshold;
+        bool meetsThreshold = foot.PlantedPos.DistanceTo(foot.DesiredPos) > _stepThreshold;
         return meetsThreshold;
     }
 
     private static void TriggerStep(FootState foot)
     {
-        foot.stepStartPos = foot.plantedPos;
-        foot.stepTargetPos = foot.desiredPos;
-        foot.plantedPos = foot.desiredPos;
-        foot.isStepping = true;
-        foot.stepT = 0f;
+        foot.StepStartPos = foot.PlantedPos;
+        foot.StepTargetPos = foot.DesiredPos;
+        foot.PlantedPos = foot.DesiredPos;
+        foot.IsStepping = true;
+        foot.StepT = 0f;
     }
 
     private void InterpolateHips()
     {
-        float swingL = Mathf.Sin(_footStateL.stepT * Mathf.Pi);
-        float swingR = Mathf.Sin(_footStateR.stepT * Mathf.Pi);
+        float swingL = Mathf.Sin(_footStateL.StepT * Mathf.Pi);
+        float swingR = Mathf.Sin(_footStateR.StepT * Mathf.Pi);
         float bobOffset = Mathf.Max(swingL, swingR) * _hipBobAmount;
-        _spineBone.Position = _spineBone.Position with { Y = _rootBoneRestY - bobOffset };
+        _skeleton.SetBonePosePosition(_spineBoneIdx, _skeleton.GetBonePosePosition(_spineBoneIdx) with { Y = _rootBoneRestY - bobOffset });
     }
 
-    private void InterpolateStep(FootState foot, Marker3D footTarget, double delta)
+    private void InterpolateStep(FootState foot, Marker3D footTarget, float delta)
     {
-        if (foot.stepT < 1f)
+        if (foot.StepT < 1f)
         {
-            Vector3 newPosition = foot.stepStartPos.Lerp(foot.stepTargetPos, foot.stepT);
-            newPosition.Y += Mathf.Sin(foot.stepT * Mathf.Pi) * _stepHeight;
+            Vector3 newPosition = foot.StepStartPos.Lerp(foot.StepTargetPos, foot.StepT);
+            newPosition.Y += Mathf.Sin(foot.StepT * Mathf.Pi) * _stepHeight;
 
-            foot.stepT += (float)delta * _player.moveSpeed * _stepSpeed;
+            foot.StepT += delta * _player.MoveSpeed * _stepSpeed;
 
             footTarget.GlobalPosition = newPosition;
         }
         else
         {
-            footTarget.GlobalPosition = foot.plantedPos;
-            foot.isStepping = false;
+            footTarget.GlobalPosition = foot.PlantedPos;
+            foot.IsStepping = false;
         }
+    }
+
+    private void UpdateHeadLook(float delta)
+    {
+        // don't fight with player rotation when turning
+        if (!Mathf.IsZeroApprox(_player.YawVelocity))
+            return;
+
+        float cameraYaw = _camera.Rotation.Y;
+        float bodyYaw = _player._skin.Rotation.Y;
+
+        float targetYaw = Mathf.AngleDifference(bodyYaw, cameraYaw) * _headLookWeight;
+        targetYaw = Mathf.Clamp(targetYaw, -_headLookMaxAngle, _headLookMaxAngle);
+
+        _currentHeadYaw = Mathf.LerpAngle(_currentHeadYaw, -targetYaw, _headLookSpeed * delta);
+
+        Quaternion headRot = _skeleton.GetBonePoseRotation(_neckBoneIdx);
+        headRot.Y = _currentHeadYaw;
+
+        _skeleton.SetBonePoseRotation(_neckBoneIdx, headRot);
     }
 }

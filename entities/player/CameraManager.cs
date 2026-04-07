@@ -26,7 +26,7 @@ public partial class CameraManager : Node3D
         float y = Input.GetJoyAxis(0, JoyAxis.RightY);
 
         // Apply deadzone
-        Vector2 joyInput = new Vector2(x, y);
+        Vector2 joyInput = new(x, y);
         if (joyInput.LengthSquared() > 0.04f) // ~0.2 deadzone
             RotateCamera(joyInput * JoystickSensitivity * (float)delta * 100f);
     }
@@ -45,13 +45,8 @@ public partial class CameraManager : Node3D
 
     private void RotateCamera(Vector2 pRelative)
     {
-        Vector3 rot = Rotation;
-        rot.Y -= pRelative.X * MouseSensitivity;
-        Rotation = rot;
+        Rotation = Rotation with { Y = Rotation.Y - pRelative.X * MouseSensitivity };
         Orthonormalize();
-        rot = Rotation;
-        rot.X += pRelative.Y * MouseSensitivity * CameraRatio * MouseYInversion;
-        rot.X = Mathf.Clamp(rot.X, CameraMinPitch, CameraMaxPitch);
-        Rotation = rot;
+        Rotation = Rotation with { X = Mathf.Clamp(Rotation.X + pRelative.Y * MouseSensitivity * CameraRatio * MouseYInversion, CameraMinPitch, CameraMaxPitch) };
     }
 }
