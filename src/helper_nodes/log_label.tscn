@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dblfsg1a5g2dt"]
+
+[ext_resource type="LabelSettings" uid="uid://5nfwetyb0dl2" path="res://assets/themes/log_label.tres" id="1_j50gs"]
+
+[node name="LogLabel" type="Label" unique_id=1751304875]
+custom_minimum_size = Vector2(242, 0)
+size_flags_vertical = 1
+text = ">Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+label_settings = ExtResource("1_j50gs")
+autowrap_mode = 1
+justification_flags = 160

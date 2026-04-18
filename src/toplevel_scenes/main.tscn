@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://rhd2yy66g8ck"]
+
+[ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/entities/net_ui.tscn" id="1_hg07v"]
+[ext_resource type="Script" uid="uid://cx422dk5tfjbm" path="res://src/toplevel_scenes/Main.cs" id="1_i5ocd"]
+[ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="1_sti5w"]
+[ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="2_wvscp"]
+[ext_resource type="Texture2D" uid="uid://cquihgucxirat" path="res://assets/2d/greybox/texture_08.png" id="3_wvscp"]
+[ext_resource type="PackedScene" uid="uid://b8mpgc44w7eds" path="res://src/entities/player.tscn" id="4_hptvl"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish.tscn" id="6_60ht2"]
+[ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="7_mln63"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptvl"]
+albedo_texture = ExtResource("3_wvscp")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hg07v"]
+material = SubResource("StandardMaterial3D_hptvl")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wvscp"]
+size = Vector3(50, 1, 50)
+
+[node name="Main" type="Node3D" unique_id=233240928]
+script = ExtResource("1_i5ocd")
+
+[node name="Player" parent="." unique_id=345471296 instance=ExtResource("4_hptvl")]
+
+[node name="FlashRect" type="ColorRect" parent="." unique_id=572303661]
+visible = false
+offset_left = 140.0
+offset_top = 2.0
+offset_right = 496.0
+offset_bottom = 363.0
+
+[node name="PhotoLetterBox" type="TextureRect" parent="." unique_id=1583596595]
+visible = false
+offset_right = 640.0
+offset_bottom = 362.0
+texture = ExtResource("1_sti5w")
+
+[node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_hg07v")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=530622445]
+_spawnable_scenes = PackedStringArray("uid://b8mpgc44w7eds")
+spawn_path = NodePath("..")
+script = ExtResource("2_wvscp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=736014823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70990705, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=360210743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0011806488, 0.024793625, -0.008041382)
+mesh = SubResource("BoxMesh_hg07v")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=528253499]
+shape = SubResource("BoxShape3D_wvscp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=791036850]
+
+[node name="Fish" parent="." unique_id=19108540 instance=ExtResource("6_60ht2")]
+transform = Transform3D(0.48632792, 0.68081033, -0.54770654, -0.4520345, 0.7324597, 0.509085, 0.74776334, 0, 0.6639654, 0, 1.9390202, -7.1297417)
+
+[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("7_mln63")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, -8, 0, -7)

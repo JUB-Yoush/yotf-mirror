@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c4apqsc8tilb3"]
+
+[ext_resource type="Script" uid="uid://bvyn7a0r1f67w" path="res://src/entities/PhotoTerminal.cs" id="1_l1e86"]
+[ext_resource type="Texture2D" uid="uid://dmsg0w8mvlawx" path="res://assets/2d/moomin.png" id="1_usqju"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_l1e86"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u152m"]
+
+[node name="PhotoTerminal" type="Node3D" unique_id=1904242734]
+script = ExtResource("1_l1e86")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=931869677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0013671, 0)
+mesh = SubResource("CapsuleMesh_l1e86")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1332949251]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.3733625, 0.53251576)
+mesh = SubResource("PlaneMesh_u152m")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982160156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3733627, 0.59239745)
+pixel_size = 0.005
+texture = ExtResource("1_usqju")
