@@ -9,7 +9,6 @@ metadata={
 }
 
 [deps]
-
 source_file="res://assets/2d/sprites/moon.png"
 dest_files=["res://.godot/imported/moon.png-50082b10b2e95f6527a51c3016bbc753.ctex"]
 
