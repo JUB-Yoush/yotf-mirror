@@ -17,11 +17,12 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="2026-yotf"
 run/main_scene="uid://chj7s770vcrql"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
-config/icon="uid://b7cqic71ipx16"
+config/icon="uid://bjsne24mfw3jm"
 
 [autoload]
 
 NetworkHandler="*uid://igplvuui6k05"
+DebugLog="*uid://celq0411gnxjm"
 
 [debug]
 

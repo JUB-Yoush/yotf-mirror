@@ -2,7 +2,6 @@
 
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_kksva"]
 [ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/entities/net_ui.tscn" id="1_l4exj"]
-[ext_resource type="Texture2D" uid="uid://dmsg0w8mvlawx" path="res://assets/2d/moomin.png" id="2_yc386"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/ramy_player/ramy_player.tscn" id="4_kksva"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
@@ -33,7 +32,6 @@ shader_parameter/top_color = Color(0.21568628, 1, 1, 1)
 shader_parameter/bottom_color = Color(0.79363036, 0.49174154, 0.82328445, 1)
 shader_parameter/gradient_curve = SubResource("GradientTexture1D_chbgi")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_kxr3f")
-shader_parameter/moon_texture = ExtResource("2_yc386")
 shader_parameter/moon_direction = Vector3(1, 1.57, 0)
 shader_parameter/moon_size = 0.11
 
@@ -157,10 +155,6 @@ shape = SubResource("BoxShape3D_dpvq1")
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
-
-[node name="PhotoComponent" parent="Player" index="6" unique_id=1054548337 node_paths=PackedStringArray("_photoLetterBox", "_flashRect")]
-_photoLetterBox = NodePath("../../PhotoLetterBox")
-_flashRect = NodePath("../../FlashRect")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
 _spawnable_scenes = PackedStringArray("uid://btp1pisa8eq5g")

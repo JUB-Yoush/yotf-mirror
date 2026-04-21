@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4apqsc8tilb3"]
 
 [ext_resource type="Script" uid="uid://bvyn7a0r1f67w" path="res://src/entities/PhotoTerminal.cs" id="1_l1e86"]
-[ext_resource type="Texture2D" uid="uid://dmsg0w8mvlawx" path="res://assets/2d/moomin.png" id="1_usqju"]
+[ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="2_afks7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l1e86"]
 
@@ -21,4 +21,4 @@ mesh = SubResource("PlaneMesh_u152m")
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982160156]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3733627, 0.59239745)
 pixel_size = 0.005
-texture = ExtResource("1_usqju")
+texture = ExtResource("2_afks7")
