@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b3i74qnkww8ow"]
+
+[ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
+[ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huvyi"]
+albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_huvyi"]
+material = SubResource("StandardMaterial3D_huvyi")
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3vc6"]
+material = SubResource("StandardMaterial3D_huvyi")
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
+size = Vector3(0.31, 0.3, 1.27)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
+radius = 5.0
+
+[node name="Fish" type="AnimatableBody3D" unique_id=523272719]
+script = ExtResource("1_37je6")
+Profile = ExtResource("2_rq6t1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=228051366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
+mesh = SubResource("BoxMesh_huvyi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2099692884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48915994)
+mesh = SubResource("BoxMesh_a3vc6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
+shape = SubResource("BoxShape3D_rq6t1")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
+aabb = AABB(-0.121, -0.133, 0.506, 0.243, 0.266, 0.229)
+
+[node name="DetectionZone" type="Area3D" parent="." unique_id=1371043951]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1214767733]
+shape = SubResource("SphereShape3D_rq6t1")

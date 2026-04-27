@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/ramy_player/ramy_player.tscn" id="4_kksva"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="8_w1g40"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
@@ -155,7 +156,11 @@ shape = SubResource("BoxShape3D_dpvq1")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
 
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
+[node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody", "ProceduralAnimator") instance=ExtResource("4_kksva")]
+Skin = NodePath("Skin")
+Camera = NodePath("CameraManager/Camera3D")
+CollisionShapeBody = NodePath("CollisionShapeBody")
+ProceduralAnimator = NodePath("ProceduralAnimator")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
 _spawnable_scenes = PackedStringArray("uid://btp1pisa8eq5g")
@@ -165,6 +170,10 @@ script = ExtResource("6_48c3q")
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
 unique_name_in_owner = true
 transform = Transform3D(-0.6889241, 0, 0.72483355, 0, 1, 0, -0.72483355, 0, -0.6889241, -14.930382, 0, 9.777313)
+
+[node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
+sync_to_physics = false
 
 [editable path="Player"]
 [editable path="Player/Skin"]

@@ -31,7 +31,7 @@ public class FleeingState : IFishState
 
     public void OnThreatDetected(Fish fish, Node3D threat)
     {
-        // Reset the timer so a new nearby threat keeps us fleeing.
+        // reset the timer so a new nearby threat keeps us fleeing
         fish.ThreatPosition = threat.GlobalPosition;
         _fleeTimer = 0f;
     }

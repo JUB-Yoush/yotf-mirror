@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FishProfile" format=3 uid="uid://brmc7odrdn8e3"]
+
+[ext_resource type="Script" uid="uid://cff11lokk5qc2" path="res://src/entities/fish/FishProfile.cs" id="1_fxk41"]
+
+[resource]
+script = ExtResource("1_fxk41")
+MoveSpeed = 4.0
+FleeSpeed = 8.0
+FleeDistance = 10.0
+NoiseThreshold = 0.0
