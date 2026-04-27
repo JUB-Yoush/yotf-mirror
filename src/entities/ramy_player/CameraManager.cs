@@ -38,6 +38,7 @@ public partial class CameraManager : Node3D
             && Input.GetMouseMode() == Input.MouseModeEnum.Captured
         )
         {
+            Log.Print(mouseMotion.Relative.ToString());
             RotateCamera(mouseMotion.Relative);
             GetViewport().SetInputAsHandled();
         }
