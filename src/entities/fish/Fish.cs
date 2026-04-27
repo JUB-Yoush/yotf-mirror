@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Fish : Node3D, IPhotographable
+public partial class Fish : AnimatableBody3D, IPhotographable
 {
     // ====================== SIGNALS ======================
 
@@ -51,6 +51,10 @@ public partial class Fish : Node3D, IPhotographable
     {
         VisibilityNotif = GetNode<VisibleOnScreenNotifier3D>("VisibleOnScreenNotifier3D");
 
+        Area3D detectionZone = GetNode<Area3D>("DetectionZone");
+        detectionZone.BodyEntered += OnBodyEnterRange;
+        detectionZone.BodyExited += OnBodyExitRange;
+
         IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
         CurrentState = initial;
         CurrentState.Enter(this);
@@ -62,23 +66,28 @@ public partial class Fish : Node3D, IPhotographable
     }
 
     // ====================== SENSORY ENTRY POINTS ======================
-    // Wire these up to Area3D signals and your noise system in the scene.
 
-    public void OnPlayerEnterRange(Node3D player)
+    // Filters to CharacterBody3D so non-player physics bodies are ignored.
+    // Both Player and PlayerController extend CharacterBody3D.
+    private void OnBodyEnterRange(Node3D body)
     {
-        ThreatTarget = player;
-        ThreatPosition = player.GlobalPosition;
-        CurrentState.OnThreatDetected(this, player);
+        if (body is not CharacterBody3D)
+            return;
+        ThreatTarget = body;
+        ThreatPosition = body.GlobalPosition;
+        CurrentState.OnThreatDetected(this, body);
     }
 
-    public void OnPlayerExitRange(Node3D player)
+    private void OnBodyExitRange(Node3D body)
     {
-        if (ThreatTarget == player)
+        if (body is not CharacterBody3D)
+            return;
+        if (ThreatTarget == body)
             ThreatTarget = null;
         CurrentState.OnThreatLost(this);
     }
 
-    // level is expected in 0–1 range, source is world-space pos
+    // Call this from your noise/sound system. level is 0–1, source is world-space.
     public void OnNoiseHeard(float level, Vector3 source)
     {
         if (level >= Profile.NoiseThreshold)

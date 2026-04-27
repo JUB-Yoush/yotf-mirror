@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="2_wvscp"]
 [ext_resource type="Texture2D" uid="uid://cquihgucxirat" path="res://assets/2d/greybox/texture_08.png" id="3_wvscp"]
 [ext_resource type="PackedScene" uid="uid://b8mpgc44w7eds" path="res://src/entities/player.tscn" id="4_hptvl"]
-[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish.tscn" id="6_60ht2"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="6_60ht2"]
 [ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="7_mln63"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptvl"]

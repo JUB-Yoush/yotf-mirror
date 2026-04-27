@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://clsi8qfh408tp"]
 
-[ext_resource type="PackedScene" uid="uid://b8mpgc44w7eds" path="res://src/scenes/entities/player.tscn" id="2_td5ej"]
-[ext_resource type="Texture2D" uid="uid://ja25q2m8cq4g" path="res://assets/2d/greybox/texture_08.png" id="3_rphis"]
+[ext_resource type="PackedScene" uid="uid://b8mpgc44w7eds" path="res://src/entities/player.tscn" id="2_td5ej"]
+[ext_resource type="Texture2D" uid="uid://cquihgucxirat" path="res://assets/2d/greybox/texture_08.png" id="3_rphis"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="3_vsdxe"]
-[ext_resource type="PackedScene" uid="uid://16iu10wxub40" path="res://addons/gdquest_sophia/model/sophia.glb" id="4_k4w8u"]
-[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/scenes/entities/fish.tscn" id="5_rphis"]
-[ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/scenes/entities/photo_terminal.tscn" id="6_p875b"]
+[ext_resource type="PackedScene" uid="uid://16iu10wxub40" path="res://terrain/model/sophia.glb" id="4_k4w8u"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="5_rphis"]
+[ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="6_p875b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptvl"]
 albedo_texture = ExtResource("3_rphis")
