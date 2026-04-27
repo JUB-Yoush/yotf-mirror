@@ -37,6 +37,10 @@ public partial class Player : CharacterBody3D
     public override void _EnterTree()
     {
         SetMultiplayerAuthority(int.Parse(Name));
+        if (Multiplayer.MultiplayerPeer != null)
+            ProcessMode = IsMultiplayerAuthority()
+                ? ProcessModeEnum.Inherit
+                : ProcessModeEnum.Disabled;
     }
 
     public override void _Input(InputEvent @event)

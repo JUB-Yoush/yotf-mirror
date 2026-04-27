@@ -8,10 +8,12 @@ public partial class PhotoComponent : Node
     const float VIEWFINDER_FOV = 50;
     const float VIEWFINDER_LERP = 20;
 
-    [Export] private Camera3D _camera = null!;
+    [Export]
+    private Camera3D _camera = null!;
     private TextureRect _photoLetterBox = null!;
     private ColorRect _flashRect = null!;
     private PhotoTerminal _photoTerminal = null!;
+    private Control _netUi = null!;
 
     private PlayerController _player = null!;
 
@@ -23,19 +25,21 @@ public partial class PhotoComponent : Node
         _photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
         _flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
         _photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
+        _netUi ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
 
         _player = GetParent<PlayerController>();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!_player.IsMultiplayerAuthority())
-            return;
-
         if (Input.IsActionPressed("look_cam"))
         {
             _aiming = true;
-            _camera.Fov = MathExt.Lerp(_camera.Fov, VIEWFINDER_FOV, (float)(VIEWFINDER_LERP * delta));
+            _camera.Fov = MathExt.Lerp(
+                _camera.Fov,
+                VIEWFINDER_FOV,
+                (float)(VIEWFINDER_LERP * delta)
+            );
             _photoLetterBox.Visible = true;
         }
         else
@@ -58,7 +62,7 @@ public partial class PhotoComponent : Node
     private void ToggleUI(bool state)
     {
         _photoLetterBox.Visible = state;
-        GetNode<Control>("/NetUi").Visible = state;
+        _netUi.Visible = state;
     }
 
     //private Photo GetPhotoById(Guid photoId) => AllPhotos.First(x => x.Id == photoId);

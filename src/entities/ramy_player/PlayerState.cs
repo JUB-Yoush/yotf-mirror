@@ -1,1 +1,5 @@
-public enum PlayerState { Walking, Swimming }
+public enum PlayerState
+{
+    Walking,
+    Swimming,
+}

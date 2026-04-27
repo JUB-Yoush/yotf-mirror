@@ -47,6 +47,13 @@ public partial class CameraManager : Node3D
     {
         Rotation = Rotation with { Y = Rotation.Y - pRelative.X * MouseSensitivity };
         Orthonormalize();
-        Rotation = Rotation with { X = Mathf.Clamp(Rotation.X + pRelative.Y * MouseSensitivity * CameraRatio * MouseYInversion, CameraMinPitch, CameraMaxPitch) };
+        Rotation = Rotation with
+        {
+            X = Mathf.Clamp(
+                Rotation.X + pRelative.Y * MouseSensitivity * CameraRatio * MouseYInversion,
+                CameraMinPitch,
+                CameraMaxPitch
+            ),
+        };
     }
 }

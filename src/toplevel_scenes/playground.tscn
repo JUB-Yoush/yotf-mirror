@@ -126,6 +126,7 @@ offset_bottom = 724.0
 texture = ExtResource("7_48c3q")
 
 [node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
+unique_name_in_owner = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_deq46")

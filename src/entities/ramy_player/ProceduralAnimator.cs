@@ -6,6 +6,7 @@ public partial class ProceduralAnimator : Node3D
 
     [Export]
     private Skeleton3D _skeleton;
+
     [Export]
     private CameraManager _camera;
     private const int _spineBoneIdx = 0;
@@ -232,7 +233,13 @@ public partial class ProceduralAnimator : Node3D
         float swingL = Mathf.Sin(_footStateL.StepT * Mathf.Pi);
         float swingR = Mathf.Sin(_footStateR.StepT * Mathf.Pi);
         float bobOffset = Mathf.Max(swingL, swingR) * _hipBobAmount;
-        _skeleton.SetBonePosePosition(_spineBoneIdx, _skeleton.GetBonePosePosition(_spineBoneIdx) with { Y = _rootBoneRestY - bobOffset });
+        _skeleton.SetBonePosePosition(
+            _spineBoneIdx,
+            _skeleton.GetBonePosePosition(_spineBoneIdx) with
+            {
+                Y = _rootBoneRestY - bobOffset,
+            }
+        );
     }
 
     private void InterpolateStep(FootState foot, Marker3D footTarget, float delta)

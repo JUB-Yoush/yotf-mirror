@@ -8,6 +8,7 @@ public partial class NetworkHandler : Node
     public override void _Ready()
     {
         Instance = this;
+        Instance.Multiplayer.ServerDisconnected += Instance.OnServerDisconnected;
     }
 
     public required ENetMultiplayerPeer peer;
@@ -42,5 +43,13 @@ public partial class NetworkHandler : Node
         {
             GD.PrintErr($"Couldn't join server: {e}");
         }
+    }
+
+    private void OnServerDisconnected()
+    {
+        GD.Print("Server disconnected.");
+        peer?.Close();
+        Multiplayer.MultiplayerPeer = null;
+        GetTree().ReloadCurrentScene();
     }
 }

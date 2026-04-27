@@ -7,8 +7,10 @@ public partial class PlayerController : CharacterBody3D
     [Export]
     public Node3D Skin = null!;
     public Vector3 SkinRestPosition;
+
     [Export]
     public Camera3D Camera = null!;
+
     [Export]
     public CollisionShape3D CollisionShapeBody = null!;
     public Vector3 CollisionPivot;
@@ -103,7 +105,13 @@ public partial class PlayerController : CharacterBody3D
     public override void _EnterTree()
     {
         if (int.TryParse(Name, out int peerId))
+        {
             SetMultiplayerAuthority(peerId);
+            if (Multiplayer.MultiplayerPeer != null)
+                ProcessMode = IsMultiplayerAuthority()
+                    ? ProcessModeEnum.Inherit
+                    : ProcessModeEnum.Disabled;
+        }
     }
 
     public override void _Ready()
@@ -130,9 +138,6 @@ public partial class PlayerController : CharacterBody3D
 #if DEBUG
     public override void _Process(double delta)
     {
-        if (!IsMultiplayerAuthority())
-            return;
-
         if (Input.IsKeyPressed(Key.KpAdd) || Input.IsKeyPressed(Key.Equal))
             MoveSpeed = Mathf.Clamp(MoveSpeed + 0.5f, 5, 9999);
         if (Input.IsKeyPressed(Key.KpSubtract) || Input.IsKeyPressed(Key.Minus))
@@ -142,18 +147,13 @@ public partial class PlayerController : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!IsMultiplayerAuthority())
-            return;
-
         CurrentState.Update(this, (float)delta);
     }
 
     internal void SetState(IPlayerState newState)
     {
-        if (!IsMultiplayerAuthority())
+        if (CurrentState == newState)
             return;
-
-        if (CurrentState == newState) return;
         CurrentState?.Exit(this);
         CurrentState = newState;
         CurrentState.Enter(this);
@@ -162,9 +162,6 @@ public partial class PlayerController : CharacterBody3D
 
     internal void UpdateBodyDirection(Vector3 direction, float delta)
     {
-        if (!IsMultiplayerAuthority())
-            return;
-
         if (direction == Vector3.Zero)
         {
             YawVelocity = 0f;
@@ -172,7 +169,10 @@ public partial class PlayerController : CharacterBody3D
         }
         float targetAngle = Mathf.Atan2(direction.X, direction.Z);
         float prevYaw = Skin.Rotation.Y;
-        Skin.Rotation = Skin.Rotation with { Y = Mathf.LerpAngle(prevYaw, targetAngle, RotationSpeed * delta) };
+        Skin.Rotation = Skin.Rotation with
+        {
+            Y = Mathf.LerpAngle(prevYaw, targetAngle, RotationSpeed * delta),
+        };
 
         // update yaw velocity for animation purposes
         YawVelocity = Mathf.AngleDifference(prevYaw, Skin.Rotation.Y) / delta;
@@ -180,9 +180,6 @@ public partial class PlayerController : CharacterBody3D
 
     internal void UpdateBodyRotation(Vector3 rotation)
     {
-        if (!IsMultiplayerAuthority())
-            return;
-
         Basis rotBasis = Basis.FromEuler(rotation);
 
         CollisionShapeBody.Rotation = rotation;

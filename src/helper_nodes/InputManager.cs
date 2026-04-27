@@ -16,9 +16,6 @@ public partial class InputManager : Node
 
     public override void _Input(InputEvent pEvent)
     {
-        if (!_player.IsMultiplayerAuthority())
-            return;
-
         if (pEvent.IsActionPressed("quit"))
         {
             GetTree().Quit();
@@ -29,7 +26,7 @@ public partial class InputManager : Node
             Input.SetMouseMode(Input.MouseModeEnum.Visible);
             GetViewport().SetInputAsHandled();
         }
-        
+
         if (pEvent is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
         {
             if (Input.MouseMode != Input.MouseModeEnum.Captured)
@@ -48,7 +45,7 @@ public partial class InputManager : Node
                     break;
             }
         }
-        
+
         if (pEvent is InputEventKey keyEvent && keyEvent.Pressed)
         {
             switch (keyEvent.Keycode)
@@ -60,7 +57,11 @@ public partial class InputManager : Node
                     _player.CollisionEnabled = !_player.CollisionEnabled;
                     break;
                 case Key.F:
-                    _player.SetState(_player.CurrentState == _player.SwimmingState ? _player.WalkingState : _player.SwimmingState);
+                    _player.SetState(
+                        _player.CurrentState == _player.SwimmingState
+                            ? _player.WalkingState
+                            : _player.SwimmingState
+                    );
                     break;
             }
         }
