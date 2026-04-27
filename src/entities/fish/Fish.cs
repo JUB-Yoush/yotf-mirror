@@ -66,9 +66,6 @@ public partial class Fish : AnimatableBody3D, IPhotographable
     }
 
     // ====================== SENSORY ENTRY POINTS ======================
-
-    // Filters to CharacterBody3D so non-player physics bodies are ignored.
-    // Both Player and PlayerController extend CharacterBody3D.
     private void OnBodyEnterRange(Node3D body)
     {
         if (body is not CharacterBody3D)
@@ -87,7 +84,7 @@ public partial class Fish : AnimatableBody3D, IPhotographable
         CurrentState.OnThreatLost(this);
     }
 
-    // Call this from your noise/sound system. level is 0–1, source is world-space.
+    // level is 0-1, source is world pos
     public void OnNoiseHeard(float level, Vector3 source)
     {
         if (level >= Profile.NoiseThreshold)

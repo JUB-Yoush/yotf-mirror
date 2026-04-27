@@ -4,7 +4,6 @@ public class HiddenState : IFishState
 {
     public FishState Type => FishState.Hidden;
 
-    // Prevents IsInPhoto() from returning true while the fish is cloaked.
     public bool IsPhotographable => false;
 
     public void Enter(Fish fish)
@@ -19,7 +18,7 @@ public class HiddenState : IFishState
 
     public void Update(Fish fish, float delta) { }
 
-    // Ignore all stimuli while hidden — the gadget is the only trigger.
+    // ignore all stimuli while hidden
     public void OnThreatDetected(Fish fish, Node3D threat) { }
 
     public void OnThreatLost(Fish fish) { }
