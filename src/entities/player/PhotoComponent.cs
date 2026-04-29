@@ -68,7 +68,13 @@ public partial class PhotoComponent : Node
 
     //private Photo GetPhotoById(Guid photoId) => AllPhotos.First(x => x.Id == photoId);
 
-    private Image GetViewportImage() => GetViewport().GetTexture().GetImage();
+    private Image GetViewportImage()
+    {
+        _photoLetterBox.Visible = false;
+        var img = GetViewport().GetTexture().GetImage();
+        _photoLetterBox.Visible = true;
+        return img;
+    }
 
     private string[] GetPhotoSubjects()
     {
@@ -91,10 +97,7 @@ public partial class PhotoComponent : Node
         _flashRect.Visible = false;
         await Task.Delay(50);
         TryMakeDir("user://live-camera-roll");
-        GetViewport()
-            .GetTexture()
-            .GetImage()
-            .SavePng($"user://live-camera-roll/{id.ToString()}.png");
+        GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
     }
 
     private void TryMakeDir(string path)

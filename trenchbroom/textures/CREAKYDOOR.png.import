@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/CREAKYDOOR.png-774f15db12667bfae5a9233b69c31b
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

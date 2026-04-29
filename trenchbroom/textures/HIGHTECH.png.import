@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/HIGHTECH.png-03506af1fd8a312ac82e08e3a17f6e5e
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

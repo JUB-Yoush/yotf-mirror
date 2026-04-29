@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/WOODTILE.png-d1e8eb1d81e3a526f492d18bd0b3bd1c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
