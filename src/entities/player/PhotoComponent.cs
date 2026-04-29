@@ -15,6 +15,8 @@ public partial class PhotoComponent : Node
     private ColorRect _flashRect = null!;
     private PhotoTerminal _photoTerminal = null!;
     private Control _netUi = null!;
+    private Camera3D _photoCamera = null!;
+    private SubViewport _photoViewport = null!;
 
     private PlayerController _player = null!;
 
@@ -27,12 +29,15 @@ public partial class PhotoComponent : Node
         _flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
         _photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
         _netUi ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
-
         _player = GetParent<PlayerController>();
+        _photoCamera = GetNode<Camera3D>("SubViewport/Camera3D");
+        _photoViewport = GetNode<SubViewport>("SubViewport");
+        _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        _photoCamera.GlobalTransform = _camera.GlobalTransform;
         if (Input.IsActionPressed("look_cam"))
         {
             _aiming = true;
@@ -42,12 +47,14 @@ public partial class PhotoComponent : Node
                 (float)(VIEWFINDER_LERP * delta)
             );
             _photoLetterBox.Visible = true;
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
         }
         else
         {
             _aiming = false;
             _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
             _photoLetterBox.Visible = false;
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
         }
 
         if (Input.IsActionJustPressed("take_photo") && _aiming)
@@ -60,6 +67,12 @@ public partial class PhotoComponent : Node
         }
     }
 
+    private Image GetViewportImage()
+    {
+        var img = _photoViewport.GetTexture().GetImage();
+        return img;
+    }
+
     private void ToggleUI(bool state)
     {
         _photoLetterBox.Visible = state;
@@ -67,14 +80,6 @@ public partial class PhotoComponent : Node
     }
 
     //private Photo GetPhotoById(Guid photoId) => AllPhotos.First(x => x.Id == photoId);
-
-    private Image GetViewportImage()
-    {
-        _photoLetterBox.Visible = false;
-        var img = GetViewport().GetTexture().GetImage();
-        _photoLetterBox.Visible = true;
-        return img;
-    }
 
     private string[] GetPhotoSubjects()
     {
