@@ -52,6 +52,15 @@
 }
 // brush 5
 {
+( -65 -34 64 ) ( -65 -82 64 ) ( -65 -82 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 0 -1 0 -2 ] [ 0 0 -1 -16 ] 90 1 1
+( -65 -82 64 ) ( -17 -82 64 ) ( -17 -82 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 1 0 0 1 ] [ 0 0 -1 -16 ] 90 1 1
+( -17 -82 0 ) ( -17 -34 0 ) ( -65 -34 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ -1 0 0 -1 ] [ 0 -1 0 -2 ] 90 1 1
+( -65 -34 64 ) ( -17 -34 64 ) ( -17 -82 64 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 1 0 0 1 ] [ 0 -1 0 -2 ] 90 1 1
+( -17 -34 0 ) ( -17 -34 64 ) ( -65 -34 64 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ -1 0 0 -1 ] [ 0 0 -1 -16 ] 90 1 1
+( -17 -82 64 ) ( -17 -34 64 ) ( -17 -34 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 0 1 0 2 ] [ 0 0 -1 -16 ] 90 1 1
+}
+// brush 6
+{
 ( -256 -96 2 ) ( -256 331.76750215746125 0 ) ( -256 331.76750215746125 128 ) PixelTexturePack/Textures/Tech/HEXAGONS [ 0 -1 0 6 ] [ 0 0 -1 -4 ] 180 1 1
 ( -152 -92.50903513431916 2 ) ( -152 -92.50903513431551 0 ) ( -328 -92.03844689902144 0 ) PixelTexturePack/Textures/Tech/HEXAGONS [ 1 0 0 23.960793 ] [ 0 0 -1 -16 ] 180 1 1
 ( -152 -92.50903513431551 0 ) ( -152 331.48942729115106 0 ) ( -328 331.9600155264452 0 ) PixelTexturePack/Textures/Tech/HEXAGONS [ -1 0 0 -18 ] [ 0 -1 0 6.000004 ] 270 1 1
@@ -59,7 +68,7 @@
 ( -152 331.48942729115106 0 ) ( -152 331.4894272911831 2 ) ( -328 331.96001552647726 2 ) PixelTexturePack/Textures/Tech/HEXAGONS [ -1 0 0 -23.039207 ] [ 0 0 -1 -16 ] 180 1 1
 ( -152 -92.50903513431916 2 ) ( -152 331.4894272911831 2 ) ( -152 331.48942729115106 0 ) PixelTexturePack/Textures/Tech/HEXAGONS [ 0 -1 0 16 ] [ 0 0 -1 -24 ] 0 1 1
 }
-// brush 6
+// brush 7
 {
 ( -264 -94.0384468990019 106 ) ( -264 -94.03844689899779 0 ) ( -264 331.96001552646703 0 ) PixelTexturePack/Textures/Urban/WINDOW [ 0 -1 0 6 ] [ 0 0 -1 -4 ] 180 1 1
 ( -256 -94.23096026798612 106 ) ( -256 -94.23096026798201 0 ) ( -264 -94.03844689899779 0 ) PixelTexturePack/Textures/Urban/WINDOW [ 1 0 0 23.960793 ] [ 0 0 -1 -16 ] 180 1 1
