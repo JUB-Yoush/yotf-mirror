@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
@@ -51,7 +52,7 @@ public partial class PhotoComponent : Node
 
         if (Input.IsActionJustPressed("take_photo") && _aiming)
         {
-            var subjects = GetPhotoSubjectNames();
+            var subjects = GetPhotoSubjects();
             Image image = GetViewportImage();
             Photo photo = Photo.New(Name, subjects, image.Data);
             AddPhoto(photo.ToJson(), Name);
@@ -69,21 +70,18 @@ public partial class PhotoComponent : Node
 
     private Image GetViewportImage() => GetViewport().GetTexture().GetImage();
 
-    private Node3D[] GetPhotoSubjects() =>
-        GetParent()
-            .GetChildren(true)
-            .OfType<IPhotographable>()
-            .Where(x => x.IsInPhoto())
-            .Select(x => x.GetSubject())
-            .ToArray();
-
-    private string[] GetPhotoSubjectNames() =>
-        GetParent()
-            .GetChildren(true)
-            .OfType<IPhotographable>()
-            .Where(x => x.IsInPhoto())
-            .Select(x => (string)x.GetSubject().Name)
-            .ToArray();
+    private string[] GetPhotoSubjects()
+    {
+        List<string> result = [];
+        foreach (var child in GetParent().GetChildren(true))
+        {
+            if (child is IPhotographable photographable && photographable.IsInPhoto())
+            {
+                result.Add(child.Name);
+            }
+        }
+        return [.. result];
+    }
 
     async void TakeScreenShot(string id)
     {
