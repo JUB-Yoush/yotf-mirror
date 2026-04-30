@@ -32,29 +32,40 @@ public partial class PhotoComponent : Node
         _player = GetParent<PlayerController>();
         _photoCamera = GetNode<Camera3D>("SubViewport/Camera3D");
         _photoViewport = GetNode<SubViewport>("SubViewport");
-        _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+        _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            _aiming = true;
+        }
+
+        if (@event.IsActionReleased("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            _aiming = false;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
         _photoCamera.GlobalTransform = _camera.GlobalTransform;
-        if (Input.IsActionPressed("look_cam"))
+        if (_aiming)
         {
-            _aiming = true;
             _camera.Fov = MathExt.Lerp(
                 _camera.Fov,
                 VIEWFINDER_FOV,
                 (float)(VIEWFINDER_LERP * delta)
             );
             _photoLetterBox.Visible = true;
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
         }
         else
         {
-            _aiming = false;
             _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
             _photoLetterBox.Visible = false;
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
         }
 
         if (Input.IsActionJustPressed("take_photo") && _aiming)
@@ -63,7 +74,7 @@ public partial class PhotoComponent : Node
             Image image = GetViewportImage();
             Photo photo = Photo.New(Name, subjects, image.Data);
             AddPhoto(photo.ToJson(), Name);
-            ToggleUI(true);
+            FlashSFX();
         }
     }
 
@@ -72,14 +83,6 @@ public partial class PhotoComponent : Node
         var img = _photoViewport.GetTexture().GetImage();
         return img;
     }
-
-    private void ToggleUI(bool state)
-    {
-        _photoLetterBox.Visible = state;
-        _netUi.Visible = state;
-    }
-
-    //private Photo GetPhotoById(Guid photoId) => AllPhotos.First(x => x.Id == photoId);
 
     private string[] GetPhotoSubjects()
     {
@@ -94,14 +97,16 @@ public partial class PhotoComponent : Node
         return [.. result];
     }
 
-    async void TakeScreenShot(string id)
+    void FlashSFX()
     {
-        //Whole camera system is quite hacky, we should use a subviewport for the camera viewfinder and put that in a a screenshot,
-        _flashRect.Visible = true;
-        await Task.Delay(100);
-        _flashRect.Visible = false;
-        await Task.Delay(50);
-        TryMakeDir("user://live-camera-roll");
+        var tween = CreateTween();
+        tween.Call(() => _flashRect.Visible = true);
+        tween.TweenInterval(.1);
+        tween.Call(() => _flashRect.Visible = false);
+    }
+
+    void TakeScreenShot(string id)
+    {
         GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
     }
 
