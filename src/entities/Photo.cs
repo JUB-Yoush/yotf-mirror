@@ -45,3 +45,5 @@ public record struct Photo(
         return data;
     }
 };
+
+public record struct PhotoGrade(float Centering, float Size, float FacingAngle, float Brightness);

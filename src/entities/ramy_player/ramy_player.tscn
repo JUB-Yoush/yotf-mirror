@@ -48,6 +48,9 @@ near = 0.25
 far = 16384.0
 script = ExtResource("3_qjkh3")
 
+[node name="RayCast3D" type="RayCast3D" parent="CameraManager/Camera3D" unique_id=1962571535]
+target_position = Vector3(0, 0, -1)
+
 [node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7469884, 0)
 shape = SubResource("CapsuleShape3D_lwhhq")
@@ -58,6 +61,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 
 shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
+visible = false
 
 [node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_skeleton", "_camera", "_raycastLeft", "_raycastRight", "_footTargetLeft", "_footTargetRight")]
 script = ExtResource("4_qjkh3")

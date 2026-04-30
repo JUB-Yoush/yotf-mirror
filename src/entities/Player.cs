@@ -71,7 +71,6 @@ public partial class Player : CharacterBody3D
     void AddPhoto(string photoJson, string photoTaker)
     {
         var imgData = Photo.FromJson(photoJson);
-        GD.Print(imgData.PhotoTaker, photoTaker);
         Rpc(MethodName.UpdateTerminalImage, photoJson);
         if (photoTaker == Name && IsMultiplayerAuthority())
         {

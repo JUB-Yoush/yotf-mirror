@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="PackedScene" uid="uid://bw5bqi16gc4ct" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
+[ext_resource type="PackedScene" uid="uid://oav35ivnfew0" path="res://src/entities/fish/dummy_fish.tscn" id="10_jdk7o"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
 offsets = PackedFloat32Array(0, 0.60571426)
@@ -168,6 +169,7 @@ transform = Transform3D(0.1858725, 0, 0.98257387, 0, 1, 0, -0.98257387, 0, 0.185
 
 [node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
+visible = false
 sync_to_physics = false
 
 [node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("9_208ij")]
@@ -175,3 +177,6 @@ transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.0
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.50189, 0, 0)
+
+[node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
+transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 4, 0)

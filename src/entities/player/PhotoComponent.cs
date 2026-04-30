@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,6 +49,33 @@ public partial class PhotoComponent : Node
             _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             _aiming = false;
         }
+
+        if (@event.IsActionPressed("take_photo") && _aiming)
+        {
+            var subjects = GetPhotoSubjects();
+
+            Image image = GetViewportImage();
+            Photo photo = Photo.New(Name, subjects, image.Data);
+            PhotoGrade grade = EvaluatePhoto(photo);
+            AddPhoto(photo.ToJson(), Name);
+            FlashSFX();
+        }
+    }
+
+    private PhotoGrade EvaluatePhoto(Photo photo)
+    {
+        foreach (var subjectName in photo.Subjects)
+        {
+            // TODO (j) where will fish be placed within the scene?
+            var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
+
+            // how centered the fish is
+            var camToFish = subject.GlobalPosition - _photoCamera.GlobalPosition;
+            var camFacing = _photoCamera.GlobalTransform.Basis.Z;
+            var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
+            var angleScore = (angle - 2.6) / (Math.PI - 2.6);
+        }
+        return new PhotoGrade();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -67,19 +95,6 @@ public partial class PhotoComponent : Node
             _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
             _photoLetterBox.Visible = false;
         }
-
-        if (Input.IsActionJustPressed("take_photo") && _aiming)
-        {
-            var subjects = GetPhotoSubjects();
-            Image image = GetViewportImage();
-            Photo photo = Photo.New(Name, subjects, image.Data);
-            if (subjects.Length > 1)
-            {
-                Log.Print(subjects[0]);
-            }
-            AddPhoto(photo.ToJson(), Name);
-            FlashSFX();
-        }
     }
 
     private Image GetViewportImage()
@@ -91,7 +106,7 @@ public partial class PhotoComponent : Node
     private string[] GetPhotoSubjects()
     {
         List<string> result = [];
-        foreach (var child in GetParent().GetChildren(true))
+        foreach (var child in GetTree().CurrentScene.GetChildren(true))
         {
             if (child is IPhotographable photographable && photographable.IsInPhoto())
             {
@@ -131,8 +146,6 @@ public partial class PhotoComponent : Node
     )]
     public void AddPhoto(string photoJson, string photoTaker)
     {
-        var imgData = Photo.FromJson(photoJson);
-        GD.Print(imgData.PhotoTaker, photoTaker);
         Rpc(MethodName.UpdateTerminalImage, photoJson);
         if (photoTaker == Name && _player.IsMultiplayerAuthority())
             Log.Print("I took this photo");

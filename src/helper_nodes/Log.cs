@@ -27,7 +27,7 @@ public partial class Log : Control
         }
     }
 
-    public static void Print(string msg)
+    public static void Print(object msg)
     {
         if (MsgCount == LOG_LIMIT)
         {
@@ -35,7 +35,7 @@ public partial class Log : Control
         }
         msg = $"{MsgCount}: {msg}";
         var label = LogMsg.Instantiate<Label>();
-        label.Text = msg;
+        label.Text = msg.ToString();
         Instance.LogMessages.AddChild(label);
         MsgCount++;
     }
