@@ -73,6 +73,10 @@ public partial class PhotoComponent : Node
             var subjects = GetPhotoSubjects();
             Image image = GetViewportImage();
             Photo photo = Photo.New(Name, subjects, image.Data);
+            if (subjects.Length > 1)
+            {
+                Log.Print(subjects[0]);
+            }
             AddPhoto(photo.ToJson(), Name);
             FlashSFX();
         }
