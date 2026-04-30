@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="8_w1g40"]
+[ext_resource type="PackedScene" uid="uid://bw5bqi16gc4ct" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
 offsets = PackedFloat32Array(0, 0.60571426)
@@ -156,12 +157,6 @@ shape = SubResource("BoxShape3D_dpvq1")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
 
-[node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody", "ProceduralAnimator") instance=ExtResource("4_kksva")]
-Skin = NodePath("Skin")
-Camera = NodePath("CameraManager/Camera3D")
-CollisionShapeBody = NodePath("CollisionShapeBody")
-ProceduralAnimator = NodePath("ProceduralAnimator")
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
 _spawnable_scenes = PackedStringArray("uid://btp1pisa8eq5g")
 spawn_path = NodePath("..")
@@ -169,11 +164,14 @@ script = ExtResource("6_48c3q")
 
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
 unique_name_in_owner = true
-transform = Transform3D(-0.6889241, 0, 0.72483355, 0, 1, 0, -0.72483355, 0, -0.6889241, -14.930382, 0, 9.777313)
+transform = Transform3D(0.1858725, 0, 0.98257387, 0, 1, 0, -0.98257387, 0, 0.1858725, -15.196556, -0.34145832, -8.312257)
 
 [node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
 sync_to_physics = false
 
-[editable path="Player"]
-[editable path="Player/Skin"]
+[node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("9_208ij")]
+transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.015951686, -16.09673, -0.7414937, -12.6781435)
+
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.50189, 0, 0)
