@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
 
@@ -74,6 +75,36 @@ public partial class PhotoComponent : Node
             var camFacing = _photoCamera.GlobalTransform.Basis.Z;
             var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
             var angleScore = (angle - 2.6) / (Math.PI - 2.6);
+
+            //If the Fish is facing the camera
+            var facingAngle = camFacing.AngleTo(-subject.GlobalTransform.Basis.Z); // from a range of 0 - PI
+            var facingScore = (facingAngle / Math.PI);
+
+            // size of fish on the screen
+            // Get bounding box, project to camera view, calculate area/size of screen
+            var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D;
+            var world_aabb = vis!.GetAabb() * vis.GlobalTransform;
+
+            // project all 8 aabb points to the screen and find the smallest rectangle that fits all of them, divide the area of that rect with the area of the screen
+            Vector2 minPos = new(float.PositiveInfinity, float.PositiveInfinity);
+            Vector2 maxPos = new(float.NegativeInfinity, float.NegativeInfinity);
+
+            for (int i = 0; i < 8; i++)
+            {
+                var corner = world_aabb.GetEndpoint(i);
+                if (_photoCamera.IsPositionBehind(corner))
+                {
+                    GD.Print($"point {i} behind");
+                    continue;
+                }
+
+                var screenPos = _photoCamera.UnprojectPosition(corner);
+                GD.Print($"corner{i} {screenPos}");
+                minPos = minPos.Min(screenPos);
+                maxPos = maxPos.Max(screenPos);
+            }
+            var screenBoundingBox = new Rect2(minPos, maxPos - minPos);
+            GD.Print(screenBoundingBox.Area);
         }
         return new PhotoGrade();
     }

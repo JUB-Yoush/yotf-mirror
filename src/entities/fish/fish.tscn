@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
 [ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huvyi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rq6t1"]
 albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_huvyi"]
-material = SubResource("StandardMaterial3D_huvyi")
+material = SubResource("StandardMaterial3D_rq6t1")
 size = Vector3(0.2, 0.2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_a3vc6"]
-material = SubResource("StandardMaterial3D_huvyi")
+material = SubResource("StandardMaterial3D_rq6t1")
 size = Vector3(0.3, 0.3, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
