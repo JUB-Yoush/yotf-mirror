@@ -133,6 +133,19 @@ transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.0
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.50189, 0, 0)
+Weight = 0.0
+
+[node name="CollisionShapeBody" parent="Player" index="1" unique_id=627048012]
+disabled = true
+
+[node name="CollisionShapeRay" parent="Player" index="2" unique_id=243987572]
+disabled = true
+
+[node name="Skin" parent="Player" index="3" unique_id=989290181]
+visible = true
 
 [node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
 transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 1.6629832, 0)
+
+[editable path="Player"]
+[editable path="Player/Skin"]

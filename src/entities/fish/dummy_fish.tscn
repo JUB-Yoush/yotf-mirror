@@ -16,7 +16,7 @@ size = Vector3(0.3, 0.3, 0.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_us1rk"]
 size = Vector3(0.31, 0.3, 1.27)
 
-[node name="DummyFish" type="Node3D" unique_id=1624275218]
+[node name="DummyFish" type="Area3D" unique_id=1733787501]
 script = ExtResource("1_hxhu3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=252919752]

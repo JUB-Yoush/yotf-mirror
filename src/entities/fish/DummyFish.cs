@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class DummyFish : Node3D, IPhotographable
+public partial class DummyFish : Area3D, IPhotographable
 {
     public Node3D GetSubject()
     {

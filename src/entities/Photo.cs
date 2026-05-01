@@ -47,4 +47,9 @@ public record struct Photo(
 };
 
 // each parameter is a float from 0-1
-public record struct PhotoGrade(float Centering, float Size, float FacingAngle, float Brightness);
+public record struct PhotoGrade(
+    float CenterScore,
+    float SizeScore,
+    float FacingScore,
+    float LightScore
+);

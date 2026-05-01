@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
@@ -19,6 +20,7 @@ public partial class PhotoComponent : Node
     private Control _netUi = null!;
     private Camera3D _photoCamera = null!;
     private SubViewport _photoViewport = null!;
+    private SpotLight3D _spotlight = null!;
 
     private PlayerController _player = null!;
 
@@ -35,6 +37,7 @@ public partial class PhotoComponent : Node
         _photoCamera = GetNode<Camera3D>("SubViewport/Camera3D");
         _photoViewport = GetNode<SubViewport>("SubViewport");
         _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+        _spotlight = GetParent().GetNode<SpotLight3D>("CameraManager/Camera3D/SpotLight3D");
     }
 
     public override void _Input(InputEvent @event)
@@ -50,21 +53,12 @@ public partial class PhotoComponent : Node
             _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             _aiming = false;
         }
-
-        if (@event.IsActionPressed("take_photo") && _aiming)
-        {
-            var subjects = GetPhotoSubjects();
-
-            Image image = GetViewportImage();
-            Photo photo = Photo.New(Name, subjects, image.Data);
-            PhotoGrade grade = EvaluatePhoto(photo);
-            AddPhoto(photo.ToJson(), Name);
-            FlashSFX();
-        }
     }
 
-    private PhotoGrade EvaluatePhoto(Photo photo)
+    private PhotoGrade[] EvaluatePhoto(Photo photo)
     {
+        List<PhotoGrade> res = [];
+
         foreach (var subjectName in photo.Subjects)
         {
             // TODO (j) where will fish be placed within the scene?
@@ -82,15 +76,36 @@ public partial class PhotoComponent : Node
 
             // size of fish on the screen
             // distance from camera scaled based on the size of the bounding box
-            var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D;
+            var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
             var sizeScore = Math.Min(sizeInPhoto * 10, 1.0f);
 
             //fish lighting
             // shoot a raycast from every directional light length based on light range., check if ray intersects with fish area, use a formula involving energy, range, and intersection distance to determine "lit" score
+            var lightScore = 0f;
+            // foreach (var child in GetChildren(true))
+            // {
+            // if (child is SpotLight3D light)
+            // {
+            var light = _spotlight;
+            var ray = -light.GlobalTransform.Basis.Z * (light.LightEnergy * 1000);
+            var spaceState = _player.GetWorld3D().DirectSpaceState;
+            var origin = _photoCamera.GlobalPosition;
+            var end = origin + ray;
+            var query = PhysicsRayQueryParameters3D.Create(origin, end);
+            query.CollideWithAreas = true;
+            var result = spaceState.IntersectRay(query);
+            GD.Print(result);
+            if (result.Count == 0)
+                continue;
+            if ((Rid)result["rid"] == ((Area3D)subject).GetRid())
+            {
+                lightScore += ((Godot.Vector3)result["position"] - origin).Length();
+            }
+            res.Add(new((float)angleScore, sizeScore, (float)facingScore, lightScore));
         }
-        return new PhotoGrade();
+        return [.. res];
     }
 
     public override void _PhysicsProcess(double delta)
@@ -109,6 +124,19 @@ public partial class PhotoComponent : Node
         {
             _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
             _photoLetterBox.Visible = false;
+        }
+
+        if (Input.IsActionJustPressed("take_photo") && _aiming)
+        {
+            var subjects = GetPhotoSubjects();
+
+            Image image = GetViewportImage();
+            Photo photo = Photo.New(Name, subjects, image.Data);
+            PhotoGrade[] grades = EvaluatePhoto(photo);
+            foreach (var grade in grades)
+                GD.Print(grade);
+            AddPhoto(photo.ToJson(), Name);
+            FlashSFX();
         }
     }
 
