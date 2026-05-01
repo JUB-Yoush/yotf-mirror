@@ -84,10 +84,12 @@ public partial class PhotoComponent : Node
             //fish lighting
             // shoot a raycast from every directional light length based on light range., check if ray intersects with fish area, use a formula involving energy, range, and intersection distance to determine "lit" score
             var lightScore = 0f;
+            // TODO(j) we should come up with some consistient system for querying for specfic nodes that might exist in sub-scenes
             // foreach (var child in GetChildren(true))
             // {
             // if (child is SpotLight3D light)
             // {
+            // TODO(j) if the target isn't direcly lit by the light then it won't hit it, it's a raycast. maybe we could use an entire bounding area around the cone of the light and check how close it is to the origin of the camera?
             var light = _spotlight;
             var ray = -light.GlobalTransform.Basis.Z * (light.LightEnergy * 1000);
             var spaceState = _player.GetWorld3D().DirectSpaceState;
