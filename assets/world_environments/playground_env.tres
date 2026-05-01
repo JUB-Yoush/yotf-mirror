@@ -1,0 +1,48 @@
+[gd_resource type="Environment" format=3 uid="uid://r75bg1vbivre"]
+
+[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_jyjta"]
+
+[sub_resource type="Gradient" id="Gradient_7tb86"]
+offsets = PackedFloat32Array(0, 0.60571426)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_chbgi"]
+gradient = SubResource("Gradient_7tb86")
+
+[sub_resource type="Gradient" id="Gradient_chbgi"]
+offsets = PackedFloat32Array(0, 0.27)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w2ia0"]
+noise_type = 0
+frequency = 0.1958
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kxr3f"]
+noise = SubResource("FastNoiseLite_w2ia0")
+color_ramp = SubResource("Gradient_chbgi")
+in_3d_space = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_goqqs"]
+shader = ExtResource("1_jyjta")
+shader_parameter/top_color = Color(0.21568628, 1, 1, 1)
+shader_parameter/bottom_color = Color(0.79363036, 0.49174154, 0.82328445, 1)
+shader_parameter/gradient_curve = SubResource("GradientTexture1D_chbgi")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kxr3f")
+shader_parameter/moon_direction = Vector3(1, 1.57, 0)
+shader_parameter/moon_size = 0.11
+
+[sub_resource type="Sky" id="Sky_irf28"]
+sky_material = SubResource("ShaderMaterial_goqqs")
+radiance_size = 1
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_irf28")
+ambient_light_color = Color(0.89182, 0.823486, 0.863812, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 1.8
+tonemap_white = 2.18
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.404663, 0.432653, 0.82572, 1)
+fog_aerial_perspective = 0.5

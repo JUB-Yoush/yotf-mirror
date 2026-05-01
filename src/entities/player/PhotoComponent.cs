@@ -81,30 +81,14 @@ public partial class PhotoComponent : Node
             var facingScore = (facingAngle / Math.PI);
 
             // size of fish on the screen
-            // Get bounding box, project to camera view, calculate area/size of screen
+            // distance from camera scaled based on the size of the bounding box
             var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D;
-            var world_aabb = vis!.GetAabb() * vis.GlobalTransform;
+            var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
+            var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
+            var sizeScore = Math.Min(sizeInPhoto * 10, 1.0f);
 
-            // project all 8 aabb points to the screen and find the smallest rectangle that fits all of them, divide the area of that rect with the area of the screen
-            Vector2 minPos = new(float.PositiveInfinity, float.PositiveInfinity);
-            Vector2 maxPos = new(float.NegativeInfinity, float.NegativeInfinity);
-
-            for (int i = 0; i < 8; i++)
-            {
-                var corner = world_aabb.GetEndpoint(i);
-                if (_photoCamera.IsPositionBehind(corner))
-                {
-                    GD.Print($"point {i} behind");
-                    continue;
-                }
-
-                var screenPos = _photoCamera.UnprojectPosition(corner);
-                GD.Print($"corner{i} {screenPos}");
-                minPos = minPos.Min(screenPos);
-                maxPos = maxPos.Max(screenPos);
-            }
-            var screenBoundingBox = new Rect2(minPos, maxPos - minPos);
-            GD.Print(screenBoundingBox.Area);
+            //fish lighting
+            // shoot a raycast from every directional light length based on light range., check if ray intersects with fish area, use a formula involving energy, range, and intersection distance to determine "lit" score
         }
         return new PhotoGrade();
     }
