@@ -28,7 +28,7 @@ operator = 2
 function = 5
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_n8565"]
-size = Vector2(2288, 1274.0001)
+size = Vector2(2288, 1274)
 title = "Inputs"
 tint_color_enabled = true
 tint_color = Color(0.484375, 0.3244934, 0.3244934, 0.75)
@@ -222,7 +222,7 @@ nodes/vertex/24/position = Vector2(-170, -310)
 nodes/vertex/25/node = SubResource("VisualShaderNodeMultiplyAdd_m030s")
 nodes/vertex/25/position = Vector2(290, -280)
 nodes/vertex/27/node = SubResource("VisualShaderNodeVec2Constant_dpkfk")
-nodes/vertex/27/position = Vector2(-1040, 140)
+nodes/vertex/27/position = Vector2(-1050, 160)
 nodes/vertex/connections = PackedInt32Array(7, 0, 6, 0, 8, 0, 7, 0, 2, 0, 7, 2, 24, 0, 25, 1, 22, 0, 25, 2, 25, 0, 0, 0, 19, 0, 8, 1, 6, 0, 25, 0, 27, 0, 7, 1)
 nodes/fragment/0/position = Vector2(1360, -270)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_ifh7y")
@@ -294,5 +294,5 @@ nodes/fragment/39/position = Vector2(-970, -600)
 nodes/fragment/40/node = SubResource("VisualShaderNodeMix_n8565")
 nodes/fragment/40/position = Vector2(1040, -300)
 nodes/fragment/41/node = SubResource("VisualShaderNodeFloatConstant_vp473")
-nodes/fragment/41/position = Vector2(-1650, -700)
+nodes/fragment/41/position = Vector2(-1670, -700)
 nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 7, 0, 5, 2, 7, 0, 6, 2, 5, 0, 2, 0, 6, 0, 3, 0, 9, 0, 6, 1, 11, 0, 10, 1, 10, 0, 6, 0, 10, 0, 5, 0, 12, 0, 14, 0, 4, 0, 12, 0, 4, 0, 14, 1, 4, 0, 16, 0, 13, 0, 12, 1, 16, 0, 20, 0, 4, 0, 20, 1, 14, 0, 21, 0, 20, 0, 21, 1, 19, 0, 16, 1, 25, 0, 0, 3, 26, 0, 0, 1, 22, 0, 23, 1, 21, 0, 23, 0, 14, 0, 0, 5, 8, 0, 5, 1, 28, 0, 27, 0, 27, 0, 29, 0, 32, 0, 33, 0, 33, 0, 34, 1, 29, 0, 35, 0, 34, 0, 36, 1, 35, 0, 36, 0, 7, 0, 39, 0, 38, 0, 39, 1, 29, 0, 39, 2, 39, 0, 32, 0, 36, 0, 40, 0, 40, 0, 0, 0, 23, 0, 40, 2, 41, 0, 35, 1, 29, 0, 34, 0)
