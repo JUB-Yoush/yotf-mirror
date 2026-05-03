@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ppkpbc15yl7"
-path="res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"
+uid="uid://br7db7nnerunj"
+path.s3tc="res://.godot/imported/WINDOW.png-a64471984ad966f492cdb2d8c528e61e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://trenchbroom/textures/DIRT.png"
-dest_files=["res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"]
+source_file="res://trenchbroom/textures/WINDOW.png"
+dest_files=["res://.godot/imported/WINDOW.png-a64471984ad966f492cdb2d8c528e61e.s3tc.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

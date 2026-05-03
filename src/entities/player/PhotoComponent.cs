@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
@@ -14,6 +15,8 @@ public partial class PhotoComponent : Node
     private ColorRect _flashRect = null!;
     private PhotoTerminal _photoTerminal = null!;
     private Control _netUi = null!;
+    private Camera3D _photoCamera = null!;
+    private SubViewport _photoViewport = null!;
 
     private PlayerController _player = null!;
 
@@ -26,15 +29,32 @@ public partial class PhotoComponent : Node
         _flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
         _photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
         _netUi ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
-
         _player = GetParent<PlayerController>();
+        _photoCamera = GetNode<Camera3D>("SubViewport/Camera3D");
+        _photoViewport = GetNode<SubViewport>("SubViewport");
+        _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            _aiming = true;
+        }
+
+        if (@event.IsActionReleased("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            _aiming = false;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionPressed("look_cam"))
+        _photoCamera.GlobalTransform = _camera.GlobalTransform;
+        if (_aiming)
         {
-            _aiming = true;
             _camera.Fov = MathExt.Lerp(
                 _camera.Fov,
                 VIEWFINDER_FOV,
@@ -44,59 +64,50 @@ public partial class PhotoComponent : Node
         }
         else
         {
-            _aiming = false;
             _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
             _photoLetterBox.Visible = false;
         }
 
         if (Input.IsActionJustPressed("take_photo") && _aiming)
         {
-            var subjects = GetPhotoSubjectNames();
+            var subjects = GetPhotoSubjects();
             Image image = GetViewportImage();
             Photo photo = Photo.New(Name, subjects, image.Data);
             AddPhoto(photo.ToJson(), Name);
-            ToggleUI(true);
+            FlashSFX();
         }
     }
 
-    private void ToggleUI(bool state)
+    private Image GetViewportImage()
     {
-        _photoLetterBox.Visible = state;
-        _netUi.Visible = state;
+        var img = _photoViewport.GetTexture().GetImage();
+        return img;
     }
 
-    //private Photo GetPhotoById(Guid photoId) => AllPhotos.First(x => x.Id == photoId);
-
-    private Image GetViewportImage() => GetViewport().GetTexture().GetImage();
-
-    private Node3D[] GetPhotoSubjects() =>
-        GetParent()
-            .GetChildren(true)
-            .OfType<IPhotographable>()
-            .Where(x => x.IsInPhoto())
-            .Select(x => x.GetSubject())
-            .ToArray();
-
-    private string[] GetPhotoSubjectNames() =>
-        GetParent()
-            .GetChildren(true)
-            .OfType<IPhotographable>()
-            .Where(x => x.IsInPhoto())
-            .Select(x => (string)x.GetSubject().Name)
-            .ToArray();
-
-    async void TakeScreenShot(string id)
+    private string[] GetPhotoSubjects()
     {
-        //Whole camera system is quite hacky, we should use a subviewport for the camera viewfinder and put that in a a screenshot,
-        _flashRect.Visible = true;
-        await Task.Delay(100);
-        _flashRect.Visible = false;
-        await Task.Delay(50);
-        TryMakeDir("user://live-camera-roll");
-        GetViewport()
-            .GetTexture()
-            .GetImage()
-            .SavePng($"user://live-camera-roll/{id.ToString()}.png");
+        List<string> result = [];
+        foreach (var child in GetParent().GetChildren(true))
+        {
+            if (child is IPhotographable photographable && photographable.IsInPhoto())
+            {
+                result.Add(child.Name);
+            }
+        }
+        return [.. result];
+    }
+
+    void FlashSFX()
+    {
+        var tween = CreateTween();
+        tween.Call(() => _flashRect.Visible = true);
+        tween.TweenInterval(.1);
+        tween.Call(() => _flashRect.Visible = false);
+    }
+
+    void TakeScreenShot(string id)
+    {
+        GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
     }
 
     private void TryMakeDir(string path)

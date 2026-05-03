@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/ramy_player/ProceduralAnimator.cs" id="4_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://src/entities/ramy_player/Skin.tscn" id="5_fkugw"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
-[ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/player/PhotoComponent.cs" id="7_6fkid"]
+[ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/ramy_player/photo_component.tscn" id="7_6fkid"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -71,9 +71,7 @@ _footTargetRight = NodePath("../Skin/rig/FootTarget_Right")
 [node name="InputManager" type="Node" parent="." unique_id=970712292]
 script = ExtResource("6_8fjmc")
 
-[node name="PhotoComponent" type="Node" parent="." unique_id=1054548337 node_paths=PackedStringArray("_camera")]
-script = ExtResource("7_6fkid")
-_camera = NodePath("../CameraManager/Camera3D")
+[node name="PhotoComponent" parent="." unique_id=1251545655 instance=ExtResource("7_6fkid")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1880699763]
 replication_config = SubResource("SceneReplicationConfig_6fkid")

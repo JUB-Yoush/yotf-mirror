@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ppkpbc15yl7"
-path="res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"
+uid="uid://ccnwm3erbxhte"
+path="res://.godot/imported/BIGLEAVES.png-3fa898ee861ce14ba2a0739bbd443e16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://trenchbroom/textures/DIRT.png"
-dest_files=["res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"]
+source_file="res://trenchbroom/textures/BIGLEAVES.png"
+dest_files=["res://.godot/imported/BIGLEAVES.png-3fa898ee861ce14ba2a0739bbd443e16.ctex"]
 
 [params]
 

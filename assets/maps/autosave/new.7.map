@@ -1,0 +1,71 @@
+// Game: yotf
+// Format: Valve
+// entity 0
+{
+"mapversion" "220"
+"wad" ""
+"classname" "worldspawn"
+// brush 0
+{
+( -6 -95.96078431374372 0 ) ( -7 330.03921568627266 0 ) ( -7 330.0392156862731 104 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -6 ] [ 0 0 -1 -4 ] 0 1 1
+( -6 -95.96078431374372 104 ) ( -4 -96 104 ) ( -4 -96 0 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 24 ] [ 0 0 -1 -16 ] 270 1 1
+( -6 -95.96078431374372 0 ) ( -4 -96 0 ) ( -5 330 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6 ] 270 1 1
+( -5 330 104 ) ( -4 -96 104 ) ( -6 -95.96078431374372 104 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 18 ] [ 0 -1 0 6 ] 270 1 1
+( -5 330 0 ) ( -5 330 104 ) ( -7 330.0392156862731 104 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -24 ] [ 0 0 -1 -16 ] 270 1 1
+( -4 -96 0 ) ( -4 -96 104 ) ( -5 330 104 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -6 ] [ 0 0 -1 -4 ] 270 1 1
+}
+// brush 1
+{
+( -328 -92.03844689902509 2 ) ( -328 -92.03844689902144 0 ) ( -328 331.9600155264452 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 -1 0 6 ] [ 0 0 -1 -4 ] 180 1 1
+( -152 -92.50903513431916 2 ) ( -152 -92.50903513431551 0 ) ( -328 -92.03844689902144 0 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 23.960793 ] [ 0 0 -1 -16 ] 180 1 1
+( -152 -92.50903513431551 0 ) ( -152 331.48942729115106 0 ) ( -328 331.9600155264452 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6.000004 ] 270 1 1
+( -328 331.96001552647726 2 ) ( -152 331.4894272911831 2 ) ( -152 -92.50903513431916 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6.000004 ] 0 1 1
+( -152 331.48942729115106 0 ) ( -152 331.4894272911831 2 ) ( -328 331.96001552647726 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -23.039207 ] [ 0 0 -1 -16 ] 180 1 1
+( -152 -92.50903513431916 2 ) ( -152 331.4894272911831 2 ) ( -152 331.48942729115106 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 -1 0 16 ] [ 0 0 -1 -24 ] 0 1 1
+}
+// brush 2
+{
+( -256 -92.03844689898688 0 ) ( -256 -92.03844689902218 104 ) ( -256 -94.03921568627626 104 ) PixelTexturePack/Textures/Urban/CHESS [ 0 -1 0 6 ] [ 0 0 -1 -4 ] 180 1 1
+( -6 -95.96078431372722 0 ) ( -256 -94.0392156862763 0 ) ( -256 -94.03921568627626 104 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 24 ] [ 0 0 -1 -16 ] 270 1 1
+( -6 -95.96078431372722 0 ) ( -6 -93.96001552643801 0 ) ( -256 -92.03844689898688 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6 ] 270 1 1
+( -256 -92.03844689902218 104 ) ( -6 -93.96001552647328 104 ) ( -6 -95.96078431372717 104 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 18 ] [ 0 -1 0 6 ] 270 1 1
+( -256 -92.03844689898688 0 ) ( -6 -93.96001552643801 0 ) ( -6 -93.96001552647328 104 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 17.960793 ] [ 0 0 -1 -4 ] 0 1 1
+( -6 -93.96001552647328 104 ) ( -6 -93.96001552643801 0 ) ( -6 -95.96078431372722 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -6 ] [ 0 0 -1 -4 ] 180 1 1
+}
+// brush 3
+{
+( -96 -24 2 ) ( -96 -92.5090351343042 2 ) ( -96 -92.50903513430421 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 -1 0 16 ] [ 0 0 -1 -24 ] 180 1 1
+( -96 -92.5090351343042 2 ) ( -32 -93.45021160489244 2 ) ( -32 -93.45021160489247 0 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 23.960793 ] [ 0 0 -1 -16 ] 180 1 1
+( -32 -93.45021160489247 0 ) ( -32 -24 0 ) ( -96 -24 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 5.999996 ] 270 1 1
+( -96 -24 2 ) ( -32 -24 2 ) ( -32 -93.45021160489244 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 5.999996 ] 0 1 1
+( -32 -24 0 ) ( -32 -24 2 ) ( -96 -24 2 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 24 ] [ 0 0 -1 -24 ] 0 1 1
+( -32 -93.45021160489244 2 ) ( -32 -24 2 ) ( -32 -24 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -16 ] [ 0 0 -1 -24 ] 180 1 1
+}
+// brush 4
+{
+( -32 330.54825082061143 0 ) ( -32 330.54825082059045 2 ) ( -32 -93.45021160490438 2 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -15.999992 ] [ 0 0 -1 -24 ] 0 1 1
+( -32 -93.45021160490438 2 ) ( -6 -93.96001552647112 2 ) ( -6 -93.96001552647301 0 ) PixelTexturePack/Textures/Urban/CHESS [ 1 0 0 23.960793 ] [ 0 0 -1 -16 ] 180 1 1
+( -6 -93.96001552647301 0 ) ( -6 330.0384468990428 0 ) ( -32 330.54825082061143 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 5.999996 ] 270 1 1
+( -32 330.54825082059045 2 ) ( -6 330.0384468990219 2 ) ( -6 -93.96001552647112 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 5.999996 ] 0 1 1
+( -32 330.54825082061143 0 ) ( -6 330.0384468990428 0 ) ( -6 330.0384468990219 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -23.039207 ] [ 0 0 -1 -16 ] 180 1 1
+( -6 330.0384468990219 2 ) ( -6 330.0384468990428 0 ) ( -6 -93.96001552647301 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -6 ] [ 0 0 -1 -4 ] 180 1 1
+}
+// brush 5
+{
+( -152 331.48942729118403 2 ) ( -152 -24 2 ) ( -152 -24 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 -1 0 16 ] [ 0 0 -1 -24 ] 180 1 1
+( -152 -24 2 ) ( -32 -24 2 ) ( -32 -24 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -24 ] [ 0 0 -1 -24 ] 0 1 1
+( -32 -24 0 ) ( -32 330.5482508205887 0 ) ( -152 331.489427291177 0 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6.000004 ] 270 1 1
+( -152 331.48942729118403 2 ) ( -32 330.54825082059574 2 ) ( -32 -24 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -18 ] [ 0 -1 0 6.000004 ] 0 1 1
+( -32 330.5482508205887 0 ) ( -32 330.54825082059574 2 ) ( -152 331.48942729118403 2 ) PixelTexturePack/Textures/Urban/CHESS [ -1 0 0 -23.039207 ] [ 0 0 -1 -16 ] 180 1 1
+( -32 -24 2 ) ( -32 330.54825082059574 2 ) ( -32 330.5482508205887 0 ) PixelTexturePack/Textures/Urban/CHESS [ 0 1 0 -16 ] [ 0 0 -1 -24 ] 180 1 1
+}
+// brush 6
+{
+( -65 -34 64 ) ( -65 -82 64 ) ( -65 -82 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 0 -1 0 -2 ] [ 0 0 -1 -16 ] 90 1 1
+( -65 -82 64 ) ( -17 -82 64 ) ( -17 -82 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 1 0 0 1 ] [ 0 0 -1 -16 ] 90 1 1
+( -17 -82 0 ) ( -17 -34 0 ) ( -65 -34 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ -1 0 0 -1 ] [ 0 -1 0 -2 ] 90 1 1
+( -65 -34 64 ) ( -17 -34 64 ) ( -17 -82 64 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 1 0 0 1 ] [ 0 -1 0 -2 ] 90 1 1
+( -17 -34 0 ) ( -17 -34 64 ) ( -65 -34 64 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ -1 0 0 -1 ] [ 0 0 -1 -16 ] 90 1 1
+( -17 -82 64 ) ( -17 -34 64 ) ( -17 -34 0 ) PixelTexturePack/Textures/Elements/TINYLEAVES [ 0 1 0 2 ] [ 0 0 -1 -16 ] 90 1 1
+}
+}

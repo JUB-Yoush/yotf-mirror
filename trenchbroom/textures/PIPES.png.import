@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ppkpbc15yl7"
-path="res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"
+uid="uid://c2xudw0jq8qhi"
+path="res://.godot/imported/PIPES.png-c7d8cdcd41e0d12c4ad6debd18a051a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://trenchbroom/textures/DIRT.png"
-dest_files=["res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"]
+source_file="res://trenchbroom/textures/PIPES.png"
+dest_files=["res://.godot/imported/PIPES.png-c7d8cdcd41e0d12c4ad6debd18a051a5.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

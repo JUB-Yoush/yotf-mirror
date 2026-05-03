@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ppkpbc15yl7"
-path="res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"
+uid="uid://dnymwya3i7pu6"
+path="res://.godot/imported/ROUNDBRICKS.png-6ec7ea78ac33b12f61429166c840c1b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://trenchbroom/textures/DIRT.png"
-dest_files=["res://.godot/imported/DIRT.png-ba98c58878d071c7e0a07a11410d924e.ctex"]
+source_file="res://trenchbroom/textures/ROUNDBRICKS.png"
+dest_files=["res://.godot/imported/ROUNDBRICKS.png-6ec7ea78ac33b12f61429166c840c1b9.ctex"]
 
 [params]
 
