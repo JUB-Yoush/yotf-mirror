@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://cgpgxcr0ulc37"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_vypng"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[node name="TestItem" type="Node3D" unique_id=289961486]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=497715738]
-mesh = SubResource("BoxMesh_vypng")

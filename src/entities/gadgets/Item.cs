@@ -1,8 +1,11 @@
 using System;
 using Godot;
 
-public partial class Item : Node3D
+public abstract partial class Item : Node3D
 {
-    public string name = "";
+    [Export]
+    public string ItemName = "";
+
+    [Export]
     public Texture2D Icon;
 }

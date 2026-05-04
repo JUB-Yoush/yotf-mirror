@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://src/entities/ramy_player/Skin.tscn" id="5_fkugw"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/ramy_player/photo_component.tscn" id="7_6fkid"]
+[ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/ramy_player/Inventory.cs" id="8_1ljfj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -84,5 +85,6 @@ script = ExtResource("6_8fjmc")
 replication_config = SubResource("SceneReplicationConfig_6fkid")
 
 [node name="Inventory" type="Node" parent="." unique_id=1733491641]
+script = ExtResource("8_1ljfj")
 
 [editable path="Skin"]
