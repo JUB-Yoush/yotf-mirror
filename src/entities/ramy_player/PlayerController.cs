@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Godot;
 
 public partial class PlayerController : CharacterBody3D
@@ -102,6 +106,8 @@ public partial class PlayerController : CharacterBody3D
 
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
+    int currentItem = 0;
+    IItem?[] inventory = [];
 
     public override void _EnterTree()
     {
@@ -146,6 +152,52 @@ public partial class PlayerController : CharacterBody3D
             MoveSpeed = Mathf.Clamp(MoveSpeed - 0.5f, 5, 9999);
     }
 #endif
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("set_item_1"))
+        {
+            SetCurrentItem(1);
+        }
+        else if (@event.IsActionPressed("set_item_2"))
+        {
+            SetCurrentItem(2);
+        }
+        else if (@event.IsActionPressed("set_item_3"))
+        {
+            SetCurrentItem(3);
+        }
+        else if (@event.IsActionPressed("set_item_4"))
+        {
+            SetCurrentItem(4);
+        }
+    }
+
+    private void SetCurrentItem(int index)
+    {
+        if (inventory[index] == null)
+            return;
+
+        currentItem = index;
+    }
+
+    void AddItem(IItem item)
+    {
+        Debug.Assert(inventory[currentItem] == null);
+        inventory[currentItem] = item;
+    }
+
+    void RemoveItem(int index)
+    {
+        Debug.Assert(inventory[index] != null);
+        inventory[index] = null;
+    }
+
+    public IItem GetEqippedItem()
+    {
+        Debug.Assert(currentItem < inventory.Length);
+        return inventory[currentItem]!;
+    }
 
     public override void _PhysicsProcess(double delta)
     {
