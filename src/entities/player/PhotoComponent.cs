@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
 
-public partial class PhotoComponent : Node
+public partial class PhotoComponent : Item
 {
     const float DEFAULT_FOV = 90;
     const float VIEWFINDER_FOV = 50;

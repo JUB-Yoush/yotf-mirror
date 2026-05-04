@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/player/PhotoComponent.cs" id="1_4q7ia"]
 
-[node name="PhotoComponent" type="Node" unique_id=1251545655]
+[node name="PhotoComponent" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_4q7ia")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]

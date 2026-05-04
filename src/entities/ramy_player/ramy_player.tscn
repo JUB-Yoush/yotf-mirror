@@ -65,7 +65,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 
 shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
-visible = false
 
 [node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_skeleton", "_camera", "_raycastLeft", "_raycastRight", "_footTargetLeft", "_footTargetRight")]
 script = ExtResource("4_qjkh3")
@@ -83,5 +82,7 @@ script = ExtResource("6_8fjmc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1880699763]
 replication_config = SubResource("SceneReplicationConfig_6fkid")
+
+[node name="Inventory" type="Node" parent="." unique_id=1733491641]
 
 [editable path="Skin"]

@@ -1,0 +1,25 @@
+shader_type spatial;
+render_mode specular_toon;
+uniform sampler2D noise;
+uniform sampler2D normalmap;
+uniform float height_scale = 0.1;
+varying vec2 tex_position;
+
+void vertex() {
+	tex_position = VERTEX.xz / 2.0 + 0.5;
+	float height = texture(noise,tex_position).x;
+	VERTEX.y += height * height_scale;
+}
+
+void fragment() {
+	NORMAL_MAP = texture(normalmap, tex_position).xyz;
+	ALBEDO = vec3(0.1,0.3,0.5);
+	METALLIC = 0.0;
+	ROUGHNESS = 0.01;
+	ALBEDO = vec3(0.1,0.3,0.5);
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
