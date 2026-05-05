@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cgtp5jscklwgi"]
+
+[ext_resource type="PackedScene" uid="uid://dn7sjuk12ci0e" path="res://src/entities/gadgets/item.tscn" id="1_lie82"]
+[ext_resource type="Script" uid="uid://bvfpaogad8moc" path="res://src/entities/gadgets/ItemChild.cs" id="2_qk05l"]
+
+[node name="ItemChild" unique_id=1701218101 instance=ExtResource("1_lie82")]
+script = ExtResource("2_qk05l")

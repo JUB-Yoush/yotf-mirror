@@ -8,7 +8,7 @@ using Godot;
 using Vector2 = Godot.Vector2;
 using Vector3 = Godot.Vector3;
 
-public partial class PhotoComponent : Node3D, IItem
+public partial class PhotoComponent : Item
 {
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
     const float DEFAULT_FOV = 90;
@@ -31,6 +31,7 @@ public partial class PhotoComponent : Node3D, IItem
 
     public override void _Ready()
     {
+        ItemName = "camera";
         _player = GetParent().GetParent<PlayerController>();
         _camera = _player.GetNode<Camera3D>("%Camera3D");
         _photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
@@ -45,6 +46,9 @@ public partial class PhotoComponent : Node3D, IItem
 
     public override void _Input(InputEvent @event)
     {
+        if (!currentItem)
+            return;
+
         if (@event.IsActionPressed("look_cam"))
         {
             _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
@@ -56,6 +60,43 @@ public partial class PhotoComponent : Node3D, IItem
             _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             _aiming = false;
         }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (!currentItem)
+            return;
+
+        if (_aiming)
+        {
+            _camera.Fov = MathExt.Lerp(
+                _camera.Fov,
+                VIEWFINDER_FOV,
+                (float)(VIEWFINDER_LERP * delta)
+            );
+            _photoLetterBox.Visible = true;
+        }
+        else
+        {
+            _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
+            _photoLetterBox.Visible = false;
+        }
+
+        if (Input.IsActionJustPressed("take_photo") && _aiming)
+        {
+            var subjects = GetPhotoSubjects();
+
+            Image image = GetViewportImage();
+            Photo photo = Photo.New(Name, subjects, image.Data);
+            PhotoGrade[] grades = EvaluatePhoto(photo);
+            foreach (var grade in grades)
+                GD.Print(grade);
+            AddPhoto(photo.ToJson(), Name);
+            FlashSFX();
+        }
+        mesh.GlobalTransform = _camera.GlobalTransform;
+        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        _photoCamera.GlobalTransform = _camera.GlobalTransform;
     }
 
     private PhotoGrade[] EvaluatePhoto(Photo photo)
@@ -110,52 +151,6 @@ public partial class PhotoComponent : Node3D, IItem
             res.Add(new((float)angleScore, sizeScore, (float)facingScore, 1));
         }
         return [.. res];
-    }
-
-    public void Update(double delta)
-    {
-        if (Input.IsActionJustPressed("look_cam"))
-        {
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
-            _aiming = true;
-        }
-
-        if (Input.IsActionJustReleased("look_cam"))
-        {
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-            _aiming = false;
-        }
-
-        if (_aiming)
-        {
-            _camera.Fov = MathExt.Lerp(
-                _camera.Fov,
-                VIEWFINDER_FOV,
-                (float)(VIEWFINDER_LERP * delta)
-            );
-            _photoLetterBox.Visible = true;
-        }
-        else
-        {
-            _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
-            _photoLetterBox.Visible = false;
-        }
-
-        if (Input.IsActionJustPressed("take_photo") && _aiming)
-        {
-            var subjects = GetPhotoSubjects();
-
-            Image image = GetViewportImage();
-            Photo photo = Photo.New(Name, subjects, image.Data);
-            PhotoGrade[] grades = EvaluatePhoto(photo);
-            foreach (var grade in grades)
-                GD.Print(grade);
-            AddPhoto(photo.ToJson(), Name);
-            FlashSFX();
-        }
-        mesh.GlobalTransform = _camera.GlobalTransform;
-        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
-        _photoCamera.GlobalTransform = _camera.GlobalTransform;
     }
 
     private Image GetViewportImage()
@@ -234,8 +229,4 @@ public partial class PhotoComponent : Node3D, IItem
         imgTex.SetImage(photoImg);
         _photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
-
-    string IItem.GetItemName() => "Camera";
-
-    Texture2D IItem.GetIcon() => moonin;
 }

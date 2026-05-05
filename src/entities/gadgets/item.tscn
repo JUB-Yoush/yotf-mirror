@@ -1,24 +1,12 @@
 [gd_scene format=3 uid="uid://dn7sjuk12ci0e"]
 
-[sub_resource type="CSharpScript" id="CSharpScript_1hxw3"]
-script/source = "using System;
-using Godot;
-
-public partial class Item : Node3D, IItem
-{
-    static readonly Texture2D moonin = GD.Load<Texture2D>(\"res://assets/2d/mooninicon.png\");
-
-    Texture2D IItem.GetIcon() => moonin;
-
-    string IItem.GetItemName() => \"testitem\";
-}
-"
+[ext_resource type="Script" uid="uid://coh2ubkhjuyd" path="res://src/entities/gadgets/Item.cs" id="1_cg8xm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1hxw3"]
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Item" type="Node3D" unique_id=1701218101]
-script = SubResource("CSharpScript_1hxw3")
+script = ExtResource("1_cg8xm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=208588592]
 mesh = SubResource("BoxMesh_1hxw3")

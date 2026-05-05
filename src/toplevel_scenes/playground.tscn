@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://c4apqsc8tilb3" path="res://src/entities/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="PackedScene" uid="uid://bw5bqi16gc4ct" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
-[ext_resource type="PackedScene" uid="uid://d34ehugbf1dk7" path="res://src/entities/gadgets/flashlight.tscn" id="10_6igj1"]
 [ext_resource type="PackedScene" uid="uid://oav35ivnfew0" path="res://src/entities/fish/dummy_fish.tscn" id="10_jdk7o"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
@@ -135,8 +134,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.
 
 [node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
 transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 1.6629832, 0)
-
-[node name="Node3D" parent="." unique_id=157541490 instance=ExtResource("10_6igj1")]
 
 [editable path="Player"]
 [editable path="Player/Skin"]

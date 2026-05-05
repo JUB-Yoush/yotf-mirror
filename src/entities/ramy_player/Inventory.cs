@@ -6,13 +6,13 @@ public partial class Inventory : Node3D
     int capacity = 4;
     int currentIndex = 0;
     HBoxContainer Icons = null!;
-    IItem?[] InventoryArr
+    Item?[] InventoryArr
     {
         get
         {
-            IItem?[] res = new IItem[capacity];
+            Item?[] res = new Item[capacity];
             for (int i = 0; i < capacity; i++)
-                res[i] = GetChildOrNull<IItem>(i);
+                res[i] = GetChildOrNull<Item>(i);
             return res;
         }
     }
@@ -47,42 +47,52 @@ public partial class Inventory : Node3D
     {
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
-        InventoryArr[currentIndex]?.GetNode()?.Visible = true;
+        InventoryArr[currentIndex]?.Visible = true;
+        InventoryArr[currentIndex]?.currentItem = true;
+        GD.Print($"set {InventoryArr[currentIndex]?.ItemName} to current");
+        GD.Print(
+            $"{InventoryArr[currentIndex]?.ItemName} is now {InventoryArr[currentIndex]?.currentItem}"
+        );
         Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
-
-        for (int i = 0; i < capacity; i++)
-        {
-            if (i == currentIndex)
-                continue;
-            GetChildOrNull<IItem>(i)?.GetNode().Visible = false;
-            Icons.GetChild<TextureRect>(i).Modulate = Color.Color8(64, 46, 46);
-        }
-
+        ClearOtherItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
     }
 
-    void AddItem(IItem item)
+    private void ClearOtherItems(int notThisOne)
+    {
+        for (int i = 0; i < capacity; i++)
+        {
+            if (i == notThisOne)
+                continue;
+            InventoryArr[i]?.Visible = false;
+            Icons.GetChild<TextureRect>(i).Modulate = Color.Color8(64, 46, 46);
+            InventoryArr[i]?.currentItem = false;
+        }
+    }
+
+    void AddItem(Item item)
     {
         Debug.Assert(InventoryArr[currentIndex] == null);
-        item.GetNode().Name = currentIndex.ToString();
-        AddChild(item.GetNode());
+        item.Name = currentIndex.ToString();
+        item.inInventory = true;
+        AddChild(item);
     }
 
     void RemoveItem(int index)
     {
         if (InventoryArr[index] != null)
             return;
-        GetChild<IItem>(index).GetNode().QueueFree();
+        GetChild<Item>(index).QueueFree();
     }
 
-    public IItem GetEqippedItem()
+    public Item GetEqippedItem()
     {
         Debug.Assert(currentIndex < capacity);
         return InventoryArr[currentIndex]!;
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        InventoryArr[currentIndex]?.Update(delta);
-    }
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     InventoryArr[currentIndex]?.Update(delta);
+    // }
 }
