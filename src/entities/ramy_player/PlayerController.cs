@@ -14,7 +14,6 @@ public partial class PlayerController : CharacterBody3D
 
     [Export]
     public Camera3D Camera = null!;
-    public Camera3D PhotoCamera = null!;
 
     [Export]
     public CollisionShape3D CollisionShapeBody = null!;
@@ -66,7 +65,7 @@ public partial class PlayerController : CharacterBody3D
                     0.0f,
                     0.33
                 );
-                tween.TweenCallback(Callable.From(() => GetNode<Node3D>("Skin").Visible = false));
+                tween.CallFn(() => GetNode<Node3D>("Skin").Visible = false);
             }
             else
             {
@@ -122,7 +121,6 @@ public partial class PlayerController : CharacterBody3D
     public override void _Ready()
     {
         Camera ??= GetNode<Camera3D>("%Camera3D");
-        PhotoCamera ??= GetNode<Camera3D>("PhotoComponent/SubViewport/Camera3D");
 
         Skin ??= GetNode<Node3D>("Skin");
         SkinRestPosition = Skin.Position;

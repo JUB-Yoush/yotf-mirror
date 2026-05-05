@@ -77,4 +77,9 @@ public partial class Inventory : Node3D
         Debug.Assert(currentIndex < capacity);
         return InventoryArr[currentIndex]!;
     }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        InventoryArr[currentIndex]?.Update(delta);
+    }
 }

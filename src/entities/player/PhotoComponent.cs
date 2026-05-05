@@ -6,13 +6,14 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
 
-public partial class PhotoComponent : Item
+public partial class PhotoComponent : Node3D, IItem
 {
+    private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
     const float DEFAULT_FOV = 90;
     const float VIEWFINDER_FOV = 50;
     const float VIEWFINDER_LERP = 20;
+    bool equipped = false;
 
-    [Export]
     private Camera3D _camera = null!;
     private TextureRect _photoLetterBox = null!;
     private ColorRect _flashRect = null!;
@@ -20,7 +21,6 @@ public partial class PhotoComponent : Item
     private Control _netUi = null!;
     private Camera3D _photoCamera = null!;
     private SubViewport _photoViewport = null!;
-    private SpotLight3D _spotlight = null!;
 
     private PlayerController _player = null!;
 
@@ -28,16 +28,15 @@ public partial class PhotoComponent : Item
 
     public override void _Ready()
     {
-        _camera ??= GetNode<Camera3D>("%Camera3D");
+        _player = GetParent().GetParent<PlayerController>();
+        _camera = _player.GetNode<Camera3D>("%Camera3D");
         _photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
         _flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
         _photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
         _netUi ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
-        _player = GetParent<PlayerController>();
-        _photoCamera = GetNode<Camera3D>("SubViewport/Camera3D");
         _photoViewport = GetNode<SubViewport>("SubViewport");
+        _photoCamera = _photoViewport.GetNode<Camera3D>("PhotoCamera");
         _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-        _spotlight = GetParent().GetNode<SpotLight3D>("CameraManager/Camera3D/SpotLight3D");
     }
 
     public override void _Input(InputEvent @event)
@@ -82,37 +81,47 @@ public partial class PhotoComponent : Item
             var sizeScore = Math.Min(sizeInPhoto * 10, 1.0f);
 
             //fish lighting
+            // TODO (j) whole thing sucks just leave it out for now.
             // shoot a raycast from every directional light length based on light range., check if ray intersects with fish area, use a formula involving energy, range, and intersection distance to determine "lit" score
             var lightScore = 0f;
-            // TODO(j) we should come up with some consistient system for querying for specfic nodes that might exist in sub-scenes
             // foreach (var child in GetChildren(true))
             // {
             // if (child is SpotLight3D light)
             // {
-            // TODO(j) if the target isn't direcly lit by the light then it won't hit it, it's a raycast. maybe we could use an entire bounding area around the cone of the light and check how close it is to the origin of the camera?
-            var light = _spotlight;
-            var ray = -light.GlobalTransform.Basis.Z * (light.LightEnergy * 1000);
-            var spaceState = _player.GetWorld3D().DirectSpaceState;
-            var origin = _photoCamera.GlobalPosition;
-            var end = origin + ray;
-            var query = PhysicsRayQueryParameters3D.Create(origin, end);
-            query.CollideWithAreas = true;
-            var result = spaceState.IntersectRay(query);
-            GD.Print(result);
-            if (result.Count == 0)
-                continue;
-            if ((Rid)result["rid"] == ((Area3D)subject).GetRid())
-            {
-                lightScore += ((Godot.Vector3)result["position"] - origin).Length();
-            }
-            res.Add(new((float)angleScore, sizeScore, (float)facingScore, lightScore));
+            // var light = _spotlight;
+            // var ray = -light.GlobalTransform.Basis.Z * (light.LightEnergy * 1000);
+            // var spaceState = _player.GetWorld3D().DirectSpaceState;
+            // var origin = _photoCamera.GlobalPosition;
+            // var end = origin + ray;
+            // var query = PhysicsRayQueryParameters3D.Create(origin, end);
+            // query.CollideWithAreas = true;
+            // var result = spaceState.IntersectRay(query);
+            // GD.Print(result);
+            // if (result.Count == 0)
+            //     continue;
+            // if ((Rid)result["rid"] == ((Area3D)subject).GetRid())
+            // {
+            //     lightScore += ((Godot.Vector3)result["position"] - origin).Length();
+            // }
+            res.Add(new((float)angleScore, sizeScore, (float)facingScore, 1));
         }
         return [.. res];
     }
 
-    public override void _PhysicsProcess(double delta)
+    public void Update(double delta)
     {
-        _photoCamera.GlobalTransform = _camera.GlobalTransform;
+        if (Input.IsActionJustPressed("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            _aiming = true;
+        }
+
+        if (Input.IsActionJustReleased("look_cam"))
+        {
+            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            _aiming = false;
+        }
+
         if (_aiming)
         {
             _camera.Fov = MathExt.Lerp(
@@ -140,6 +149,7 @@ public partial class PhotoComponent : Item
             AddPhoto(photo.ToJson(), Name);
             FlashSFX();
         }
+        _photoCamera.GlobalTransform = _camera.GlobalTransform;
     }
 
     private Image GetViewportImage()
@@ -164,9 +174,9 @@ public partial class PhotoComponent : Item
     void FlashSFX()
     {
         var tween = CreateTween();
-        tween.Call(() => _flashRect.Visible = true);
+        tween.CallFn(() => _flashRect.Visible = true);
         tween.TweenInterval(.1);
-        tween.Call(() => _flashRect.Visible = false);
+        tween.CallFn(() => _flashRect.Visible = false);
     }
 
     void TakeScreenShot(string id)
@@ -218,4 +228,8 @@ public partial class PhotoComponent : Item
         imgTex.SetImage(photoImg);
         _photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
+
+    string IItem.GetItemName() => "Camera";
+
+    Texture2D IItem.GetIcon() => moonin;
 }
