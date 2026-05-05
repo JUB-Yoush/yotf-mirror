@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/ramy_player/photo_component.tscn" id="7_6fkid"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/ramy_player/Inventory.cs" id="8_1ljfj"]
-[ext_resource type="PackedScene" uid="uid://d34ehugbf1dk7" path="res://src/entities/gadgets/flashlight.tscn" id="9_s7tg2"]
 [ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/ramy_player/Hud.cs" id="10_s7tg2"]
 
@@ -58,9 +57,10 @@ far = 16384.0
 script = ExtResource("3_qjkh3")
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraManager/Camera3D" unique_id=1962571535]
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -2)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera3D" unique_id=2052358448]
+visible = false
 spot_range = 13.56
 spot_angle = 27.5
 
@@ -74,6 +74,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 
 shape = SubResource("SeparationRayShape3D_twc2s")
 
 [node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
+visible = false
 
 [node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_skeleton", "_camera", "_raycastLeft", "_raycastRight", "_footTargetLeft", "_footTargetRight")]
 script = ExtResource("4_qjkh3")
@@ -95,9 +96,6 @@ script = ExtResource("8_1ljfj")
 
 [node name="0" parent="Inventory" unique_id=1251545655 instance=ExtResource("7_6fkid")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2321668, 1.1039727)
-
-[node name="1" parent="Inventory" unique_id=157541490 instance=ExtResource("9_s7tg2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46476293, 1.1653836, 1.090359)
 
 [node name="HUD" type="Control" parent="." unique_id=1635351054]
 layout_mode = 3

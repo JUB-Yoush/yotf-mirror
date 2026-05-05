@@ -106,6 +106,8 @@ public partial class PlayerController : CharacterBody3D
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
 
+    RayCast3D raycast = null!;
+
     public override void _EnterTree()
     {
         if (int.TryParse(Name, out int peerId))
@@ -120,9 +122,11 @@ public partial class PlayerController : CharacterBody3D
 
     public override void _Ready()
     {
+        raycast = GetNode<RayCast3D>("CameraManager/Camera3D/RayCast3D");
         Camera ??= GetNode<Camera3D>("%Camera3D");
 
         Skin ??= GetNode<Node3D>("Skin");
+
         SkinRestPosition = Skin.Position;
 
         CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
@@ -152,6 +156,7 @@ public partial class PlayerController : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         CurrentState.Update(this, (float)delta);
+        // check for items in the player raycast
     }
 
     internal void SetState(IPlayerState newState)

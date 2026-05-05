@@ -5,6 +5,8 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
+using Vector2 = Godot.Vector2;
+using Vector3 = Godot.Vector3;
 
 public partial class PhotoComponent : Node3D, IItem
 {
@@ -21,6 +23,7 @@ public partial class PhotoComponent : Node3D, IItem
     private Control _netUi = null!;
     private Camera3D _photoCamera = null!;
     private SubViewport _photoViewport = null!;
+    private MeshInstance3D mesh = null!;
 
     private PlayerController _player = null!;
 
@@ -37,6 +40,7 @@ public partial class PhotoComponent : Node3D, IItem
         _photoViewport = GetNode<SubViewport>("SubViewport");
         _photoCamera = _photoViewport.GetNode<Camera3D>("PhotoCamera");
         _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+        mesh = GetNode<MeshInstance3D>("MeshInstance3D");
     }
 
     public override void _Input(InputEvent @event)
@@ -149,6 +153,8 @@ public partial class PhotoComponent : Node3D, IItem
             AddPhoto(photo.ToJson(), Name);
             FlashSFX();
         }
+        mesh.GlobalTransform = _camera.GlobalTransform;
+        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
         _photoCamera.GlobalTransform = _camera.GlobalTransform;
     }
 
