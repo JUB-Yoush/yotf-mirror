@@ -1,15 +1,17 @@
 using Godot;
 
+namespace Yotf;
+
 public class WanderingState : IFishState
 {
     public FishState Type => FishState.Wandering;
     public bool IsPhotographable => true;
 
-    private Vector3 _wanderTarget;
+    private Vector3 wanderTarget;
 
     public void Enter(Fish fish)
     {
-        _wanderTarget = PickNewTarget(fish);
+        wanderTarget = PickNewTarget(fish);
     }
 
     public void Exit(Fish fish) { }
@@ -30,9 +32,9 @@ public class WanderingState : IFishState
 
     private void WanderRandomly(Fish fish, float delta)
     {
-        bool arrived = fish.SmoothMoveTo(_wanderTarget, fish.Profile.MoveSpeed, delta);
+        bool arrived = fish.SmoothMoveTo(wanderTarget, fish.Profile.MoveSpeed, delta);
         if (arrived)
-            _wanderTarget = PickNewTarget(fish);
+            wanderTarget = PickNewTarget(fish);
     }
 
     private static Vector3 PickNewTarget(Fish fish)

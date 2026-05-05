@@ -1,15 +1,17 @@
 using Godot;
 
+namespace Yotf;
+
 public class AggressiveState : IFishState
 {
     public FishState Type => FishState.Aggressive;
     public bool IsPhotographable => true;
 
-    private float _attackCooldown;
+    private float attackCooldown;
 
     public void Enter(Fish fish)
     {
-        _attackCooldown = 0f;
+        attackCooldown = 0f;
     }
 
     public void Exit(Fish fish) { }
@@ -32,11 +34,11 @@ public class AggressiveState : IFishState
 
         fish.SmoothMoveTo(fish.ThreatTarget.GlobalPosition, fish.Profile.FleeSpeed, delta);
 
-        _attackCooldown -= delta;
-        if (dist <= fish.Profile.AttackRange && _attackCooldown <= 0f)
+        attackCooldown -= delta;
+        if (dist <= fish.Profile.AttackRange && attackCooldown <= 0f)
         {
             fish.EmitSignal(Fish.SignalName.Attacked, fish.ThreatTarget);
-            _attackCooldown = fish.Profile.AttackCooldown;
+            attackCooldown = fish.Profile.AttackCooldown;
         }
     }
 

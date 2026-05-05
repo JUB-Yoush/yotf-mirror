@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class DummyFish : Area3D, IPhotographable
 {
     public Node3D GetSubject()

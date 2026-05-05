@@ -1,14 +1,16 @@
 using Godot;
 
+namespace Yotf;
+
 public partial class InputManager : Node
 {
-    private PlayerController _player = null!;
+    private PlayerController player = null!;
 
     public override void _Ready()
     {
-        _player = GetParent<PlayerController>();
+        player = GetParent<PlayerController>();
 
-        if (_player.IsMultiplayerAuthority())
+        if (player.IsMultiplayerAuthority())
         {
             Input.SetMouseMode(Input.MouseModeEnum.Captured);
         }
@@ -38,10 +40,10 @@ public partial class InputManager : Node
             switch (mouseEvent.ButtonIndex)
             {
                 case MouseButton.WheelUp:
-                    _player.MoveSpeed = Mathf.Clamp(_player.MoveSpeed + 5, 2, 500);
+                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed + 5, 2, 500);
                     break;
                 case MouseButton.WheelDown:
-                    _player.MoveSpeed = Mathf.Clamp(_player.MoveSpeed - 5, 2, 500);
+                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed - 5, 2, 500);
                     break;
             }
         }
@@ -51,16 +53,16 @@ public partial class InputManager : Node
             switch (keyEvent.Keycode)
             {
                 case Key.V:
-                    _player.FirstPerson = !_player.FirstPerson;
+                    player.FirstPerson = !player.FirstPerson;
                     break;
                 case Key.C:
-                    _player.CollisionEnabled = !_player.CollisionEnabled;
+                    player.CollisionEnabled = !player.CollisionEnabled;
                     break;
                 case Key.F:
-                    _player.SetState(
-                        _player.CurrentState == _player.SwimmingState
-                            ? _player.WalkingState
-                            : _player.SwimmingState
+                    player.SetState(
+                        player.CurrentState == player.SwimmingState
+                            ? player.WalkingState
+                            : player.SwimmingState
                     );
                     break;
             }

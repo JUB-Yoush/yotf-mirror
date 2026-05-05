@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d34ehugbf1dk7"]
 
-[ext_resource type="Script" uid="uid://c7acaodgrre0c" path="res://src/entities/gadgets/Flashlight.cs" id="1_xosdy"]
+[ext_resource type="Script" uid="uid://c7acaodgrre0c" path="res://src/entities/gadgets/flashlight/Flashlight.cs" id="1_xosdy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.3647059, 0.99607843, 0.44705883, 1)

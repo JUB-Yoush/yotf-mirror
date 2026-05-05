@@ -1,3 +1,5 @@
+namespace Yotf;
+
 public interface IPlayerState
 {
     PlayerState Type { get; }

@@ -1,19 +1,21 @@
 using Godot;
 
+namespace Yotf;
+
 public partial class CameraFollow : Camera3D
 {
     [Export]
     public float LerpPower = 5.0f;
 
-    private Node3D _armPosition = null!;
+    private Node3D ArmPosition = null!;
 
     public override void _Ready()
     {
-        _armPosition = GetNode<Node3D>("../Arm/ArmPosition");
+        ArmPosition = GetNode<Node3D>("../Arm/ArmPosition");
     }
 
     public override void _Process(double delta)
     {
-        Position = Position.Lerp(_armPosition.Position, (float)delta * LerpPower);
+        Position = Position.Lerp(ArmPosition.Position, (float)delta * LerpPower);
     }
 }

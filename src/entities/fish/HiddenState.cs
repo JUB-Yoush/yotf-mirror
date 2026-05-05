@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Yotf;
+
 public class HiddenState : IFishState
 {
     public FishState Type => FishState.Hidden;

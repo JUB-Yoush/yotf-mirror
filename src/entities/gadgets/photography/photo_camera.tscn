@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cgk7l4ybjl37y"]
 
-[ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/player/PhotoComponent.cs" id="1_4q7ia"]
+[ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/gadgets/photography/PhotoCamera.cs" id="1_3b58u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.32156864, 1, 1, 1)
@@ -10,7 +10,7 @@ material = SubResource("StandardMaterial3D_4q7ia")
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="PhotoComponent" type="Node3D" unique_id=1592745977]
-script = ExtResource("1_4q7ia")
+script = ExtResource("1_3b58u")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]
 

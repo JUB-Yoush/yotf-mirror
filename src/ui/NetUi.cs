@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class NetUi : Control
 {
     public override void _Ready()

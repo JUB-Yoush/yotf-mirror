@@ -1,23 +1,25 @@
 using Godot;
 
+namespace Yotf;
+
 public class SwimmingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Swimming;
 
-    private float _swimYaw;
-    private float _swimPitch;
+    private float swimYaw;
+    private float swimPitch;
 
     public void Enter(PlayerController player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
-        _swimYaw = player.Skin.Rotation.Y;
-        _swimPitch = player.Skin.Rotation.X;
+        swimYaw = player.Skin.Rotation.Y;
+        swimPitch = player.Skin.Rotation.X;
     }
 
     public void Exit(PlayerController player)
     {
         player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
-        _swimPitch = 0f;
+        swimPitch = 0f;
     }
 
     public void Update(PlayerController player, float delta)
@@ -25,10 +27,10 @@ public class SwimmingState : IPlayerState
         float yawInput = Input.GetActionStrength("right") - Input.GetActionStrength("left");
         float pitchInput = Input.GetActionStrength("up") - Input.GetActionStrength("down");
 
-        _swimYaw -= yawInput * player.SwimRotationSpeed * delta;
-        _swimPitch -= pitchInput * player.SwimRotationSpeed * delta;
+        swimYaw -= yawInput * player.SwimRotationSpeed * delta;
+        swimPitch -= pitchInput * player.SwimRotationSpeed * delta;
 
-        player.UpdateBodyRotation(new Vector3(_swimPitch, _swimYaw, 0f));
+        player.UpdateBodyRotation(new Vector3(swimPitch, swimYaw, 0f));
 
         if (Input.IsActionPressed("move_modifier"))
             player.Velocity = player.Skin.GlobalTransform.Basis.Y * player.SwimSpeed;

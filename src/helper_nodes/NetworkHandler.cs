@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class NetworkHandler : Node
 {
     public static NetworkHandler Instance { get; private set; }

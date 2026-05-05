@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using Godot;
 
+namespace Yotf;
+
 public partial class PlayerController : CharacterBody3D
 {
     // ====================== REFERENCES ======================
@@ -33,7 +35,7 @@ public partial class PlayerController : CharacterBody3D
     [Export]
     public float RotationSpeed = 10.0f;
 
-    internal float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+    internal float Gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     [ExportCategory("Swim Movement")]
     [Export(PropertyHint.Range, "5,50")]
@@ -47,16 +49,16 @@ public partial class PlayerController : CharacterBody3D
 
     // ====================== DEBUG CONFIG ======================
     [ExportCategory("Debug")]
-    private bool _firstPerson = false;
+    private bool firstPerson = false;
 
     [Export]
     public bool FirstPerson
     {
-        get => _firstPerson;
+        get => firstPerson;
         set
         {
-            _firstPerson = value;
-            if (_firstPerson)
+            firstPerson = value;
+            if (firstPerson)
             {
                 Tween tween = CreateTween();
                 tween.TweenProperty(
@@ -81,17 +83,17 @@ public partial class PlayerController : CharacterBody3D
         }
     }
 
-    private bool _collisionEnabled = true;
+    private bool collisionEnabled = true;
 
     [Export]
     public bool CollisionEnabled
     {
-        get => _collisionEnabled;
+        get => collisionEnabled;
         set
         {
-            _collisionEnabled = value;
-            GetNode<CollisionShape3D>("CollisionShapeBody").Disabled = !_collisionEnabled;
-            GetNode<CollisionShape3D>("CollisionShapeRay").Disabled = !_collisionEnabled;
+            collisionEnabled = value;
+            GetNode<CollisionShape3D>("CollisionShapeBody").Disabled = !collisionEnabled;
+            GetNode<CollisionShape3D>("CollisionShapeRay").Disabled = !collisionEnabled;
         }
     }
 
@@ -106,7 +108,7 @@ public partial class PlayerController : CharacterBody3D
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
 
-    RayCast3D raycast = null!;
+    private RayCast3D raycast = null!;
 
     public override void _EnterTree()
     {

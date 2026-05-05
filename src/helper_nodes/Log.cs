@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class Log : Control
 {
     public static Log Instance { get; private set; } = null!;

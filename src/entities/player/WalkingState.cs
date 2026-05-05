@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Yotf;
+
 public class WalkingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Walking;
@@ -27,7 +29,7 @@ public class WalkingState : IPlayerState
         velocity.Z = hVeloc.Y;
 
         if (!player.IsOnFloor())
-            velocity.Y -= player._gravity * player.Weight * delta;
+            velocity.Y -= player.Gravity * player.Weight * delta;
 
         player.Velocity = velocity;
         player.MoveAndSlide();

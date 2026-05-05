@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public interface IPhotographable
 {
     public bool IsInPhoto();

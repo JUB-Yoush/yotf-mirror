@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Yotf;
+
 public partial class Fish : AnimatableBody3D, IPhotographable
 {
     // ====================== SIGNALS ======================

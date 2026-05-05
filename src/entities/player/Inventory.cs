@@ -1,17 +1,19 @@
 using System.Diagnostics;
 using Godot;
 
+namespace Yotf;
+
 public partial class Inventory : Node3D
 {
-    int capacity = 4;
-    int currentIndex = 0;
+    const int Capacity = 4;
+    private int currentIndex = 0;
     HBoxContainer Icons = null!;
     Item?[] InventoryArr
     {
         get
         {
-            Item?[] res = new Item[capacity];
-            for (int i = 0; i < capacity; i++)
+            Item?[] res = new Item[Capacity];
+            for (int i = 0; i < Capacity; i++)
                 res[i] = GetChildOrNull<Item>(i);
             return res;
         }
@@ -48,10 +50,10 @@ public partial class Inventory : Node3D
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
-        InventoryArr[currentIndex]?.currentItem = true;
+        InventoryArr[currentIndex]?.CurrentItem = true;
         GD.Print($"set {InventoryArr[currentIndex]?.ItemName} to current");
         GD.Print(
-            $"{InventoryArr[currentIndex]?.ItemName} is now {InventoryArr[currentIndex]?.currentItem}"
+            $"{InventoryArr[currentIndex]?.ItemName} is now {InventoryArr[currentIndex]?.CurrentItem}"
         );
         Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
         ClearOtherItems(currentIndex);
@@ -60,13 +62,13 @@ public partial class Inventory : Node3D
 
     private void ClearOtherItems(int notThisOne)
     {
-        for (int i = 0; i < capacity; i++)
+        for (int i = 0; i < Capacity; i++)
         {
             if (i == notThisOne)
                 continue;
             InventoryArr[i]?.Visible = false;
             Icons.GetChild<TextureRect>(i).Modulate = Color.Color8(64, 46, 46);
-            InventoryArr[i]?.currentItem = false;
+            InventoryArr[i]?.CurrentItem = false;
         }
     }
 
@@ -74,7 +76,7 @@ public partial class Inventory : Node3D
     {
         Debug.Assert(InventoryArr[currentIndex] == null);
         item.Name = currentIndex.ToString();
-        item.inInventory = true;
+        item.InInventory = true;
         AddChild(item);
     }
 
@@ -87,7 +89,7 @@ public partial class Inventory : Node3D
 
     public Item GetEqippedItem()
     {
-        Debug.Assert(currentIndex < capacity);
+        Debug.Assert(currentIndex < Capacity);
         return InventoryArr[currentIndex]!;
     }
 

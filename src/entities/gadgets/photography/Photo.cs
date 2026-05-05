@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using Godot;
 
+namespace Yotf;
+
 public record struct Photo(
     string PhotoTaker,
     string[] Subjects,

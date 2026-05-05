@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4apqsc8tilb3"]
 
-[ext_resource type="Script" uid="uid://bvyn7a0r1f67w" path="res://src/entities/PhotoTerminal.cs" id="1_l1e86"]
+[ext_resource type="Script" uid="uid://bvyn7a0r1f67w" path="res://src/entities/gadgets/photography/PhotoTerminal.cs" id="1_l1e86"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="2_afks7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l1e86"]

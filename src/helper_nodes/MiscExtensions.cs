@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Godot;
 
+namespace Yotf;
+
 public static class MiscExtensions
 {
     extension(Tween tween)
@@ -39,6 +41,15 @@ public static class MiscExtensions
                 }
             }
             return res;
+        }
+    }
+
+    static void TryMakeDir(string path)
+    {
+        using var dir = DirAccess.Open(path);
+        if (dir == null)
+        {
+            DirAccess.MakeDirAbsolute(path);
         }
     }
 }

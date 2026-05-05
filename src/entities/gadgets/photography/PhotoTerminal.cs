@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class PhotoTerminal : Node3D
 {
     // [Rpc(

@@ -1,3 +1,5 @@
+namespace Yotf;
+
 public enum FishState
 {
     Wandering,

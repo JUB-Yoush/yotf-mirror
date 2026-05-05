@@ -8,81 +8,79 @@ using Godot;
 using Vector2 = Godot.Vector2;
 using Vector3 = Godot.Vector3;
 
-public partial class PhotoComponent : Item
+namespace Yotf;
+
+public partial class PhotoCamera : Item
 {
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
-    const float DEFAULT_FOV = 90;
-    const float VIEWFINDER_FOV = 50;
-    const float VIEWFINDER_LERP = 20;
-    bool equipped = false;
+    private bool equipped = false;
+    const float DefaultFov = 90;
+    const float ViewfinderFov = 50;
+    const float ViewfinderLerp = 20;
 
-    private Camera3D _camera = null!;
-    private TextureRect _photoLetterBox = null!;
-    private ColorRect _flashRect = null!;
-    private PhotoTerminal _photoTerminal = null!;
-    private Control _netUi = null!;
-    private Camera3D _photoCamera = null!;
-    private SubViewport _photoViewport = null!;
+    private Camera3D camera = null!;
+    private TextureRect photoLetterBox = null!;
+    private ColorRect flashRect = null!;
+    private PhotoTerminal photoTerminal = null!;
+    private Control netUI = null!;
+    private Camera3D photoCamera = null!;
+    private SubViewport photoViewport = null!;
     private MeshInstance3D mesh = null!;
 
-    private PlayerController _player = null!;
+    private PlayerController player = null!;
 
-    private bool _aiming = false;
+    private bool aiming = false;
 
     public override void _Ready()
     {
         ItemName = "camera";
-        _player = GetParent().GetParent<PlayerController>();
-        _camera = _player.GetNode<Camera3D>("%Camera3D");
-        _photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
-        _flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
-        _photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
-        _netUi ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
-        _photoViewport = GetNode<SubViewport>("SubViewport");
-        _photoCamera = _photoViewport.GetNode<Camera3D>("PhotoCamera");
-        _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+        player = GetParent().GetParent<PlayerController>();
+        camera = player.GetNode<Camera3D>("%Camera3D");
+        photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
+        flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
+        photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
+        netUI ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
+        photoViewport = GetNode<SubViewport>("SubViewport");
+        photoCamera = photoViewport.GetNode<Camera3D>("PhotoCamera");
+        photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (!currentItem)
+        if (!CurrentItem)
             return;
 
         if (@event.IsActionPressed("look_cam"))
         {
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
-            _aiming = true;
+            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            aiming = true;
         }
 
         if (@event.IsActionReleased("look_cam"))
         {
-            _photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-            _aiming = false;
+            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            aiming = false;
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!currentItem)
+        if (!CurrentItem)
             return;
 
-        if (_aiming)
+        if (aiming)
         {
-            _camera.Fov = MathExt.Lerp(
-                _camera.Fov,
-                VIEWFINDER_FOV,
-                (float)(VIEWFINDER_LERP * delta)
-            );
-            _photoLetterBox.Visible = true;
+            camera.Fov = MathExt.Lerp(camera.Fov, ViewfinderFov, (float)(ViewfinderLerp * delta));
+            photoLetterBox.Visible = true;
         }
         else
         {
-            _camera.Fov = MathExt.Lerp(_camera.Fov, DEFAULT_FOV, (float)(VIEWFINDER_LERP * delta));
-            _photoLetterBox.Visible = false;
+            camera.Fov = MathExt.Lerp(camera.Fov, DefaultFov, (float)(ViewfinderLerp * delta));
+            photoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && _aiming)
+        if (Input.IsActionJustPressed("take_photo") && aiming)
         {
             var subjects = GetPhotoSubjects();
 
@@ -94,9 +92,9 @@ public partial class PhotoComponent : Item
             AddPhoto(photo.ToJson(), Name);
             FlashSFX();
         }
-        mesh.GlobalTransform = _camera.GlobalTransform;
+        mesh.GlobalTransform = camera.GlobalTransform;
         mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
-        _photoCamera.GlobalTransform = _camera.GlobalTransform;
+        photoCamera.GlobalTransform = camera.GlobalTransform;
     }
 
     private PhotoGrade[] EvaluatePhoto(Photo photo)
@@ -109,8 +107,8 @@ public partial class PhotoComponent : Item
             var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
 
             // how centered the fish is
-            var camToFish = subject.GlobalPosition - _photoCamera.GlobalPosition;
-            var camFacing = _photoCamera.GlobalTransform.Basis.Z;
+            var camToFish = subject.GlobalPosition - photoCamera.GlobalPosition;
+            var camFacing = photoCamera.GlobalTransform.Basis.Z;
             var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
             var angleScore = (angle - 2.6) / (Math.PI - 2.6);
 
@@ -155,7 +153,7 @@ public partial class PhotoComponent : Item
 
     private Image GetViewportImage()
     {
-        var img = _photoViewport.GetTexture().GetImage();
+        var img = photoViewport.GetTexture().GetImage();
         return img;
     }
 
@@ -175,23 +173,14 @@ public partial class PhotoComponent : Item
     void FlashSFX()
     {
         var tween = CreateTween();
-        tween.Fn(() => _flashRect.Visible = true);
+        tween.Fn(() => flashRect.Visible = true);
         tween.TweenInterval(.1);
-        tween.Fn(() => _flashRect.Visible = false);
+        tween.Fn(() => flashRect.Visible = false);
     }
 
     void TakeScreenShot(string id)
     {
         GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
-    }
-
-    private void TryMakeDir(string path)
-    {
-        using var dir = DirAccess.Open(path);
-        if (dir == null)
-        {
-            DirAccess.MakeDirAbsolute(path);
-        }
     }
 
     [Rpc(
@@ -203,7 +192,7 @@ public partial class PhotoComponent : Item
     public void AddPhoto(string photoJson, string photoTaker)
     {
         Rpc(MethodName.UpdateTerminalImage, photoJson);
-        if (photoTaker == Name && _player.IsMultiplayerAuthority())
+        if (photoTaker == Name && player.IsMultiplayerAuthority())
             Log.Print("I took this photo");
         else
             Log.Print("I didn't take this photo");
@@ -227,6 +216,6 @@ public partial class PhotoComponent : Item
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
-        _photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 }

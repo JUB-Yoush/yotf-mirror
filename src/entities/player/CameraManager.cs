@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Yotf;
+
 public partial class CameraManager : Node3D
 {
     private const float CameraMaxPitch = 70.0f * Mathf.Pi / 180.0f;
