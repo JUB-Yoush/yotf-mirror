@@ -174,9 +174,9 @@ public partial class PhotoComponent : Node3D, IItem
     void FlashSFX()
     {
         var tween = CreateTween();
-        tween.CallFn(() => _flashRect.Visible = true);
+        tween.Fn(() => _flashRect.Visible = true);
         tween.TweenInterval(.1);
-        tween.CallFn(() => _flashRect.Visible = false);
+        tween.Fn(() => _flashRect.Visible = false);
     }
 
     void TakeScreenShot(string id)

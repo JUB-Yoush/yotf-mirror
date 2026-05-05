@@ -65,7 +65,7 @@ public partial class PlayerController : CharacterBody3D
                     0.0f,
                     0.33
                 );
-                tween.CallFn(() => GetNode<Node3D>("Skin").Visible = false);
+                tween.Fn(() => GetNode<Node3D>("Skin").Visible = false);
             }
             else
             {

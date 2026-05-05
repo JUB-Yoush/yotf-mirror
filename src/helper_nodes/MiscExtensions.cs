@@ -7,7 +7,7 @@ public static class MiscExtensions
 {
     extension(Tween tween)
     {
-        public void CallFn(Action action, float delay = 0, bool parallel = false)
+        public void Fn(Action action, float delay = 0, bool parallel = false)
         {
             if (parallel)
             {

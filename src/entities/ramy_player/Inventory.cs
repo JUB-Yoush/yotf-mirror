@@ -45,6 +45,7 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
+        InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.GetNode()?.Visible = true;
         Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
@@ -56,6 +57,8 @@ public partial class Inventory : Node3D
             GetChildOrNull<IItem>(i)?.GetNode().Visible = false;
             Icons.GetChild<TextureRect>(i).Modulate = Color.Color8(64, 46, 46);
         }
+
+        InventoryArr[currentIndex]?.Enter();
     }
 
     void AddItem(IItem item)
