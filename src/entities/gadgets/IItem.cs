@@ -2,8 +2,7 @@ using Godot;
 
 public interface IItem
 {
-    Node3D GetNode()
-    {
-        return (Node3D)this;
-    }
+    string GetItemName();
+    Node3D GetNode() => (Node3D)this;
+    Texture2D GetIcon();
 }

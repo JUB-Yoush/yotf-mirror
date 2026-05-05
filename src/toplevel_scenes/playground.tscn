@@ -86,6 +86,7 @@ texture = ExtResource("7_48c3q")
 
 [node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
 unique_name_in_owner = true
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_208ij")
@@ -133,6 +134,15 @@ transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.0
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.50189, 0, 0)
+MoveSpeed = 3.0
+JumpSpeed = 7.0
+Weight = 2.0
+RotationSpeed = 10.0
+SwimSpeed = 10.0
+SwimRotationSpeed = 5.0
+SwimDamping = 2.0
+FirstPerson = true
+CollisionEnabled = true
 
 [node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
 transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 1.6629832, 0)

@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/ramy_player/photo_component.tscn" id="7_6fkid"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/ramy_player/Inventory.cs" id="8_1ljfj"]
+[ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
+[ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/ramy_player/Hud.cs" id="10_s7tg2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -25,11 +27,15 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" unique_id=678823562]
+[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody")]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
+Skin = NodePath("Skin")
+Camera = NodePath("CameraManager/Camera3D")
+CollisionShapeBody = NodePath("CollisionShapeBody")
+FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
@@ -45,6 +51,7 @@ margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CameraManager" unique_id=285023851]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48821163)
 near = 0.25
 far = 16384.0
 script = ExtResource("3_qjkh3")
@@ -84,7 +91,38 @@ script = ExtResource("6_8fjmc")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1880699763]
 replication_config = SubResource("SceneReplicationConfig_6fkid")
 
-[node name="Inventory" type="Node" parent="." unique_id=1733491641]
+[node name="Inventory" type="Node3D" parent="." unique_id=913375540]
 script = ExtResource("8_1ljfj")
+
+[node name="HUD" type="Control" parent="." unique_id=1635351054]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_s7tg2")
+
+[node name="InventoryIcons" type="HBoxContainer" parent="HUD" unique_id=1681313407]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="0" type="TextureRect" parent="HUD/InventoryIcons" unique_id=1377114969]
+layout_mode = 2
+texture = ExtResource("10_o0m41")
+
+[node name="1" type="TextureRect" parent="HUD/InventoryIcons" unique_id=733479815]
+layout_mode = 2
+texture = ExtResource("10_o0m41")
+
+[node name="2" type="TextureRect" parent="HUD/InventoryIcons" unique_id=1564760502]
+layout_mode = 2
+texture = ExtResource("10_o0m41")
+
+[node name="3" type="TextureRect" parent="HUD/InventoryIcons" unique_id=380550003]
+layout_mode = 2
+texture = ExtResource("10_o0m41")
 
 [editable path="Skin"]

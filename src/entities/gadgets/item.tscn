@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dn7sjuk12ci0e"]
-
-[ext_resource type="Script" uid="uid://coh2ubkhjuyd" path="res://src/entities/gadgets/Item.cs" id="1_cg8xm"]
-
-[node name="Item" type="Node3D" unique_id=1701218101]
-script = ExtResource("1_cg8xm")
