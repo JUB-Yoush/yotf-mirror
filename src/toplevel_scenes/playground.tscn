@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chj7s770vcrql"]
 
 [ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
+[ext_resource type="Environment" uid="uid://r75bg1vbivre" path="res://assets/world_environments/playground_env.tres" id="3_jdk7o"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
@@ -87,6 +88,7 @@ unique_name_in_owner = true
 visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
+environment = ExtResource("3_jdk7o")
 camera_attributes = SubResource("CameraAttributesPractical_dikcb")
 compositor = SubResource("Compositor_6q5ri")
 

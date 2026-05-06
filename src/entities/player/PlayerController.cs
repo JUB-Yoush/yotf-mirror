@@ -53,7 +53,6 @@ public partial class PlayerController : CharacterBody3D
 
     private SpringArm3D springArm = null!;
 
-    // (j) Referencing the scene tree before _Ready causes invalid references and an error to be thrown.
     [Export]
     public bool FirstPerson
     {
@@ -132,6 +131,8 @@ public partial class PlayerController : CharacterBody3D
         CollisionPivot = CollisionShapeBody.Position;
 
         //ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
+
+        springArm = GetNode<SpringArm3D>("CameraManager/Arm");
 
         if (IsMultiplayerAuthority())
         {
