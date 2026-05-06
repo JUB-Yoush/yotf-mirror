@@ -3,7 +3,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class DroppedItem : RigidBody3D
+public partial class DroppedItem : RigidBody3D, IInteractable
 {
     private Mesh mesh = null!;
     public PackedScene ItemRef = null!;
@@ -25,4 +25,14 @@ public partial class DroppedItem : RigidBody3D
     }
 
     public Item GivePickUpItem() => ItemRef.Instantiate<Item>();
+
+    public void OnInteraction()
+    {
+        var inventory = GetTree().CurrentScene.GetNode<Inventory>("Player");
+
+        if (inventory.GetEqippedItem() != null)
+            return;
+        inventory.AddItem(ItemRef.Instantiate<Item>());
+        QueueFree();
+    }
 }

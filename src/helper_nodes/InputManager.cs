@@ -34,7 +34,8 @@ public partial class InputManager : Node
             if (Input.MouseMode != Input.MouseModeEnum.Captured)
             {
                 Input.SetMouseMode(Input.MouseModeEnum.Captured);
-                GetViewport().SetInputAsHandled();
+                //TODO(j) was making the ui uninteractable. not sure what the consequences will be.
+                //GetViewport().SetInputAsHandled();
             }
 
             switch (mouseEvent.ButtonIndex)

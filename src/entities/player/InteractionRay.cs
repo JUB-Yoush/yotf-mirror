@@ -6,7 +6,7 @@ namespace Yotf;
 
 public partial class InteractionRay : RayCast3D
 {
-    private DroppedItem? currentCollision = null!;
+    private IInteractable? currentCollision = null!;
     private Inventory inventory = null!;
 
     public override void _Ready()
@@ -19,14 +19,9 @@ public partial class InteractionRay : RayCast3D
 
     public override void _Input(InputEvent @event)
     {
-        if (
-            @event.IsActionPressed("pickup")
-            && currentCollision != null
-            && inventory.GetEqippedItem() == null
-        )
+        if (@event.IsActionPressed("pickup") && currentCollision != null)
         {
-            inventory.AddItem(currentCollision.ItemRef.Instantiate<Item>());
-            currentCollision.QueueFree();
+            currentCollision.OnInteraction();
         }
     }
 
@@ -37,6 +32,6 @@ public partial class InteractionRay : RayCast3D
             currentCollision = null;
             return;
         }
-        currentCollision = ((Area3D)GetCollider()).GetParent<DroppedItem>();
+        currentCollision = ((Node)GetCollider()).GetParent<IInteractable>();
     }
 }
