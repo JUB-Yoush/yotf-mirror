@@ -83,7 +83,7 @@ offset_bottom = 383.0
 theme_override_font_sizes/font_size = 32
 text = "<"
 
-[node name="TextureRect" type="TextureRect" parent="GradingUI" unique_id=1607257386]
+[node name="PhotoRect" type="TextureRect" parent="GradingUI" unique_id=1607257386]
 custom_minimum_size = Vector2(450, 450)
 layout_mode = 0
 offset_left = 89.0

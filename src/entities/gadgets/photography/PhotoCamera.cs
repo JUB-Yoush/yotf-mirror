@@ -16,6 +16,9 @@ public partial class PhotoCamera : Item
 
     //you can't make static export variables in godot.
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+
+    public List<Photo> Photos = [];
+
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderFov = 50;
@@ -96,23 +99,20 @@ public partial class PhotoCamera : Item
         if (Input.IsActionJustPressed("take_photo") && aiming)
         {
             var subjects = GetPhotoSubjects();
-
             Image image = GetViewportImage();
-            Photo photo = Photo.New(Name, subjects, image.Data);
-            PhotoGrade[] grades = EvaluatePhoto(photo);
-            foreach (var grade in grades)
-                GD.Print(grade);
-            AddPhoto(photo.ToJson(), Name);
+            PhotoData photo = PhotoData.New(Name, subjects, image.Data);
+            Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
             FlashSFX();
+            AddPhoto(photo, grades);
         }
         mesh.GlobalTransform = camera.GlobalTransform;
         mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
         photoCamera.GlobalTransform = camera.GlobalTransform;
     }
 
-    private PhotoGrade[] EvaluatePhoto(Photo photo)
+    private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
     {
-        List<PhotoGrade> res = [];
+        Dictionary<string, PhotoGrade> result = [];
 
         foreach (var subjectName in photo.Subjects)
         {
@@ -159,9 +159,10 @@ public partial class PhotoCamera : Item
             // {
             //     lightScore += ((Godot.Vector3)result["position"] - origin).Length();
             // }
-            res.Add(new((float)angleScore, sizeScore, (float)facingScore, 1));
+            //res.Add(new((float)angleScore, sizeScore, (float)facingScore, 1));
+            result.Add(subject.Name, new((float)angleScore, sizeScore, (float)facingScore, 1));
         }
-        return [.. res];
+        return result;
     }
 
     private Image GetViewportImage()
@@ -211,6 +212,28 @@ public partial class PhotoCamera : Item
             Log.Print("I didn't take this photo");
     }
 
+    public void AddPhoto(PhotoData photoData, Dictionary<string, PhotoGrade> grades)
+    {
+        var photo = new Photo(photoData, grades);
+        Photos.Add(photo);
+        UpdateTerminalImage(photo);
+    }
+
+    public void UpdateTerminalImage(Photo photo)
+    {
+        var imgData = photo.Data;
+        var photoImg = Image.CreateFromData(
+            imgData.Width,
+            imgData.Height,
+            imgData.Mipmaps,
+            Image.Format.Rgb8,
+            imgData.Bytes
+        );
+        var imgTex = new ImageTexture();
+        imgTex.SetImage(photoImg);
+        photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+    }
+
     [Rpc(
         MultiplayerApi.RpcMode.AnyPeer,
         CallLocal = true,
@@ -219,13 +242,13 @@ public partial class PhotoCamera : Item
     )]
     public void UpdateTerminalImage(string photoJson)
     {
-        Photo imgData = Photo.FromJson(photoJson);
+        PhotoData imgData = PhotoData.FromJson(photoJson);
         var photoImg = Image.CreateFromData(
             imgData.Width,
             imgData.Height,
             imgData.Mipmaps,
             Image.Format.Rgb8,
-            imgData.Data
+            imgData.Bytes
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);

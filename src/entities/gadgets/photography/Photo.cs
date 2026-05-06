@@ -1,21 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Json;
 using Godot;
 
 namespace Yotf;
 
-public record struct Photo(
+public record struct PhotoData(
     string PhotoTaker,
     string[] Subjects,
-    byte[] Data,
+    byte[] Bytes,
     Image.Format Format,
     int Width,
     int Height,
     bool Mipmaps
 )
 {
-    public static Photo New(
+    public static PhotoData New(
         string photoTaker,
         string[] Subjects,
         Godot.Collections.Dictionary godotDict
@@ -32,7 +33,7 @@ public record struct Photo(
     public readonly Godot.Collections.Dictionary ToGodotDict() =>
         new()
         {
-            { "data", Data },
+            { "data", Bytes },
             { "format", (int)Format }, // TODO (j) Format isn't being encoded properly, might need to manually map the enums, or just hard code the one we use?
             { "height", Height },
             { "width", Width },
@@ -41,10 +42,18 @@ public record struct Photo(
 
     public readonly string ToJson() => JsonSerializer.Serialize(this);
 
-    public static Photo FromJson(string jsonData)
+    public static PhotoData FromJson(string jsonData)
     {
-        var data = JsonSerializer.Deserialize<Photo>(jsonData);
+        var data = JsonSerializer.Deserialize<PhotoData>(jsonData);
         return data;
+    }
+
+    public readonly Texture2D ToTexture()
+    {
+        var photoImg = Image.CreateFromData(Width, Height, Mipmaps, Image.Format.Rgb8, Bytes);
+        var imgTex = new ImageTexture();
+        imgTex.SetImage(photoImg);
+        return imgTex;
     }
 };
 
@@ -55,3 +64,5 @@ public record struct PhotoGrade(
     float FacingScore,
     float LightScore
 );
+
+public record Photo(PhotoData Data, Dictionary<string, PhotoGrade> SubjectGrades);

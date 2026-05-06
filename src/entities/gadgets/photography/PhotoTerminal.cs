@@ -8,11 +8,14 @@ public partial class PhotoTerminal : Node3D, IInteractable
 {
     Control GradingUI = null!;
     Button ReturnBtn = null!;
+    TextureRect photoRect = null!;
+    List<Photo> UploadedPhotos = [];
 
     public override void _Ready()
     {
         GradingUI = GetNode<Control>("GradingUI");
         ReturnBtn = GradingUI.GetNode<Button>("ReturnBtn");
+        photoRect = GradingUI.GetNode<TextureRect>("PhotoRect");
         ReturnBtn.Pressed += () => ToggleUI(false);
         ToggleUI(false);
     }
@@ -20,6 +23,16 @@ public partial class PhotoTerminal : Node3D, IInteractable
     void IInteractable.OnInteraction()
     {
         ToggleUI(true);
+        var inventory = GetTree()
+            .CurrentScene.GetNode<PlayerController>("Player")
+            .GetNode<Inventory>("Inventory");
+        if (inventory.GetItemIndex("camera") != -1)
+        {
+            UploadedPhotos = inventory
+                .GetNode<PhotoCamera>(inventory.GetItemIndex("camera").ToString())
+                .Photos;
+        }
+        photoRect.Texture = UploadedPhotos[^1].Data.ToTexture();
     }
 
     private void ToggleUI(bool state)

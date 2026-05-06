@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using Godot;
 
@@ -109,5 +110,16 @@ public partial class Inventory : Node3D
     {
         Debug.Assert(currentIndex < Capacity);
         return InventoryArr[currentIndex]!;
+    }
+
+    public int GetItemIndex(string itemName)
+    {
+        for (int i = 0; i < Capacity; i++)
+        {
+            var item = GetNodeOrNull<Item>(i.ToString());
+            if (item != null && item.ItemName == itemName)
+                return i;
+        }
+        return -1;
     }
 }

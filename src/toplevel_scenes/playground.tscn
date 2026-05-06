@@ -134,4 +134,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.241695, 0.7907195, -6.966
 
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
 unique_name_in_owner = true
-transform = Transform3D(0.19760604, 0, 0.98028153, 0, 1, 0, -0.98028153, 0, 0.19760604, -14.429729, 0, -9.680392)
+transform = Transform3D(0.19760604, 0, 0.98028153, 0, 1, 0, -0.98028153, 0, 0.19760604, -14.429729, -0.39877832, -9.680392)

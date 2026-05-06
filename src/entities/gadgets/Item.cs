@@ -15,7 +15,7 @@ public partial class Item : Node3D
         "res://assets/2d/mooninicon.png"
     );
 
-    private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://dn7sjuk12ci0e");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://dn7sjuk12ci0e");
 
     public State ItemState = State.OnGround;
 
