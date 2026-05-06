@@ -13,6 +13,11 @@ namespace Yotf;
 public partial class PhotoCamera : Item
 {
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
+
+    //you can't make static export variables in godot.
+    public static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/photo_camera.tscn"
+    );
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderFov = 50;

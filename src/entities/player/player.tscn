@@ -6,9 +6,7 @@
 [ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="4_n7e5a"]
 [ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://src/entities/player/Skin.tscn" id="5_fkugw"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
-[ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/gadgets/photography/photo_camera.tscn" id="7_6fkid"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
-[ext_resource type="PackedScene" uid="uid://d34ehugbf1dk7" path="res://src/entities/gadgets/flashlight/flashlight.tscn" id="9_s7tg2"]
 [ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="10_s7tg2"]
 
@@ -89,12 +87,6 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 [node name="Inventory" type="Node3D" parent="." unique_id=913375540]
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
-
-[node name="0" parent="Inventory" unique_id=1592745977 instance=ExtResource("7_6fkid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25598773, 1.1333697, 0.94572973)
-
-[node name="1" parent="Inventory" unique_id=157541490 instance=ExtResource("9_s7tg2")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.25831977, 1.1024652, 0.80590105)
 
 [node name="HUD" type="Control" parent="." unique_id=1635351054]
 layout_mode = 3

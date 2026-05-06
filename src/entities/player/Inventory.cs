@@ -22,6 +22,8 @@ public partial class Inventory : Node3D
     public override void _Ready()
     {
         Icons = GetParent().GetNode<HBoxContainer>("HUD/InventoryIcons");
+        AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
+        AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
         SetCurrentItem(0);
     }
 
@@ -56,11 +58,11 @@ public partial class Inventory : Node3D
             $"{InventoryArr[currentIndex]?.ItemName} is now {InventoryArr[currentIndex]?.CurrentItem}"
         );
         Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
-        ClearOtherItems(currentIndex);
+        ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
     }
 
-    private void ClearOtherItems(int notThisOne)
+    private void ClearItems(int notThisOne = -1)
     {
         for (int i = 0; i < Capacity; i++)
         {
@@ -79,6 +81,20 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
+        Icons.GetChild<TextureRect>(currentIndex).Texture = item.Icon;
+    }
+
+    public void AddItem(Item item, int index, bool removeIfFilled = false)
+    {
+        if (InventoryArr[index] != null && !removeIfFilled)
+            return;
+
+        InventoryArr[index]?.QueueFree();
+
+        item.Name = index.ToString();
+        item.InInventory = true;
+        AddChild(item);
+        Icons.GetChild<TextureRect>(index).Texture = item.Icon;
     }
 
     public void RemoveItem(int index)
@@ -98,9 +114,4 @@ public partial class Inventory : Node3D
         Debug.Assert(currentIndex < Capacity);
         return InventoryArr[currentIndex]!;
     }
-
-    // public override void _PhysicsProcess(double delta)
-    // {
-    //     InventoryArr[currentIndex]?.Update(delta);
-    // }
 }
