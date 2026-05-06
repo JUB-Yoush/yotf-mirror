@@ -5,7 +5,7 @@ namespace Yotf;
 
 public partial class Log : Control
 {
-    public static Log Instance { get; private set; } = null!;
+    private static Log Instance { get; set; } = null!;
     public static int MsgCount = 0;
     public const int LOG_LIMIT = 500;
     VBoxContainer LogMessages = null!;

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmjico1gs6q8a" path="res://src/helper_nodes/Log.cs" id="1_oveca"]
 
 [node name="Log" type="Control" unique_id=2014023965]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

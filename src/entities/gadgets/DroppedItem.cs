@@ -5,13 +5,11 @@ namespace Yotf;
 
 public partial class DroppedItem : RigidBody3D
 {
-    Mesh mesh = null!;
+    private Mesh mesh = null!;
     public PackedScene ItemRef = null!;
-    MeshInstance3D meshInstance = null!;
+    private MeshInstance3D meshInstance = null!;
 
-    public static readonly PackedScene Packed = GD.Load<PackedScene>(
-        "res://src/entities/gadgets/dropped_item.tscn"
-    );
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
     public DroppedItem Init(Mesh mesh, PackedScene packedItem)
     {

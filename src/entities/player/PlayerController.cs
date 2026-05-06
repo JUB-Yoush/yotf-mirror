@@ -51,6 +51,9 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("Debug")]
     private bool firstPerson = false;
 
+    private SpringArm3D springArm = null!;
+
+    // (j) Referencing the scene tree before _Ready causes invalid references and an error to be thrown.
     [Export]
     public bool FirstPerson
     {
@@ -60,25 +63,18 @@ public partial class PlayerController : CharacterBody3D
             firstPerson = value;
             if (firstPerson)
             {
+                if (springArm == null)
+                    return;
                 Tween tween = CreateTween();
-                tween.TweenProperty(
-                    GetNode<SpringArm3D>("CameraManager/Arm"),
-                    "spring_length",
-                    0.0f,
-                    0.33
-                );
-                tween.Fn(() => GetNode<Node3D>("Skin").Visible = false);
+                tween.TweenProperty(springArm, "spring_length", 0.0f, 0.33);
+                tween.Fn(() => Skin.Visible = false);
             }
             else
             {
-                GetNode<Node3D>("Skin").Visible = true;
-                CreateTween()
-                    .TweenProperty(
-                        GetNode<SpringArm3D>("CameraManager/Arm"),
-                        "spring_length",
-                        6.0f,
-                        0.33
-                    );
+                if (springArm == null)
+                    return;
+                Skin.Visible = true;
+                CreateTween().TweenProperty(springArm, "spring_length", 6.0f, 0.33);
             }
         }
     }
@@ -98,8 +94,9 @@ public partial class PlayerController : CharacterBody3D
     }
 
     // ====================== INTERNAL STATE ======================
-    [Export]
-    public ProceduralAnimator ProceduralAnimator = null!;
+    // (j) was causing some weird issues, turned it off for now.
+    //[Export]
+    //public ProceduralAnimator ProceduralAnimator = null!;
 
     public IPlayerState CurrentState { get; private set; } = null!;
     public PlayerState State => CurrentState.Type;
@@ -134,7 +131,7 @@ public partial class PlayerController : CharacterBody3D
         CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
         CollisionPivot = CollisionShapeBody.Position;
 
-        ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
+        //ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
 
         if (IsMultiplayerAuthority())
         {
@@ -143,6 +140,7 @@ public partial class PlayerController : CharacterBody3D
 
         CurrentState = WalkingState;
         WalkingState.Enter(this);
+        FirstPerson = true;
     }
 
 #if DEBUG
@@ -168,7 +166,7 @@ public partial class PlayerController : CharacterBody3D
         CurrentState?.Exit(this);
         CurrentState = newState;
         CurrentState.Enter(this);
-        ProceduralAnimator.OnStateChanged(newState.Type);
+        //ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
     internal void UpdateBodyDirection(Vector3 direction, float delta)

@@ -7,8 +7,8 @@ public partial class Inventory : Node3D
 {
     const int Capacity = 4;
     private int currentIndex = 0;
-    HBoxContainer Icons = null!;
-    Item?[] InventoryArr
+    private HBoxContainer Icons = null!;
+    private Item?[] InventoryArr
     {
         get
         {
@@ -53,10 +53,6 @@ public partial class Inventory : Node3D
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
-        GD.Print($"set {InventoryArr[currentIndex]?.ItemName} to current");
-        GD.Print(
-            $"{InventoryArr[currentIndex]?.ItemName} is now {InventoryArr[currentIndex]?.CurrentItem}"
-        );
         Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
         ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();

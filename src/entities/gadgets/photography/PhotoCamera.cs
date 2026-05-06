@@ -15,9 +15,7 @@ public partial class PhotoCamera : Item
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
     //you can't make static export variables in godot.
-    public static readonly PackedScene Packed = GD.Load<PackedScene>(
-        "res://src/entities/gadgets/photography/photo_camera.tscn"
-    );
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderFov = 50;
@@ -31,6 +29,7 @@ public partial class PhotoCamera : Item
     private Camera3D photoCamera = null!;
     private SubViewport photoViewport = null!;
     private MeshInstance3D mesh = null!;
+    private Inventory inventory = null!;
 
     private PlayerController player = null!;
 
@@ -49,6 +48,7 @@ public partial class PhotoCamera : Item
         photoCamera = photoViewport.GetNode<Camera3D>("PhotoCamera");
         photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
+        inventory = GetParent<Inventory>();
     }
 
     public override void _Input(InputEvent @event)
@@ -66,6 +66,14 @@ public partial class PhotoCamera : Item
         {
             photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             aiming = false;
+        }
+
+        if (@event.IsActionPressed("drop_item"))
+        {
+            var dropItem = MakeDropItem(mesh.Mesh, Packed);
+            dropItem.GlobalTransform = camera.GlobalTransform;
+            GetTree().CurrentScene.AddChild(dropItem);
+            inventory.RemoveCurrentItem();
         }
     }
 

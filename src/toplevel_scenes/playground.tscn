@@ -116,10 +116,6 @@ shape = SubResource("BoxShape3D_dpvq1")
 spawn_path = NodePath("..")
 script = ExtResource("6_48c3q")
 
-[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
-unique_name_in_owner = true
-transform = Transform3D(0.1858725, 0, 0.98257387, 0, 1, 0, -0.98257387, 0, 0.1858725, -15.196556, -0.34145832, -8.312257)
-
 [node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
 visible = false
@@ -133,3 +129,6 @@ transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_jdk7o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.54832, 0.43286753, 0)
+
+[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
+unique_name_in_owner = true

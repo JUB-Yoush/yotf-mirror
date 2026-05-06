@@ -6,8 +6,8 @@ namespace Yotf;
 
 public partial class InteractionRay : RayCast3D
 {
-    DroppedItem? currentCollision = null!;
-    Inventory inventory = null!;
+    private DroppedItem? currentCollision = null!;
+    private Inventory inventory = null!;
 
     public override void _Ready()
     {
