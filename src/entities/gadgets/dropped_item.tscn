@@ -8,9 +8,7 @@
 inner_radius = 0.1
 outer_radius = 0.2
 
-[node name="DroppedItem" type="Area3D" unique_id=126763137]
-collision_layer = 4
-collision_mask = 0
+[node name="DroppedItem" type="RigidBody3D" unique_id=1652355677]
 script = ExtResource("1_0vdqr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1244455249]
@@ -18,3 +16,10 @@ shape = SubResource("SphereShape3D_2lymx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=190850226]
 mesh = SubResource("TorusMesh_0vdqr")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=341277874]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=1796845227]
+shape = SubResource("SphereShape3D_2lymx")

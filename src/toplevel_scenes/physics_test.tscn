@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dqs1jlrlfbvg8"]
+
+[ext_resource type="PackedScene" uid="uid://btgb7l7cdigqw" path="res://src/entities/gadgets/dropped_item.tscn" id="1_viv11"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_viv11"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0t3ug"]
+size = Vector3(10, 0.01, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_viv11"]
+albedo_color = Color(0.21254736, 0.21417034, 0.08069066, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_viv11"]
+material = SubResource("StandardMaterial3D_viv11")
+size = Vector2(10, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bvtjb"]
+
+[node name="Node3D" type="Node3D" unique_id=712894639]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1416347920]
+physics_material_override = SubResource("PhysicsMaterial_viv11")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=111240634]
+shape = SubResource("BoxShape3D_0t3ug")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=612759719]
+mesh = SubResource("PlaneMesh_viv11")
+
+[node name="DroppedItem" parent="." unique_id=1652355677 instance=ExtResource("1_viv11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3699944, 0)
+physics_material_override = SubResource("PhysicsMaterial_bvtjb")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1549203098]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3, 3)
+current = true

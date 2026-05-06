@@ -3,7 +3,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class DroppedItem : Area3D
+public partial class DroppedItem : RigidBody3D
 {
     Mesh mesh = null!;
     public PackedScene ItemRef = null!;
@@ -22,8 +22,7 @@ public partial class DroppedItem : Area3D
 
     public override void _Ready()
     {
-        //meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
-        meshInstance = GetChild<MeshInstance3D>(1);
+        meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
         meshInstance.Mesh = mesh;
     }
 

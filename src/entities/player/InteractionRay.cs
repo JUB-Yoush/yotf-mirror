@@ -15,7 +15,6 @@ public partial class InteractionRay : RayCast3D
 
         TargetPosition = new(0, 0, -2f);
         CollideWithAreas = true;
-        CollideWithBodies = true;
     }
 
     public override void _Input(InputEvent @event)
@@ -38,6 +37,6 @@ public partial class InteractionRay : RayCast3D
             currentCollision = null;
             return;
         }
-        currentCollision = (DroppedItem)GetCollider();
+        currentCollision = ((Area3D)GetCollider()).GetParent<DroppedItem>();
     }
 }
