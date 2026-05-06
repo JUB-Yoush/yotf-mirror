@@ -14,7 +14,7 @@ public partial class Inventory : Node3D
         {
             Item?[] res = new Item[Capacity];
             for (int i = 0; i < Capacity; i++)
-                res[i] = GetChildOrNull<Item>(i);
+                res[i] = GetNodeOrNull<Item>(i.ToString());
             return res;
         }
     }
@@ -72,19 +72,25 @@ public partial class Inventory : Node3D
         }
     }
 
-    void AddItem(Item item)
+    public void AddItem(Item item)
     {
         Debug.Assert(InventoryArr[currentIndex] == null);
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);
+        SetCurrentItem(currentIndex);
     }
 
-    void RemoveItem(int index)
+    public void RemoveItem(int index)
     {
-        if (InventoryArr[index] != null)
+        if (InventoryArr[index] == null)
             return;
         GetChild<Item>(index).QueueFree();
+    }
+
+    public void RemoveCurrentItem()
+    {
+        RemoveItem(currentIndex);
     }
 
     public Item GetEqippedItem()

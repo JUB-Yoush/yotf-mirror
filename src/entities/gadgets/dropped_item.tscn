@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://btgb7l7cdigqw"]
+
+[ext_resource type="Script" uid="uid://dm6xn3ri0ywo2" path="res://src/entities/gadgets/DroppedItem.cs" id="1_0vdqr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2lymx"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_0vdqr"]
+inner_radius = 0.1
+outer_radius = 0.2
+
+[node name="DroppedItem" type="Area3D" unique_id=126763137]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_0vdqr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1244455249]
+shape = SubResource("SphereShape3D_2lymx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=190850226]
+mesh = SubResource("TorusMesh_0vdqr")

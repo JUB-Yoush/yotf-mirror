@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://src/entities/player/PlayerController.cs" id="1_yw30f"]
 [ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://src/entities/player/CameraManager.cs" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cg7i77y0de057" path="res://src/entities/player/CameraFollow.cs" id="3_qjkh3"]
-[ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/player/ProceduralAnimator.cs" id="4_qjkh3"]
+[ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="4_n7e5a"]
 [ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://src/entities/player/Skin.tscn" id="5_fkugw"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/gadgets/photography/photo_camera.tscn" id="7_6fkid"]
@@ -33,10 +33,10 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
-FirstPerson = true
 Skin = NodePath("Skin")
 Camera = NodePath("CameraManager/Camera3D")
 CollisionShapeBody = NodePath("CollisionShapeBody")
+FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
@@ -59,6 +59,9 @@ script = ExtResource("3_qjkh3")
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraManager/Camera3D" unique_id=1962571535]
 target_position = Vector3(0, 0, -2)
+collision_mask = 4
+collide_with_areas = true
+script = ExtResource("4_n7e5a")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera3D" unique_id=2052358448]
 visible = false
@@ -77,15 +80,6 @@ shape = SubResource("SeparationRayShape3D_twc2s")
 [node name="Skin" parent="." unique_id=989290181 instance=ExtResource("5_fkugw")]
 visible = false
 
-[node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1061369896 node_paths=PackedStringArray("_skeleton", "_camera", "_raycastLeft", "_raycastRight", "_footTargetLeft", "_footTargetRight")]
-script = ExtResource("4_qjkh3")
-_skeleton = NodePath("../Skin/rig/Skeleton3D")
-_camera = NodePath("../CameraManager")
-_raycastLeft = NodePath("../Skin/rig/FootRaycast_Left")
-_raycastRight = NodePath("../Skin/rig/FootRaycast_Right")
-_footTargetLeft = NodePath("../Skin/rig/FootTarget_Left")
-_footTargetRight = NodePath("../Skin/rig/FootTarget_Right")
-
 [node name="InputManager" type="Node" parent="." unique_id=970712292]
 script = ExtResource("6_8fjmc")
 
@@ -93,14 +87,14 @@ script = ExtResource("6_8fjmc")
 replication_config = SubResource("SceneReplicationConfig_6fkid")
 
 [node name="Inventory" type="Node3D" parent="." unique_id=913375540]
+unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
-[node name="0" parent="Inventory" unique_id=1251545655 instance=ExtResource("7_6fkid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31755972, 1.2321668, 1.1039727)
-script = null
+[node name="0" parent="Inventory" unique_id=1592745977 instance=ExtResource("7_6fkid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25598773, 1.1333697, 0.94572973)
 
 [node name="1" parent="Inventory" unique_id=157541490 instance=ExtResource("9_s7tg2")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.27150667, 1.2321668, 1.1039727)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.25831977, 1.1024652, 0.80590105)
 
 [node name="HUD" type="Control" parent="." unique_id=1635351054]
 layout_mode = 3
