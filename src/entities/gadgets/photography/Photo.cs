@@ -6,7 +6,7 @@ using Godot;
 
 namespace Yotf;
 
-public record struct PhotoData(
+public record PhotoData(
     string PhotoTaker,
     string[] Subjects,
     byte[] Bytes,
@@ -30,7 +30,7 @@ public record struct PhotoData(
         return new(photoTaker, Subjects, Data, Format, Width, Height, Mipmaps);
     }
 
-    public readonly Godot.Collections.Dictionary ToGodotDict() =>
+    public Godot.Collections.Dictionary ToGodotDict() =>
         new()
         {
             { "data", Bytes },
@@ -40,7 +40,7 @@ public record struct PhotoData(
             { "mipmaps", Mipmaps },
         };
 
-    public readonly string ToJson() => JsonSerializer.Serialize(this);
+    public string ToJson() => JsonSerializer.Serialize(this);
 
     public static PhotoData FromJson(string jsonData)
     {
@@ -48,7 +48,7 @@ public record struct PhotoData(
         return data;
     }
 
-    public readonly Texture2D ToTexture()
+    public Texture2D ToTexture()
     {
         var photoImg = Image.CreateFromData(Width, Height, Mipmaps, Image.Format.Rgb8, Bytes);
         var imgTex = new ImageTexture();

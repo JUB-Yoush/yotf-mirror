@@ -12,6 +12,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
     TextureRect photoRect = null!;
     VBoxContainer styleLabels = null!;
     List<Photo> UploadedPhotos = [];
+    HashSet<Photo> viewedPhotos = [];
     Label PhotoTotalLabel = null!;
     Label GalleryTotalLabel = null!;
     Button PrevBtn = null!;
@@ -40,7 +41,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
 
         NextBtn.Pressed += () =>
         {
-            currentPhotoIndex = Math.Min(currentPhotoIndex + 1, UploadedPhotos.Count);
+            currentPhotoIndex = Math.Min(currentPhotoIndex + 1, UploadedPhotos.Count - 1);
             RenderPhotoGrade(currentPhotoIndex);
         };
         ReturnBtn.Pressed += () => ToggleUI(false);
@@ -53,9 +54,9 @@ public partial class PhotoTerminal : Node3D, IInteractable
             return;
 
         ToggleUI(true);
-        var inventory = GetTree()
-            .CurrentScene.GetNode<PlayerController>("Player")
-            .GetNode<Inventory>("Inventory");
+
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var inventory = player.GetNode<Inventory>("Inventory");
 
         if (inventory.GetItemIndex("camera") != -1)
         {
@@ -96,7 +97,11 @@ public partial class PhotoTerminal : Node3D, IInteractable
         }
         //TODO(j) don't recalculate score every time you render the image
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
-        GalleryTotal += sum;
+        if (!viewedPhotos.Contains(photo))
+        {
+            GalleryTotal += sum;
+            viewedPhotos.Add(photo);
+        }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
     }
 
@@ -117,6 +122,9 @@ public partial class PhotoTerminal : Node3D, IInteractable
             { true, Input.MouseModeEnum.Visible },
             { false, Input.MouseModeEnum.Captured },
         };
+
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        player.IsInMenu = state;
         viewingScreen = state;
         GradingUI.Visible = state;
         Input.SetMouseMode(mouseState[state]);

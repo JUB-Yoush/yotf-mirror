@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://xajdaqfnq3gq" path="res://src/entities/player/Skin.tscn" id="5_fkugw"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
+[ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
 [ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="10_s7tg2"]
 
@@ -88,6 +89,9 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
+[node name="Stats" type="Node" parent="." unique_id=1554359426]
+script = ExtResource("8_tk761")
+
 [node name="HUD" type="Control" parent="." unique_id=1635351054]
 layout_mode = 3
 anchors_preset = 15
@@ -118,5 +122,40 @@ texture = ExtResource("10_o0m41")
 [node name="3" type="TextureRect" parent="HUD/InventoryIcons" unique_id=380550003]
 layout_mode = 2
 texture = ExtResource("10_o0m41")
+
+[node name="DebugPanel" type="Panel" parent="HUD" unique_id=255583099]
+custom_minimum_size = Vector2(256, 128)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 68.0
+offset_right = 44.0
+offset_bottom = 108.0
+
+[node name="OxygenLabel" type="Label" parent="HUD/DebugPanel" unique_id=930209256]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Oxygen:"
+
+[node name="BatteryLabel" type="Label" parent="HUD/DebugPanel" unique_id=182572895]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 63.0
+offset_bottom = 47.0
+text = "Battery:"
+
+[node name="PhotoLabel" type="Label" parent="HUD/DebugPanel" unique_id=556948804]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 63.0
+offset_bottom = 69.0
+text = "Photo Score:"
+
+[node name="MoneyLabel" type="Label" parent="HUD/DebugPanel" unique_id=1064315356]
+layout_mode = 0
+offset_top = 68.0
+offset_right = 98.0
+offset_bottom = 91.0
+text = "Money: 0000"
 
 [editable path="Skin"]

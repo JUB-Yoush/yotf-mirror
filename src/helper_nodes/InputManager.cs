@@ -29,7 +29,7 @@ public partial class InputManager : Node
             GetViewport().SetInputAsHandled();
         }
 
-        if (pEvent is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+        if (pEvent is InputEventMouseButton mouseEvent && mouseEvent.Pressed && !player.IsInMenu)
         {
             if (Input.MouseMode != Input.MouseModeEnum.Captured)
             {

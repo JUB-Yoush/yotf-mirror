@@ -80,6 +80,8 @@ public partial class PlayerController : CharacterBody3D
 
     private bool collisionEnabled = true;
 
+    public bool IsInMenu = false;
+
     [Export]
     public bool CollisionEnabled
     {
