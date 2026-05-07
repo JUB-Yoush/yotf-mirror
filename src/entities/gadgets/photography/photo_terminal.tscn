@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bvyn7a0r1f67w" path="res://src/entities/gadgets/photography/PhotoTerminal.cs" id="1_l1e86"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="2_afks7"]
+[ext_resource type="LabelSettings" uid="uid://d1hk046eb0hlq" path="res://src/ui/photo_grade_label.tres" id="3_nbidk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l1e86"]
 
@@ -32,7 +33,6 @@ pixel_size = 0.005
 texture = ExtResource("2_afks7")
 
 [node name="GradingUI" type="Control" parent="." unique_id=663696198]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +56,7 @@ offset_right = 76.0
 offset_bottom = 706.0
 text = "Return"
 
-[node name="Label" type="Label" parent="GradingUI" unique_id=1588493938]
+[node name="GalleryTotalLabel" type="Label" parent="GradingUI" unique_id=1588493938]
 layout_mode = 0
 offset_left = 538.0
 offset_top = 659.0
@@ -65,7 +65,7 @@ offset_bottom = 704.0
 theme_override_font_sizes/font_size = 32
 text = "Total Points: 0000"
 
-[node name="Button" type="Button" parent="GradingUI" unique_id=323995436]
+[node name="NextBtn" type="Button" parent="GradingUI" unique_id=323995436]
 layout_mode = 0
 offset_left = 694.0
 offset_top = 327.0
@@ -74,7 +74,7 @@ offset_bottom = 380.0
 theme_override_font_sizes/font_size = 32
 text = ">"
 
-[node name="Button2" type="Button" parent="GradingUI" unique_id=1211731242]
+[node name="PrevBtn" type="Button" parent="GradingUI" unique_id=1211731242]
 layout_mode = 0
 offset_left = 37.0
 offset_top = 330.0
@@ -93,16 +93,17 @@ offset_bottom = 630.0
 texture = ExtResource("2_afks7")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="GradingUI" unique_id=1115234522]
+[node name="PhotoTotalLabel" type="Label" parent="GradingUI" unique_id=1115234522]
 layout_mode = 0
 offset_left = 856.0
 offset_top = 600.0
 offset_right = 1156.0
 offset_bottom = 645.0
 theme_override_font_sizes/font_size = 32
-text = "Total: "
+text = "0000"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GradingUI" unique_id=1781329975]
+[node name="StyleLabels" type="VBoxContainer" parent="GradingUI" unique_id=1781329975]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
 offset_left = 750.0
@@ -111,10 +112,11 @@ offset_right = 1113.0
 offset_bottom = 243.0
 alignment = 2
 
-[node name="Label3" type="Label" parent="GradingUI/VBoxContainer" unique_id=940871783]
+[node name="Label3" type="Label" parent="GradingUI/StyleLabels" unique_id=940871783]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("3_nbidk")
 vertical_alignment = 2
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1447470431]

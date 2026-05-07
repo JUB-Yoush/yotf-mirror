@@ -120,7 +120,6 @@ script = ExtResource("6_48c3q")
 
 [node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
-visible = false
 sync_to_physics = false
 
 [node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("9_208ij")]

@@ -26,6 +26,14 @@ public static class MiscExtensions
     {
         public Node GetSceneRoot() => node.GetTree().CurrentScene;
 
+        public void RemoveAllChildren()
+        {
+            // for (int i = node.GetChildCount(); i > -1; i--)
+            //     node.GetChild(i).QueueFree();
+            foreach (var child in node.GetChildren())
+                child.QueueFree();
+        }
+
         public List<Node> GetAllChildren()
         {
             Queue<Node> queue = [];

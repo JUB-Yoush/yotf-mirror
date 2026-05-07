@@ -254,4 +254,9 @@ public partial class PhotoCamera : Item
         imgTex.SetImage(photoImg);
         photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
+
+    public void ClearPhotos()
+    {
+        Photos = [];
+    }
 }
