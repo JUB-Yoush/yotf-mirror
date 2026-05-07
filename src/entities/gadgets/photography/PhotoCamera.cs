@@ -36,6 +36,9 @@ public partial class PhotoCamera : Item
 
     private PlayerController player = null!;
 
+    private int film = 0;
+    private int maxFilm = 0;
+
     private bool aiming = false;
 
     public override void _Ready()

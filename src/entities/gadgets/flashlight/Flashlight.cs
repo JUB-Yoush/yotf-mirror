@@ -11,6 +11,10 @@ public partial class Flashlight : Item
     private Camera3D camera = null!;
     private MeshInstance3D mesh = null!;
     private Inventory inventory = null!;
+    private PlayerStats playerStats = null!;
+
+    [Export]
+    private float batteryUseRate = 10;
 
     public override void _Ready()
     {
@@ -20,6 +24,7 @@ public partial class Flashlight : Item
         camera = GetParent().GetParent().GetNode<Camera3D>("%Camera3D");
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory = GetParent<Inventory>();
+        playerStats = GetParent().GetParent().GetNode<PlayerStats>("Stats");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -30,6 +35,7 @@ public partial class Flashlight : Item
         if (Input.IsActionPressed("look_cam"))
         {
             spotLight.LightEnergy = 10;
+            playerStats.Battery -= (float)(batteryUseRate * delta);
         }
         else
         {
