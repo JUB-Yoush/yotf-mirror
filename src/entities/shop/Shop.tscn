@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://boamegnj542cn"]
+
+[ext_resource type="Script" uid="uid://dnp4vlh5fpv8s" path="res://src/entities/shop/Shop.cs" id="1_uhwbq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g65i8"]
+albedo_color = Color(0.32941177, 0.2784314, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g65i8"]
+material = SubResource("StandardMaterial3D_g65i8")
+
+[node name="ShopKiosk" type="Node3D" unique_id=1903364331]
+script = ExtResource("1_uhwbq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=644258684]
+mesh = SubResource("BoxMesh_g65i8")

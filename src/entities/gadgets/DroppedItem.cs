@@ -11,6 +11,7 @@ public partial class DroppedItem : RigidBody3D, IInteractable
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
+    //TODO(j) giving big macro/source generator potential...
     public DroppedItem Init(Mesh mesh, PackedScene packedItem)
     {
         this.mesh = mesh;
@@ -28,7 +29,8 @@ public partial class DroppedItem : RigidBody3D, IInteractable
 
     public void OnInteraction()
     {
-        var inventory = GetTree().CurrentScene.GetNode<Inventory>("Player");
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var inventory = player.GetNode<Inventory>("Inventory");
 
         if (inventory.GetEqippedItem() != null)
             return;
