@@ -5,7 +5,7 @@ namespace Yotf;
 
 public partial class Flashlight : Item
 {
-    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
+    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
     private SpotLight3D spotLight = null!;
     private Camera3D camera = null!;

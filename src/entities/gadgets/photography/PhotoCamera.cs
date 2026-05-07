@@ -14,8 +14,7 @@ public partial class PhotoCamera : Item
 {
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
-    //you can't make static export variables in godot.
-    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
 
     public List<Photo> Photos = [];
 
@@ -140,30 +139,12 @@ public partial class PhotoCamera : Item
             var sizeScore = Math.Min(sizeInPhoto * 10, 1.0f);
 
             //fish lighting
-            // TODO (j) whole thing sucks just leave it out for now.
-            // shoot a raycast from every directional light length based on light range., check if ray intersects with fish area, use a formula involving energy, range, and intersection distance to determine "lit" score
-            var lightScore = 0f;
-            // foreach (var child in GetChildren(true))
-            // {
-            // if (child is SpotLight3D light)
-            // {
-            // var light = _spotlight;
-            // var ray = -light.GlobalTransform.Basis.Z * (light.LightEnergy * 1000);
-            // var spaceState = _player.GetWorld3D().DirectSpaceState;
-            // var origin = _photoCamera.GlobalPosition;
-            // var end = origin + ray;
-            // var query = PhysicsRayQueryParameters3D.Create(origin, end);
-            // query.CollideWithAreas = true;
-            // var result = spaceState.IntersectRay(query);
-            // GD.Print(result);
-            // if (result.Count == 0)
-            //     continue;
-            // if ((Rid)result["rid"] == ((Area3D)subject).GetRid())
-            // {
-            //     lightScore += ((Godot.Vector3)result["position"] - origin).Length();
-            // }
-            //res.Add(new((float)angleScore, sizeScore, (float)facingScore, 1));
-            result.Add(subject.Name, new((float)angleScore, sizeScore, (float)facingScore, 1));
+            // TODO (j) implement
+            var lightScore = 1f;
+            result.Add(
+                subject.Name,
+                new((float)angleScore, sizeScore, (float)facingScore, lightScore)
+            );
         }
         return result;
     }

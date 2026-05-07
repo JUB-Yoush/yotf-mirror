@@ -5,9 +5,9 @@ namespace Yotf;
 
 public partial class PlayerStats : Node
 {
-    Hud playerHud = null!;
-    float maxOxygen = 100;
-    float maxBattery = 100;
+    private Hud playerHud = null!;
+    private float maxOxygen = 100;
+    private float maxBattery = 100;
     public float Oxygen
     {
         get;

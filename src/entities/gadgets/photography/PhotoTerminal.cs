@@ -6,20 +6,20 @@ namespace Yotf;
 
 public partial class PhotoTerminal : Node3D, IInteractable
 {
-    LabelSettings styleLabelSettings = GD.Load<LabelSettings>("uid://d1hk046eb0hlq");
-    Control GradingUI = null!;
-    Button ReturnBtn = null!;
-    TextureRect photoRect = null!;
-    VBoxContainer styleLabels = null!;
-    List<Photo> UploadedPhotos = [];
-    HashSet<Photo> viewedPhotos = [];
-    Label PhotoTotalLabel = null!;
-    Label GalleryTotalLabel = null!;
-    Button PrevBtn = null!;
-    Button NextBtn = null!;
-    int currentPhotoIndex = 0;
-    int GalleryTotal = 0;
-    bool viewingScreen = false;
+    private LabelSettings styleLabelSettings = GD.Load<LabelSettings>("uid://d1hk046eb0hlq");
+    private Control GradingUI = null!;
+    private Button ReturnBtn = null!;
+    private TextureRect photoRect = null!;
+    private VBoxContainer styleLabels = null!;
+    private List<Photo> UploadedPhotos = [];
+    private HashSet<Photo> viewedPhotos = [];
+    private Label PhotoTotalLabel = null!;
+    private Label GalleryTotalLabel = null!;
+    private Button PrevBtn = null!;
+    private Button NextBtn = null!;
+    private int currentPhotoIndex = 0;
+    private int GalleryTotal = 0;
+    private bool viewingScreen = false;
 
     public override void _Ready()
     {
@@ -95,7 +95,6 @@ public partial class PhotoTerminal : Node3D, IInteractable
             MakeStyleLabel(subject, "Size Score", Math.Floor(grade.SizeScore * 100.0));
             sum += ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100));
         }
-        //TODO(j) don't recalculate score every time you render the image
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
         if (!viewedPhotos.Contains(photo))
         {

@@ -45,7 +45,7 @@ public record PhotoData(
     public static PhotoData FromJson(string jsonData)
     {
         var data = JsonSerializer.Deserialize<PhotoData>(jsonData);
-        return data;
+        return data!;
     }
 
     public Texture2D ToTexture()
