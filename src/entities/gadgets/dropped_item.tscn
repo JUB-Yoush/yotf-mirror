@@ -4,7 +4,10 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2lymx"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vdqr"]
+
 [sub_resource type="TorusMesh" id="TorusMesh_0vdqr"]
+material = SubResource("StandardMaterial3D_0vdqr")
 inner_radius = 0.1
 outer_radius = 0.2
 

@@ -20,6 +20,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
     private int currentPhotoIndex = 0;
     private int GalleryTotal = 0;
     private bool viewingScreen = false;
+    private Mesh mesh = null!;
 
     public override void _Ready()
     {
@@ -33,6 +34,8 @@ public partial class PhotoTerminal : Node3D, IInteractable
         styleLabels.RemoveAllChildren();
         PrevBtn = GradingUI.GetNode<Button>("PrevBtn");
         NextBtn = GradingUI.GetNode<Button>("NextBtn");
+        mesh = GetNode<MeshInstance3D>("MeshInstance3D").Mesh;
+
         PrevBtn.Pressed += () =>
         {
             currentPhotoIndex = Math.Max(0, currentPhotoIndex - 1);
@@ -128,4 +131,6 @@ public partial class PhotoTerminal : Node3D, IInteractable
         GradingUI.Visible = state;
         Input.SetMouseMode(mouseState[state]);
     }
+
+    public Mesh GetMesh() => mesh;
 }

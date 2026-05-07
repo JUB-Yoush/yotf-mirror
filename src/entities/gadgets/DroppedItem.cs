@@ -35,4 +35,6 @@ public partial class DroppedItem : RigidBody3D, IInteractable
         inventory.AddItem(ItemRef.Instantiate<Item>());
         QueueFree();
     }
+
+    public Mesh GetMesh() => mesh;
 }

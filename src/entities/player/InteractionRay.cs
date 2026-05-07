@@ -29,9 +29,11 @@ public partial class InteractionRay : RayCast3D
     {
         if (!IsColliding())
         {
+            currentCollision?.RemoveOutlineMesh();
             currentCollision = null;
             return;
         }
         currentCollision = ((Node)GetCollider()).GetParent<IInteractable>();
+        currentCollision.OutlineMesh();
     }
 }

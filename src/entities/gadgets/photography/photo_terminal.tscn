@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="2_afks7"]
 [ext_resource type="LabelSettings" uid="uid://d1hk046eb0hlq" path="res://src/ui/photo_grade_label.tres" id="3_nbidk"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_l1e86"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nbidk"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ymhpo"]
+material = SubResource("StandardMaterial3D_nbidk")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_u152m"]
 
@@ -15,11 +16,7 @@
 [node name="PhotoTerminal" type="Node3D" unique_id=1904242734]
 script = ExtResource("1_l1e86")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=931869677]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0013671, 0)
-mesh = SubResource("CapsuleMesh_l1e86")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=408469363]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=408469363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20184231, 0.7002605)
 mesh = SubResource("BoxMesh_ymhpo")
 
