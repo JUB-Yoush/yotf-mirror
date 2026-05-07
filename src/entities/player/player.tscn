@@ -89,9 +89,6 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
-[node name="Stats" type="Node" parent="." unique_id=1554359426]
-script = ExtResource("8_tk761")
-
 [node name="HUD" type="Control" parent="." unique_id=1635351054]
 layout_mode = 3
 anchors_preset = 15
@@ -126,10 +123,10 @@ texture = ExtResource("10_o0m41")
 [node name="DebugPanel" type="Panel" parent="HUD" unique_id=255583099]
 custom_minimum_size = Vector2(256, 128)
 layout_mode = 0
-offset_left = 4.0
+offset_left = 1.0
 offset_top = 68.0
-offset_right = 44.0
-offset_bottom = 108.0
+offset_right = 268.0
+offset_bottom = 196.0
 
 [node name="OxygenLabel" type="Label" parent="HUD/DebugPanel" unique_id=930209256]
 layout_mode = 0
@@ -157,5 +154,8 @@ offset_top = 68.0
 offset_right = 98.0
 offset_bottom = 91.0
 text = "Money: 0000"
+
+[node name="Stats" type="Node" parent="." unique_id=1554359426]
+script = ExtResource("8_tk761")
 
 [editable path="Skin"]
