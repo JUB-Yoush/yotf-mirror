@@ -1,10 +1,12 @@
 using Godot;
 
+namespace Yotf;
+
 public interface IFishState
 {
     FishState Type { get; }
 
-    bool IsPhotographable { get; }
+    public bool IsPhotographable { get; }
 
     void Enter(Fish fish);
     void Exit(Fish fish);

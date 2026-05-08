@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dxlfokyw6wxgs"]
+
+[ext_resource type="Script" uid="uid://c0b57e0q66ppq" path="res://src/entities/water_volume/WaterVolume.cs" id="1_8nx4l"]
+[ext_resource type="Shader" uid="uid://bncexwr38ce7b" path="res://assets/3d/environment/fog_fade.gdshader" id="2_5f01f"]
+[ext_resource type="Script" uid="uid://dw0rthowdil4d" path="res://src/entities/water_volume/FogVolumeFadeScript.cs" id="3_jy382"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1bimf"]
+resource_local_to_scene = true
+noise_type = 2
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mdx3j"]
+resource_local_to_scene = true
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_1bimf")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xl6ub"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_1bimf")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdho2"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_mdx3j")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_xl6ub")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_om5f8"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cfplo"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrt5a"]
+resource_local_to_scene = true
+shader = ExtResource("2_5f01f")
+shader_parameter/density = 1.0
+shader_parameter/albedo = Color(0, 0.0431373, 0.156863, 1)
+shader_parameter/emission = Color(0, 0.0431373, 0.156863, 1)
+shader_parameter/height_falloff = 0.0
+shader_parameter/edge_fade = 0.1
+shader_parameter/fade_plane = Vector4(0, 1, 0, -999)
+
+[node name="WaterMaker3D" type="CSGBox3D" unique_id=933037962]
+process_priority = 999
+material = SubResource("StandardMaterial3D_gdho2")
+script = ExtResource("1_8nx4l")
+
+[node name="SwimmableArea3D" type="Area3D" parent="." unique_id=1067593574 groups=["water_area"]]
+unique_name_in_owner = true
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SwimmableArea3D" unique_id=1451913892]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_om5f8")
+
+[node name="CameraPosShapeCast3D" type="ShapeCast3D" parent="." unique_id=1427836346]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_cfplo")
+target_position = Vector3(0, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="FogVolume" type="FogVolume" parent="." unique_id=1909219688]
+unique_name_in_owner = true
+size = Vector3(1, 1, 1)
+material = SubResource("ShaderMaterial_wrt5a")
+script = ExtResource("3_jy382")

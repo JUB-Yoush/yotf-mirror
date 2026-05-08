@@ -1,9 +1,11 @@
 using System;
 using Godot;
 
+namespace Yotf;
+
 public partial class Log : Control
 {
-    public static Log Instance { get; private set; } = null!;
+    private static Log Instance { get; set; } = null!;
     public static int MsgCount = 0;
     public const int LOG_LIMIT = 500;
     VBoxContainer LogMessages = null!;
@@ -27,7 +29,7 @@ public partial class Log : Control
         }
     }
 
-    public static void Print(string msg)
+    public static void Print(object msg)
     {
         if (MsgCount == LOG_LIMIT)
         {
@@ -35,7 +37,7 @@ public partial class Log : Control
         }
         msg = $"{MsgCount}: {msg}";
         var label = LogMsg.Instantiate<Label>();
-        label.Text = msg;
+        label.Text = msg.ToString();
         Instance.LogMessages.AddChild(label);
         MsgCount++;
     }

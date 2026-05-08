@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Yotf;
+
 [GlobalClass]
 public partial class FishProfile : Resource
 {

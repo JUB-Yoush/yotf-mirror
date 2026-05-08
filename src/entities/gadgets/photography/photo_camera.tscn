@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cgk7l4ybjl37y"]
+
+[ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/gadgets/photography/PhotoCamera.cs" id="1_3b58u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
+albedo_color = Color(0.32156864, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_68lge"]
+material = SubResource("StandardMaterial3D_4q7ia")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jg0tx"]
+albedo_color = Color(0.32156864, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r51j2"]
+material = SubResource("StandardMaterial3D_jg0tx")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="PhotoComponent" type="Node3D" unique_id=1592745977]
+script = ExtResource("1_3b58u")
+DropMesh = SubResource("BoxMesh_68lge")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]
+
+[node name="PhotoCamera" type="Camera3D" parent="SubViewport" unique_id=1914256525]
+unique_name_in_owner = true
+current = true
+fov = 50.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
+mesh = SubResource("BoxMesh_r51j2")

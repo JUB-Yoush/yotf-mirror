@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://cyb0rkdrcr1bn"]
+
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="1_avug1"]
+[ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="1_peero"]
+[ext_resource type="PackedScene" uid="uid://d34ehugbf1dk7" path="res://src/entities/gadgets/flashlight/flashlight.tscn" id="2_n8dhx"]
+
+[resource]
+script = ExtResource("1_avug1")
+Icon = ExtResource("1_peero")
+ItemName = "Flashlight"
+Price = 10
+itemType = 1
+item = 2
+itemScene = ExtResource("2_n8dhx")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

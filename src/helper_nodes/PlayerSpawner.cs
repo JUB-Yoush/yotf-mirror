@@ -2,6 +2,8 @@ using System;
 using System.Diagnostics;
 using Godot;
 
+namespace Yotf;
+
 public partial class PlayerSpawner : MultiplayerSpawner
 {
     static readonly PackedScene NetworkPlayer = GD.Load<PackedScene>(

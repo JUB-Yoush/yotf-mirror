@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dn7sjuk12ci0e"]
+
+[ext_resource type="Script" uid="uid://coh2ubkhjuyd" path="res://src/entities/gadgets/Item.cs" id="1_cg8xm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1hxw3"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Item" type="Node3D" unique_id=1701218101]
+script = ExtResource("1_cg8xm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=208588592]
+mesh = SubResource("BoxMesh_1hxw3")

@@ -1,15 +1,17 @@
 using Godot;
 
+namespace Yotf;
+
 public class FleeingState : IFishState
 {
     public FishState Type => FishState.Fleeing;
     public bool IsPhotographable => true;
 
-    private float _fleeTimer;
+    private float fleeTimer;
 
     public void Enter(Fish fish)
     {
-        _fleeTimer = 0f;
+        fleeTimer = 0f;
     }
 
     public void Exit(Fish fish) { }
@@ -23,9 +25,9 @@ public class FleeingState : IFishState
         Vector3 fleeTarget = fish.GlobalPosition + awayDir * fish.Profile.FleeDistance;
 
         bool arrived = fish.SmoothMoveTo(fleeTarget, fish.Profile.FleeSpeed, delta);
-        _fleeTimer += delta;
+        fleeTimer += delta;
 
-        if (arrived || _fleeTimer >= fish.Profile.FleeTimeout)
+        if (arrived || fleeTimer >= fish.Profile.FleeTimeout)
             fish.SetState(fish.WanderingState);
     }
 
@@ -33,7 +35,7 @@ public class FleeingState : IFishState
     {
         // reset the timer so a new nearby threat keeps us fleeing
         fish.ThreatPosition = threat.GlobalPosition;
-        _fleeTimer = 0f;
+        fleeTimer = 0f;
     }
 
     public void OnThreatLost(Fish fish)
@@ -44,6 +46,6 @@ public class FleeingState : IFishState
     public void OnNoiseHeard(Fish fish, float level, Vector3 source)
     {
         fish.ThreatPosition = source;
-        _fleeTimer = 0f;
+        fleeTimer = 0f;
     }
 }

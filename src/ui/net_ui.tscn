@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dak3fnyveagr7"]
+
+[ext_resource type="Script" uid="uid://c35rvqc3ju56u" path="res://src/ui/NetUi.cs" id="1_ddgsr"]
+
+[node name="NetUi" type="Control" unique_id=367554144]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ddgsr")
+
+[node name="HBox" type="HBoxContainer" parent="." unique_id=1650144017]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IPInput" type="LineEdit" parent="HBox" unique_id=1048017819]
+layout_mode = 2
+text = "localhost"
+placeholder_text = "IP"
+expand_to_text_length = true
+
+[node name="PortInput" type="LineEdit" parent="HBox" unique_id=433626238]
+layout_mode = 2
+text = "42069"
+placeholder_text = "PORT"
+
+[node name="ServerBtn" type="Button" parent="HBox" unique_id=1124166758]
+layout_mode = 2
+text = "HOST"
+
+[node name="ClientBtn" type="Button" parent="HBox" unique_id=1722533162]
+layout_mode = 2
+text = "JOIN
+"
