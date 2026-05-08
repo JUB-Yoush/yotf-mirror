@@ -8,11 +8,11 @@ public partial class ShopUI : Control
 {
     public static readonly PackedScene ShopItemView = GD.Load<PackedScene>("uid://c8frlegdjskm3");
 
-    List<ShopItem> Items = [];
-    List<ShopItem> Upgrades = [];
-    HBoxContainer UpgradeContainer = null!;
-    HBoxContainer ItemContainer = null!;
-    ShopKiosk kiosk = null!;
+    private List<ShopItem> Items = [];
+    private List<ShopItem> Upgrades = [];
+    private HBoxContainer UpgradeContainer = null!;
+    private HBoxContainer ItemContainer = null!;
+    private ShopKiosk kiosk = null!;
 
     public ShopUI Init(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {

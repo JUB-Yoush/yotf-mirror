@@ -6,8 +6,8 @@ namespace Yotf;
 
 public partial class ShopKiosk : Node3D, IInteractable
 {
-    private static readonly PackedScene shopUI = GD.Load<PackedScene>("uid://pqjmq4icdsyr");
-    Mesh mesh = null!;
+    private static readonly PackedScene shopUI = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
+    private Mesh mesh = null!;
     public bool inShop = false;
 
     // TODO(j) pass these in from a resource to make unique shop stocks simple
