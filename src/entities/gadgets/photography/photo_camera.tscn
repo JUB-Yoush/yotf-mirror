@@ -9,8 +9,16 @@ albedo_color = Color(0.32156864, 1, 1, 1)
 material = SubResource("StandardMaterial3D_4q7ia")
 size = Vector3(0.2, 0.2, 0.2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jg0tx"]
+albedo_color = Color(0.32156864, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r51j2"]
+material = SubResource("StandardMaterial3D_jg0tx")
+size = Vector3(0.2, 0.2, 0.2)
+
 [node name="PhotoComponent" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
+DropMesh = SubResource("BoxMesh_68lge")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]
 
@@ -20,4 +28,4 @@ current = true
 fov = 50.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
-mesh = SubResource("BoxMesh_68lge")
+mesh = SubResource("BoxMesh_r51j2")

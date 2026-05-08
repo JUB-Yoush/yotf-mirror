@@ -12,11 +12,13 @@ public partial class ShopUI : Control
     List<ShopItem> Upgrades = [];
     HBoxContainer UpgradeContainer = null!;
     HBoxContainer ItemContainer = null!;
+    ShopKiosk kiosk = null!;
 
-    public ShopUI Init(List<ShopItem> items, List<ShopItem> upgrades)
+    public ShopUI Init(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
         this.Items = items;
         this.Upgrades = upgrades;
+        this.kiosk = kiosk;
         return this;
     }
 
@@ -24,8 +26,12 @@ public partial class ShopUI : Control
     {
         UpgradeContainer = GetNode<HBoxContainer>("%Upgrades");
         ItemContainer = GetNode<HBoxContainer>("%Items");
-        Items.Add(GD.Load<ShopItem>("uid://b23k3n6uvsqhm"));
-        Upgrades.Add(GD.Load<ShopItem>("uid://dkxdiu2kqqy1k"));
+        GetNode<Button>("ReturnBtn").Pressed += CloseShop;
+
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        player.IsInMenu = true;
+        Input.SetMouseMode(Input.MouseModeEnum.Visible);
+
         PopulateShop();
     }
 
@@ -37,6 +43,7 @@ public partial class ShopUI : Control
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
             view.GetNode<Label>("Name").Text = item.ItemName;
             view.GetNode<Label>("Price").Text = $"${item.Price}";
+            view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
             ItemContainer.AddChild(view);
         }
 
@@ -46,7 +53,28 @@ public partial class ShopUI : Control
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
             view.GetNode<Label>("Name").Text = upgrade.ItemName;
             view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
+            view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
             UpgradeContainer.AddChild(view);
         }
+    }
+
+    private void BuyUpgrade(ShopItem upgrade) { }
+
+    private void BuyItem(ShopItem item)
+    {
+        var itemDrop = DroppedItem
+            .Packed.Instantiate<DroppedItem>()
+            .Init(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
+        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        GetTree().CurrentScene.AddChild(itemDrop);
+    }
+
+    private void CloseShop()
+    {
+        kiosk.inShop = false;
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        player.IsInMenu = true;
+        Input.SetMouseMode(Input.MouseModeEnum.Captured);
+        QueueFree();
     }
 }

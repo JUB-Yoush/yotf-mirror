@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://boamegnj542cn"]
 
-[ext_resource type="Script" uid="uid://dnp4vlh5fpv8s" path="res://src/entities/shop/Shop.cs" id="1_uhwbq"]
+[ext_resource type="Script" uid="uid://dlgr7ol1axrk7" path="res://src/entities/shop/ShopKiosk.cs" id="1_cbfys"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g65i8"]
 albedo_color = Color(0.32941177, 0.2784314, 1, 1)
@@ -8,8 +8,17 @@ albedo_color = Color(0.32941177, 0.2784314, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_g65i8"]
 material = SubResource("StandardMaterial3D_g65i8")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_631w7"]
+
 [node name="ShopKiosk" type="Node3D" unique_id=1903364331]
-script = ExtResource("1_uhwbq")
+script = ExtResource("1_cbfys")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=644258684]
 mesh = SubResource("BoxMesh_g65i8")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2047259221]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1015662500]
+shape = SubResource("BoxShape3D_631w7")

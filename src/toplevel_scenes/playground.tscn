@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bw5bqi16gc4ct" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_jdk7o"]
 [ext_resource type="PackedScene" uid="uid://oav35ivnfew0" path="res://src/entities/fish/dummy_fish.tscn" id="10_jdk7o"]
+[ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="11_6igj1"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
 
@@ -136,4 +137,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.241695, 0.7907195, -6.966
 
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
 unique_name_in_owner = true
-transform = Transform3D(0.19760604, 0, 0.98028153, 0, 1, 0, -0.98028153, 0, 0.19760604, -14.429729, -0.39877832, -9.680392)
+transform = Transform3D(0.19760604, 0, 0.98028153, 0, 1, 0, -0.98028153, 0, 0.19760604, -15.34955, -0.39877832, -10.846267)
+
+[node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("11_6igj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.526953, 2.0203068, -7.901272)

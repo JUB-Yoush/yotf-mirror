@@ -43,4 +43,7 @@ public partial class ShopItem : Resource
 
     [Export]
     public Upgrade upgrade;
+
+    [Export]
+    public PackedScene itemScene = null!;
 }

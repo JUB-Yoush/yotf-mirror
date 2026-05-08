@@ -42,3 +42,11 @@ text = "ITEMS
 [node name="Items" type="HBoxContainer" parent="VBoxContainer" unique_id=205691852]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ReturnBtn" type="Button" parent="." unique_id=410228999]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 653.0
+offset_right = 100.0
+offset_bottom = 684.0
+text = "Return"
