@@ -50,7 +50,7 @@ public partial class PlayerStats : Node
         playerHud = GetParent().GetNode<Hud>("HUD");
         Oxygen = maxOxygen;
         Battery = maxBattery;
-        Money = 0;
+        Money = 100;
         TotalGalleryScore = 0;
     }
 }

@@ -37,6 +37,7 @@ public partial class ShopUI : Control
 
     private void PopulateShop()
     {
+        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
         foreach (var item in Items)
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
@@ -44,6 +45,7 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Name").Text = item.ItemName;
             view.GetNode<Label>("Price").Text = $"${item.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
+            view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
             ItemContainer.AddChild(view);
         }
 
@@ -54,14 +56,21 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Name").Text = upgrade.ItemName;
             view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
+            view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
             UpgradeContainer.AddChild(view);
         }
     }
 
-    private void BuyUpgrade(ShopItem upgrade) { }
+    private void BuyUpgrade(ShopItem upgrade)
+    {
+        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        player.Money -= upgrade.Price;
+    }
 
     private void BuyItem(ShopItem item)
     {
+        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        player.Money -= item.Price;
         var itemDrop = DroppedItem
             .Packed.Instantiate<DroppedItem>()
             .Init(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
