@@ -37,6 +37,9 @@ public partial class ShopUI : Control
 
     private void PopulateShop()
     {
+        ItemContainer.RemoveAllChildren();
+        UpgradeContainer.RemoveAllChildren();
+
         var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
         foreach (var item in Items)
         {
@@ -65,6 +68,20 @@ public partial class ShopUI : Control
     {
         var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
         player.Money -= upgrade.Price;
+
+        switch (upgrade.upgrade)
+        {
+            case ShopItem.Upgrade.Oxygen:
+                player.maxOxygen += 25;
+                player.Oxygen = player.maxOxygen;
+                break;
+            case ShopItem.Upgrade.Battery:
+                player.maxBattery += 25;
+                player.Battery = player.maxBattery;
+                break;
+        }
+
+        PopulateShop();
     }
 
     private void BuyItem(ShopItem item)
@@ -76,6 +93,7 @@ public partial class ShopUI : Control
             .Init(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
+        PopulateShop();
     }
 
     private void CloseShop()
