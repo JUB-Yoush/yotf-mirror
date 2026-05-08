@@ -223,4 +223,4 @@ material = SubResource("StandardMaterial3D_4ktrp")
 FogFadeDist = 5.0
 
 [node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("12_4ktrp")]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -7.439873, 0, -11.070168)
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -7.5154386, 0, -11.070168)
