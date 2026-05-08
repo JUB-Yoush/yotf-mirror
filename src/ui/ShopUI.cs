@@ -100,7 +100,7 @@ public partial class ShopUI : Control
     {
         kiosk.inShop = false;
         var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
-        player.IsInMenu = true;
+        player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();
     }
