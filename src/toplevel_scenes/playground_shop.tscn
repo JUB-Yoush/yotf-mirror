@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://et0m5sme718h"]
+
+[ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
+[ext_resource type="Environment" uid="uid://r75bg1vbivre" path="res://assets/world_environments/playground_env.tres" id="3_jdk7o"]
+[ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
+[ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
+[ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
+[ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_w1g40"]
+[ext_resource type="PackedScene" uid="uid://bw5bqi16gc4ct" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
+[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_jdk7o"]
+[ext_resource type="PackedScene" uid="uid://oav35ivnfew0" path="res://src/entities/fish/dummy_fish.tscn" id="10_jdk7o"]
+[ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="11_6igj1"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
+
+[sub_resource type="Compositor" id="Compositor_6q5ri"]
+
+[sub_resource type="Gradient" id="Gradient_73e43"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_otrri"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jcxh"]
+noise = SubResource("FastNoiseLite_otrri")
+color_ramp = SubResource("Gradient_73e43")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_whnal"]
+_shader_parameters = {
+"bias_distance": 512.0,
+"blend_sharpness": 0.87,
+"depth_blur": 0.0,
+"enable_macro_variation": true,
+"enable_projection": true,
+"height_blending": true,
+"macro_variation1": Color(1, 1, 1, 1),
+"macro_variation2": Color(1, 1, 1, 1),
+"macro_variation_slope": 0.333,
+"mipmap_bias": 1.0,
+"noise1_angle": 0.0,
+"noise1_offset": Vector2(0.5, 0.5),
+"noise1_scale": 0.04,
+"noise2_scale": 0.076,
+"noise3_scale": 0.225,
+"noise_texture": SubResource("NoiseTexture2D_7jcxh"),
+"projection_angular_division": 2.0,
+"projection_threshold": 0.8,
+"world_space_normal_blend": true
+}
+world_background = 0
+show_checkered = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_o74y8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dpvq1"]
+size = Vector3(10, 8, 2)
+
+[node name="Main" type="Node3D" unique_id=1686587910]
+
+[node name="FlashRect" type="ColorRect" parent="." unique_id=1920206062]
+unique_name_in_owner = true
+visible = false
+offset_left = 280.0
+offset_top = 2.0
+offset_right = 992.0
+offset_bottom = 724.0
+
+[node name="PhotoLetterBox" type="TextureRect" parent="." unique_id=267885272]
+unique_name_in_owner = true
+visible = false
+offset_right = 1280.0
+offset_bottom = 724.0
+texture = ExtResource("7_48c3q")
+
+[node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
+unique_name_in_owner = true
+visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
+environment = ExtResource("3_jdk7o")
+camera_attributes = SubResource("CameraAttributesPractical_dikcb")
+compositor = SubResource("Compositor_6q5ri")
+
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=112118215]
+data_directory = "res://terrain"
+material = SubResource("Terrain3DMaterial_whnal")
+assets = ExtResource("3_l4exj")
+collision_mask = 3
+show_checkered = true
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1296565829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92932, 14.1638565)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2065793896]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, 0, 0.818613, 0)
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=402964624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.818613, 0)
+shape = SubResource("BoxShape3D_dpvq1")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
+spawn_path = NodePath("..")
+script = ExtResource("6_48c3q")
+
+[node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
+sync_to_physics = false
+
+[node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("9_208ij")]
+transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.015951686, -16.09673, -0.7414937, -12.6781435)
+
+[node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
+transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 1.6629832, 0)
+
+[node name="DummyFish2" parent="." unique_id=1733787501 instance=ExtResource("10_jdk7o")]
+transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, -2.4290957, 1.6629832, 2.2921877)
+
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_jdk7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.241695, 0.7907195, -6.9669676)
+
+[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_w1g40")]
+unique_name_in_owner = true
+transform = Transform3D(0.19760604, 0, 0.98028153, 0, 1, 0, -0.98028153, 0, 0.19760604, -15.34955, -0.39877832, -10.846267)
+
+[node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("11_6igj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.526953, 2.0203068, -7.901272)
