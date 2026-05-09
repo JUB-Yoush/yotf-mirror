@@ -8,6 +8,7 @@ ambient_light_color = Color(0.7607843, 1, 0.91764706, 1)
 reflected_light_source = 1
 
 [node name="OrientationGimbalViewport" type="SubViewport" unique_id=264943065]
+own_world_3d = true
 transparent_bg = true
 
 [node name="orientation_gimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]

@@ -369,9 +369,9 @@ texture_progress = ExtResource("16_0tyfe")
 
 [node name="TopBorder" type="TextureRect" parent="CanvasLayer/HUD" unique_id=1703855884]
 layout_mode = 0
-offset_top = 64.0
+offset_top = 32.0
 offset_right = 1921.0
-offset_bottom = 325.0
+offset_bottom = 293.0
 scale = Vector2(0.66218966, 0.66218966)
 texture = ExtResource("17_0tyfe")
 
