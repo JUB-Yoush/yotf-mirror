@@ -8,13 +8,12 @@ ambient_light_color = Color(0.7607843, 1, 0.91764706, 1)
 reflected_light_source = 1
 
 [node name="OrientationGimbalViewport" type="SubViewport" unique_id=264943065]
-own_world_3d = true
 transparent_bg = true
 
 [node name="orientation_gimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2002673002]
-transform = Transform3D(0.89996606, 0.009471409, 0.43585747, -0.12155646, 0.965567, 0.23000962, -0.41867107, -0.25998208, 0.87012875, 0.8142539, 0.587434, 1.7846951)
+transform = Transform3D(-0.9981348, 0.032801382, -0.051487852, 0, 0.8433914, 0.53729963, 0.061048582, 0.53629744, -0.84181833, -0.114, 0.939, -2.278)
 environment = SubResource("Environment_dh4so")
 current = true
 fov = 78.74999
