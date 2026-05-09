@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://sfudrnkvmvs8"]
+
+[ext_resource type="PackedScene" uid="uid://d32fu7pyar1p1" path="res://assets/3d/ui/orientation_gimbal.glb" id="1_dh4so"]
+
+[sub_resource type="Environment" id="Environment_dh4so"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="OrientationGimbalViewport" type="SubViewport" unique_id=264943065]
+transparent_bg = true
+
+[node name="orientation_gimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2002673002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9985144)
+environment = SubResource("Environment_dh4so")
+current = true
