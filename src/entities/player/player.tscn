@@ -207,20 +207,20 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
-[node name="HUD" type="Control" parent="." unique_id=1635351054]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1974037189]
+
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=1635351054]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 56.0
-offset_top = 8.0
-offset_right = 56.0
-offset_bottom = 8.0
+offset_left = 4.0
+offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_s7tg2")
 
-[node name="InventoryIcons" type="HBoxContainer" parent="HUD" unique_id=1681313407]
+[node name="InventoryIcons" type="HBoxContainer" parent="CanvasLayer/HUD" unique_id=1681313407]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 784.0
@@ -230,158 +230,158 @@ offset_bottom = 831.0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/separation = 12
 
-[node name="Slot0" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=831449631]
+[node name="Slot0" type="VBoxContainer" parent="CanvasLayer/HUD/InventoryIcons" unique_id=831449631]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HUD/InventoryIcons/Slot0" unique_id=1798945951]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/InventoryIcons/Slot0" unique_id=1798945951]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 
-[node name="0" type="TextureRect" parent="HUD/InventoryIcons/Slot0/PanelContainer" unique_id=1377114969]
+[node name="0" type="TextureRect" parent="CanvasLayer/HUD/InventoryIcons/Slot0/PanelContainer" unique_id=1377114969]
 layout_mode = 2
 texture = ExtResource("11_3c4mh")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot0" unique_id=1377344750]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/InventoryIcons/Slot0" unique_id=1377344750]
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 bbcode_enabled = true
 text = "[center][b]1"
 fit_content = true
 
-[node name="Slot1" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=1639420742]
+[node name="Slot1" type="VBoxContainer" parent="CanvasLayer/HUD/InventoryIcons" unique_id=1639420742]
 layout_mode = 2
 
-[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot1" unique_id=1687642211]
+[node name="Border" type="PanelContainer" parent="CanvasLayer/HUD/InventoryIcons/Slot1" unique_id=1687642211]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 
-[node name="1" type="TextureRect" parent="HUD/InventoryIcons/Slot1/Border" unique_id=421685572]
+[node name="1" type="TextureRect" parent="CanvasLayer/HUD/InventoryIcons/Slot1/Border" unique_id=421685572]
 layout_mode = 2
 texture = ExtResource("11_3c4mh")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot1" unique_id=698928538]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/InventoryIcons/Slot1" unique_id=698928538]
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 bbcode_enabled = true
 text = "[center][b]2"
 fit_content = true
 
-[node name="Slot2" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=803945863]
+[node name="Slot2" type="VBoxContainer" parent="CanvasLayer/HUD/InventoryIcons" unique_id=803945863]
 layout_mode = 2
 
-[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot2" unique_id=1518707619]
+[node name="Border" type="PanelContainer" parent="CanvasLayer/HUD/InventoryIcons/Slot2" unique_id=1518707619]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 
-[node name="2" type="TextureRect" parent="HUD/InventoryIcons/Slot2/Border" unique_id=627804948]
+[node name="2" type="TextureRect" parent="CanvasLayer/HUD/InventoryIcons/Slot2/Border" unique_id=627804948]
 layout_mode = 2
 texture = ExtResource("10_kc3pt")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot2" unique_id=1416064377]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/InventoryIcons/Slot2" unique_id=1416064377]
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 bbcode_enabled = true
 text = "[center][b]3"
 fit_content = true
 
-[node name="Slot3" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=1690909609]
+[node name="Slot3" type="VBoxContainer" parent="CanvasLayer/HUD/InventoryIcons" unique_id=1690909609]
 layout_mode = 2
 
-[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot3" unique_id=2075906896]
+[node name="Border" type="PanelContainer" parent="CanvasLayer/HUD/InventoryIcons/Slot3" unique_id=2075906896]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 
-[node name="3" type="TextureRect" parent="HUD/InventoryIcons/Slot3/Border" unique_id=372016950]
+[node name="3" type="TextureRect" parent="CanvasLayer/HUD/InventoryIcons/Slot3/Border" unique_id=372016950]
 layout_mode = 2
 texture = ExtResource("10_o0m41")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot3" unique_id=949372511]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/InventoryIcons/Slot3" unique_id=949372511]
 layout_mode = 2
 theme = ExtResource("10_n7e5a")
 bbcode_enabled = true
 text = "[center][b]4"
 fit_content = true
 
-[node name="DebugPanel" type="Panel" parent="HUD" unique_id=255583099]
+[node name="DebugPanel" type="Panel" parent="CanvasLayer/HUD" unique_id=255583099]
 custom_minimum_size = Vector2(256, 128)
 layout_mode = 0
-offset_left = 1.0
-offset_top = 68.0
-offset_right = 268.0
-offset_bottom = 196.0
+offset_left = -4.0
+offset_right = 263.0
+offset_bottom = 128.0
 
-[node name="OxygenLabel" type="Label" parent="HUD/DebugPanel" unique_id=930209256]
+[node name="OxygenLabel" type="Label" parent="CanvasLayer/HUD/DebugPanel" unique_id=930209256]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Oxygen:"
 
-[node name="BatteryLabel" type="Label" parent="HUD/DebugPanel" unique_id=182572895]
+[node name="BatteryLabel" type="Label" parent="CanvasLayer/HUD/DebugPanel" unique_id=182572895]
 layout_mode = 0
 offset_top = 24.0
 offset_right = 63.0
 offset_bottom = 47.0
 text = "Battery:"
 
-[node name="PhotoLabel" type="Label" parent="HUD/DebugPanel" unique_id=556948804]
+[node name="PhotoLabel" type="Label" parent="CanvasLayer/HUD/DebugPanel" unique_id=556948804]
 layout_mode = 0
 offset_top = 46.0
 offset_right = 63.0
 offset_bottom = 69.0
 text = "Photo Score:"
 
-[node name="MoneyLabel" type="Label" parent="HUD/DebugPanel" unique_id=1064315356]
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/HUD/DebugPanel" unique_id=1064315356]
 layout_mode = 0
 offset_top = 68.0
 offset_right = 98.0
 offset_bottom = 91.0
 text = "Money: 0000"
 
-[node name="HealthOxygenBars" type="VBoxContainer" parent="HUD" unique_id=113882728]
+[node name="HealthOxygenBars" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=113882728]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 736.0
+offset_left = 780.0
 offset_top = 32.0
-offset_right = 1361.0
+offset_right = 1405.0
 offset_bottom = 147.0
 scale = Vector2(0.75, 0.75)
 theme_override_constants/separation = 12
 
-[node name="HealthBar" type="TextureProgressBar" parent="HUD/HealthOxygenBars" unique_id=1457280117]
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer/HUD/HealthOxygenBars" unique_id=1457280117]
 layout_mode = 2
 value = 100.0
 fill_mode = 1
 texture_under = ExtResource("13_p2qdy")
 texture_progress = ExtResource("14_lqdhu")
 
-[node name="OxygenBar" type="TextureProgressBar" parent="HUD/HealthOxygenBars" unique_id=724040035]
+[node name="OxygenBar" type="TextureProgressBar" parent="CanvasLayer/HUD/HealthOxygenBars" unique_id=724040035]
 layout_mode = 2
 value = 100.0
 fill_mode = 1
 texture_under = ExtResource("15_yi0df")
 texture_progress = ExtResource("16_0tyfe")
 
-[node name="TopBorder" type="TextureRect" parent="HUD" unique_id=1703855884]
+[node name="TopBorder" type="TextureRect" parent="CanvasLayer/HUD" unique_id=1703855884]
 layout_mode = 0
-offset_top = 91.0
+offset_top = 64.0
 offset_right = 1921.0
-offset_bottom = 352.0
-scale = Vector2(0.635548, 0.635548)
+offset_bottom = 325.0
+scale = Vector2(0.66218966, 0.66218966)
 texture = ExtResource("17_0tyfe")
 
-[node name="OrientationGimbal" type="SubViewportContainer" parent="HUD" unique_id=1149182386]
+[node name="OrientationGimbal" type="SubViewportContainer" parent="CanvasLayer/HUD" unique_id=1483013036]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = -56.0
-offset_top = 480.00003
-offset_right = 456.0
-offset_bottom = 992.0
-scale = Vector2(0.45564508, 0.45564508)
+offset_left = 4.0
+offset_top = 464.0
+offset_right = 516.0
+offset_bottom = 976.0
+scale = Vector2(0.5, 0.5)
 
-[node name="OrientationGimbalViewport" parent="HUD/OrientationGimbal" unique_id=264943065 instance=ExtResource("18_ogtao")]
+[node name="OrientationGimbalViewport" parent="CanvasLayer/HUD/OrientationGimbal" unique_id=264943065 instance=ExtResource("18_ogtao")]
 handle_input_locally = false
 render_target_update_mode = 4
 
@@ -389,3 +389,4 @@ render_target_update_mode = 4
 script = ExtResource("8_tk761")
 
 [editable path="Skin"]
+[editable path="CanvasLayer/HUD/OrientationGimbal/OrientationGimbalViewport"]
