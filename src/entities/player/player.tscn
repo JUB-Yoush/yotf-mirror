@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
 [ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="10_s7tg2"]
+[ext_resource type="Shader" uid="uid://dyh7uf6hf22bw" path="res://src/shaders/fisheye2.gdshader" id="11_n7e5a"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -26,6 +27,10 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kc3pt"]
+shader = ExtResource("11_n7e5a")
+shader_parameter/effect_amount = 0.8000001567499999
 
 [node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody")]
 collision_layer = 2
@@ -157,5 +162,16 @@ text = "Money: 0000"
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1335728091]
+
+[node name="TextureRect" type="ColorRect" parent="CanvasLayer" unique_id=331977508]
+material = SubResource("ShaderMaterial_kc3pt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [editable path="Skin"]

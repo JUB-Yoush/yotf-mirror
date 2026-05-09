@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cgk7l4ybjl37y"]
 
 [ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/gadgets/photography/PhotoCamera.cs" id="1_3b58u"]
+[ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="2_r51j2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.32156864, 1, 1, 1)
@@ -29,3 +30,26 @@ fov = 50.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
 mesh = SubResource("BoxMesh_r51j2")
+
+[node name="HUD" type="Control" parent="." unique_id=1763352903]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FlashRect" type="ColorRect" parent="HUD" unique_id=612711677]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 280.0
+offset_top = 2.0
+offset_right = 992.0
+offset_bottom = 724.0
+
+[node name="PhotoLetterBox" type="TextureRect" parent="HUD" unique_id=787128395]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 724.0
+texture = ExtResource("2_r51j2")
