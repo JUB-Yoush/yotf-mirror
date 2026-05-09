@@ -67,8 +67,8 @@ public partial class Hud : Control
 
     public void RotateGimbalToCam()
     {
-        Vector3 targetRotation = new Vector3(Camera.GlobalRotation.X,OrientationGimbal.Rotation.Y, OrientationGimbal.Rotation.Z); //only rotate on X axis
-        OrientationGimbal.Rotation = -targetRotation;
-
+       
+        
+        OrientationGimbal.GlobalRotation = Camera.GlobalRotation;
     }
 }
