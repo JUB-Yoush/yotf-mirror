@@ -37,10 +37,10 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
+FirstPerson = true
 Skin = NodePath("Skin")
 Camera = NodePath("CameraManager/Camera3D")
 CollisionShapeBody = NodePath("CollisionShapeBody")
-FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
