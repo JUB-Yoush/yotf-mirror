@@ -8,8 +8,15 @@
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
+[ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="10_kc3pt"]
+[ext_resource type="Theme" uid="uid://b8jql4adc5yhp" path="res://assets/themes/hud_ui_items.tres" id="10_n7e5a"]
 [ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="10_s7tg2"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="11_3c4mh"]
+[ext_resource type="Texture2D" uid="uid://cc8ieg0tmq0l8" path="res://assets/2d/ui/hud_health_bar_border.tres" id="13_p2qdy"]
+[ext_resource type="Texture2D" uid="uid://ia0hslmcaehr" path="res://assets/2d/ui/hud_health_bar_fill.tres" id="14_lqdhu"]
+[ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/oxygen_bar_border.tres" id="15_yi0df"]
+[ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/oxygen_bar_fill.tres" id="16_0tyfe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -32,10 +39,10 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
-FirstPerson = true
 Skin = NodePath("Skin")
 Camera = NodePath("CameraManager/Camera3D")
 CollisionShapeBody = NodePath("CollisionShapeBody")
+FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18663, 0)
@@ -94,6 +101,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_s7tg2")
@@ -101,24 +112,88 @@ script = ExtResource("10_s7tg2")
 [node name="InventoryIcons" type="HBoxContainer" parent="HUD" unique_id=1681313407]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 744.0
+offset_top = 504.0
+offset_right = 1580.0
+offset_bottom = 775.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 12
 
-[node name="0" type="TextureRect" parent="HUD/InventoryIcons" unique_id=1377114969]
+[node name="Slot0" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=831449631]
+layout_mode = 2
+
+[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot0" unique_id=1798945951]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+
+[node name="0" type="TextureRect" parent="HUD/InventoryIcons/Slot0/Border" unique_id=1377114969]
+layout_mode = 2
+texture = ExtResource("11_3c4mh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot0" unique_id=1377344750]
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+bbcode_enabled = true
+text = "[center][b]1"
+fit_content = true
+
+[node name="Slot1" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=1639420742]
+layout_mode = 2
+
+[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot1" unique_id=1687642211]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+
+[node name="1" type="TextureRect" parent="HUD/InventoryIcons/Slot1/Border" unique_id=421685572]
+layout_mode = 2
+texture = ExtResource("11_3c4mh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot1" unique_id=698928538]
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+bbcode_enabled = true
+text = "[center][b]2"
+fit_content = true
+
+[node name="Slot2" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=803945863]
+layout_mode = 2
+
+[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot2" unique_id=1518707619]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+
+[node name="2" type="TextureRect" parent="HUD/InventoryIcons/Slot2/Border" unique_id=627804948]
+layout_mode = 2
+texture = ExtResource("10_kc3pt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot2" unique_id=1416064377]
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+bbcode_enabled = true
+text = "[center][b]3"
+fit_content = true
+
+[node name="Slot3" type="VBoxContainer" parent="HUD/InventoryIcons" unique_id=1690909609]
+layout_mode = 2
+
+[node name="Border" type="PanelContainer" parent="HUD/InventoryIcons/Slot3" unique_id=2075906896]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("10_n7e5a")
+
+[node name="3" type="TextureRect" parent="HUD/InventoryIcons/Slot3/Border" unique_id=372016950]
 layout_mode = 2
 texture = ExtResource("10_o0m41")
 
-[node name="1" type="TextureRect" parent="HUD/InventoryIcons" unique_id=733479815]
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/InventoryIcons/Slot3" unique_id=949372511]
 layout_mode = 2
-texture = ExtResource("10_o0m41")
-
-[node name="2" type="TextureRect" parent="HUD/InventoryIcons" unique_id=1564760502]
-layout_mode = 2
-texture = ExtResource("10_o0m41")
-
-[node name="3" type="TextureRect" parent="HUD/InventoryIcons" unique_id=380550003]
-layout_mode = 2
-texture = ExtResource("10_o0m41")
+theme = ExtResource("10_n7e5a")
+bbcode_enabled = true
+text = "[center][b]4"
+fit_content = true
 
 [node name="DebugPanel" type="Panel" parent="HUD" unique_id=255583099]
 custom_minimum_size = Vector2(256, 128)
@@ -154,6 +229,30 @@ offset_top = 68.0
 offset_right = 98.0
 offset_bottom = 91.0
 text = "Money: 0000"
+
+[node name="HealthOxygenBars" type="VBoxContainer" parent="HUD" unique_id=113882728]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 688.0
+offset_top = 32.0
+offset_right = 1313.0
+offset_bottom = 147.0
+scale = Vector2(0.75, 0.75)
+theme_override_constants/separation = 12
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/HealthOxygenBars" unique_id=1457280117]
+layout_mode = 2
+value = 100.0
+fill_mode = 1
+texture_under = ExtResource("13_p2qdy")
+texture_progress = ExtResource("14_lqdhu")
+
+[node name="OxygenBar" type="TextureProgressBar" parent="HUD/HealthOxygenBars" unique_id=724040035]
+layout_mode = 2
+value = 100.0
+fill_mode = 1
+texture_under = ExtResource("15_yi0df")
+texture_progress = ExtResource("16_0tyfe")
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
