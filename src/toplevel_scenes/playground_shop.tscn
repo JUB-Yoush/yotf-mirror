@@ -5,11 +5,11 @@
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
+[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_se6of"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="9_208ij"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_jdk7o"]
-[ext_resource type="PackedScene" uid="uid://oav35ivnfew0" path="res://src/entities/fish/dummy_fish.tscn" id="10_jdk7o"]
 [ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="11_6igj1"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_dikcb"]
@@ -123,14 +123,13 @@ script = ExtResource("6_48c3q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
 sync_to_physics = false
 
+[node name="Fish2" parent="." unique_id=523272719 instance=ExtResource("8_208ij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29161, 2.5232933, 5.269432)
+sync_to_physics = false
+Profile = ExtResource("7_se6of")
+
 [node name="TrenchbroomTest" parent="." unique_id=1680750340 instance=ExtResource("9_208ij")]
 transform = Transform3D(0.015951686, 0, -0.99987286, 0, 1, 0, 0.99987286, 0, 0.015951686, -16.09673, -0.7414937, -12.6781435)
-
-[node name="DummyFish" parent="." unique_id=1624275218 instance=ExtResource("10_jdk7o")]
-transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, 0, 1.6629832, 0)
-
-[node name="DummyFish2" parent="." unique_id=1733787501 instance=ExtResource("10_jdk7o")]
-transform = Transform3D(0.68631357, 0, -0.72730577, 0, 1, 0, 0.72730577, 0, 0.68631357, -2.4290957, 1.6629832, 2.2921877)
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_jdk7o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.241695, 0.7907195, -6.9669676)
