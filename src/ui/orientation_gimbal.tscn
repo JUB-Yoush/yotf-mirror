@@ -11,7 +11,7 @@ reflected_light_source = 1
 own_world_3d = true
 transparent_bg = true
 
-[node name="orientation_gimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
+[node name="OrientationGimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2002673002]
 transform = Transform3D(-0.9981348, 0.032801382, -0.051487852, 0, 0.8433914, 0.53729963, 0.061048582, 0.53629744, -0.84181833, -0.114, 0.939, -2.278)
