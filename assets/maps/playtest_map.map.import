@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://dxphxqdsappyh"
+path="res://.godot/imported/playtest_map.map-d0f12521c442a5f208a873973cf56cfa.tres"
+
+[deps]
+
+source_file="res://assets/maps/playtest_map.map"
+dest_files=["res://.godot/imported/playtest_map.map-d0f12521c442a5f208a873973cf56cfa.tres"]
+
+[params]
+
