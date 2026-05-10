@@ -368,8 +368,6 @@ texture_progress = ExtResource("14_lqdhu")
 
 [node name="BatteryBar" type="TextureProgressBar" parent="CanvasLayer/HUD/BatteryOxygenBars" unique_id=724040035]
 layout_mode = 2
-value = 100.0
-fill_mode = 1
 texture_under = ExtResource("15_yi0df")
 texture_progress = ExtResource("16_0tyfe")
 

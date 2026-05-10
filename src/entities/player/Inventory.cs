@@ -9,8 +9,9 @@ public partial class Inventory : Node3D
     const int Capacity = 4;
     private int currentIndex = 0;
 
+    public Hud? playerHUD;
 
-    public Hud playerHUD;
+    //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     private Item?[] InventoryArr
     {
         get
@@ -24,7 +25,6 @@ public partial class Inventory : Node3D
 
     public override void _Ready()
     {
-      
         playerHUD = GetNode<Hud>("%HUD");
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
@@ -35,37 +35,32 @@ public partial class Inventory : Node3D
     {
         if (@event.IsActionPressed("set_item_1"))
         {
-          
             SetCurrentItem(0);
         }
         else if (@event.IsActionPressed("set_item_2"))
         {
-         
             SetCurrentItem(1);
         }
         else if (@event.IsActionPressed("set_item_3"))
         {
-         
             SetCurrentItem(2);
         }
         else if (@event.IsActionPressed("set_item_4"))
         {
-           
             SetCurrentItem(3);
         }
     }
 
     private void SetCurrentItem(int index)
     {
-        playerHUD.SelectSlot(index);
+        playerHUD?.SelectSlot(index);
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
-    
+
         ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
-        
     }
 
     private void ClearItems(int notThisOne = -1)
@@ -75,7 +70,7 @@ public partial class Inventory : Node3D
             if (i == notThisOne)
                 continue;
             InventoryArr[i]?.Visible = false;
-            playerHUD.ClearSlots();
+            playerHUD?.ClearSlots();
             InventoryArr[i]?.CurrentItem = false;
         }
     }
@@ -87,8 +82,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
-        playerHUD.SetItemSlot(currentIndex, item.Icon);
-      
+        playerHUD?.SetItemSlot(currentIndex, item.Icon);
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -101,8 +95,8 @@ public partial class Inventory : Node3D
         item.Name = index.ToString();
         item.InInventory = true;
         AddChild(item);
-      
-          playerHUD.SetItemSlot(index, item.Icon);
+
+        playerHUD?.SetItemSlot(index, item.Icon);
     }
 
     public void RemoveItem(int index)
