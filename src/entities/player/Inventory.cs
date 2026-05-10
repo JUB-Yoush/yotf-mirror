@@ -8,7 +8,10 @@ public partial class Inventory : Node3D
 {
     const int Capacity = 4;
     private int currentIndex = 0;
-    private HBoxContainer Icons = null!;
+
+    public Hud? playerHUD;
+
+    //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     private Item?[] InventoryArr
     {
         get
@@ -22,7 +25,7 @@ public partial class Inventory : Node3D
 
     public override void _Ready()
     {
-        Icons = GetParent().GetNode<HBoxContainer>("HUD/InventoryIcons");
+        playerHUD = GetNode<Hud>("%HUD");
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
         SetCurrentItem(0);
@@ -50,11 +53,12 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
+        playerHUD?.SelectSlot(index);
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
-        Icons.GetChild<TextureRect>(currentIndex).Modulate = Color.Color8(255, 255, 255);
+
         ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
     }
@@ -66,7 +70,7 @@ public partial class Inventory : Node3D
             if (i == notThisOne)
                 continue;
             InventoryArr[i]?.Visible = false;
-            Icons.GetChild<TextureRect>(i).Modulate = Color.Color8(64, 46, 46);
+            playerHUD?.ClearSlots();
             InventoryArr[i]?.CurrentItem = false;
         }
     }
@@ -78,7 +82,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
-        Icons.GetChild<TextureRect>(currentIndex).Texture = item.Icon;
+        playerHUD?.SetItemSlot(currentIndex, item.Icon);
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -91,7 +95,8 @@ public partial class Inventory : Node3D
         item.Name = index.ToString();
         item.InInventory = true;
         AddChild(item);
-        Icons.GetChild<TextureRect>(index).Texture = item.Icon;
+
+        playerHUD?.SetItemSlot(index, item.Icon);
     }
 
     public void RemoveItem(int index)
