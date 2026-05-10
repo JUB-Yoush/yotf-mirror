@@ -25,6 +25,9 @@ addons/func_godot/func_godot_local_config.tres
 # VScode Generated Files
 .vs/2026-YOTF/CopilotIndices
 
+# EVERYTHING
+.vs/
+
 # User-specific files
 *.rsuser
 *.suo
