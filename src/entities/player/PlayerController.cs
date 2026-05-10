@@ -52,8 +52,6 @@ public partial class PlayerController : CharacterBody3D
     private bool firstPerson = false;
 
     private SpringArm3D springArm = null!;
-  
-  
 
     [Export]
     public bool FirstPerson
@@ -137,7 +135,6 @@ public partial class PlayerController : CharacterBody3D
         //ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
 
         springArm = GetNode<SpringArm3D>("CameraManager/Arm");
-     
 
         if (IsMultiplayerAuthority())
         {

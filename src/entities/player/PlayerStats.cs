@@ -15,7 +15,7 @@ public partial class PlayerStats : Node
         {
             field = Math.Max(value, 0);
             playerHud?.OxygenLabel?.Text = $"O2: {value}/{maxOxygen}";
-            playerHud.SetOxygen(value);
+            playerHud?.SetOxygen(value);
         }
     }
     public float Battery
@@ -25,7 +25,7 @@ public partial class PlayerStats : Node
         {
             field = Math.Max(value, 0);
             playerHud?.BatteryLabel?.Text = $"Battery: {value}/{maxBattery}";
-            playerHud.SetBattery(value);
+            playerHud?.SetBattery(value);
         }
     }
     public int Money
@@ -50,8 +50,8 @@ public partial class PlayerStats : Node
     public override void _Ready()
     {
         playerHud = GetNode<Hud>("%HUD");
-       playerHud.OxygenBar.MaxValue = maxOxygen;
-       playerHud.BatteryBar.MaxValue = maxBattery;
+        playerHud.OxygenBar.MaxValue = maxOxygen;
+        playerHud.BatteryBar.MaxValue = maxBattery;
         Oxygen = maxOxygen;
         Battery = maxBattery;
         Money = 100;
