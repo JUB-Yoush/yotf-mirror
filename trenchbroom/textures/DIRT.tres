@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://cp3omck6wotd7"]
-
-[ext_resource type="Texture2D" uid="uid://c5aidw7igumfi" path="res://trenchbroom/textures/DIRTHEXAGONS.png" id="1_ukun0"]
-
-[resource]
-albedo_texture = ExtResource("1_ukun0")
-metallic_specular = 0.0
-texture_filter = 2

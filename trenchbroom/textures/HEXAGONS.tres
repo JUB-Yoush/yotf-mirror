@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://boswgj2hn1ihx"]
-
-[ext_resource type="Texture2D" path="res://textures/textures/HEXAGONS.png" id="1_o4cg1"]
-
-[resource]
-albedo_texture = ExtResource("1_o4cg1")
-metallic_specular = 0.0
-texture_filter = 2
