@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bc857ys4bev7x" path="res://trenchbroom/textures/CASTLEBRICKS.png" id="3_nixgk"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="3_pbqa7"]
 [ext_resource type="Material" uid="uid://cp3omck6wotd7" path="res://trenchbroom/textures/DIRT.tres" id="4_4nyqe"]
-[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="4_k5wr2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63jcf"]
 albedo_texture = ExtResource("3_nixgk")
@@ -2523,5 +2522,3 @@ shape = SubResource("ConvexPolygonShape3D_s2osy")
 
 [node name="entity_0_brush_412_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn" unique_id=1022974547]
 shape = SubResource("ConvexPolygonShape3D_vwnvj")
-
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_k5wr2")]
