@@ -312,6 +312,7 @@ text = "[center][b]4"
 fit_content = true
 
 [node name="DebugPanel" type="Panel" parent="HudLayer/HUD" unique_id=255583099]
+visible = false
 custom_minimum_size = Vector2(256, 128)
 layout_mode = 0
 offset_left = -4.0
