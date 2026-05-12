@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c6257dw3w6ruk"]
+[gd_scene format=3 uid="uid://rhd2yy66g8ck"]
 
 [ext_resource type="PackedScene" uid="uid://d3tcs1jy7j86u" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="2_swlc7"]
@@ -63,27 +63,27 @@ volumetric_fog_albedo = Color(0.45892245, 0.7613617, 0.99999994, 1)
 
 [sub_resource type="Compositor" id="Compositor_5pbbh"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i5ocd"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i3xn1"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oxt34"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_odjcq"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_i5ocd")
+noise = SubResource("FastNoiseLite_i3xn1")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3xn1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fleds"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_oxt34")
+refraction_texture = SubResource("NoiseTexture2D_odjcq")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -106,7 +106,7 @@ compositor = SubResource("Compositor_5pbbh")
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25357056)
 size = Vector3(179.90964, 54.046265, 163.19116)
-material = SubResource("StandardMaterial3D_i3xn1")
+material = SubResource("StandardMaterial3D_fleds")
 
 [node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.679573, -4.078208, 42.388382)
