@@ -4,8 +4,8 @@ namespace Yotf;
 
 public partial class CameraManager : Node3D
 {
-    private const float CameraMaxPitch = 70.0f * Mathf.Pi / 180.0f;
-    private const float CameraMinPitch = -89.9f * Mathf.Pi / 180.0f;
+    private const float CameraMaxPitch = 70.0f * Mathf.Pi / 180f;
+    private const float CameraMinPitch = -89.9f * Mathf.Pi / 180f;
     private const float CameraRatio = 0.625f;
 
     [Export]

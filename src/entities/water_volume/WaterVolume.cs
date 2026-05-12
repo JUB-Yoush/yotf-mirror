@@ -1,4 +1,6 @@
+using System;
 using Godot;
+using Yotf;
 
 [Tool]
 public partial class WaterVolume : CsgBox3D
@@ -31,7 +33,30 @@ public partial class WaterVolume : CsgBox3D
         _waterRippleOverlay = GetNode<TextureRect>("%WaterRippleOverlay");
         _collisionShape = GetNodeOrNull<CollisionShape3D>("%CollisionShape3D");
 
+        _swimmableArea.BodyEntered += OnBodyEntered;
+        _swimmableArea.BodyExited += OnBodyExited;
+
         ProcessPriority = 999;
+    }
+
+    private void OnBodyExited(Node3D body)
+    {
+        if (Engine.IsEditorHint()) //TODO(j) does this need to be here?
+            return;
+        if (body is PlayerController player)
+        {
+            player.SetState(new WalkingState());
+        }
+    }
+
+    private void OnBodyEntered(Node3D body)
+    {
+        if (Engine.IsEditorHint())
+            return;
+        if (body is PlayerController player)
+        {
+            player.SetState(new SwimmingState());
+        }
     }
 
     public override void _Process(double delta)

@@ -210,7 +210,7 @@ public partial class PhotoCamera : Item
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
-        photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     [Rpc(
@@ -231,7 +231,7 @@ public partial class PhotoCamera : Item
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
-        photoTerminal.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     public void ClearPhotos()

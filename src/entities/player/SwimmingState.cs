@@ -30,12 +30,18 @@ public class SwimmingState : IPlayerState
         swimYaw -= yawInput * player.SwimRotationSpeed * delta;
         swimPitch -= pitchInput * player.SwimRotationSpeed * delta;
 
-        player.UpdateBodyRotation(new Vector3(swimPitch, swimYaw, 0f));
+        //player.UpdateBodyRotation(new Vector3(swimPitch, swimYaw, 0f));
 
         if (Input.IsActionPressed("move_modifier"))
-            player.Velocity = player.Skin.GlobalTransform.Basis.Y * player.SwimSpeed;
+            player.Velocity = -player.Camera.GlobalTransform.Basis.Z * player.SwimSpeed;
         else
             player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
+
+        if (Input.IsActionJustPressed("pickup"))
+        {
+            GD.Print("woosh");
+            player.Velocity = player.Velocity with { Y = player.Velocity.Y + 5 };
+        }
 
         player.MoveAndSlide();
     }
