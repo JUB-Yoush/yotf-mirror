@@ -61,6 +61,7 @@ public partial class Inventory : Node3D
 
         ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
+        
     }
 
     private void ClearItems(int notThisOne = -1)
