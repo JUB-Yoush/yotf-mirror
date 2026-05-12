@@ -92,6 +92,9 @@ uv1_world_triplanar = true
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("3_swlc7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.97566, 9.961393, 49.262794)
 
+[node name="Stats" parent="Player" index="8" unique_id=1554359426]
+OxygenUseRate = 3.0
+
 [node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
 
