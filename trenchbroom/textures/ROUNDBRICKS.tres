@@ -1,8 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://b56a67rywpg78"]
-
-[ext_resource type="Texture2D" path="res://textures/textures/ROUNDBRICKS.png" id="1_3ndu5"]
-
-[resource]
-albedo_texture = ExtResource("1_3ndu5")
-metallic_specular = 0.0
-texture_filter = 2

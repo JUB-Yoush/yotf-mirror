@@ -5,5 +5,14 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>yotf</RootNamespace>
     <Nullable>enable</Nullable>
+    <WarningsAsErrors>CS9057</WarningsAsErrors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Chickensoft.AutoInject" Version="2.13.0" />
+    <PackageReference Include="Chickensoft.AutoInject.Analyzers" Version="2.13.0" />
+    <PackageReference Include="Chickensoft.GodotNodeInterfaces" Version="3.0.12" />
+    <PackageReference Include="Chickensoft.Introspection" Version="3.0.2" />
+    <PackageReference Include="Chickensoft.Introspection.Generator" Version="3.0.2" />
+  </ItemGroup>
 </Project>

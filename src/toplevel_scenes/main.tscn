@@ -1,65 +1,118 @@
 [gd_scene format=3 uid="uid://rhd2yy66g8ck"]
 
-[ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_hg07v"]
-[ext_resource type="Script" uid="uid://cx422dk5tfjbm" path="res://src/toplevel_scenes/Main.cs" id="1_i5ocd"]
-[ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="1_sti5w"]
-[ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="2_wvscp"]
-[ext_resource type="Texture2D" uid="uid://cquihgucxirat" path="res://assets/2d/greybox/texture_08.png" id="3_wvscp"]
-[ext_resource type="PackedScene" path="res://src/entities/player.tscn" id="4_hptvl"]
-[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="6_60ht2"]
-[ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="7_mln63"]
+[ext_resource type="PackedScene" uid="uid://d3tcs1jy7j86u" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
+[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="2_swlc7"]
+[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="3_swlc7"]
+[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="4_5o53v"]
+[ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="5_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
+[ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_i5ocd"]
+[ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_oxt34"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hptvl"]
-albedo_texture = ExtResource("3_wvscp")
-uv1_scale = Vector3(20, 20, 20)
+[sub_resource type="Gradient" id="Gradient_i584b"]
+offsets = PackedFloat32Array(0, 0.60571426)
 
-[sub_resource type="BoxMesh" id="BoxMesh_hg07v"]
-material = SubResource("StandardMaterial3D_hptvl")
-size = Vector3(50, 1, 50)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_chbgi"]
+gradient = SubResource("Gradient_i584b")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wvscp"]
-size = Vector3(50, 1, 50)
+[sub_resource type="Gradient" id="Gradient_i5ocd"]
+offsets = PackedFloat32Array(0, 0.27)
 
-[node name="Main" type="Node3D" unique_id=233240928]
-script = ExtResource("1_i5ocd")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oxt34"]
+noise_type = 0
+frequency = 0.1958
 
-[node name="Player" parent="." unique_id=345471296 instance=ExtResource("4_hptvl")]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kxr3f"]
+noise = SubResource("FastNoiseLite_oxt34")
+color_ramp = SubResource("Gradient_i5ocd")
+in_3d_space = true
 
-[node name="FlashRect" type="ColorRect" parent="." unique_id=572303661]
-visible = false
-offset_left = 140.0
-offset_top = 2.0
-offset_right = 496.0
-offset_bottom = 363.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3xn1"]
+shader = ExtResource("4_5o53v")
+shader_parameter/top_color = Color(0.21568628, 1, 1, 1)
+shader_parameter/bottom_color = Color(0.79363036, 0.49174154, 0.82328445, 1)
+shader_parameter/gradient_curve = SubResource("GradientTexture1D_chbgi")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kxr3f")
+shader_parameter/moon_texture = ExtResource("5_tjs3j")
+shader_parameter/moon_direction = Vector3(1, 1.57, 0)
+shader_parameter/moon_size = -0.11
 
-[node name="PhotoLetterBox" type="TextureRect" parent="." unique_id=1583596595]
-visible = false
-offset_right = 640.0
-offset_bottom = 362.0
-texture = ExtResource("1_sti5w")
+[sub_resource type="Sky" id="Sky_irf28"]
+sky_material = SubResource("ShaderMaterial_i3xn1")
+radiance_size = 1
 
-[node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_hg07v")]
+[sub_resource type="Environment" id="Environment_odjcq"]
+background_mode = 2
+sky = SubResource("Sky_irf28")
+ambient_light_color = Color(0.89182, 0.823486, 0.863812, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 1.8
+tonemap_white = 2.18
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.404663, 0.432653, 0.82572, 1)
+fog_aerial_perspective = 0.5
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0.45892245, 0.7613617, 0.99999994, 1)
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=530622445]
-_spawnable_scenes = PackedStringArray("uid://b8mpgc44w7eds")
-spawn_path = NodePath("..")
-script = ExtResource("2_wvscp")
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fleds"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=736014823]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70990705, 0)
+[sub_resource type="Compositor" id="Compositor_5pbbh"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=360210743]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0011806488, 0.024793625, -0.008041382)
-mesh = SubResource("BoxMesh_hg07v")
-skeleton = NodePath("../..")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i3xn1"]
+resource_local_to_scene = true
+noise_type = 2
+frequency = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=528253499]
-shape = SubResource("BoxShape3D_wvscp")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_odjcq"]
+resource_local_to_scene = true
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_i3xn1")
+seamless = true
+as_normal_map = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=791036850]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fleds"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
+roughness = 0.0
+refraction_texture = SubResource("NoiseTexture2D_odjcq")
+uv1_triplanar = true
+uv1_world_triplanar = true
 
-[node name="Fish" parent="." unique_id=19108540 instance=ExtResource("6_60ht2")]
-transform = Transform3D(0.48632792, 0.68081033, -0.54770654, -0.4520345, 0.7324597, 0.509085, 0.74776334, 0, 0.6639654, 0, 1.9390202, -7.1297417)
+[node name="Main" type="Node3D" unique_id=1358548990]
 
-[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("7_mln63")]
-transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, -8, 0, -7)
+[node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
+
+[node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
+transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
+
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("3_swlc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.97566, 9.961393, 49.262794)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=788322636]
+environment = SubResource("Environment_odjcq")
+camera_attributes = SubResource("CameraAttributesPractical_fleds")
+compositor = SubResource("Compositor_5pbbh")
+
+[node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25357056)
+size = Vector3(179.90964, 54.046265, 163.19116)
+material = SubResource("StandardMaterial3D_fleds")
+
+[node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.679573, -4.078208, 42.388382)
+
+[node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("8_oxt34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.026302)
+
+[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_i5ocd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.562508, 9.639704, 45.41971)
