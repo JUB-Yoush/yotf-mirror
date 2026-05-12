@@ -4,9 +4,6 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Godot;
-using Vector2 = Godot.Vector2;
-using Vector3 = Godot.Vector3;
 
 namespace Yotf;
 
@@ -26,8 +23,7 @@ public partial class PhotoCamera : Item
     private Camera3D camera = null!;
     private TextureRect photoLetterBox = null!;
     private ColorRect flashRect = null!;
-    private PhotoTerminal photoTerminal = null!;
-    private Control netUI = null!;
+    private PhotoTerminal? photoTerminal = null;
     private Camera3D photoCamera = null!;
     private SubViewport photoViewport = null!;
     private MeshInstance3D mesh = null!;
@@ -45,10 +41,9 @@ public partial class PhotoCamera : Item
         ItemName = "camera";
         player = GetParent().GetParent<PlayerController>();
         camera = player.GetNode<Camera3D>("%Camera3D");
-        photoLetterBox ??= GetTree().CurrentScene.GetNode<TextureRect>("%PhotoLetterBox");
-        flashRect ??= GetTree().CurrentScene.GetNode<ColorRect>("%FlashRect");
-        photoTerminal ??= GetTree().CurrentScene.GetNode<PhotoTerminal>("%PhotoTerminal");
-        netUI ??= GetTree().CurrentScene.GetNode<Control>("%NetUi");
+        photoLetterBox = GetNode<TextureRect>("%PhotoLetterBox");
+        flashRect ??= GetNode<ColorRect>("%FlashRect");
+        photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
         photoViewport = GetNode<SubViewport>("SubViewport");
         photoCamera = photoViewport.GetNode<Camera3D>("PhotoCamera");
         photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;

@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="4_6igj1"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="4_kksva"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
-[ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="7_48c3q"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="9_208ij"]
@@ -150,21 +149,6 @@ albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 refraction_texture = SubResource("NoiseTexture2D_6igj1")
 
 [node name="Main" type="Node3D" unique_id=1686587910]
-
-[node name="FlashRect" type="ColorRect" parent="." unique_id=1920206062]
-unique_name_in_owner = true
-visible = false
-offset_left = 280.0
-offset_top = 2.0
-offset_right = 992.0
-offset_bottom = 724.0
-
-[node name="PhotoLetterBox" type="TextureRect" parent="." unique_id=267885272]
-unique_name_in_owner = true
-visible = false
-offset_right = 1280.0
-offset_bottom = 724.0
-texture = ExtResource("7_48c3q")
 
 [node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
 unique_name_in_owner = true
