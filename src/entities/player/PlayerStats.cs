@@ -91,6 +91,6 @@ public partial class PlayerStats : Node
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
         fadeRect.Visible = true;
         var tween = CreateTween();
-        tween.TweenProperty(fadeRect, "color", new Color(0, 0, 0, 1), 1f);
+        tween.TweenProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
     }
 }

@@ -59,12 +59,14 @@ public partial class PhotoCamera : Item
         if (@event.IsActionPressed("look_cam"))
         {
             photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            player.IsInMenu = true;
             aiming = true;
         }
 
         if (@event.IsActionReleased("look_cam"))
         {
             photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            player.IsInMenu = false;
             aiming = false;
         }
 
