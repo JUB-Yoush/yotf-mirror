@@ -72,12 +72,12 @@ public partial class ShopUI : Control
         switch (upgrade.upgrade)
         {
             case ShopItem.Upgrade.Oxygen:
-                player.maxOxygen += 25;
-                player.Oxygen = player.maxOxygen;
+                player.MaxOxygen += 25;
+                player.Oxygen = player.MaxOxygen;
                 break;
             case ShopItem.Upgrade.Battery:
-                player.maxBattery += 25;
-                player.Battery = player.maxBattery;
+                player.MaxBattery += 25;
+                player.Battery = player.MaxBattery;
                 break;
         }
 

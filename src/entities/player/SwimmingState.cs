@@ -6,18 +6,25 @@ public class SwimmingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Swimming;
 
+    PlayerStats Stats = null!;
+
     public void Enter(PlayerController player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
+        Stats = player.GetNode<PlayerStats>("Stats");
     }
 
     public void Exit(PlayerController player)
     {
+        Stats.Oxygen = Stats.MaxOxygen;
+        Stats.Battery = Stats.MaxBattery;
         player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
     }
 
     public void Update(PlayerController player, float delta)
     {
+        Stats.SpendOxygen(delta);
+
         player.UpdateBodyRotation(
             new Vector3(player.Camera.GlobalRotation.X, player.Camera.GlobalRotation.Y, 0f)
         );
@@ -38,12 +45,6 @@ public class SwimmingState : IPlayerState
             player.Velocity = moveDir.Normalized() * speed;
         else
             player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
-
-        if (Input.IsActionJustPressed("pickup"))
-        {
-            GD.Print("woosh");
-            player.Velocity = player.Velocity with { Y = player.Velocity.Y + 5 };
-        }
 
         player.MoveAndSlide();
     }
