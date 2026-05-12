@@ -56,6 +56,9 @@ public partial class PlayerStats : Node
         {
             field = value;
             playerHud?.MoneyLabel?.Text = $"Money: {value}";
+            var photoTerminal = GetTree()
+                .CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
+            photoTerminal.LabelText = $"{value:D6}";
         }
     }
     public int TotalGalleryScore

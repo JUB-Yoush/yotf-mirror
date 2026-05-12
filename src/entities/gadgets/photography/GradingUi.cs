@@ -93,6 +93,10 @@ public partial class GradingUi : Control
             viewedPhotos.Add(photo);
         }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
+        //photoTerminal.LabelText = $"{GalleryTotal:D6}";
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var stats = player.GetNode<PlayerStats>("Stats");
+        stats.Money += GalleryTotal;
     }
 
     private void MakeStyleLabel(string subject, string desc, double score)

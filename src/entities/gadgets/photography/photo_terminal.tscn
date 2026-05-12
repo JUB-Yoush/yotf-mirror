@@ -20,7 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20184231, 0.7002605)
 mesh = SubResource("BoxMesh_ymhpo")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1332949251]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.3733625, 0.53251576)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.5784397, 0.53251576)
 mesh = SubResource("PlaneMesh_u152m")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982160156]
@@ -35,3 +35,8 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1189111914]
 shape = SubResource("BoxShape3D_nbidk")
+
+[node name="ScoreLabel" type="Label3D" parent="." unique_id=1081763970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3096757, 0.62054265)
+pixel_size = 0.01
+text = "000000"

@@ -58,7 +58,6 @@ public partial class Inventory : Node3D
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
-
         ClearItems(currentIndex);
         InventoryArr[currentIndex]?.Enter();
     }
@@ -70,7 +69,6 @@ public partial class Inventory : Node3D
             if (i == notThisOne)
                 continue;
             InventoryArr[i]?.Visible = false;
-            playerHUD?.ClearSlots();
             InventoryArr[i]?.CurrentItem = false;
         }
     }
