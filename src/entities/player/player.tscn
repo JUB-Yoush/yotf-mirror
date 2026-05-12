@@ -366,7 +366,6 @@ theme_override_constants/separation = 12
 [node name="OxygenBar" type="TextureProgressBar" parent="CanvasLayer/HUD/BatteryOxygenBars" unique_id=1457280117]
 layout_mode = 2
 value = 100.0
-fill_mode = 1
 texture_under = ExtResource("13_p2qdy")
 texture_progress = ExtResource("14_lqdhu")
 
@@ -386,20 +385,36 @@ texture = ExtResource("17_0tyfe")
 [node name="OrientationGimbal" type="SubViewportContainer" parent="CanvasLayer/HUD" unique_id=1483013036]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 8.0
-offset_top = 454.0
-offset_right = 520.0
-offset_bottom = 966.0
+offset_left = 33.0
+offset_top = 498.0
+offset_right = 333.0
+offset_bottom = 798.0
 scale = Vector2(0.5, 0.5)
 
 [node name="OrientationGimbalViewport" parent="CanvasLayer/HUD/OrientationGimbal" unique_id=264943065 instance=ExtResource("18_ogtao")]
 handle_input_locally = false
+gui_disable_input = true
+size = Vector2i(300, 300)
 render_target_update_mode = 4
+
+[node name="Camera3D" parent="CanvasLayer/HUD/OrientationGimbal/OrientationGimbalViewport/Arm" parent_id_path=PackedInt32Array(264943065, 1634164095) index="0" unique_id=2002673002]
+transform = Transform3D(-0.9981348, 0.0328014, -0.05148791, 0.01285629, 0.9374173, 0.34797078, 0.05967958, 0.3466598, -0.9360905, 0.15148294, 1.0073153, -1.8825934)
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
+OxygenUseRate = 60.0
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
+
+[node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=8826863]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
 [node name="ColorRect" type="ColorRect" parent="FisheyeShader" unique_id=2030307240]
 material = SubResource("ShaderMaterial_5qgjf")

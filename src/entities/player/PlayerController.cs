@@ -46,7 +46,7 @@ public partial class PlayerController : CharacterBody3D
 
     [Export]
     public float SwimDamping = 2.0f;
-    
+
     [Export]
     public float SwimBoostMultiplier = 2.5f;
 
@@ -83,7 +83,15 @@ public partial class PlayerController : CharacterBody3D
 
     private bool collisionEnabled = true;
 
-    public bool IsInMenu = false;
+    public bool IsInMenu
+    {
+        get;
+        set
+        {
+            field = value;
+            GetNode<Hud>("%HUD").Visible = !field;
+        }
+    }
 
     [Export]
     public bool CollisionEnabled

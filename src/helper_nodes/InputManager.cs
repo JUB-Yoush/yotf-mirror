@@ -16,20 +16,23 @@ public partial class InputManager : Node
         }
     }
 
-    public override void _Input(InputEvent pEvent)
+    public override void _Input(InputEvent @event)
     {
-        if (pEvent.IsActionPressed("quit"))
+        if (@event.IsActionPressed("quit"))
         {
             GetTree().Quit();
             GetViewport().SetInputAsHandled();
         }
-        else if (pEvent.IsActionPressed("unfocus"))
+        else if (@event.IsActionPressed("unfocus"))
         {
             Input.SetMouseMode(Input.MouseModeEnum.Visible);
             GetViewport().SetInputAsHandled();
         }
 
-        if (pEvent is InputEventMouseButton mouseEvent && mouseEvent.Pressed && !player.IsInMenu)
+        if (@event.IsActionPressed("reload_scene"))
+            GetTree().ReloadCurrentScene();
+
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && !player.IsInMenu)
         {
             if (Input.MouseMode != Input.MouseModeEnum.Captured)
             {
@@ -49,7 +52,7 @@ public partial class InputManager : Node
             }
         }
 
-        if (pEvent is InputEventKey keyEvent && keyEvent.Pressed)
+        if (@event is InputEventKey keyEvent && keyEvent.Pressed)
         {
             switch (keyEvent.Keycode)
             {
