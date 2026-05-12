@@ -68,6 +68,12 @@ public partial class GradingUi : Control
 
     private void RenderPhotoGrade(int index)
     {
+        if (UploadedPhotos.Count == 0)
+        {
+            MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
+            return;
+        }
+
         styleLabels.RemoveAllChildren();
 
         var photo = UploadedPhotos[index];
