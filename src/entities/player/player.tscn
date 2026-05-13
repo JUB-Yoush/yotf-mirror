@@ -19,8 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud_battery_bar_fill.tres" id="16_0tyfe"]
 [ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud_top_border.tres" id="17_0tyfe"]
 [ext_resource type="PackedScene" uid="uid://sfudrnkvmvs8" path="res://src/ui/orientation_gimbal.tscn" id="18_ogtao"]
-[ext_resource type="Shader" uid="uid://bfim3l3rntjh2" path="res://src/shaders/fisheye2.gdshader" id="20_a31ob"]
 [ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/player/ProceduralAnimator.cs" id="21_5qgjf"]
+[ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
+[ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -37,10 +38,6 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qgjf"]
-shader = ExtResource("20_a31ob")
-shader_parameter/effect_amount = 0.9970001661075
 
 [node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody", "ProceduralAnimator")]
 collision_layer = 2
@@ -308,14 +305,37 @@ script = ExtResource("8_tk761")
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 
-[node name="ColorRect" type="ColorRect" parent="FisheyeShader" unique_id=2030307240]
-material = SubResource("ShaderMaterial_5qgjf")
+[node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
+unique_name_in_owner = true
+material = ExtResource("21_fjj3i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UnderwaterRect" type="ColorRect" parent="FisheyeShader" unique_id=788417647]
+unique_name_in_owner = true
+visible = false
+material = ExtResource("22_3d0mj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [editable path="SkrunkoSkin"]
 [editable path="CanvasLayer/HUD/OrientationGimbal/OrientationGimbalViewport"]
