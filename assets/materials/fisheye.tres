@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://xonfbeqeg7o"]
+
+[ext_resource type="Shader" uid="uid://bfim3l3rntjh2" path="res://src/shaders/fisheye2.gdshader" id="1_80be1"]
+
+[resource]
+shader = ExtResource("1_80be1")
+shader_parameter/effect_amount = 0.8000001567499999

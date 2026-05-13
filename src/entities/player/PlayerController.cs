@@ -83,7 +83,15 @@ public partial class PlayerController : CharacterBody3D
 
     private bool collisionEnabled = true;
 
-    public bool IsInMenu = false;
+    public bool IsInMenu
+    {
+        get;
+        set
+        {
+            field = value;
+            GetNode<Hud>("%HUD").Visible = !field;
+        }
+    }
 
     [Export]
     public bool CollisionEnabled

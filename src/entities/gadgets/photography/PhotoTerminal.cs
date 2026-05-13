@@ -8,12 +8,20 @@ public partial class PhotoTerminal : Node3D, IInteractable
 {
     private Mesh mesh = null!;
     public bool inShop = false;
+    private Label3D ScoreLabel = null!;
+    public int TotalGalleryScore = 0;
+    public string LabelText
+    {
+        get { return ScoreLabel?.Text; }
+        set { ScoreLabel?.Text = value; }
+    }
 
     private static readonly PackedScene GradingUI = GD.Load<PackedScene>("uid://b627ai4x06ylo");
 
     public override void _Ready()
     {
         mesh = GetNode<MeshInstance3D>("MeshInstance3D").Mesh;
+        ScoreLabel = GetNode<Label3D>("ScoreLabel");
     }
 
     void IInteractable.OnInteraction()

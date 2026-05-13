@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://rhd2yy66g8ck"]
 
 [ext_resource type="PackedScene" uid="uid://d3tcs1jy7j86u" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
+[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="1_oxt34"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="2_swlc7"]
-[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="3_swlc7"]
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="4_5o53v"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="5_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
@@ -89,14 +89,15 @@ uv1_world_triplanar = true
 
 [node name="Main" type="Node3D" unique_id=1358548990]
 
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("1_oxt34")]
+transform = Transform3D(-0.095915265, 0, 0.9953895, 0, 1, 0, -0.9953895, 0, -0.095915265, 49.20616, 9.35344, 49.096157)
+FirstPerson = false
+
 [node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
 
 [node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
-
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("3_swlc7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.97566, 9.961393, 49.262794)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=788322636]
 environment = SubResource("Environment_odjcq")
@@ -114,5 +115,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.679573, -4.078208, 42.3883
 [node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("8_oxt34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.026302)
 
+[node name="Fish2" parent="." unique_id=395791739 instance=ExtResource("7_i584b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.85927, -5.5024776, 40.79023)
+metadata/_edit_group_ = true
+
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_i5ocd")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.562508, 9.639704, 45.41971)

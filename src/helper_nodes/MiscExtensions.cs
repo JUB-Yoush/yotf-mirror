@@ -20,6 +20,17 @@ public static class MiscExtensions
                 tween.TweenCallback(Callable.From(action)).SetDelay(delay);
             }
         }
+
+        public void TweenProperty(Node node, StringName property, Variant value, float time)
+        {
+            tween.TweenProperty(node, property.ToString(), value, time);
+        }
+
+        public void TweenFn<T>(Action<T> action, T from, T to, float time)
+            where T : struct
+        {
+            tween.TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+        }
     }
 
     extension(Node node)
@@ -28,8 +39,6 @@ public static class MiscExtensions
 
         public void RemoveAllChildren()
         {
-            // for (int i = node.GetChildCount(); i > -1; i--)
-            //     node.GetChild(i).QueueFree();
             foreach (var child in node.GetChildren())
                 child.QueueFree();
         }

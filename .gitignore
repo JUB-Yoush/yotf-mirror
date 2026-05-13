@@ -25,6 +25,7 @@ assets/maps/autosave/
 
 # VScode Generated Files
 .vs/2026-YOTF/CopilotIndices
+2026-yotf.csproj.old*
 
 # EVERYTHING
 .vs/

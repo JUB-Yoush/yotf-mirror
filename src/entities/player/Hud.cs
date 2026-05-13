@@ -37,7 +37,6 @@ public partial class Hud : Control
         {
             InventoryIcons[i] = GetNode<TextureRect>($"%InventoryIcons/Slot{i}/Border/{i}");
         }
-
         OrientationGimbal = GetNode<Node3D>(
             "%OrientationGimbal/OrientationGimbalViewport/OrientationGimbal"
         );

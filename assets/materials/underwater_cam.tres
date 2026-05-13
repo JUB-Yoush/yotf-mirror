@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dnk7s4lc4mf3b"]
+
+[ext_resource type="Shader" uid="uid://by67bvlyrmxwi" path="res://assets/3d/environment/camera_water_overlay.gdshader" id="1_td0vi"]
+
+[resource]
+shader = ExtResource("1_td0vi")

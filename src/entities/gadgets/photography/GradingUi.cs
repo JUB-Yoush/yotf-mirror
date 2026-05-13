@@ -68,6 +68,12 @@ public partial class GradingUi : Control
 
     private void RenderPhotoGrade(int index)
     {
+        if (UploadedPhotos.Count == 0)
+        {
+            MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
+            return;
+        }
+
         styleLabels.RemoveAllChildren();
 
         var photo = UploadedPhotos[index];
@@ -93,6 +99,10 @@ public partial class GradingUi : Control
             viewedPhotos.Add(photo);
         }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
+        //photoTerminal.LabelText = $"{GalleryTotal:D6}";
+        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var stats = player.GetNode<PlayerStats>("Stats");
+        stats.Money += GalleryTotal;
     }
 
     private void MakeStyleLabel(string subject, string desc, double score)
