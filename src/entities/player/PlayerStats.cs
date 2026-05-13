@@ -7,7 +7,6 @@ public partial class PlayerStats : Node
 {
     private Hud playerHud = null!;
 
-    [Export]
     public float OxygenUseRate = 3f;
     public float MaxOxygen
     {
@@ -33,7 +32,6 @@ public partial class PlayerStats : Node
         set
         {
             field = Math.Clamp(value, 0, MaxOxygen);
-            playerHud?.OxygenLabel?.Text = $"O2: {value}/{MaxOxygen}";
             playerHud?.OxygenBar.Value = value;
             if (value == 0)
                 Drown();
@@ -86,6 +84,7 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
+        GD.Print(OxygenUseRate);
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 
