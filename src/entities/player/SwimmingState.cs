@@ -4,6 +4,9 @@ namespace Yotf;
 
 public class SwimmingState : IPlayerState
 {
+    public static readonly Material UnderwaterCameraMat = GD.Load<Material>(
+        "res://assets/materials/underwater_cam.tres"
+    );
     public PlayerState Type => PlayerState.Swimming;
 
     PlayerStats Stats = null!;
@@ -11,6 +14,7 @@ public class SwimmingState : IPlayerState
     public void Enter(PlayerController player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
+        var UnderwaterRect = player.GetNode<ColorRect>("%UnderwaterRect").Visible = true;
         Stats = player.GetNode<PlayerStats>("Stats");
     }
 
@@ -18,6 +22,7 @@ public class SwimmingState : IPlayerState
     {
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
+        var UnderwaterRect = player.GetNode<ColorRect>("%UnderwaterRect").Visible = false;
         player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
     }
 

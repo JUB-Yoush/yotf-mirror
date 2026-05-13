@@ -20,7 +20,7 @@ void fragment() {
     uv.x += cos(angle * rippleDensity + TIME * rippleSpeed) * rippleStrength * distance;
     uv.y += sin(angle * rippleDensity + TIME * rippleSpeed) * rippleStrength * distance;
 
-    // Simple blur effect
+    //Simple blur effect
     vec4 color = vec4(0.0);
     float total = 0.0;
     for (float x = -2.0; x <= 2.0; x++) {

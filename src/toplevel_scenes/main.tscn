@@ -121,6 +121,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.0263
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.562508, 9.639704, 45.41971)
 
+[node name="Fish" parent="PhotoTerminal" unique_id=395791739 instance=ExtResource("7_i584b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.703238, -15.142181, -4.6294785)
+sync_to_physics = false
+metadata/_edit_group_ = true
+
 [editable path="Player"]
 [editable path="Player/Skin"]
 [editable path="Player/CanvasLayer/HUD/OrientationGimbal/OrientationGimbalViewport"]
