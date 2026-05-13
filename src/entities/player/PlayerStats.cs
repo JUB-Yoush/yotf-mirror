@@ -7,7 +7,7 @@ public partial class PlayerStats : Node
 {
     private Hud playerHud = null!;
 
-    public float OxygenUseRate = 3f;
+    public float OxygenUseRate = 0f;
     public float MaxOxygen
     {
         get;
@@ -84,7 +84,6 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
-        GD.Print(OxygenUseRate);
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 
