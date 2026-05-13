@@ -28,6 +28,10 @@ unique_name_in_owner = true
 current = true
 fov = 50.0
 
+[node name="CameraLight" type="SpotLight3D" parent="SubViewport/PhotoCamera" unique_id=104620495]
+visible = false
+spot_range = 5.172
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
 mesh = SubResource("BoxMesh_r51j2")
 

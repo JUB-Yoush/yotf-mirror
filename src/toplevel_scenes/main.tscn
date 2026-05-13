@@ -2,66 +2,33 @@
 
 [ext_resource type="PackedScene" uid="uid://d3tcs1jy7j86u" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="2_swlc7"]
-[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="4_5o53v"]
-[ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="5_tjs3j"]
+[ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
+[ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_i5ocd"]
 [ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_oxt34"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
-[sub_resource type="Gradient" id="Gradient_i584b"]
-offsets = PackedFloat32Array(0, 0.60571426)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
+render_priority = 1
+shader = ExtResource("4_i3xn1")
+shader_parameter/uv_scale = 2.5
+shader_parameter/direction_1 = Vector2(0.005, -0.005)
+shader_parameter/direction_2 = Vector2(0.02, 0.005)
+shader_parameter/highlight_threshold = 0.550000026125
+shader_parameter/shadow_threshold = 0.050000002375
+shader_parameter/base_colour = Color(0.17115179, 0.5324657, 0.8518921, 1)
+shader_parameter/base_alpha = 0.85
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_chbgi"]
-gradient = SubResource("Gradient_i584b")
-
-[sub_resource type="Gradient" id="Gradient_i5ocd"]
-offsets = PackedFloat32Array(0, 0.27)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_oxt34"]
-noise_type = 0
-frequency = 0.1958
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kxr3f"]
-noise = SubResource("FastNoiseLite_oxt34")
-color_ramp = SubResource("Gradient_i5ocd")
-in_3d_space = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3xn1"]
-shader = ExtResource("4_5o53v")
-shader_parameter/top_color = Color(0.21568628, 1, 1, 1)
-shader_parameter/bottom_color = Color(0.79363036, 0.49174154, 0.82328445, 1)
-shader_parameter/gradient_curve = SubResource("GradientTexture1D_chbgi")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_kxr3f")
-shader_parameter/moon_texture = ExtResource("5_tjs3j")
-shader_parameter/moon_direction = Vector3(1, 1.57, 0)
-shader_parameter/moon_size = -0.11
-
-[sub_resource type="Sky" id="Sky_irf28"]
-sky_material = SubResource("ShaderMaterial_i3xn1")
-radiance_size = 1
-
-[sub_resource type="Environment" id="Environment_odjcq"]
-background_mode = 2
-sky = SubResource("Sky_irf28")
-ambient_light_color = Color(0.89182, 0.823486, 0.863812, 1)
-ambient_light_sky_contribution = 0.0
-reflected_light_source = 2
-tonemap_mode = 2
-tonemap_exposure = 1.8
-tonemap_white = 2.18
-ssao_enabled = true
-fog_enabled = true
-fog_light_color = Color(0.404663, 0.432653, 0.82572, 1)
-fog_aerial_perspective = 0.5
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
-volumetric_fog_albedo = Color(0.45892245, 0.7613617, 0.99999994, 1)
+[sub_resource type="PlaneMesh" id="PlaneMesh_odjcq"]
+material = SubResource("ShaderMaterial_208ij")
+size = Vector2(50, 50)
+subdivide_width = 100
+subdivide_depth = 100
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fleds"]
-
-[sub_resource type="Compositor" id="Compositor_5pbbh"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_i3xn1"]
 resource_local_to_scene = true
@@ -95,10 +62,14 @@ transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.75731
 [node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
 
+[node name="WaterSurface" type="MeshInstance3D" parent="." unique_id=1961154400]
+transform = Transform3D(0.0198237, 0.0010422461, 0.99980295, 0.0017487968, 0.999998, -0.0010771123, -0.9998021, 0.0017698577, 0.01982186, 32.614925, 9.343002, 60.882286)
+mesh = SubResource("PlaneMesh_odjcq")
+skeleton = NodePath("../WorldEnvironment")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=788322636]
-environment = SubResource("Environment_odjcq")
+environment = ExtResource("3_oxt34")
 camera_attributes = SubResource("CameraAttributesPractical_fleds")
-compositor = SubResource("Compositor_5pbbh")
 
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25357056)
@@ -107,6 +78,7 @@ material = SubResource("StandardMaterial3D_fleds")
 
 [node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
+Profile = ExtResource("7_i3xn1")
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.13564, 9.389429, 48.822765)
@@ -114,6 +86,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.13564, 9.389429, 48.822765
 [node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("8_oxt34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.026302)
 
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.724073, 47.968678)
+omni_range = 3.211
+omni_attenuation = 2.0
+
 [node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_i5ocd")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.562508, 9.639704, 45.41971)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1336176328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.228592, 9.743033, 49.39269)
+omni_range = 3.296
+omni_attenuation = 2.0
+omni_shadow_mode = 0

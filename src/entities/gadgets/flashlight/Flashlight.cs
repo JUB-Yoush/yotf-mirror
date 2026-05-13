@@ -16,6 +16,9 @@ public partial class Flashlight : Item
     [Export]
     private float batteryUseRate = 10;
 
+    [Export]
+    private float LightEnergy;
+
     public override void _Ready()
     {
         ItemName = "Flashlight";
@@ -34,12 +37,12 @@ public partial class Flashlight : Item
 
         if (Input.IsActionPressed("look_cam"))
         {
-            spotLight.LightEnergy = 10;
+            //spotLight.LightEnergy = LightEnergy;
             playerStats.Battery -= (float)(batteryUseRate * delta);
         }
         else
         {
-            spotLight.LightEnergy = 0;
+            //spotLight.LightEnergy = 0;
         }
 
         if (Input.IsActionJustPressed("drop_item"))
