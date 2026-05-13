@@ -45,6 +45,17 @@ public class WanderingState : IFishState
                 (GD.Randf() * 2f - 1f) * 0.3f,
                 GD.Randf() * 2f - 1f
             ).Normalized() * fish.Profile.WanderRadius;
+        // check for collisions
+        var targetRay = fish.GetNode<RayCast3D>("TargetRay");
+        var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
+        targetRay.TargetPosition = offset;
+
+        if (targetRay.IsColliding())
+        {
+            offset =
+                targetRay.GetCollisionPoint() - (targetRay.GetCollisionPoint().Normalized() / 2);
+        }
+        targetMesh.Position = fish.GlobalPosition + offset;
         return fish.GlobalPosition + offset;
     }
 

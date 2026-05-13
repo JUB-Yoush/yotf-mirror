@@ -2,7 +2,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class Fish : AnimatableBody3D, IPhotographable
+public partial class Fish : CharacterBody3D, IPhotographable
 {
     // ====================== SIGNALS ======================
 
@@ -65,6 +65,7 @@ public partial class Fish : AnimatableBody3D, IPhotographable
     public override void _PhysicsProcess(double delta)
     {
         CurrentState.Update(this, (float)delta);
+        MoveAndSlide();
     }
 
     // ====================== SENSORY ENTRY POINTS ======================
@@ -123,7 +124,7 @@ public partial class Fish : AnimatableBody3D, IPhotographable
             return true;
 
         Vector3 dir = toTarget.Normalized();
-        GlobalPosition += dir * speed * delta;
+        Velocity = dir * speed * delta * 100;
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         Rotation = Rotation with
