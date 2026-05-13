@@ -8,20 +8,21 @@
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
-[ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="10_kc3pt"]
 [ext_resource type="Theme" uid="uid://b8jql4adc5yhp" path="res://assets/themes/hud_ui_items.tres" id="10_n7e5a"]
-[ext_resource type="Texture2D" uid="uid://b7cqic71ipx16" path="res://assets/2d/mooninicon.png" id="10_o0m41"]
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="10_s7tg2"]
-[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="11_3c4mh"]
 [ext_resource type="Texture2D" uid="uid://cc8ieg0tmq0l8" path="res://assets/2d/ui/hud_oxygen_bar_border.tres" id="13_p2qdy"]
 [ext_resource type="Texture2D" uid="uid://ia0hslmcaehr" path="res://assets/2d/ui/hud_oxygen_bar_fill.tres" id="14_lqdhu"]
 [ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/hud_battery_bar_border.tres" id="15_yi0df"]
 [ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud_battery_bar_fill.tres" id="16_0tyfe"]
 [ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud_top_border.tres" id="17_0tyfe"]
 [ext_resource type="PackedScene" uid="uid://sfudrnkvmvs8" path="res://src/ui/orientation_gimbal.tscn" id="18_ogtao"]
+[ext_resource type="Texture2D" uid="uid://c17falthwsbhl" path="res://assets/2d/ui/radar.tres" id="21_3d0mj"]
 [ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/player/ProceduralAnimator.cs" id="21_5qgjf"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
+[ext_resource type="Texture2D" uid="uid://kdwc0qd3ol11" path="res://assets/2d/ui/radar_cone.tres" id="22_dao75"]
+[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud_barometer_border.tres" id="23_ngh1c"]
+[ext_resource type="Texture2D" uid="uid://ca82cwdvq43xn" path="res://assets/2d/ui/hud_barometer_ruler.tres" id="24_amj0e"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
 
@@ -143,7 +144,9 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="HUDLayer/SubViewportContainer" unique_id=2112670532]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1280, 720)
+render_target_update_mode = 4
 
 [node name="HUD" type="Control" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=1635351054]
 unique_name_in_owner = true
@@ -162,10 +165,10 @@ script = ExtResource("10_s7tg2")
 [node name="InventoryIcons" type="HBoxContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1681313407]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 784.0
-offset_top = 560.0
-offset_right = 1620.0
-offset_bottom = 831.0
+offset_left = 804.0
+offset_top = 543.0
+offset_right = 1640.0
+offset_bottom = 814.0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/separation = 12
 alignment = 2
@@ -181,7 +184,6 @@ theme = ExtResource("10_n7e5a")
 
 [node name="0" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot0/Border" unique_id=1377114969]
 layout_mode = 2
-texture = ExtResource("11_3c4mh")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot0" unique_id=1377344750]
 layout_mode = 2
@@ -201,7 +203,6 @@ theme = ExtResource("10_n7e5a")
 
 [node name="1" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot1/Border" unique_id=421685572]
 layout_mode = 2
-texture = ExtResource("11_3c4mh")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot1" unique_id=698928538]
 layout_mode = 2
@@ -221,7 +222,6 @@ theme = ExtResource("10_n7e5a")
 
 [node name="2" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot2/Border" unique_id=627804948]
 layout_mode = 2
-texture = ExtResource("10_kc3pt")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot2" unique_id=1416064377]
 layout_mode = 2
@@ -241,7 +241,6 @@ theme = ExtResource("10_n7e5a")
 
 [node name="3" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot3/Border" unique_id=372016950]
 layout_mode = 2
-texture = ExtResource("10_o0m41")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/InventoryIcons/Slot3" unique_id=949372511]
 layout_mode = 2
@@ -328,6 +327,57 @@ scale = Vector2(0.5, 0.5)
 handle_input_locally = false
 render_target_update_mode = 4
 
+[node name="Radar" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=480464629]
+layout_mode = 0
+offset_left = 39.0
+offset_top = -18.0
+offset_right = 237.0
+offset_bottom = 274.0
+texture = ExtResource("21_3d0mj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RadarCone" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/Radar" unique_id=223188360]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 29.0
+offset_right = 167.0
+offset_bottom = 128.0
+texture = ExtResource("22_dao75")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BarometerBox" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=227027241]
+visible = false
+layout_mode = 0
+offset_left = 73.0
+offset_top = 310.0
+offset_right = 141.0
+offset_bottom = 442.0
+texture = ExtResource("23_ngh1c")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RulerA" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/BarometerBox" unique_id=1644528388]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 99.0
+offset_bottom = 130.0
+texture = ExtResource("24_amj0e")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RulerB" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/BarometerBox" unique_id=301439032]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 116.0
+offset_right = 100.0
+offset_bottom = 244.0
+texture = ExtResource("24_amj0e")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 
 [node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
@@ -339,6 +389,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
 unique_name_in_owner = true
@@ -349,6 +400,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")

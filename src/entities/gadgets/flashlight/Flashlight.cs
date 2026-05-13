@@ -22,7 +22,6 @@ public partial class Flashlight : Item
     public override void _Ready()
     {
         ItemName = "Flashlight";
-        Icon = Item.DefaultTexture;
         spotLight = GetNode<SpotLight3D>("SpotLight3D");
         camera = GetParent().GetParent().GetNode<Camera3D>("%Camera3D");
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
