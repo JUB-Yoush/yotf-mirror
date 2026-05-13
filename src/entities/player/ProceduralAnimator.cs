@@ -11,9 +11,9 @@ public partial class ProceduralAnimator : Node3D
 
     [Export]
     private CameraManager Camera = null!;
-    private const int SpineBoneIdx = 0;
-    private const int ChestBoneIdx = 3;
-    private const int NeckBoneIdx = 4;
+    private const int SpineBoneIdx = 1;
+    private const int ChestBoneIdx = 22;
+    private const int NeckBoneIdx = 35;
 
     // ======================== HEAD LOOK =======================
     private const float HeadLookMaxAngle = Mathf.Pi / 6f;
