@@ -106,9 +106,8 @@ public partial class PlayerController : CharacterBody3D
     }
 
     // ====================== INTERNAL STATE ======================
-    // (j) was causing some weird issues, turned it off for now.
-    //[Export]
-    //public ProceduralAnimator ProceduralAnimator = null!;
+    [Export]
+    public ProceduralAnimator ProceduralAnimator = null!;
 
     public IPlayerState CurrentState { get; private set; } = null!;
     public PlayerState State => CurrentState.Type;
@@ -136,14 +135,14 @@ public partial class PlayerController : CharacterBody3D
         raycast = GetNode<RayCast3D>("CameraManager/Camera3D/RayCast3D");
         Camera ??= GetNode<Camera3D>("%Camera3D");
 
-        Skin ??= GetNode<Node3D>("Skin");
+        Skin ??= GetNode<Node3D>("SkrunkoSkin");
 
         SkinRestPosition = Skin.Position;
 
         CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
         CollisionPivot = CollisionShapeBody.Position;
 
-        //ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
+        ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
 
         springArm = GetNode<SpringArm3D>("CameraManager/Arm");
 
@@ -180,7 +179,7 @@ public partial class PlayerController : CharacterBody3D
         CurrentState?.Exit(this);
         CurrentState = newState;
         CurrentState.Enter(this);
-        //ProceduralAnimator.OnStateChanged(newState.Type);
+        ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
     internal void UpdateBodyDirection(Vector3 direction, float delta)

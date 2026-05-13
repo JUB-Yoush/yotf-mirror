@@ -29,7 +29,7 @@ assets/maps/autosave/
 
 # EVERYTHING
 .vs/
-2026-yoft.sln
+*.sln
 
 # User-specific files
 *.rsuser
