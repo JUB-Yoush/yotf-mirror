@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
 [ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
+[ext_resource type="PackedScene" uid="uid://us3mj1nosr3" path="res://assets/3d/fish/shinfish1.glb" id="3_bubtx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rq6t1"]
 albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
@@ -32,12 +33,17 @@ collision_mask = 0
 script = ExtResource("1_37je6")
 Profile = ExtResource("2_rq6t1")
 
+[node name="shinfish1" parent="." unique_id=1874670049 instance=ExtResource("3_bubtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6777401, 0, -0.29230356)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=228051366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
+visible = false
 mesh = SubResource("BoxMesh_huvyi")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2099692884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48915994)
+visible = false
 mesh = SubResource("BoxMesh_a3vc6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
