@@ -5,7 +5,6 @@
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
-[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_i5ocd"]
 [ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_oxt34"]
@@ -54,6 +53,14 @@ refraction_texture = SubResource("NoiseTexture2D_odjcq")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
+[sub_resource type="Curve3D" id="Curve3D_i3xn1"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.041504, 0.20112705, 6.160286, 0, 0, 0, 0, 0, 0, -41.216305, -1.9040556, -2.0937958, 0, 0, 0, 0, 0, 0, -78.67676, -0.7106495, 4.324402, 0, 0, 0, 0, 0, 0, -79.899734, -0.06530857, -18.981949, 0, 0, 0, 0, 0, 0, -74.086716, -1.6581764, -44.645065, 0, 0, 0, 0, 0, 0, -51.93446, -1.7027903, -57.799812, 0, 0, 0, 0, 0, 0, -19.669743, -2.4300685, -58.51118, 0, 0, 0, 0, 0, 0, 8.282955, -1.3167295, -58.396736, 0, 0, 0, 0, 0, 0, 11.620304, -1.8667574, -42.570038, 0, 0, 0, 0, 0, 0, 7.255802, -0.13720655, -41.630672, 0, 0, 0, 0, 0, 0, -3.408142, -1.6975608, -8.083595),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
 [node name="Main" type="Node3D" unique_id=1358548990]
 
 [node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
@@ -76,9 +83,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25
 size = Vector3(179.90964, 54.046265, 163.19116)
 material = SubResource("StandardMaterial3D_fleds")
 
-[node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
+[node name="Path3D" type="Path3D" parent="." unique_id=1355732035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462)
+curve = SubResource("Curve3D_i3xn1")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
+transform = Transform3D(0.20616873, -0.05138184, 0.977149, 0, 0.99859875, 0.052510217, -0.9784999, -0.01082609, 0.2058841, -2.041504, 0.20112705, 6.160286)
+
+[node name="Fish" parent="." unique_id=523272719 node_paths=PackedStringArray("SplineFollower") instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
-Profile = ExtResource("7_i3xn1")
+SplineFollower = NodePath("../Path3D/PathFollow3D")
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.13564, 9.389429, 48.822765)
