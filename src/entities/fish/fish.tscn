@@ -26,18 +26,13 @@ albedo_color = Color(0.8784314, 0.9411765, 0.32941177, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rq6t1"]
 material = SubResource("StandardMaterial3D_bubtx")
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Fish" type="CharacterBody3D" unique_id=1200339281]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_37je6")
 Profile = ExtResource("2_rq6t1")
-
-[node name="shinfish1" parent="." unique_id=1874670049 instance=ExtResource("3_bubtx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6777401, 0, -0.29230356)
-
-[node name="fih_003" parent="shinfish1/Armature_001/Skeleton3D" parent_id_path=PackedInt32Array(1874670049, 94725842) index="0" unique_id=643492092]
-gi_mode = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=228051366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
@@ -69,4 +64,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6630225)
 visible = false
 mesh = SubResource("BoxMesh_rq6t1")
 
-[editable path="shinfish1"]
+[node name="shinfish1" parent="." unique_id=248327171 instance=ExtResource("3_bubtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17194319, 0, -1.8573971)
