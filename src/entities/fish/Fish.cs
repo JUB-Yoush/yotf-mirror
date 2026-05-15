@@ -116,20 +116,20 @@ public partial class Fish : CharacterBody3D, IPhotographable
         Vector3 target,
         float speed,
         float delta,
-        float arrivalThreshold = 0.3f
+        float arrivalThreshold = 0.1f
     )
     {
         Vector3 toTarget = target - GlobalPosition;
-        if (toTarget.Length() < arrivalThreshold)
+        if (toTarget.LengthSquared() < arrivalThreshold)
             return true;
 
         Vector3 dir = toTarget.Normalized();
-        Velocity = dir * speed * delta * 100;
+        Velocity = dir * speed * delta;
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        Rotation = Rotation with
+        GlobalRotation = GlobalRotation with
         {
-            Y = Mathf.LerpAngle(Rotation.Y, targetYaw, Profile.RotationSpeed * delta),
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
         };
 
         return false;
