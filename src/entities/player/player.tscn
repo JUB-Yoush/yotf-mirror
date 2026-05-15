@@ -78,6 +78,7 @@ script = ExtResource("4_n7e5a")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera3D" unique_id=2052358448]
 visible = false
+light_color = Color(0.5257421, 0.6534015, 1, 1)
 spot_range = 13.56
 spot_angle = 27.5
 
