@@ -35,7 +35,7 @@ tint_color = Color(0.484375, 0.3244934, 0.3244934, 0.75)
 attached_nodes = PackedInt32Array(13, 9, 8, 11, 7, 19, 23, 22, 26, 40, 41)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_dpkfk"]
-size = Vector2(1456.0012, 1304)
+size = Vector2(1456, 1304)
 title = "Scrolling & Noise"
 tint_color_enabled = true
 tint_color = Color(0.6464844, 0.5127455, 0.41036606, 0.75)
@@ -89,7 +89,7 @@ default_value = 0.85
 [sub_resource type="VisualShaderNodeProximityFade" id="VisualShaderNodeProximityFade_n8565"]
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_ifh7y"]
-constant = 3.0
+constant = 1.0
 
 [sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_n8565"]
 function = 31
@@ -159,7 +159,7 @@ default_value = Vector2(0.005, -0.005)
 linked_parent_graph_frame = 17
 parameter_name = "direction_2"
 default_value_enabled = true
-default_value = Vector2(0.02, 0.005)
+default_value = Vector2(0.05, 0.005)
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_n8565"]
 constant = 0.8
@@ -181,7 +181,7 @@ op_type = 3
 constant = Vector2(0.05, 0.02)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_vp473"]
-size = Vector2(756, 317)
+size = Vector2(1376, 684.0001)
 title = "Scrolling & Noise"
 tint_color_enabled = true
 tint_color = Color(0.6464844, 0.5127455, 0.41036606, 0.75)
@@ -201,6 +201,7 @@ function = 1
 
 [resource]
 modes/cull = 2
+nodes/vertex/0/position = Vector2(800, 30)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_dpkfk")
 nodes/vertex/2/position = Vector2(-1050, 300)
 nodes/vertex/5/node = SubResource("VisualShaderNodeFrame_vp473")
@@ -270,7 +271,7 @@ nodes/fragment/25/position = Vector2(300, 250)
 nodes/fragment/26/node = SubResource("VisualShaderNodeFloatParameter_m030s")
 nodes/fragment/26/position = Vector2(-1740, 150)
 nodes/fragment/27/node = SubResource("VisualShaderNodeProximityFade_n8565")
-nodes/fragment/27/position = Vector2(-1440, -600)
+nodes/fragment/27/position = Vector2(-1440, -590)
 nodes/fragment/28/node = SubResource("VisualShaderNodeFloatConstant_ifh7y")
 nodes/fragment/28/position = Vector2(-1660, -600)
 nodes/fragment/29/node = SubResource("VisualShaderNodeFloatFunc_n8565")
@@ -293,4 +294,4 @@ nodes/fragment/40/node = SubResource("VisualShaderNodeMix_n8565")
 nodes/fragment/40/position = Vector2(1040, -300)
 nodes/fragment/41/node = SubResource("VisualShaderNodeFloatConstant_vp473")
 nodes/fragment/41/position = Vector2(-1670, -700)
-nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 7, 0, 5, 2, 7, 0, 6, 2, 5, 0, 2, 0, 6, 0, 3, 0, 9, 0, 6, 1, 11, 0, 10, 1, 10, 0, 6, 0, 10, 0, 5, 0, 12, 0, 14, 0, 4, 0, 12, 0, 4, 0, 14, 1, 4, 0, 16, 0, 13, 0, 12, 1, 16, 0, 20, 0, 4, 0, 20, 1, 14, 0, 21, 0, 20, 0, 21, 1, 19, 0, 16, 1, 25, 0, 0, 3, 26, 0, 0, 1, 22, 0, 23, 1, 21, 0, 23, 0, 14, 0, 0, 5, 8, 0, 5, 1, 28, 0, 27, 0, 27, 0, 29, 0, 32, 0, 33, 0, 33, 0, 34, 1, 29, 0, 35, 0, 34, 0, 36, 1, 35, 0, 36, 0, 7, 0, 39, 0, 38, 0, 39, 1, 29, 0, 39, 2, 39, 0, 32, 0, 36, 0, 40, 0, 40, 0, 0, 0, 23, 0, 40, 2, 41, 0, 35, 1, 29, 0, 34, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 7, 0, 5, 2, 7, 0, 6, 2, 5, 0, 2, 0, 6, 0, 3, 0, 9, 0, 6, 1, 11, 0, 10, 1, 10, 0, 6, 0, 10, 0, 5, 0, 12, 0, 14, 0, 4, 0, 12, 0, 4, 0, 14, 1, 4, 0, 16, 0, 13, 0, 12, 1, 16, 0, 20, 0, 4, 0, 20, 1, 14, 0, 21, 0, 20, 0, 21, 1, 19, 0, 16, 1, 25, 0, 0, 3, 26, 0, 0, 1, 22, 0, 23, 1, 21, 0, 23, 0, 14, 0, 0, 5, 8, 0, 5, 1, 28, 0, 27, 0, 27, 0, 29, 0, 32, 0, 33, 0, 33, 0, 34, 1, 29, 0, 35, 0, 34, 0, 36, 1, 35, 0, 36, 0, 7, 0, 39, 0, 38, 0, 39, 1, 29, 0, 39, 2, 39, 0, 32, 0, 36, 0, 40, 0, 23, 0, 40, 2, 41, 0, 35, 1, 29, 0, 34, 0, 40, 0, 0, 0)
