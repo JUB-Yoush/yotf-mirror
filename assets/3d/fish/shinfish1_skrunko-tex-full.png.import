@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://craudxlij2yxa"
-path.s3tc="res://.godot/imported/FLATSTONES.png-b6fe248e396a98e0bf9b01ba33ed33b0.s3tc.ctex"
+uid="uid://2nt5fthipxsv"
+path.s3tc="res://.godot/imported/shinfish1_skrunko-tex-full.png-ef1281eaffdded4791858cf83e313553.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "d831ca90951c737af354bdb43cad2065"
+}
 
 [deps]
 
-source_file="res://trenchbroom/textures/FLATSTONES.png"
-dest_files=["res://.godot/imported/FLATSTONES.png-b6fe248e396a98e0bf9b01ba33ed33b0.s3tc.ctex"]
+source_file="res://assets/3d/fish/shinfish1_skrunko-tex-full.png"
+dest_files=["res://.godot/imported/shinfish1_skrunko-tex-full.png-ef1281eaffdded4791858cf83e313553.s3tc.ctex"]
 
 [params]
 

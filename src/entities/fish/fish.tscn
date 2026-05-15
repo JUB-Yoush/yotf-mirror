@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
 [ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
+[ext_resource type="PackedScene" uid="uid://us3mj1nosr3" path="res://assets/3d/fish/shinfish1.glb" id="3_bubtx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rq6t1"]
 albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
@@ -15,7 +16,7 @@ material = SubResource("StandardMaterial3D_rq6t1")
 size = Vector3(0.3, 0.3, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
-size = Vector3(0.31, 0.3, 1.27)
+size = Vector3(0.31, 0.3, 0.4591626)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
 radius = 5.0
@@ -29,18 +30,22 @@ size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Fish" type="CharacterBody3D" unique_id=1200339281]
 collision_layer = 16
+collision_mask = 0
 script = ExtResource("1_37je6")
 Profile = ExtResource("2_rq6t1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=228051366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
+visible = false
 mesh = SubResource("BoxMesh_huvyi")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2099692884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48915994)
+visible = false
 mesh = SubResource("BoxMesh_a3vc6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
 shape = SubResource("BoxShape3D_rq6t1")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
@@ -56,4 +61,8 @@ shape = SubResource("SphereShape3D_rq6t1")
 
 [node name="TargetMesh" type="MeshInstance3D" parent="." unique_id=290706218]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6630225)
+visible = false
 mesh = SubResource("BoxMesh_rq6t1")
+
+[node name="shinfish1" parent="." unique_id=248327171 instance=ExtResource("3_bubtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17194319, 0, -1.8573971)

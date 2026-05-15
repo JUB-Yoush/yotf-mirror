@@ -51,12 +51,6 @@ public class SwimmingState : IPlayerState
         else
             player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
 
-        if (Input.IsActionJustPressed("pickup"))
-        {
-            GD.Print("woosh");
-            player.Velocity = player.Velocity with { Y = player.Velocity.Y + 5 };
-        }
-
         player.MoveAndSlide();
     }
 }

@@ -4,12 +4,16 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class Inventory : Node3D
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     const int Capacity = 4;
     private int currentIndex = 0;
 
-    public Hud? playerHUD;
+    [Node("%HUD")]
+    public required Hud PlayerHUD { set; get; }
 
     //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     private Item?[] InventoryArr
@@ -25,7 +29,6 @@ public partial class Inventory : Node3D
 
     public override void _Ready()
     {
-        playerHUD = GetNode<Hud>("%HUD");
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
         SetCurrentItem(0);
@@ -53,7 +56,7 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
-        playerHUD?.SelectSlot(index);
+        PlayerHUD?.SelectSlot(index);
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
@@ -80,7 +83,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
-        playerHUD?.SetItemSlot(currentIndex, item.Icon);
+        PlayerHUD.SetItemSlot(currentIndex, item.Icon);
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -94,7 +97,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
 
-        playerHUD?.SetItemSlot(index, item.Icon);
+        PlayerHUD.SetItemSlot(index, item.Icon);
     }
 
     public void RemoveItem(int index)
