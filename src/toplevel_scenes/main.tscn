@@ -24,8 +24,8 @@ shader_parameter/base_alpha = 0.85
 [sub_resource type="PlaneMesh" id="PlaneMesh_odjcq"]
 material = SubResource("ShaderMaterial_208ij")
 size = Vector2(180, 180)
-subdivide_width = 1000
-subdivide_depth = 1000
+subdivide_width = 1800
+subdivide_depth = 1800
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fleds"]
 

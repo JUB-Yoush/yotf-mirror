@@ -47,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FlashRect" type="ColorRect" parent="Control" unique_id=1979790315]
 unique_name_in_owner = true
