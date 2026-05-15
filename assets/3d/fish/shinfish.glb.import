@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://us3mj1nosr3"
-path="res://.godot/imported/shinfish1.glb-bc62e72d05885aa22cc5bdd666494ab2.scn"
+uid="uid://cselp6pc3l328"
+path="res://.godot/imported/shinfish.glb-3c53383a68a8ae3d35223c23f7c5b91f.scn"
 
 [deps]
 
-source_file="res://assets/3d/fish/shinfish1.glb"
-dest_files=["res://.godot/imported/shinfish1.glb-bc62e72d05885aa22cc5bdd666494ab2.scn"]
+source_file="res://assets/3d/fish/shinfish.glb"
+dest_files=["res://.godot/imported/shinfish.glb-3c53383a68a8ae3d35223c23f7c5b91f.scn"]
 
 [params]
 

@@ -146,7 +146,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="HUDLayer/SubViewportContainer" unique_id=2112670532]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1280, 720)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="HUD" type="Control" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=1635351054]
@@ -155,9 +155,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_right = 765.0
-offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -166,10 +163,10 @@ script = ExtResource("10_s7tg2")
 [node name="InventoryIcons" type="HBoxContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1681313407]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 804.0
-offset_top = 543.0
-offset_right = 1640.0
-offset_bottom = 814.0
+offset_left = 1377.0
+offset_top = 859.0
+offset_right = 2213.0
+offset_bottom = 1130.0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/separation = 12
 alignment = 2
@@ -288,11 +285,11 @@ text = "Money: 0000"
 [node name="BatteryOxygenBars" type="VBoxContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=113882728]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 780.0
-offset_top = 32.0
-offset_right = 1405.0
-offset_bottom = 147.0
-scale = Vector2(0.75, 0.75)
+offset_left = 1154.0
+offset_top = 78.00001
+offset_right = 1789.0
+offset_bottom = 193.0
+scale = Vector2(1.09, 1.09)
 theme_override_constants/separation = 12
 
 [node name="OxygenBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/BatteryOxygenBars" unique_id=1457280117]
@@ -309,19 +306,21 @@ texture_progress = ExtResource("16_0tyfe")
 
 [node name="TopBorder" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1703855884]
 layout_mode = 0
-offset_top = 32.0
-offset_right = 1921.0
-offset_bottom = 293.0
-scale = Vector2(0.66218966, 0.66218966)
+offset_left = 2.0
+offset_top = 78.0
+offset_right = 1923.0
+offset_bottom = 339.0
+scale = Vector2(1, 1.018)
 texture = ExtResource("17_0tyfe")
+expand_mode = 3
 
 [node name="OrientationGimbal" type="SubViewportContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1483013036]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 8.0
-offset_top = 454.0
-offset_right = 520.0
-offset_bottom = 966.0
+offset_left = 44.0
+offset_top = 764.0
+offset_right = 556.0
+offset_bottom = 1276.0
 scale = Vector2(0.5, 0.5)
 
 [node name="OrientationGimbalViewport" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbal" unique_id=264943065 instance=ExtResource("18_ogtao")]
@@ -330,22 +329,22 @@ render_target_update_mode = 4
 
 [node name="Radar" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=480464629]
 layout_mode = 0
-offset_left = 39.0
-offset_top = -18.0
-offset_right = 237.0
-offset_bottom = 274.0
+offset_left = 75.0
+offset_top = 31.0
+offset_right = 345.9928
+offset_bottom = 323.0
 texture = ExtResource("21_3d0mj")
-expand_mode = 1
-stretch_mode = 4
+expand_mode = 3
 
 [node name="RadarCone" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/Radar" unique_id=223188360]
 layout_mode = 0
-offset_left = 47.0
-offset_top = 29.0
-offset_right = 167.0
-offset_bottom = 128.0
+offset_left = 74.0
+offset_top = 37.0
+offset_right = 194.0
+offset_bottom = 136.0
+scale = Vector2(1.18, 1.18)
 texture = ExtResource("22_dao75")
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 4
 
 [node name="BarometerBox" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=227027241]

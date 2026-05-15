@@ -47,20 +47,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FlashRect" type="ColorRect" parent="Control" unique_id=1979790315]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-offset_left = 280.0
-offset_top = 2.0
-offset_right = 992.0
-offset_bottom = 724.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 724.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_r51j2")

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_fxk41")
-MoveSpeed = 4.0
+MoveSpeed = 300.0
 FleeSpeed = 8.0
 FleeDistance = 10.0
 NoiseThreshold = 0.0

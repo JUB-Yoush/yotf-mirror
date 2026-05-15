@@ -8,6 +8,7 @@ public class WanderingState : IFishState
     public bool IsPhotographable => true;
 
     private Vector3 wanderTarget;
+    private float swimTime = 0f;
 
     public void Enter(Fish fish)
     {
@@ -22,12 +23,17 @@ public class WanderingState : IFishState
             FollowSpline(fish, delta);
         else
             WanderRandomly(fish, delta);
+
+        Wiggle(fish, delta);
     }
 
     private void FollowSpline(Fish fish, float delta)
     {
-        fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
-        fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta);
+        if (fish.SplineFollower == null)
+            return;
+
+        if (fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta))
+            fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
     }
 
     private void WanderRandomly(Fish fish, float delta)
@@ -37,6 +43,13 @@ public class WanderingState : IFishState
         {
             wanderTarget = PickNewTarget(fish);
         }
+    }
+
+    private void Wiggle(Fish fish, float delta)
+    {
+        swimTime += delta;
+        float angle = swimTime * Mathf.Tau;
+        fish.Rotation = fish.Rotation with { Z = Mathf.Sin(angle) * 0.5f };
     }
 
     private static Vector3 PickNewTarget(Fish fish)

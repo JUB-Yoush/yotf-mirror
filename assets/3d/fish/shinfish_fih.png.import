@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdtoykh076va"
-path.s3tc="res://.godot/imported/shinfish1_fih.png-c69f8d903fbc3a7ece411a9e8f32bb90.s3tc.ctex"
+uid="uid://b786vgnl7f45o"
+path.s3tc="res://.godot/imported/shinfish_fih.png-1475237dbc01ace1a166da742d3b6ea0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/3d/fish/shinfish1_fih.png"
-dest_files=["res://.godot/imported/shinfish1_fih.png-c69f8d903fbc3a7ece411a9e8f32bb90.s3tc.ctex"]
+source_file="res://assets/3d/fish/shinfish_fih.png"
+dest_files=["res://.godot/imported/shinfish_fih.png-1475237dbc01ace1a166da742d3b6ea0.s3tc.ctex"]
 
 [params]
 
