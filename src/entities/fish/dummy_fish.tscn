@@ -1,6 +1,4 @@
-[gd_scene format=3 uid="uid://oav35ivnfew0"]
-
-[ext_resource type="Script" uid="uid://c3yav8r5k45qp" path="res://src/entities/fish/DummyFish.cs" id="1_hxhu3"]
+[gd_scene format=3 uid="uid://dr7q7wvs26kyo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huvyi"]
 albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
@@ -17,7 +15,6 @@ size = Vector3(0.3, 0.3, 0.3)
 size = Vector3(0.31, 0.3, 1.27)
 
 [node name="DummyFish" type="Area3D" unique_id=1733787501]
-script = ExtResource("1_hxhu3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=252919752]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)

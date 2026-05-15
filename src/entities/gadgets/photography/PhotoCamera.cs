@@ -134,7 +134,7 @@ public partial class PhotoCamera : Item
 
             // size of fish on the screen
             // distance from camera scaled based on the size of the bounding box
-            var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
+            var vis = subject.GetNode<Node3D>("shinfish").GetNode<MeshInstance3D>("%MeshInstance3D") as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
             var sizeScore = Math.Clamp(Math.Min(sizeInPhoto * 10, 1.0f), 0, 1);

@@ -404,6 +404,7 @@ metadata/_edit_lock_ = true
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
+OxygenUseRate = 1.0
 
 [editable path="SkrunkoSkin"]
 [editable path="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbal/OrientationGimbalViewport"]
