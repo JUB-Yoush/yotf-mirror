@@ -1,6 +1,6 @@
-[gd_resource type="Environment" format=3 uid="uid://r75bg1vbivre"]
+[gd_resource type="Environment" format=3 uid="uid://bg4j78x8mb83o"]
 
-[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_jyjta"]
+[ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_tc1co"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
 offsets = PackedFloat32Array(0, 0.60571426)
@@ -21,7 +21,7 @@ color_ramp = SubResource("Gradient_chbgi")
 in_3d_space = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_goqqs"]
-shader = ExtResource("1_jyjta")
+shader = ExtResource("1_tc1co")
 shader_parameter/top_color = Color(0.21568628, 1, 1, 1)
 shader_parameter/bottom_color = Color(0.79363036, 0.49174154, 0.82328445, 1)
 shader_parameter/gradient_curve = SubResource("GradientTexture1D_chbgi")
@@ -34,14 +34,17 @@ sky_material = SubResource("ShaderMaterial_goqqs")
 radiance_size = 1
 
 [resource]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.02065287, 0.09027631, 0.34878206, 1)
 sky = SubResource("Sky_irf28")
-ambient_light_color = Color(0.89182, 0.823486, 0.863812, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.118600585, 0.28457326, 0.60885346, 1)
 ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.1
 reflected_light_source = 2
 tonemap_mode = 2
 tonemap_exposure = 1.8
 tonemap_white = 2.18
 fog_enabled = true
-fog_light_color = Color(0.404663, 0.432653, 0.82572, 1)
-fog_aerial_perspective = 0.5
+fog_light_color = Color(0.11756257, 0.17704004, 0.31879684, 1)
+fog_density = 0.05

@@ -7,8 +7,7 @@ public partial class PlayerStats : Node
 {
     private Hud playerHud = null!;
 
-    [Export]
-    public float OxygenUseRate = 3f;
+    public float OxygenUseRate = 0f;
     public float MaxOxygen
     {
         get;
@@ -33,7 +32,6 @@ public partial class PlayerStats : Node
         set
         {
             field = Math.Clamp(value, 0, MaxOxygen);
-            playerHud?.OxygenLabel?.Text = $"O2: {value}/{MaxOxygen}";
             playerHud?.OxygenBar.Value = value;
             if (value == 0)
                 Drown();

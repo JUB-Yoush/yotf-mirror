@@ -28,6 +28,7 @@ public partial class PhotoCamera : Item
     private SubViewport photoViewport = null!;
     private MeshInstance3D mesh = null!;
     private Inventory inventory = null!;
+    private SpotLight3D light = null!;
 
     private PlayerController player = null!;
 
@@ -49,6 +50,7 @@ public partial class PhotoCamera : Item
         photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory = GetParent<Inventory>();
+        light = photoCamera.GetNode<SpotLight3D>("CameraLight");
     }
 
     public override void _Input(InputEvent @event)
@@ -61,6 +63,7 @@ public partial class PhotoCamera : Item
             photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsInMenu = true;
             aiming = true;
+            light.Visible = true;
         }
 
         if (@event.IsActionReleased("look_cam"))
@@ -68,6 +71,7 @@ public partial class PhotoCamera : Item
             photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             player.IsInMenu = false;
             aiming = false;
+            light.Visible = false;
         }
 
         if (@event.IsActionPressed("drop_item"))
@@ -122,18 +126,18 @@ public partial class PhotoCamera : Item
             var camToFish = subject.GlobalPosition - photoCamera.GlobalPosition;
             var camFacing = photoCamera.GlobalTransform.Basis.Z;
             var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
-            var angleScore = (angle - 2.6) / (Math.PI - 2.6);
+            var angleScore = Math.Clamp((angle - 2.6) / (Math.PI - 2.6), 0, 1);
 
             //If the Fish is facing the camera
             var facingAngle = camFacing.AngleTo(-subject.GlobalTransform.Basis.Z); // from a range of 0 - PI
-            var facingScore = (facingAngle / Math.PI);
+            var facingScore = Math.Clamp(facingAngle / Math.PI, 0, 1);
 
             // size of fish on the screen
             // distance from camera scaled based on the size of the bounding box
             var vis = subject.GetNode<MeshInstance3D>("MeshInstance3D") as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            var sizeScore = Math.Min(sizeInPhoto * 10, 1.0f);
+            var sizeScore = Math.Clamp(Math.Min(sizeInPhoto * 10, 1.0f), 0, 1);
 
             //fish lighting
             // TODO (j) implement
