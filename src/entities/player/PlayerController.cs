@@ -76,7 +76,7 @@ public partial class PlayerController : CharacterBody3D
                 if (springArm == null)
                     return;
                 Skin.Visible = true;
-                CreateTween().TweenProperty(springArm, "spring_length", 6.0f, 0.33);
+                CreateTween().TweenProperty(springArm, "spring_length", 2.0f, 0.33);
             }
         }
     }
@@ -206,7 +206,7 @@ public partial class PlayerController : CharacterBody3D
 
         CollisionShapeBody.Rotation = rotation;
 
-        Skin.Rotation = rotation;
+        Skin.Rotation = rotation; // TODO: lerp
         Skin.Position = CollisionPivot + rotBasis * (SkinRestPosition - CollisionPivot);
     }
 
