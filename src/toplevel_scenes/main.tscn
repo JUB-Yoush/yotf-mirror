@@ -64,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462
 curve = SubResource("Curve3D_i3xn1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
-transform = Transform3D(0.20616548, -0.0513798, 0.97713125, 0, 0.99855906, 0.052509263, -0.9784845, -0.010825661, 0.20588034, -2.041504, 0.20112705, 6.160286)
+transform = Transform3D(0.20616548, -0.051379777, 0.97713125, 0, 0.99855864, 0.052509263, -0.9784845, -0.010825656, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
 [node name="Fish" parent="." unique_id=523272719 node_paths=PackedStringArray("SplineFollower") instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
