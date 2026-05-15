@@ -27,6 +27,7 @@ public partial class PhotoCamera : Item
     private Camera3D photoCamera = null!;
     private SubViewport photoViewport = null!;
     private MeshInstance3D mesh = null!;
+    private Node3D cameraGlb = null!;
     private Inventory inventory = null!;
     private SpotLight3D light = null!;
 
@@ -51,6 +52,7 @@ public partial class PhotoCamera : Item
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory = GetParent<Inventory>();
         light = photoCamera.GetNode<SpotLight3D>("CameraLight");
+        cameraGlb = GetNode<Node3D>("Camera");
     }
 
     public override void _Input(InputEvent @event)
@@ -110,6 +112,7 @@ public partial class PhotoCamera : Item
         }
         mesh.GlobalTransform = camera.GlobalTransform;
         mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        //cameraGlb.GlobalTransform = mesh.GlobalTransform;
         photoCamera.GlobalTransform = camera.GlobalTransform;
     }
 

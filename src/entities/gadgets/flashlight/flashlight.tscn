@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c7acaodgrre0c" path="res://src/entities/gadgets/flashlight/Flashlight.cs" id="1_xosdy"]
 [ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="2_lwb6o"]
+[ext_resource type="PackedScene" uid="uid://bll0fb7tj0i1j" path="res://assets/3d/gadgets/Flashlight.glb" id="3_uh0tj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.3647059, 0.99607843, 0.44705883, 1)
@@ -24,3 +25,7 @@ mesh = SubResource("BoxMesh_y1wly")
 light_energy = 10.0
 spot_range = 30.0
 spot_angle = 50.0
+
+[node name="Flashlight" parent="." unique_id=1976339189 instance=ExtResource("3_uh0tj")]
+transform = Transform3D(-0.2, 0, 3.019916e-08, 0, 0.2, 0, -3.019916e-08, 0, -0.2, 0, 0, 0)
+visible = false
