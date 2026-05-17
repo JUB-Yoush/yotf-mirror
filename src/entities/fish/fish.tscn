@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
 [ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
-[ext_resource type="PackedScene" uid="uid://cselp6pc3l328" path="res://assets/3d/fish/shinfish.glb" id="3_bubtx"]
+[ext_resource type="PackedScene" uid="uid://76ope4ac8tql" path="res://assets/3d/fish/shinfish.tscn" id="3_bubtx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
 size = Vector3(0.31, 0.3, 0.4591626)
@@ -44,3 +44,5 @@ visible = false
 mesh = SubResource("BoxMesh_rq6t1")
 
 [node name="shinfish" parent="." unique_id=1966897904 instance=ExtResource("3_bubtx")]
+
+[editable path="shinfish"]

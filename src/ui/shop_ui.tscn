@@ -23,8 +23,8 @@ grow_vertical = 2
 layout_mode = 0
 offset_left = 42.0
 offset_top = 66.0
-offset_right = 170.0
-offset_bottom = 488.0
+offset_right = 316.0
+offset_bottom = 576.0
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=2016962810]
 layout_mode = 2
@@ -47,6 +47,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 38.0
 offset_top = 653.0
-offset_right = 100.0
-offset_bottom = 684.0
+offset_right = 213.0
+offset_bottom = 738.0
 text = "Return"

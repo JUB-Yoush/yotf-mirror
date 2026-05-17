@@ -23,10 +23,10 @@ grow_vertical = 2
 
 [node name="ReturnBtn" type="Button" parent="." unique_id=1146951400]
 layout_mode = 0
-offset_left = 14.0
+offset_left = 65.0
 offset_top = 675.0
-offset_right = 76.0
-offset_bottom = 706.0
+offset_right = 213.0
+offset_bottom = 742.0
 text = "Return"
 
 [node name="GalleryTotalLabel" type="Label" parent="." unique_id=1657279698]

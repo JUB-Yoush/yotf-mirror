@@ -7,6 +7,7 @@ public partial class PlayerStats : Node
 {
     private Hud playerHud = null!;
 
+    [Export]
     public float OxygenUseRate = 0f;
     public float MaxOxygen
     {
