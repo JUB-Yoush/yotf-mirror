@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Yotf;
@@ -43,7 +45,7 @@ public static class MiscExtensions
                 child.QueueFree();
         }
 
-        public List<Node> GetAllChildren()
+        public List<Node> GetChildrenRecursive()
         {
             Queue<Node> queue = [];
             List<Node> res = [];
@@ -58,6 +60,33 @@ public static class MiscExtensions
                 }
             }
             return res;
+        }
+
+        public T? GetChildOfType<T>(bool mustExist = false)
+            where T : Node
+        {
+            foreach (var child in node.GetChildren())
+            {
+                if (child is T t)
+                    return t;
+            }
+            Debug.Assert(
+                !mustExist,
+                $"Node that was supposed to be child of {node.Name} here wasnt"
+            );
+            return null;
+        }
+
+        public async Task WaitUntil(Func<bool> condition)
+        {
+            while (!condition())
+                await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        public async Task WaitUntil(bool condition)
+        {
+            while (!condition)
+                await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
 

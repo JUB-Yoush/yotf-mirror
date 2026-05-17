@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using Godot;
 
 namespace Yotf;
@@ -40,5 +42,16 @@ public partial class Log : Control
         label.Text = msg.ToString();
         Instance.LogMessages.AddChild(label);
         MsgCount++;
+    }
+
+    public static void PrintLn(
+        object message,
+        [CallerMemberName] string memberName = "",
+        [CallerFilePath] string filePath = "",
+        [CallerLineNumber] int lineNumber = 0
+    )
+    {
+        string className = Path.GetFileNameWithoutExtension(filePath);
+        GD.Print($"[{className}.{memberName}:{lineNumber}] {message}");
     }
 }
