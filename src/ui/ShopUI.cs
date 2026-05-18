@@ -86,7 +86,7 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = this.SceneRoot().GetChildOfType<PlayerStats>()!;
+        var player = this.SceneRoot().GetNode<PlayerStats>()!;
         player.Money -= item.Price;
         var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;

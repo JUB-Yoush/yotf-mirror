@@ -12,10 +12,10 @@ public partial class Flashlight : Item
 
     public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
-    [Node("SpotLight3D")]
+    [Node]
     public required SpotLight3D SpotLight { set; get; }
 
-    [Node("MeshInstance3D")]
+    [Node]
     public required MeshInstance3D Mesh { set; get; }
 
     [Export]
@@ -31,9 +31,9 @@ public partial class Flashlight : Item
 
     public override void _Ready()
     {
-        Camera = GetParent().GetParent().GetNode<Camera3D>("%Camera3D");
+        Camera = GetParent().GetParent().GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
-        PlayerStats = GetParent().GetParent().GetNode<PlayerStats>("Stats");
+        PlayerStats = GetParent().GetParent().GetNode<PlayerStats>()!;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -43,12 +43,7 @@ public partial class Flashlight : Item
 
         if (Input.IsActionPressed("look_cam"))
         {
-            //spotLight.LightEnergy = LightEnergy;
             PlayerStats.Battery -= (float)(batteryUseRate * delta);
-        }
-        else
-        {
-            //spotLight.LightEnergy = 0;
         }
 
         if (Input.IsActionJustPressed("drop_item"))

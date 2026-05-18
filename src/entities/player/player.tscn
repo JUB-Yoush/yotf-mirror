@@ -15,9 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/hud_battery_bar_border.tres" id="15_yi0df"]
 [ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud_battery_bar_fill.tres" id="16_0tyfe"]
 [ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud_top_border.tres" id="17_0tyfe"]
-[ext_resource type="PackedScene" uid="uid://sfudrnkvmvs8" path="res://src/ui/orientation_gimbal.tscn" id="18_ogtao"]
+[ext_resource type="PackedScene" uid="uid://d32fu7pyar1p1" path="res://assets/3d/ui/orientation_gimbal.glb" id="17_3d0mj"]
 [ext_resource type="Texture2D" uid="uid://c17falthwsbhl" path="res://assets/2d/ui/radar.tres" id="21_3d0mj"]
-[ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/player/ProceduralAnimator.cs" id="21_5qgjf"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 [ext_resource type="Texture2D" uid="uid://kdwc0qd3ol11" path="res://assets/2d/ui/radar_cone.tres" id="22_dao75"]
@@ -40,16 +39,17 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" unique_id=678823562 node_paths=PackedStringArray("Skin", "Camera", "CollisionShapeBody", "ProceduralAnimator")]
+[sub_resource type="Environment" id="Environment_dh4so"]
+ambient_light_source = 2
+ambient_light_color = Color(0.7607843, 1, 0.91764706, 1)
+reflected_light_source = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=678823562]
 collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
-Skin = NodePath("SkrunkoSkin")
-Camera = NodePath("CameraManager/Camera3D")
-CollisionShapeBody = NodePath("CollisionShapeBody")
 FirstPerson = true
-ProceduralAnimator = NodePath("ProceduralAnimator")
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4401143, 0)
@@ -64,26 +64,27 @@ margin = 0.5
 [node name="ArmPosition" type="Node3D" parent="CameraManager/Arm" unique_id=1721492418]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="CameraManager" unique_id=285023851]
+[node name="Camera" type="Camera3D" parent="CameraManager" unique_id=285023851]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48821163)
 near = 0.25
 far = 16384.0
 script = ExtResource("3_qjkh3")
 
-[node name="RayCast3D" type="RayCast3D" parent="CameraManager/Camera3D" unique_id=1962571535]
+[node name="InteractionRay" type="RayCast3D" parent="CameraManager/Camera" unique_id=1962571535]
 target_position = Vector3(0, 0, -2)
 collision_mask = 4
 collide_with_areas = true
 script = ExtResource("4_n7e5a")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera3D" unique_id=2052358448]
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera" unique_id=2052358448]
 visible = false
 light_color = Color(0.5257421, 0.6534015, 1, 1)
 spot_range = 13.56
 spot_angle = 27.5
 
 [node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7469884, 0)
 shape = SubResource("CapsuleShape3D_lwhhq")
 debug_color = Color(0.16352478, 0.9584989, 0.5340781, 1)
@@ -92,22 +93,14 @@ debug_color = Color(0.16352478, 0.9584989, 0.5340781, 1)
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
 shape = SubResource("SeparationRayShape3D_twc2s")
 
-[node name="SkrunkoSkin" parent="." unique_id=1969374302 instance=ExtResource("5_a31ob")]
+[node name="Skin" parent="." unique_id=1969374302 instance=ExtResource("5_a31ob")]
+unique_name_in_owner = true
 
-[node name="DebugSphere" parent="SkrunkoSkin/Armature/FootTarget_Right" parent_id_path=PackedInt32Array(1969374302, 28899830) index="0" unique_id=109986513]
+[node name="DebugSphere" parent="Skin/Armature/FootTarget_Right" parent_id_path=PackedInt32Array(1969374302, 28899830) index="0" unique_id=109986513]
 visible = false
 
-[node name="DebugSphere" parent="SkrunkoSkin/Armature/FootTarget_Left" parent_id_path=PackedInt32Array(1969374302, 1977071164) index="0" unique_id=946934999]
+[node name="DebugSphere" parent="Skin/Armature/FootTarget_Left" parent_id_path=PackedInt32Array(1969374302, 1977071164) index="0" unique_id=946934999]
 visible = false
-
-[node name="ProceduralAnimator" type="Node3D" parent="." unique_id=1148022930 node_paths=PackedStringArray("Skeleton", "Camera", "raycastLeft", "raycastRight", "footTargetLeft", "footTargetRight")]
-script = ExtResource("21_5qgjf")
-Skeleton = NodePath("../SkrunkoSkin/Armature/Skeleton3D")
-Camera = NodePath("../CameraManager")
-raycastLeft = NodePath("../SkrunkoSkin/Armature/FootRaycast_Left")
-raycastRight = NodePath("../SkrunkoSkin/Armature/FootRaycast_Right")
-footTargetLeft = NodePath("../SkrunkoSkin/Armature/FootTarget_Left")
-footTargetRight = NodePath("../SkrunkoSkin/Armature/FootTarget_Right")
 
 [node name="InputManager" type="Node" parent="." unique_id=970712292]
 script = ExtResource("6_8fjmc")
@@ -298,6 +291,7 @@ scale = Vector2(1.09, 1.09)
 theme_override_constants/separation = 12
 
 [node name="OxygenBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/StatBarContainer" unique_id=1457280117]
+unique_name_in_owner = true
 layout_mode = 2
 value = 100.0
 fill_mode = 1
@@ -305,6 +299,7 @@ texture_under = ExtResource("13_p2qdy")
 texture_progress = ExtResource("14_lqdhu")
 
 [node name="BatteryBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/StatBarContainer" unique_id=724040035]
+unique_name_in_owner = true
 layout_mode = 2
 texture_under = ExtResource("15_yi0df")
 texture_progress = ExtResource("16_0tyfe")
@@ -319,7 +314,7 @@ scale = Vector2(1, 1.018)
 texture = ExtResource("17_0tyfe")
 expand_mode = 3
 
-[node name="OrientationGimbal" type="SubViewportContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1483013036]
+[node name="OrientationGimbalViewCntnr" type="SubViewportContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=1483013036]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 44.0
@@ -328,9 +323,25 @@ offset_right = 556.0
 offset_bottom = 1276.0
 scale = Vector2(0.5, 0.5)
 
-[node name="OrientationGimbalViewport" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbal" unique_id=264943065 instance=ExtResource("18_ogtao")]
+[node name="OrientationGimbalViewport" type="SubViewport" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbalViewCntnr" unique_id=264943065]
+own_world_3d = true
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
+
+[node name="Gimbal" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbalViewCntnr/OrientationGimbalViewport" unique_id=829797619 instance=ExtResource("17_3d0mj")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9169618, 0)
+
+[node name="GimbalArm" type="Node3D" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbalViewCntnr/OrientationGimbalViewport" unique_id=1634164095]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5561391, 0)
+
+[node name="GimbalCamera" type="Camera3D" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbalViewCntnr/OrientationGimbalViewport/GimbalArm" unique_id=2002673002]
+transform = Transform3D(-0.99813473, 0.0328014, -0.05148791, 0.012856289, 0.9374173, 0.3479708, 0.059679575, 0.3466598, -0.9360905, 0.15148294, 1.0073153, -2.3938773)
+environment = SubResource("Environment_dh4so")
+current = true
+fov = 78.74999
 
 [node name="Radar" type="TextureRect" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=480464629]
 layout_mode = 0
@@ -410,5 +421,4 @@ metadata/_edit_lock_ = true
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
 
-[editable path="SkrunkoSkin"]
-[editable path="HUDLayer/SubViewportContainer/SubViewport/HUD/OrientationGimbal/OrientationGimbalViewport"]
+[editable path="Skin"]

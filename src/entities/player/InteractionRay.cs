@@ -4,15 +4,18 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class InteractionRay : RayCast3D
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private IInteractable? currentCollision = null!;
-    private Inventory inventory = null!;
+
+    [Node]
+    public required Inventory Inventory { set; get; }
 
     public override void _Ready()
     {
-        inventory = GetNode<Inventory>("%Inventory");
-
         TargetPosition = new(0, 0, -2f);
         CollideWithAreas = true;
     }

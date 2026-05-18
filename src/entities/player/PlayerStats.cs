@@ -3,9 +3,13 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PlayerStats : Node
 {
-    private Hud playerHud = null!;
+    public override void _Notification(int what) => this.Notify(what);
+
+    [Node]
+    public required Hud HUD { set; get; }
 
     [Export]
     public float OxygenUseRate = 0f;
@@ -15,7 +19,7 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud.OxygenBar.MaxValue = field;
+            HUD.OxygenBar.MaxValue = field;
         }
     }
     public float MaxBattery
@@ -24,7 +28,7 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud.BatteryBar.MaxValue = field;
+            HUD.BatteryBar.MaxValue = field;
         }
     }
     public float Oxygen
@@ -33,7 +37,7 @@ public partial class PlayerStats : Node
         set
         {
             field = Math.Clamp(value, 0, MaxOxygen);
-            playerHud?.OxygenBar.Value = value;
+            HUD?.OxygenBar.Value = value;
             if (value == 0)
                 Drown();
         }
@@ -44,8 +48,8 @@ public partial class PlayerStats : Node
         set
         {
             field = Math.Clamp(value, 0, MaxBattery);
-            playerHud?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
-            playerHud?.BatteryBar.Value = value;
+            HUD?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
+            HUD?.BatteryBar.Value = value;
         }
     }
     public int Money
@@ -54,10 +58,9 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud?.MoneyLabel?.Text = $"Money: {value}";
-            var photoTerminal = GetTree()
-                .CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
-            photoTerminal.LabelText = $"{value:D6}";
+            HUD?.MoneyLabel?.Text = $"Money: {value}";
+            var photoTerminal = this.SceneRoot().GetNode<PhotoTerminal>();
+            photoTerminal?.LabelText = $"{value:D6}";
         }
     }
     public int TotalGalleryScore
@@ -66,15 +69,14 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud?.PhotoLabel?.Text = $"Photo Points: {value}";
+            HUD?.PhotoLabel?.Text = $"Photo Points: {value}";
         }
     }
 
     public override void _Ready()
     {
-        playerHud = GetNode<Hud>("%HUD");
-        playerHud.OxygenBar.MaxValue = MaxOxygen;
-        playerHud.BatteryBar.MaxValue = MaxBattery;
+        HUD.OxygenBar.MaxValue = MaxOxygen;
+        HUD.BatteryBar.MaxValue = MaxBattery;
         MaxOxygen = 100;
         MaxBattery = 100;
         Oxygen = MaxOxygen;

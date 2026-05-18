@@ -62,7 +62,10 @@ public static class MiscExtensions
             return res;
         }
 
-        public T? GetChildOfType<T>(bool includeInternal = false, bool mustExist = false)
+        /// <summary>
+        /// Loops over scene tree to find the first child of matching type.
+        /// </summary>
+        public T? GetNode<T>(bool includeInternal = false, bool mustExist = false)
             where T : Node
         {
             foreach (var child in node.GetChildren(includeInternal))

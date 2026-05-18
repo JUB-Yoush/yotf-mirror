@@ -10,7 +10,8 @@ public partial class Hud : Control
 
     public const int InventorySize = 4;
 
-    public required Camera3D PlayerCam { set; get; }
+    [Node]
+    public required Camera3D Camera { set; get; }
 
     [Node]
     public required Label OxygenLabel { set; get; }
@@ -24,11 +25,17 @@ public partial class Hud : Control
     [Node]
     public required Label PhotoLabel { set; get; }
 
-    [Node("%StatBarContainer/BatteryBar")]
+    [Node]
     public required TextureProgressBar BatteryBar { set; get; }
 
-    [Node("%StatBarContainer/OxygenBar")]
+    [Node]
     public required TextureProgressBar OxygenBar { set; get; }
+
+    [Node]
+    public required Node3D Gimbal { set; get; }
+
+    [Node]
+    public required Node3D GimbalArm { set; get; }
 
     public TextureRect[] InventoryIcons
     {
@@ -43,17 +50,6 @@ public partial class Hud : Control
 
     public Vector2 slotMinSize = new(200, 200);
     public Vector2 slotMaxSize = new(250, 250);
-
-    [Node("%OrientationGimbal/OrientationGimbalViewport/OrientationGimbal")]
-    public required Node3D OrientationGimbal { set; get; }
-
-    [Node("%OrientationGimbal/OrientationGimbalViewport/Arm")]
-    public required Node3D CameraArm { set; get; }
-
-    public override void _Ready()
-    {
-        PlayerCam = GetNode<Camera3D>("../../../../CameraManager/Camera3D");
-    }
 
     public override void _Process(double delta)
     {
@@ -105,11 +101,11 @@ public partial class Hud : Control
 
     public void RotateGimbalToCam()
     {
-        CameraArm.GlobalRotation = CameraArm.GlobalRotation with
+        GimbalArm.GlobalRotation = GimbalArm.GlobalRotation with
         {
-            X = PlayerCam.GlobalRotation.X,
-            Y = -PlayerCam.GlobalRotation.Y,
-            Z = PlayerCam.GlobalRotation.Z,
+            X = Camera.GlobalRotation.X,
+            Y = -Camera.GlobalRotation.Y,
+            Z = Camera.GlobalRotation.Z,
         };
     }
 }

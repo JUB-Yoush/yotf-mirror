@@ -12,8 +12,8 @@ public partial class Inventory : Node3D
     const int Capacity = 4;
     private int currentIndex = 0;
 
-    [Node("%HUD")]
-    public required Hud PlayerHUD { set; get; }
+    [Node]
+    public required Hud HUD { set; get; }
 
     //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     private Item?[] InventoryArr
@@ -61,7 +61,7 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
-        PlayerHUD?.SelectSlot(index);
+        HUD?.SelectSlot(index);
         InventoryArr[currentIndex]?.Exit();
         currentIndex = index;
         InventoryArr[currentIndex]?.Visible = true;
@@ -88,7 +88,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
-        PlayerHUD.SetItemSlot(currentIndex, item.Icon);
+        HUD.SetItemSlot(currentIndex, item.Icon);
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -102,7 +102,7 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
 
-        PlayerHUD.SetItemSlot(index, item.Icon);
+        HUD.SetItemSlot(index, item.Icon);
     }
 
     public void RemoveItem(int index)

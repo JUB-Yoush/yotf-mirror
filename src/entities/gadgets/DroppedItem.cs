@@ -30,8 +30,8 @@ public partial class DroppedItem : RigidBody3D, IInteractable
     {
         // var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
         // var inventory = player.GetNode<Inventory>("Inventory");
-        var player = GetTree().CurrentScene.GetChildOfType<PlayerController>();
-        var inventory = player.GetChildOfType<Inventory>()!;
+        var player = GetTree().CurrentScene.GetNode<PlayerController>();
+        var inventory = player.GetNode<Inventory>()!;
 
         if (inventory.GetEqippedItem() != null)
             return;

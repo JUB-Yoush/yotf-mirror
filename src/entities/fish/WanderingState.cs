@@ -61,27 +61,24 @@ public class WanderingState : IFishState
         ).Normalized();
 
         // check for collisions
-        fish.Velocity = Vector3.Zero;
-        var targetRay = fish.GetNode<RayCast3D>("TargetRay");
-        var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
-        targetMesh.TopLevel = true;
-        targetRay.TopLevel = true;
-        targetRay.GlobalPosition = fish.GlobalPosition;
-        targetRay.TargetPosition = direction * fish.Profile.WanderRadius;
+        // fish.Velocity = Vector3.Zero;
+        // var targetRay = fish.GetNode<RayCast3D>("TargetRay");
+        // var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
+        // targetMesh.TopLevel = true;
+        // targetRay.TopLevel = true;
+        // targetRay.GlobalPosition = fish.GlobalPosition;
+        // targetRay.TargetPosition = direction * fish.Profile.WanderRadius;
 
         var target = direction * fish.Profile.WanderRadius;
 
-        targetRay.ForceRaycastUpdate();
-        if (targetRay.IsColliding())
-        {
-            GD.Print("Collision");
-            target = targetRay.GetCollisionPoint();
-        }
+        // targetRay.ForceRaycastUpdate();
+        // if (targetRay.IsColliding())
+        // {
+        //     GD.Print("Collision");
+        //     target = targetRay.GetCollisionPoint();
+        // }
 
-        targetMesh.GlobalPosition = direction;
-        GD.Print(
-            $"new direciton: {direction * fish.Profile.WanderRadius} fish velo {fish.Velocity}"
-        );
+        // targetMesh.GlobalPosition = direction;
         return target;
     }
 

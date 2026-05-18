@@ -49,7 +49,7 @@ public partial class Fish : CharacterBody3D, IPhotographable
 
     public override void _Ready()
     {
-        Area3D detectionZone = GetNode<Area3D>("DetectionZone");
+        Area3D detectionZone = this.GetNode<Area3D>()!;
         detectionZone.BodyEntered += OnBodyEnterRange;
         detectionZone.BodyExited += OnBodyExitRange;
 

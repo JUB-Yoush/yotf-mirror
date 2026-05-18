@@ -56,10 +56,9 @@ public partial class PhotoCamera : Item
 
     public override async void _Ready()
     {
-        GD.Print(PhotoLetterBox);
         player = GetParent().GetParent<PlayerController>();
         photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
-        playerCamera = player.GetNode<Camera3D>("%Camera3D");
+        playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
 
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
