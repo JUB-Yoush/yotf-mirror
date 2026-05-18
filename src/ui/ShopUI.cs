@@ -86,11 +86,9 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetChildOfType<PlayerStats>()!;
         player.Money -= item.Price;
-        var itemDrop = DroppedItem
-            .Packed.Instantiate<DroppedItem>()
-            .Init(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
+        var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
         PopulateShop();

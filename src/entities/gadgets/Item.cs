@@ -36,5 +36,5 @@ public partial class Item : Node3D
     public virtual void Exit() { }
 
     public static DroppedItem MakeDropItem(Mesh mesh, PackedScene itemPacked) =>
-        DroppedItem.Packed.Instantiate<DroppedItem>().Init(mesh, itemPacked);
+        DroppedItem.New(mesh, itemPacked);
 }

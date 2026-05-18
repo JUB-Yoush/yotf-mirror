@@ -37,7 +37,7 @@ public static class MiscExtensions
 
     extension(Node node)
     {
-        public Node GetSceneRoot() => node.GetTree().CurrentScene;
+        public Node SceneRoot() => node.GetTree().CurrentScene;
 
         public void RemoveAllChildren()
         {
@@ -62,10 +62,10 @@ public static class MiscExtensions
             return res;
         }
 
-        public T? GetChildOfType<T>(bool mustExist = false)
+        public T? GetChildOfType<T>(bool includeInternal = false, bool mustExist = false)
             where T : Node
         {
-            foreach (var child in node.GetChildren())
+            foreach (var child in node.GetChildren(includeInternal))
             {
                 if (child is T t)
                     return t;

@@ -10,13 +10,8 @@ public partial class CameraFollow : Camera3D
     [Export]
     public float LerpPower = 5.0f;
 
-    [Node("../Arm/ArmPosition")]
+    [Node]
     public required Node3D ArmPosition { set; get; }
-
-    public override void _Ready()
-    {
-        ArmPosition = GetNode<Node3D>("../Arm/ArmPosition");
-    }
 
     public override void _Process(double delta)
     {
