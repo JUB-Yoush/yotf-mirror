@@ -4,24 +4,23 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PhotoTerminal : Node3D, IInteractable
 {
-    private Mesh mesh = null!;
+    public override void _Notification(int what) => this.Notify(what);
+
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
+
+    [Node]
+    public required Label3D ScoreLabel { set; get; }
+
     public bool inShop = false;
-    private Label3D ScoreLabel = null!;
     public int TotalGalleryScore = 0;
     public string LabelText
     {
         get { return ScoreLabel?.Text; }
         set { ScoreLabel?.Text = value; }
-    }
-
-    private static readonly PackedScene GradingUI = GD.Load<PackedScene>("uid://b627ai4x06ylo");
-
-    public override void _Ready()
-    {
-        mesh = GetNode<MeshInstance3D>("MeshInstance3D").Mesh;
-        ScoreLabel = GetNode<Label3D>("ScoreLabel");
     }
 
     void IInteractable.OnInteraction()
@@ -33,14 +32,14 @@ public partial class PhotoTerminal : Node3D, IInteractable
         var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
         var inventory = player.GetNode<Inventory>("Inventory");
 
-        if (inventory.GetItemIndex("camera") == -1)
+        if (inventory.GetItemIndex("Camera") == -1)
             return;
 
-        var cam = inventory.GetNode<PhotoCamera>(inventory.GetItemIndex("camera").ToString());
-        var gradeUi = GradingUI.Instantiate<GradingUi>().Init(cam.Photos, this);
+        var cam = inventory.GetNode<PhotoCamera>(inventory.GetItemIndex("Camera").ToString());
+        var gradeUI = GradingUI.New(cam.Photos, this);
         cam.ClearPhotos();
-        GetTree().CurrentScene.AddChild(gradeUi);
+        GetTree().CurrentScene.AddChild(gradeUI);
     }
 
-    public Mesh GetMesh() => mesh;
+    public Mesh GetMesh() => Mesh.Mesh;
 }

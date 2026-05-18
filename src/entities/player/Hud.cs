@@ -10,14 +10,25 @@ public partial class Hud : Control
 
     public const int InventorySize = 4;
 
-    public Camera3D Camera = null!;
-    public Label OxygenLabel = null!;
-    public Label BatteryLabel = null!;
-    public Label MoneyLabel = null!;
-    public Label PhotoLabel = null!;
+    public required Camera3D PlayerCam { set; get; }
 
-    public TextureProgressBar BatteryBar = null!;
-    public TextureProgressBar OxygenBar = null!;
+    [Node]
+    public required Label OxygenLabel { set; get; }
+
+    [Node]
+    public required Label BatteryLabel { set; get; }
+
+    [Node]
+    public required Label MoneyLabel { set; get; }
+
+    [Node]
+    public required Label PhotoLabel { set; get; }
+
+    [Node("%StatBarContainer/BatteryBar")]
+    public required TextureProgressBar BatteryBar { set; get; }
+
+    [Node("%StatBarContainer/OxygenBar")]
+    public required TextureProgressBar OxygenBar { set; get; }
 
     public TextureRect[] InventoryIcons
     {
@@ -33,27 +44,15 @@ public partial class Hud : Control
     public Vector2 slotMinSize = new(200, 200);
     public Vector2 slotMaxSize = new(250, 250);
 
-    public Node3D OrientationGimbal = null!;
-    public Node3D CameraArm = null!;
+    [Node("%OrientationGimbal/OrientationGimbalViewport/OrientationGimbal")]
+    public required Node3D OrientationGimbal { set; get; }
+
+    [Node("%OrientationGimbal/OrientationGimbalViewport/Arm")]
+    public required Node3D CameraArm { set; get; }
 
     public override void _Ready()
     {
-        Camera = GetNode<Camera3D>("%Camera3D");
-        OxygenLabel = GetNode<Label>("DebugPanel/OxygenLabel");
-        BatteryLabel = GetNode<Label>("DebugPanel/BatteryLabel");
-        MoneyLabel = GetNode<Label>("DebugPanel/MoneyLabel");
-        PhotoLabel = GetNode<Label>("DebugPanel/PhotoLabel");
-
-        BatteryBar = GetNode<TextureProgressBar>("%BatteryOxygenBars/BatteryBar");
-        OxygenBar = GetNode<TextureProgressBar>("%BatteryOxygenBars/OxygenBar");
-        for (int i = 0; i < InventorySize; i++)
-        {
-            InventoryIcons[i] = GetNode<TextureRect>($"%InventoryIcons/Slot{i}/Border/{i}");
-        }
-        OrientationGimbal = GetNode<Node3D>(
-            "%OrientationGimbal/OrientationGimbalViewport/OrientationGimbal"
-        );
-        CameraArm = OrientationGimbal.GetParent().GetNode<Node3D>("Arm");
+        PlayerCam = GetNode<Camera3D>("../../../../CameraManager/Camera3D");
     }
 
     public override void _Process(double delta)
@@ -108,9 +107,9 @@ public partial class Hud : Control
     {
         CameraArm.GlobalRotation = CameraArm.GlobalRotation with
         {
-            X = Camera.GlobalRotation.X,
-            Y = -Camera.GlobalRotation.Y,
-            Z = Camera.GlobalRotation.Z,
+            X = PlayerCam.GlobalRotation.X,
+            Y = -PlayerCam.GlobalRotation.Y,
+            Z = PlayerCam.GlobalRotation.Z,
         };
     }
 }

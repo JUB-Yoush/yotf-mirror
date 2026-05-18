@@ -4,40 +4,53 @@ using Godot;
 
 namespace Yotf;
 
-public partial class GradingUi : Control
+[Meta(typeof(IAutoNode))]
+public partial class GradingUI : Control
 {
-    PhotoTerminal photoTerminal = null!;
+    private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
+
+    public override void _Notification(int what) => this.Notify(what);
+
+    public static GradingUI New(List<Photo> photos, PhotoTerminal photoTerminal)
+    {
+        var gradeUI = Packed.Instantiate<GradingUI>();
+        gradeUI.uploadedPhotos = photos;
+        gradeUI.photoTerminal = photoTerminal;
+        return gradeUI;
+    }
+
     private LabelSettings styleLabelSettings = GD.Load<LabelSettings>("uid://d1hk046eb0hlq");
-    private Button ReturnBtn = null!;
-    private TextureRect photoRect = null!;
-    private VBoxContainer styleLabels = null!;
-    private List<Photo> UploadedPhotos = [];
-    private HashSet<Photo> viewedPhotos = [];
-    private Label PhotoTotalLabel = null!;
-    private Label GalleryTotalLabel = null!;
-    private Button PrevBtn = null!;
-    private Button NextBtn = null!;
+
+    [Node]
+    public required Button ReturnBtn { set; get; }
+
+    [Node]
+    public required TextureRect PhotoRect { set; get; }
+
+    [Node]
+    public required VBoxContainer StyleLabels { set; get; }
+
+    [Node]
+    public required Label PhotoTotalLabel { set; get; }
+
+    [Node]
+    public required Label GalleryTotalLabel { set; get; }
+
+    [Node]
+    public required Button PrevBtn { set; get; }
+
+    [Node]
+    public required Button NextBtn { set; get; }
+
+    PhotoTerminal photoTerminal = null!;
     private int currentPhotoIndex = 0;
     private int GalleryTotal = 0;
-
-    public GradingUi Init(List<Photo> photos, PhotoTerminal photoTerminal)
-    {
-        this.UploadedPhotos = photos;
-        this.photoTerminal = photoTerminal;
-        return this;
-    }
+    private List<Photo> uploadedPhotos = [];
+    private readonly HashSet<Photo> viewedPhotos = [];
 
     public override void _Ready()
     {
-        PhotoTotalLabel = GetNode<Label>("PhotoTotalLabel");
-        GalleryTotalLabel = GetNode<Label>("GalleryTotalLabel");
-        ReturnBtn = GetNode<Button>("ReturnBtn");
-        photoRect = GetNode<TextureRect>("PhotoRect");
-        styleLabels = GetNode<VBoxContainer>("StyleLabels");
-        styleLabels.RemoveAllChildren();
-        PrevBtn = GetNode<Button>("PrevBtn");
-        NextBtn = GetNode<Button>("NextBtn");
-
+        StyleLabels.RemoveAllChildren();
         PrevBtn.Pressed += () =>
         {
             currentPhotoIndex = Math.Max(0, currentPhotoIndex - 1);
@@ -46,7 +59,7 @@ public partial class GradingUi : Control
 
         NextBtn.Pressed += () =>
         {
-            currentPhotoIndex = Math.Min(currentPhotoIndex + 1, UploadedPhotos.Count - 1);
+            currentPhotoIndex = Math.Min(currentPhotoIndex + 1, uploadedPhotos.Count - 1);
             RenderPhotoGrade(currentPhotoIndex);
         };
         ReturnBtn.Pressed += CloseShop;
@@ -68,16 +81,16 @@ public partial class GradingUi : Control
 
     private void RenderPhotoGrade(int index)
     {
-        if (UploadedPhotos.Count == 0)
+        if (uploadedPhotos.Count == 0)
         {
             MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
             return;
         }
 
-        styleLabels.RemoveAllChildren();
+        StyleLabels.RemoveAllChildren();
 
-        var photo = UploadedPhotos[index];
-        photoRect.Texture = photo.Data.ToTexture();
+        var photo = uploadedPhotos[index];
+        PhotoRect.Texture = photo.Data.ToTexture();
         if (photo.SubjectGrades.Count == 0)
         {
             MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
@@ -112,6 +125,6 @@ public partial class GradingUi : Control
             LabelSettings = styleLabelSettings,
             Text = $"{subject}: {desc} ({score})",
         };
-        styleLabels.AddChild(label);
+        StyleLabels.AddChild(label);
     }
 }

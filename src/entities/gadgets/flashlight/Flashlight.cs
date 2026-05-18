@@ -1,17 +1,22 @@
 using System;
+using System.Runtime.CompilerServices;
 using Godot;
+using DependencyAttribute = Chickensoft.AutoInject.DependencyAttribute;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class Flashlight : Item
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
-    private SpotLight3D spotLight = null!;
-    private Camera3D camera = null!;
-    private MeshInstance3D mesh = null!;
-    private Inventory inventory = null!;
-    private PlayerStats playerStats = null!;
+    [Node("SpotLight3D")]
+    public required SpotLight3D SpotLight { set; get; }
+
+    [Node("MeshInstance3D")]
+    public required MeshInstance3D Mesh { set; get; }
 
     [Export]
     private float batteryUseRate = 10;
@@ -19,14 +24,16 @@ public partial class Flashlight : Item
     [Export]
     private float LightEnergy;
 
+    Inventory Inventory = null!;
+
+    private PlayerStats PlayerStats = null!;
+    private Camera3D Camera = null!;
+
     public override void _Ready()
     {
-        ItemName = "Flashlight";
-        spotLight = GetNode<SpotLight3D>("SpotLight3D");
-        camera = GetParent().GetParent().GetNode<Camera3D>("%Camera3D");
-        mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-        inventory = GetParent<Inventory>();
-        playerStats = GetParent().GetParent().GetNode<PlayerStats>("Stats");
+        Camera = GetParent().GetParent().GetNode<Camera3D>("%Camera3D");
+        Inventory = GetParent<Inventory>();
+        PlayerStats = GetParent().GetParent().GetNode<PlayerStats>("Stats");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -37,7 +44,7 @@ public partial class Flashlight : Item
         if (Input.IsActionPressed("look_cam"))
         {
             //spotLight.LightEnergy = LightEnergy;
-            playerStats.Battery -= (float)(batteryUseRate * delta);
+            PlayerStats.Battery -= (float)(batteryUseRate * delta);
         }
         else
         {
@@ -46,15 +53,15 @@ public partial class Flashlight : Item
 
         if (Input.IsActionJustPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(mesh.Mesh, Packed);
+            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
 
-            dropItem.GlobalTransform = camera.GlobalTransform;
+            dropItem.GlobalTransform = Camera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
-            inventory.RemoveCurrentItem();
+            Inventory.RemoveCurrentItem();
         }
 
-        mesh.GlobalTransform = camera.GlobalTransform;
-        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2);
-        GlobalTransform = camera.GlobalTransform;
+        Mesh.GlobalTransform = Camera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
+        GlobalTransform = Camera.GlobalTransform;
     }
 }

@@ -10,12 +10,13 @@ public class HiddenState : IFishState
 
     public void Enter(Fish fish)
     {
-        fish.EmitSignal(Fish.SignalName.BecameHidden);
+        //fish.EmitSignal(Fish.SignalName.BecameHidden);
+        fish.BecameHidden?.Invoke();
     }
 
     public void Exit(Fish fish)
     {
-        fish.EmitSignal(Fish.SignalName.BecameVisible);
+        fish.BecameVisible?.Invoke();
     }
 
     public void Update(Fish fish, float delta) { }

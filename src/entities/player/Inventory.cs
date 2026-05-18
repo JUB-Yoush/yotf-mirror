@@ -27,6 +27,11 @@ public partial class Inventory : Node3D
         }
     }
 
+    // public string Value()
+    // {
+    //     throw new NotImplementedException();
+    // }
+
     public override void _Ready()
     {
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);

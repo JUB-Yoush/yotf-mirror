@@ -27,7 +27,8 @@ Profile = ExtResource("2_rq6t1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
 shape = SubResource("BoxShape3D_rq6t1")
 
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+[node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.027611732, -0.67337775)
 aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.9458029)
 

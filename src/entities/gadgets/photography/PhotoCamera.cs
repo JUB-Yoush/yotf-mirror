@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PhotoCamera : Item
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
     public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
@@ -20,17 +23,31 @@ public partial class PhotoCamera : Item
     const float ViewfinderFov = 50;
     const float ViewfinderLerp = 20;
 
-    private Camera3D camera = null!;
-    private TextureRect photoLetterBox = null!;
-    private ColorRect flashRect = null!;
-    private PhotoTerminal? photoTerminal = null;
-    private Camera3D photoCamera = null!;
-    private SubViewport photoViewport = null!;
-    private MeshInstance3D mesh = null!;
-    private Inventory inventory = null!;
-    private SpotLight3D light = null!;
+    [Node]
+    public required Camera3D PhotoCameraCam { set; get; }
+
+    [Node]
+    public required TextureRect PhotoLetterBox { set; get; }
+
+    [Node]
+    public required ColorRect FlashRect { set; get; }
+
+    [Node]
+    public required SubViewport PhotoViewport { set; get; }
+
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
+
+    [Node]
+    public required SpotLight3D Light { set; get; }
 
     private PlayerController player = null!;
+
+    private Camera3D playerCamera = null!;
+
+    private PhotoTerminal? photoTerminal = null!;
+
+    private Inventory Inventory = null!;
 
     private int film = 0;
     private int maxFilm = 0;
@@ -39,19 +56,13 @@ public partial class PhotoCamera : Item
 
     public override async void _Ready()
     {
-        ItemName = "camera";
+        GD.Print(PhotoLetterBox);
         player = GetParent().GetParent<PlayerController>();
-        camera = player.GetNode<Camera3D>("%Camera3D");
-        photoLetterBox = GetNode<TextureRect>("%PhotoLetterBox");
-        flashRect ??= GetNode<ColorRect>("%FlashRect");
         photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
-        photoViewport = GetNode<SubViewport>("SubViewport");
-        photoCamera = photoViewport.GetNode<Camera3D>("PhotoCamera");
-        photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-        mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-        inventory = GetParent<Inventory>();
-        light = photoCamera.GetNode<SpotLight3D>("CameraLight");
-        Log.PrintLn("balls!");
+        playerCamera = player.GetNode<Camera3D>("%Camera3D");
+        Inventory = GetParent<Inventory>();
+
+        PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
     }
 
     public override void _Input(InputEvent @event)
@@ -61,26 +72,26 @@ public partial class PhotoCamera : Item
 
         if (@event.IsActionPressed("look_cam"))
         {
-            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsInMenu = true;
             aiming = true;
-            light.Visible = true;
+            Light.Visible = true;
         }
 
         if (@event.IsActionReleased("look_cam"))
         {
-            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             player.IsInMenu = false;
             aiming = false;
-            light.Visible = false;
+            Light.Visible = false;
         }
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(mesh.Mesh, Packed);
-            dropItem.GlobalTransform = camera.GlobalTransform;
+            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
-            inventory.RemoveCurrentItem();
+            Inventory.RemoveCurrentItem();
         }
     }
 
@@ -91,13 +102,21 @@ public partial class PhotoCamera : Item
 
         if (aiming)
         {
-            camera.Fov = MathExt.Lerp(camera.Fov, ViewfinderFov, (float)(ViewfinderLerp * delta));
-            photoLetterBox.Visible = true;
+            playerCamera.Fov = MathExt.Lerp(
+                playerCamera.Fov,
+                ViewfinderFov,
+                (float)(ViewfinderLerp * delta)
+            );
+            PhotoLetterBox.Visible = true;
         }
         else
         {
-            camera.Fov = MathExt.Lerp(camera.Fov, DefaultFov, (float)(ViewfinderLerp * delta));
-            photoLetterBox.Visible = false;
+            playerCamera.Fov = MathExt.Lerp(
+                playerCamera.Fov,
+                DefaultFov,
+                (float)(ViewfinderLerp * delta)
+            );
+            PhotoLetterBox.Visible = false;
         }
 
         if (Input.IsActionJustPressed("take_photo") && aiming)
@@ -109,9 +128,9 @@ public partial class PhotoCamera : Item
             FlashSFX();
             AddPhoto(photo, grades);
         }
-        mesh.GlobalTransform = camera.GlobalTransform;
-        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
-        photoCamera.GlobalTransform = camera.GlobalTransform;
+        Mesh.GlobalTransform = playerCamera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
@@ -124,8 +143,8 @@ public partial class PhotoCamera : Item
             var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
 
             // how centered the fish is
-            var camToFish = subject.GlobalPosition - photoCamera.GlobalPosition;
-            var camFacing = photoCamera.GlobalTransform.Basis.Z;
+            var camToFish = subject.GlobalPosition - PhotoCameraCam.GlobalPosition;
+            var camFacing = PhotoCameraCam.GlobalTransform.Basis.Z;
             var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
             var angleScore = Math.Clamp((angle - 2.6) / (Math.PI - 2.6), 0, 1);
 
@@ -155,7 +174,7 @@ public partial class PhotoCamera : Item
 
     private Image GetViewportImage()
     {
-        var img = photoViewport.GetTexture().GetImage();
+        var img = PhotoViewport.GetTexture().GetImage();
         return img;
     }
 
@@ -175,9 +194,9 @@ public partial class PhotoCamera : Item
     void FlashSFX()
     {
         var tween = CreateTween();
-        tween.Fn(() => flashRect.Visible = true);
+        tween.Fn(() => FlashRect.Visible = true);
         tween.TweenInterval(.1);
-        tween.Fn(() => flashRect.Visible = false);
+        tween.Fn(() => FlashRect.Visible = false);
     }
 
     void TakeScreenShot(string id)

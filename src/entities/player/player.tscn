@@ -256,12 +256,14 @@ offset_right = 263.0
 offset_bottom = 128.0
 
 [node name="OxygenLabel" type="Label" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/DebugPanel" unique_id=930209256]
+unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Oxygen:"
 
 [node name="BatteryLabel" type="Label" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/DebugPanel" unique_id=182572895]
+unique_name_in_owner = true
 layout_mode = 0
 offset_top = 24.0
 offset_right = 63.0
@@ -269,6 +271,7 @@ offset_bottom = 47.0
 text = "Battery:"
 
 [node name="PhotoLabel" type="Label" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/DebugPanel" unique_id=556948804]
+unique_name_in_owner = true
 layout_mode = 0
 offset_top = 46.0
 offset_right = 63.0
@@ -276,13 +279,14 @@ offset_bottom = 69.0
 text = "Photo Score:"
 
 [node name="MoneyLabel" type="Label" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/DebugPanel" unique_id=1064315356]
+unique_name_in_owner = true
 layout_mode = 0
 offset_top = 68.0
 offset_right = 98.0
 offset_bottom = 91.0
 text = "Money: 0000"
 
-[node name="BatteryOxygenBars" type="VBoxContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=113882728]
+[node name="StatBarContainer" type="VBoxContainer" parent="HUDLayer/SubViewportContainer/SubViewport/HUD" unique_id=113882728]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1154.0
@@ -292,14 +296,14 @@ offset_bottom = 193.0
 scale = Vector2(1.09, 1.09)
 theme_override_constants/separation = 12
 
-[node name="OxygenBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/BatteryOxygenBars" unique_id=1457280117]
+[node name="OxygenBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/StatBarContainer" unique_id=1457280117]
 layout_mode = 2
 value = 100.0
 fill_mode = 1
 texture_under = ExtResource("13_p2qdy")
 texture_progress = ExtResource("14_lqdhu")
 
-[node name="BatteryBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/BatteryOxygenBars" unique_id=724040035]
+[node name="BatteryBar" type="TextureProgressBar" parent="HUDLayer/SubViewportContainer/SubViewport/HUD/StatBarContainer" unique_id=724040035]
 layout_mode = 2
 texture_under = ExtResource("15_yi0df")
 texture_progress = ExtResource("16_0tyfe")
