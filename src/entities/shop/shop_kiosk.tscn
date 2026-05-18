@@ -13,7 +13,8 @@ material = SubResource("StandardMaterial3D_g65i8")
 [node name="ShopKiosk" type="Node3D" unique_id=1903364331]
 script = ExtResource("1_cbfys")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=644258684]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=644258684]
+unique_name_in_owner = true
 mesh = SubResource("BoxMesh_g65i8")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2047259221]

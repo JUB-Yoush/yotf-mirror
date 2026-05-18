@@ -4,31 +4,37 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class ShopUI : Control
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     public static readonly PackedScene ShopItemView = GD.Load<PackedScene>("uid://c8frlegdjskm3");
 
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
-    private HBoxContainer UpgradeContainer = null!;
-    private HBoxContainer ItemContainer = null!;
-    private ShopKiosk kiosk = null!;
 
-    public ShopUI Init(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
+    [Node]
+    public required HBoxContainer UpgradesView { set; get; }
+
+    [Node]
+    public required HBoxContainer ItemsView { set; get; }
+
+    public required ShopKiosk Kiosk = null!;
+
+    public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
-        this.Items = items;
-        this.Upgrades = upgrades;
-        this.kiosk = kiosk;
-        return this;
+        var shop = ShopItemView.Instantiate<ShopUI>();
+        shop.Items = items;
+        shop.Upgrades = upgrades;
+        shop.Kiosk = kiosk;
+        return shop;
     }
 
     public override void _Ready()
     {
-        UpgradeContainer = GetNode<HBoxContainer>("%Upgrades");
-        ItemContainer = GetNode<HBoxContainer>("%Items");
-        GetNode<Button>("ReturnBtn").Pressed += CloseShop;
-
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        this.GetNode<Button>()!.Pressed += CloseShop;
+        var player = this.SceneRoot().GetNode<PlayerController>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
@@ -37,10 +43,10 @@ public partial class ShopUI : Control
 
     private void PopulateShop()
     {
-        ItemContainer.RemoveAllChildren();
-        UpgradeContainer.RemoveAllChildren();
+        ItemsView.RemoveAllChildren();
+        UpgradesView.RemoveAllChildren();
 
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
@@ -49,7 +55,7 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Price").Text = $"${item.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
             view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
-            ItemContainer.AddChild(view);
+            ItemsView.AddChild(view);
         }
 
         foreach (var upgrade in Upgrades)
@@ -60,13 +66,13 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
             view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
-            UpgradeContainer.AddChild(view);
+            UpgradesView.AddChild(view);
         }
     }
 
     private void BuyUpgrade(ShopItem upgrade)
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= upgrade.Price;
 
         switch (upgrade.upgrade)
@@ -86,17 +92,17 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = this.SceneRoot().GetNode<PlayerStats>()!;
+        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= item.Price;
         var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
-        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        itemDrop.GlobalTransform = Kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
         PopulateShop();
     }
 
     private void CloseShop()
     {
-        kiosk.inShop = false;
+        Kiosk.inShop = false;
         var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);

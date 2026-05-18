@@ -80,6 +80,21 @@ public static class MiscExtensions
             return null;
         }
 
+        /// <summary>
+        /// Loops over scene tree to find all children of matching type.
+        /// </summary>
+        public T[] GetNodes<T>(bool includeInternal = false)
+            where T : Node
+        {
+            var res = new List<T>();
+            foreach (var child in node.GetChildren(includeInternal))
+            {
+                if (child is T t)
+                    res.Add(t);
+            }
+            return [.. res];
+        }
+
         public async Task WaitUntil(Func<bool> condition)
         {
             while (!condition())

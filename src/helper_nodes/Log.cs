@@ -5,12 +5,17 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class Log : Control
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private static Log Instance { get; set; } = null!;
     public static int MsgCount = 0;
     public const int LOG_LIMIT = 500;
-    VBoxContainer LogMessages = null!;
+
+    [Node]
+    public required VBoxContainer LogMessages { set; get; }
 
     static readonly PackedScene LogMsg = GD.Load<PackedScene>(
         "res://src/helper_nodes/log_label.tscn"

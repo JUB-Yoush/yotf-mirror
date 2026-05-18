@@ -4,10 +4,16 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class ShopKiosk : Node3D, IInteractable
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private static readonly PackedScene shopUI = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
-    private Mesh mesh = null!;
+
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
+
     public bool inShop = false;
 
     // TODO(j) pass these in from a resource to make unique shop stocks simple
@@ -16,19 +22,18 @@ public partial class ShopKiosk : Node3D, IInteractable
 
     public override void _Ready()
     {
-        mesh = GetNode<MeshInstance3D>("MeshInstance3D").Mesh;
         Items = [(GD.Load<ShopItem>("uid://b23k3n6uvsqhm"))];
         Upgrades = [(GD.Load<ShopItem>("uid://dkxdiu2kqqy1k"))];
     }
 
-    public Mesh GetMesh() => mesh;
+    public Mesh GetMesh() => Mesh.Mesh;
 
     public void OnInteraction()
     {
         if (inShop)
             return;
         inShop = true;
-        var shop = shopUI.Instantiate<ShopUI>().Init(Items, Upgrades, this);
+        var shop = ShopUI.New(Items, Upgrades, this);
         AddChild(shop);
     }
 }
