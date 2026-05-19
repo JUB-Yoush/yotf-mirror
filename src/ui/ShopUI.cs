@@ -20,14 +20,14 @@ public partial class ShopUI : Control
     [Node]
     public required HBoxContainer ItemsView { set; get; }
 
-    public required ShopKiosk Kiosk = null!;
+    private ShopKiosk kiosk = null!;
 
     public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
         var shop = ShopItemView.Instantiate<ShopUI>();
         shop.Items = items;
         shop.Upgrades = upgrades;
-        shop.Kiosk = kiosk;
+        shop.kiosk = kiosk;
         return shop;
     }
 
@@ -95,14 +95,14 @@ public partial class ShopUI : Control
         var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= item.Price;
         var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
-        itemDrop.GlobalTransform = Kiosk.GlobalTransform;
+        itemDrop.GlobalTransform = kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
         PopulateShop();
     }
 
     private void CloseShop()
     {
-        Kiosk.inShop = false;
+        kiosk.inShop = false;
         var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
