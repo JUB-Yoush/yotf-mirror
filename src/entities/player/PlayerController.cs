@@ -142,7 +142,7 @@ public partial class PlayerController : CharacterBody3D
 
         // Skin ??= GetNode<Node3D>("SkrunkoSkin");
 
-        Log.PrintLn(Skin);
+        Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
         // CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");

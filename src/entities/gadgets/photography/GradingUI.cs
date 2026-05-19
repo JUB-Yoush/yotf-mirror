@@ -64,7 +64,7 @@ public partial class GradingUI : Control
         };
         ReturnBtn.Pressed += CloseShop;
 
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var player = this.SceneRoot().GetNode<PlayerController>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
         RenderPhotoGrade(0);
@@ -73,7 +73,7 @@ public partial class GradingUI : Control
     private void CloseShop()
     {
         photoTerminal.inShop = false;
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var player = this.SceneRoot().GetNode<PlayerController>()!;
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();
@@ -112,9 +112,8 @@ public partial class GradingUI : Control
             viewedPhotos.Add(photo);
         }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
-        //photoTerminal.LabelText = $"{GalleryTotal:D6}";
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
-        var stats = player.GetNode<PlayerStats>("Stats");
+        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var stats = player.GetNode<PlayerStats>()!;
         stats.Money += GalleryTotal;
     }
 
