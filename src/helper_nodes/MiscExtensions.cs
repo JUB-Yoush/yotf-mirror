@@ -107,6 +107,22 @@ public static class MiscExtensions
                 await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
     }
+    extension<T>(List<T> list)
+    {
+        public T Pop()
+        {
+            T val = list[^1];
+            list.RemoveAt(list.Count - 1);
+            return val;
+        }
+
+        public T PopAt(int i)
+        {
+            T val = list[i];
+            list.RemoveAt(i);
+            return val;
+        }
+    }
 
     static void TryMakeDir(string path)
     {

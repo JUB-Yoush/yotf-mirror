@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using Godot;
 
 namespace Yotf;
@@ -61,6 +62,12 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("Debug")]
     private bool firstPerson = false;
 
+    public float Depth
+    {
+        set;
+        get => GlobalPosition.Z;
+    }
+
     [Export]
     public bool FirstPerson
     {
@@ -111,7 +118,6 @@ public partial class PlayerController : CharacterBody3D
     }
 
     // ====================== INTERNAL STATE ======================
-    [Export]
     public ProceduralAnimator ProceduralAnimator = null!;
 
     public IPlayerState CurrentState { get; private set; } = null!;
@@ -137,21 +143,12 @@ public partial class PlayerController : CharacterBody3D
 
     public override void _Ready()
     {
-        // raycast = GetNode<RayCast3D>("CameraManager/Camera3D/RayCast3D");
-        // Camera ??= GetNode<Camera3D>("%Camera3D");
-
-        // Skin ??= GetNode<Node3D>("SkrunkoSkin");
-
         Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
-        // CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
         CollisionPivot = CollisionShapeBody.Position;
 
-        // ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
-
-        // springArm = GetNode<SpringArm3D>("CameraManager/Arm");
-
+        ProceduralAnimator ??= GetNode<Node3D>("Skin").GetNode<ProceduralAnimator>()!;
         if (IsMultiplayerAuthority())
         {
             Camera.Current = true;

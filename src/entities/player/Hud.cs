@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Yotf;
@@ -9,6 +10,8 @@ public partial class Hud : Control
     public override void _Notification(int what) => this.Notify(what);
 
     public const int InventorySize = 4;
+
+    PlayerController player = null!;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -37,6 +40,9 @@ public partial class Hud : Control
     [Node]
     public required Node3D GimbalArm { set; get; }
 
+    [Node]
+    public required TextureRect Ruler { set; get; }
+
     public TextureRect[] InventoryIcons
     {
         get
@@ -48,12 +54,37 @@ public partial class Hud : Control
         }
     }
 
+    [Export]
+    public float RulerSmoothing = 0.1f;
+    private float smoothedSpeed = 0f;
+    private float prevDepth;
+
     public Vector2 slotMinSize = new(200, 200);
     public Vector2 slotMaxSize = new(250, 250);
+    ShaderMaterial barometerShader = null!;
+
+    public override void _Ready()
+    {
+        player = this.SceneRoot().GetNode<PlayerController>()!;
+        prevDepth = player.Depth;
+        barometerShader = (ShaderMaterial)Ruler.Material;
+    }
 
     public override void _Process(double delta)
     {
         RotateGimbalToCam();
+        UpdateBarometer((float)delta);
+    }
+
+    void UpdateBarometer(float delta)
+    {
+        // Weighted Exponential Averaging
+        var instantSpeed = (player.Depth - prevDepth) / delta;
+        prevDepth = player.Depth;
+        var alpha = 1f - Mathf.Exp(-delta / RulerSmoothing);
+        smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
+        var shaderSpeed = new Vector2(0, smoothedSpeed);
+        barometerShader.SetShaderParameter("scroll_speed", shaderSpeed);
     }
 
     public void SetOxygenText(float value)
