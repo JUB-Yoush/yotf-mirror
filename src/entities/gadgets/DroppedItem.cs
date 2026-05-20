@@ -19,6 +19,12 @@ public partial class DroppedItem : RigidBody3D, IInteractable
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
+    public required Mesh InteractionMesh
+    {
+        get => meshData;
+        set;
+    }
+
     public override void _Ready()
     {
         Mesh.Mesh = meshData;

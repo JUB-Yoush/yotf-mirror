@@ -8,6 +8,8 @@ public partial class PlayerStats : Node
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    private PlayerController player = null!;
+
     [Node]
     public required Hud HUD { set; get; }
 
@@ -81,6 +83,7 @@ public partial class PlayerStats : Node
 
     public override void _Ready()
     {
+        player = GetParent<PlayerController>();
         HUD.OxygenBar.MaxValue = MaxOxygen;
         HUD.BatteryBar.MaxValue = MaxBattery;
         MaxOxygen = 100;
@@ -93,6 +96,8 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
+        //TODO (j) we need to come up wtih some normalized depth value relative to the underwater lab or smthn
+        //OxygenUseRate = player.Depth
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 

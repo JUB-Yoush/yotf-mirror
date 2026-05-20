@@ -23,6 +23,12 @@ public partial class PhotoTerminal : Node3D, IInteractable
         set { ScoreLabel?.Text = value; }
     }
 
+    public required Mesh InteractionMesh
+    {
+        get => Mesh.Mesh;
+        set;
+    }
+
     void IInteractable.OnInteraction()
     {
         if (inShop)

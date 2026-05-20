@@ -19,6 +19,12 @@ public partial class ShopKiosk : Node3D, IInteractable
 
     public bool inShop = false;
 
+    public required Mesh InteractionMesh
+    {
+        get => Mesh.Mesh;
+        set;
+    }
+
     // TODO(j) pass these in from a resource to make unique shop stocks simple
     List<ShopItem> Items = [];
     List<ShopItem> Upgrades = [];
@@ -28,8 +34,6 @@ public partial class ShopKiosk : Node3D, IInteractable
         Items = [(GD.Load<ShopItem>("uid://b23k3n6uvsqhm"))];
         Upgrades = [(GD.Load<ShopItem>("uid://dkxdiu2kqqy1k"))];
     }
-
-    public Mesh GetMesh() => Mesh.Mesh;
 
     public void OnInteraction()
     {

@@ -28,6 +28,7 @@ public partial class Flashlight : Item
 
     private PlayerStats PlayerStats = null!;
     private Camera3D Camera = null!;
+    private bool isOn = false;
 
     public override void _Ready()
     {
@@ -36,12 +37,28 @@ public partial class Flashlight : Item
         PlayerStats = GetParent().GetParent().GetNode<PlayerStats>()!;
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("toggle_flashlight"))
+        {
+            isOn = !isOn;
+            SpotLight.LightEnergy = isOn ? 10 : 0;
+        }
+    }
+
     public override void _PhysicsProcess(double delta)
     {
+        GlobalTransform = Camera.GlobalTransform;
+
+        if (isOn)
+        {
+            PlayerStats.Battery -= (float)(batteryUseRate * delta);
+        }
+
         if (!CurrentItem)
             return;
 
-        if (Input.IsActionPressed("look_cam"))
+        if (Input.IsActionJustPressed("look_cam"))
         {
             PlayerStats.Battery -= (float)(batteryUseRate * delta);
         }
@@ -49,7 +66,6 @@ public partial class Flashlight : Item
         if (Input.IsActionJustPressed("drop_item"))
         {
             var dropItem = MakeDropItem(Mesh.Mesh, Packed);
-
             dropItem.GlobalTransform = Camera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();
@@ -57,6 +73,15 @@ public partial class Flashlight : Item
 
         Mesh.GlobalTransform = Camera.GlobalTransform;
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
-        GlobalTransform = Camera.GlobalTransform;
+    }
+
+    public override void Equipped()
+    {
+        Mesh.Visible = true;
+    }
+
+    public override void Unequipped()
+    {
+        Mesh.Visible = false;
     }
 }

@@ -106,19 +106,20 @@ public partial class GradingUI : Control
             MakeStyleLabel(subject, "Facing Score", Math.Floor(grade.FacingScore * 100.0));
             MakeStyleLabel(subject, "Centered Score", Math.Floor(grade.CenterScore * 100.0));
             MakeStyleLabel(subject, "Size Score", Math.Floor(grade.SizeScore * 100.0));
-            sum += ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100));
 
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore < sum)
             {
+                MakeStyleLabel(subject, "New Record!", 0);
+                sum +=
+                    ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100))
+                    - highestScore;
                 maxPhotoScores.TryAdd(subject, sum);
                 newRecords.Add(subject);
-                MakeStyleLabel(subject, "New Record!", 0);
             }
             else
             {
                 MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
-                sum -= ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100));
             }
         }
         PhotoTotalLabel.Text = $"TOTAL: {sum}";

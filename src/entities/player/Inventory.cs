@@ -57,12 +57,11 @@ public partial class Inventory : Node3D
     private void SetCurrentItem(int index)
     {
         HUD?.SelectSlot(index);
-        InventoryArr[currentIndex]?.Exit();
+        InventoryArr[currentIndex]?.Unequipped();
         currentIndex = index;
-        InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
         ClearItems(currentIndex);
-        InventoryArr[currentIndex]?.Enter();
+        InventoryArr[currentIndex]?.Equipped();
     }
 
     private void ClearItems(int notThisOne = -1)
@@ -71,11 +70,11 @@ public partial class Inventory : Node3D
         {
             if (i == notThisOne)
                 continue;
-            InventoryArr[i]?.Visible = false;
             InventoryArr[i]?.CurrentItem = false;
         }
     }
 
+    //TODO (j) consolidate these two functions.
     public void AddItem(Item item)
     {
         Debug.Assert(InventoryArr[currentIndex] == null);
@@ -84,6 +83,7 @@ public partial class Inventory : Node3D
         AddChild(item);
         SetCurrentItem(currentIndex);
         HUD.SetItemSlot(currentIndex, item.Icon);
+        item.Added();
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -98,13 +98,17 @@ public partial class Inventory : Node3D
         AddChild(item);
 
         HUD.SetItemSlot(index, item.Icon);
+        item.Added();
     }
 
     public void RemoveItem(int index)
     {
         if (InventoryArr[index] == null)
             return;
-        GetChild<Item>(index).QueueFree();
+
+        var item = GetNode<Item>(index.ToString());
+        item.Removed();
+        item.QueueFree();
     }
 
     public void RemoveCurrentItem()
