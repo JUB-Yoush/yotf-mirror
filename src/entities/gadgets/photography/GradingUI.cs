@@ -9,6 +9,8 @@ public partial class GradingUI : Control
 {
     private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
 
+    private static readonly Dictionary<string, int> maxPhotoScores = [];
+
     public override void _Notification(int what) => this.Notify(what);
 
     public static GradingUI New(List<Photo> photos, PhotoTerminal photoTerminal)
@@ -98,12 +100,26 @@ public partial class GradingUI : Control
         }
 
         int sum = 0;
+        HashSet<string> newRecords = [];
         foreach (var (subject, grade) in photo.SubjectGrades)
         {
             MakeStyleLabel(subject, "Facing Score", Math.Floor(grade.FacingScore * 100.0));
             MakeStyleLabel(subject, "Centered Score", Math.Floor(grade.CenterScore * 100.0));
             MakeStyleLabel(subject, "Size Score", Math.Floor(grade.SizeScore * 100.0));
             sum += ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100));
+
+            // record highest scoring photo taken of this subject
+            if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore < sum)
+            {
+                maxPhotoScores.TryAdd(subject, sum);
+                newRecords.Add(subject);
+                MakeStyleLabel(subject, "New Record!", 0);
+            }
+            else
+            {
+                MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
+                sum -= ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100));
+            }
         }
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
         if (!viewedPhotos.Contains(photo))
@@ -115,6 +131,7 @@ public partial class GradingUI : Control
         var player = this.SceneRoot().GetNode<PlayerController>()!;
         var stats = player.GetNode<PlayerStats>()!;
         stats.Money += GalleryTotal;
+        stats.TotalGalleryScore += GalleryTotal;
     }
 
     private void MakeStyleLabel(string subject, string desc, double score)

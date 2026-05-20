@@ -59,8 +59,10 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.MoneyLabel?.Text = $"Money: {value}";
-            var photoTerminal = this.SceneRoot().GetNode<PhotoTerminal>();
-            photoTerminal?.LabelText = $"{value:D6}";
+            foreach (var shop in this.SceneRoot().GetNodes<ShopKiosk>())
+            {
+                shop.ScoreLabel.Text = $"{value:D6}";
+            }
         }
     }
     public int TotalGalleryScore
@@ -70,6 +72,8 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.PhotoLabel?.Text = $"Photo Points: {value}";
+            var photoTerminal = this.SceneRoot().GetNode<PhotoTerminal>();
+            photoTerminal?.LabelText = $"{value:D6}";
         }
     }
 

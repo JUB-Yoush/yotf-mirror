@@ -14,6 +14,9 @@ public partial class ShopKiosk : Node3D, IInteractable
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required Label3D ScoreLabel { set; get; }
+
     public bool inShop = false;
 
     // TODO(j) pass these in from a resource to make unique shop stocks simple
