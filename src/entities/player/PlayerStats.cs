@@ -72,8 +72,10 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.PhotoLabel?.Text = $"Photo Points: {value}";
-            var photoTerminal = this.SceneRoot().GetNode<PhotoTerminal>();
-            photoTerminal?.LabelText = $"{value:D6}";
+            foreach (var term in this.SceneRoot().GetNodes<PhotoTerminal>())
+            {
+                term.LabelText = $"{value:D6}";
+            }
         }
     }
 
