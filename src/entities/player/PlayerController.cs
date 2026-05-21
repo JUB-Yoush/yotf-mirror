@@ -65,6 +65,7 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("Debug")]
     private bool firstPerson = false;
 
+    //TODO(j) this needs to be normalized based on the size of the map. or somthing.
     public float Depth
     {
         set;
@@ -83,7 +84,7 @@ public partial class PlayerController : CharacterBody3D
                 if (Arm == null)
                     return;
                 Tween tween = CreateTween();
-                tween.TweenProperty(Arm, "spring_length", 0.0f, 0.33);
+                tween.LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 0.0f, 0.33f);
                 tween.Fn(() => Skin.Visible = false);
             }
             else
@@ -91,7 +92,7 @@ public partial class PlayerController : CharacterBody3D
                 if (Arm == null)
                     return;
                 Skin.Visible = true;
-                CreateTween().TweenProperty(Arm, "spring_length", 2.0f, 0.33);
+                CreateTween().LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 2.0f, 0.33f);
             }
         }
     }

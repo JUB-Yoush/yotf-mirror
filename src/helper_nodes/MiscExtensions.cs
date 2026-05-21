@@ -23,7 +23,7 @@ public static class MiscExtensions
             }
         }
 
-        public void TweenProperty(Node node, StringName property, Variant value, float time)
+        public void LerpProperty(Node node, StringName property, Variant value, float time)
         {
             tween.TweenProperty(node, property.ToString(), value, time);
         }

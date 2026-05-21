@@ -204,12 +204,8 @@ public partial class PhotoCamera : Item
     {
         List<string> result = [];
         foreach (var child in GetTree().CurrentScene.GetChildren(true))
-        {
             if (child is IPhotographable photographable && photographable.IsInPhoto())
-            {
                 result.Add(child.Name);
-            }
-        }
         return [.. result];
     }
 
