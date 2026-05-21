@@ -20,6 +20,9 @@ public partial class Lab : Node3D
     public int Index = 0;
 
     [Export]
+    public float OxygenScale = 1f;
+
+    [Export]
     public int requiredGalleryScore;
 
     [Node]

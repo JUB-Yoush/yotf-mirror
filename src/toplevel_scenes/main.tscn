@@ -43,10 +43,11 @@ transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.75731
 
 [node name="Lab2" parent="." unique_id=462287885 instance=ExtResource("2_swlc7")]
 transform = Transform3D(-0.43978155, 0.00084432156, -0.89810437, 0.0019198617, 0.99999815, 0, 0.8981027, -0.0017242363, -0.43978238, 33.89779, -1.1841764, 42.064247)
-labIndex = 1
+OxygenScale = 0.0
 
 [node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
+OxygenScale = 0.0
 
 [node name="WaterSurface" type="MeshInstance3D" parent="." unique_id=1961154400]
 transform = Transform3D(0.019823706, 0.0010422469, 0.99980295, 0.0017487963, 0.99999785, -0.0010771246, -0.99980193, 0.0017698044, 0.019821841, -2.48, 9.438, -3.195)
@@ -69,7 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462
 curve = SubResource("Curve3D_i3xn1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
-transform = Transform3D(0.20616548, -0.051379662, 0.97713125, 0, 0.9985564, 0.052509263, -0.9784845, -0.010825632, 0.20588034, -2.041504, 0.20112705, 6.160286)
+transform = Transform3D(0.20616548, -0.05137965, 0.97713125, 0, 0.99855614, 0.052509263, -0.9784845, -0.010825629, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
 [node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)

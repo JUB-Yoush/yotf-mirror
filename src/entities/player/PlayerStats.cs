@@ -100,7 +100,7 @@ public partial class PlayerStats : Node
     public void SpendOxygen(double delta)
     {
         //TODO (j) we need to come up wtih some normalized depth value relative to the underwater lab or smthn
-        //OxygenUseRate = player.Depth
+        OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 
