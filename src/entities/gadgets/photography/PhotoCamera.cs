@@ -21,8 +21,9 @@ public partial class PhotoCamera : Item
 
     private bool equipped = false;
     const float DefaultFov = 90;
-    const float ViewfinderFov = 50;
     const float ViewfinderLerp = 20;
+    const float DefaultViewfinderFov = 50;
+    private float ViewfinderFov = 50;
 
     [Node]
     public required Camera3D PhotoCameraCam { set; get; }
@@ -83,6 +84,12 @@ public partial class PhotoCamera : Item
         if (!CurrentItem)
             return;
 
+        if (@event.IsActionPressed("scroll_up"))
+            ViewfinderFov = Math.Max(ViewfinderFov - 2, 20);
+
+        if (@event.IsActionPressed("scroll_down"))
+            ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
+
         if (@event.IsActionPressed("look_cam"))
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
@@ -97,6 +104,7 @@ public partial class PhotoCamera : Item
             player.IsInMenu = false;
             aiming = false;
             Light.Visible = false;
+            ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionPressed("drop_item"))
