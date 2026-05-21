@@ -8,6 +8,8 @@ public partial class Lab : Node3D
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    public static Action<Lab>? CurrentLabUpdated;
+
     public static Lab? CurrentLab = null;
 
     [Node]
@@ -33,6 +35,7 @@ public partial class Lab : Node3D
 
     public override void _Ready()
     {
+        Log.PrintLn("lab fin");
         if (Index == 0)
             SetCurrentLab(this);
     }

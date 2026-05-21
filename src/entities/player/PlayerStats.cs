@@ -17,6 +17,17 @@ public partial class PlayerStats : Node
 
     [Export]
     public float OxygenUseRate = 0f;
+
+    public float Injuries
+    {
+        get;
+        set
+        {
+            field = Math.Clamp(value, 0, MaxOxygen);
+            HUD.InjuryBar.Value = Mathf.Floor(field);
+        }
+    }
+
     public float MaxOxygen
     {
         get;
@@ -40,9 +51,9 @@ public partial class PlayerStats : Node
         get;
         set
         {
-            field = Math.Clamp(value, 0, MaxOxygen);
-            HUD?.OxygenBar.Value = value;
-            if (value == 0)
+            field = Math.Clamp(value, 0, MaxOxygen - Injuries);
+            HUD?.OxygenBar.Value = field;
+            if (field == 0)
                 Drown();
         }
     }
@@ -104,11 +115,24 @@ public partial class PlayerStats : Node
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("roll"))
+        {
+            Injuries += 10 * (float)delta;
+        }
+    }
+
     public void Drown()
     {
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
         fadeRect.Visible = true;
         var tween = CreateTween();
         tween.LerpProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
+    }
+
+    internal void RestoreOxygen()
+    {
+        Oxygen = MaxOxygen - Injuries;
     }
 }

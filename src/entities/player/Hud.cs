@@ -35,6 +35,9 @@ public partial class Hud : Control
     public required TextureProgressBar OxygenBar { set; get; }
 
     [Node]
+    public required TextureProgressBar InjuryBar { set; get; }
+
+    [Node]
     public required Node3D Gimbal { set; get; }
 
     [Node]

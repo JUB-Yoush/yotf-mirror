@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://b8jql4adc5yhp" path="res://assets/themes/hud_ui_items.tres" id="2_ipk1d"]
 [ext_resource type="Texture2D" uid="uid://cc8ieg0tmq0l8" path="res://assets/2d/ui/hud_oxygen_bar_border.tres" id="3_e8jo1"]
 [ext_resource type="Texture2D" uid="uid://ia0hslmcaehr" path="res://assets/2d/ui/hud_oxygen_bar_fill.tres" id="4_24csc"]
+[ext_resource type="Texture2D" uid="uid://7l50h4h6efue" path="res://assets/2d/ui/injurybar.tres" id="5_24csc"]
 [ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/hud_battery_bar_border.tres" id="5_vk5sl"]
 [ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud_battery_bar_fill.tres" id="6_8576i"]
 [ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud_top_border.tres" id="7_3yh4q"]
@@ -161,6 +162,38 @@ offset_right = 98.0
 offset_bottom = 91.0
 text = "Money: 0000"
 
+[node name="OxygenBar" type="TextureProgressBar" parent="." unique_id=1526340159]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1154.0
+offset_top = 78.00001
+offset_right = 1789.0
+offset_bottom = 118.00001
+value = 30.0
+texture_under = ExtResource("3_e8jo1")
+texture_progress = ExtResource("4_24csc")
+
+[node name="InjuryBar" type="TextureProgressBar" parent="." unique_id=459287250]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1154.0
+offset_top = 71.0
+offset_right = 1802.0
+offset_bottom = 119.0
+fill_mode = 1
+texture_progress = ExtResource("5_24csc")
+
+[node name="BatteryBar" type="TextureProgressBar" parent="." unique_id=997393251]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1154.0
+offset_top = 140.0
+offset_right = 1789.0
+offset_bottom = 168.0
+fill_mode = 1
+texture_under = ExtResource("5_vk5sl")
+texture_progress = ExtResource("6_8576i")
+
 [node name="StatBarContainer" type="VBoxContainer" parent="." unique_id=539364253]
 unique_name_in_owner = true
 layout_mode = 0
@@ -171,20 +204,6 @@ offset_bottom = 193.0
 scale = Vector2(1.09, 1.09)
 theme_override_constants/separation = 12
 
-[node name="OxygenBar" type="TextureProgressBar" parent="StatBarContainer" unique_id=1526340159]
-unique_name_in_owner = true
-layout_mode = 2
-value = 100.0
-fill_mode = 1
-texture_under = ExtResource("3_e8jo1")
-texture_progress = ExtResource("4_24csc")
-
-[node name="BatteryBar" type="TextureProgressBar" parent="StatBarContainer" unique_id=997393251]
-unique_name_in_owner = true
-layout_mode = 2
-texture_under = ExtResource("5_vk5sl")
-texture_progress = ExtResource("6_8576i")
-
 [node name="TopBorder" type="TextureRect" parent="." unique_id=1350757463]
 layout_mode = 0
 offset_left = 2.0
@@ -194,6 +213,7 @@ offset_bottom = 339.0
 scale = Vector2(1, 1.018)
 texture = ExtResource("7_3yh4q")
 expand_mode = 3
+metadata/_edit_lock_ = true
 
 [node name="OrientationGimbalViewCntnr" type="SubViewportContainer" parent="." unique_id=2050311127]
 unique_name_in_owner = true

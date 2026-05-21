@@ -10,10 +10,11 @@ size = Vector3(0.31, 0.3, 0.4591626)
 [sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
 radius = 5.0
 
-[node name="Fish" type="CharacterBody3D" unique_id=1200339281]
+[node name="Fish" type="CharacterBody3D" unique_id=1200339281 node_paths=PackedStringArray("Mesh")]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_37je6")
+Mesh = NodePath("shinfish/Armature_001/Skeleton3D/MeshInstance3D")
 Profile = ExtResource("2_rq6t1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]

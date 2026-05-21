@@ -3,11 +3,16 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private Mesh meshData = null!;
     public PackedScene ItemRef = null!;
-    private MeshInstance3D Mesh = null!;
+
+    [Node]
+    MeshInstance3D Mesh { set; get; }
 
     public static DroppedItem New(Mesh mesh, PackedScene packedItem)
     {

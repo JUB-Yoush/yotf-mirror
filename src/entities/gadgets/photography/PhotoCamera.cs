@@ -68,15 +68,27 @@ public partial class PhotoCamera : Item
 
     private bool aiming = false;
 
-    public override async void _Ready()
+    public override void _Ready()
     {
+        Log.PrintLn("cam fin");
         Film = maxFilm;
         player = GetParent().GetParent<PlayerController>();
-        photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
+        Lab.CurrentLabUpdated += CurrentLabUpdated;
+        photoTerminal = Lab.CurrentLab!.PhotoTerminal;
 
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+    }
+
+    public override void _ExitTree()
+    {
+        Lab.CurrentLabUpdated -= CurrentLabUpdated;
+    }
+
+    public void CurrentLabUpdated(Lab newLab)
+    {
+        photoTerminal = newLab.PhotoTerminal;
     }
 
     public override void _Input(InputEvent @event)
@@ -176,12 +188,12 @@ public partial class PhotoCamera : Item
 
             // size of fish on the screen
             // distance from camera scaled based on the size of the bounding box
-            var vis =
-                subject.GetNode<Node3D>("shinfish").GetNode<MeshInstance3D>("%MeshInstance3D")
-                as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
+            var photographable = subject as IPhotographable;
+            var vis = photographable.SubjectBoundingMesh as VisualInstance3D;
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            var sizeScore = Math.Clamp(Math.Min(sizeInPhoto * 10, 1.0f), 0, 1);
+            Log.PrintLn(sizeInPhoto);
+            var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
 
             //fish lighting
             // TODO (j) implement
@@ -256,7 +268,7 @@ public partial class PhotoCamera : Item
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
-        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     [Rpc(

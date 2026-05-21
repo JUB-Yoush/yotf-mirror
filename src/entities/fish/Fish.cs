@@ -23,6 +23,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public PathFollow3D? SplineFollower;
 
+    [Export]
+    public MeshInstance3D Mesh;
+
     // ====================== BEHAVIOUR ======================
 
     [ExportCategory("Behaviour")]
@@ -45,6 +48,12 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // null when no player is in range
     public Node3D? ThreatTarget { get; private set; }
 
+    public MeshInstance3D SubjectBoundingMesh
+    {
+        get => Mesh;
+        set;
+    }
+
     // ====================== LIFECYCLE ======================
 
     public override void _Ready()
@@ -56,6 +65,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
         CurrentState = initial;
         CurrentState.Enter(this);
+        Log.PrintLn(GetNode("shinfish").GetNode<MeshInstance3D>()!);
     }
 
     public override void _PhysicsProcess(double delta)
