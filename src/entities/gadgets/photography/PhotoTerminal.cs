@@ -42,6 +42,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
             return;
 
         var cam = inventory.GetNode<PhotoCamera>(inventory.GetItemIndex("Camera").ToString());
+        cam.Film = cam.maxFilm;
         var gradeUI = GradingUI.New(cam.Photos, this);
         cam.ClearPhotos();
         GetTree().CurrentScene.AddChild(gradeUI);

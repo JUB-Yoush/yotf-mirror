@@ -27,6 +27,9 @@ public partial class PlayerController : CharacterBody3D
     [Node]
     public required SpringArm3D Arm { set; get; }
 
+    [Node]
+    public required Control HUD { set; get; }
+
     public Vector3 CollisionPivot;
 
     // ====================== MOVEMENT CONFIG ======================
@@ -102,6 +105,7 @@ public partial class PlayerController : CharacterBody3D
         {
             field = value;
             this.GetNode<CameraManager>().GetNode<Camera3D>()!.Visible = !field;
+            HUD.Visible = !field;
         }
     }
 

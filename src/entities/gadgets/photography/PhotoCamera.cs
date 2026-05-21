@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -41,6 +42,9 @@ public partial class PhotoCamera : Item
     [Node]
     public required SpotLight3D Light { set; get; }
 
+    [Node]
+    public required Label FilmLabel { set; get; }
+
     private PlayerController player = null!;
 
     private Camera3D playerCamera = null!;
@@ -49,13 +53,23 @@ public partial class PhotoCamera : Item
 
     private Inventory Inventory = null!;
 
-    private int film = 0;
-    private int maxFilm = 0;
+    public int Film
+    {
+        set
+        {
+            Log.PrintLn(value);
+            field = Math.Clamp(value, 0, maxFilm);
+            FilmLabel.Text = $"{field}/{maxFilm}";
+        }
+        get;
+    }
+    public int maxFilm = 10;
 
     private bool aiming = false;
 
     public override async void _Ready()
     {
+        Film = maxFilm;
         player = GetParent().GetParent<PlayerController>();
         photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
@@ -118,8 +132,9 @@ public partial class PhotoCamera : Item
             PhotoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && aiming)
+        if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
         {
+            Film -= 1;
             var subjects = GetPhotoSubjects();
             Image image = GetViewportImage();
             PhotoData photo = PhotoData.New(Name, subjects, image.Data);
