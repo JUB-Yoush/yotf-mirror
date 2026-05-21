@@ -3,7 +3,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class DroppedItem : RigidBody3D, IInteractable
+public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
 {
     private Mesh meshData = null!;
     public PackedScene ItemRef = null!;
@@ -44,6 +44,4 @@ public partial class DroppedItem : RigidBody3D, IInteractable
         inventory.AddItem(ItemRef.Instantiate<Item>());
         QueueFree();
     }
-
-    public Mesh GetMesh() => meshData;
 }

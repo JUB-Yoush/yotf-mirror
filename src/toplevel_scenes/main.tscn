@@ -5,6 +5,7 @@
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_i5ocd"]
 [ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_oxt34"]
@@ -64,11 +65,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462
 curve = SubResource("Curve3D_i3xn1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
-transform = Transform3D(0.20616548, -0.051379744, 0.97713125, 0, 0.998558, 0.052509263, -0.9784845, -0.01082565, 0.20588034, -2.041504, 0.20112705, 6.160286)
+transform = Transform3D(0.20616548, -0.05137974, 0.97713125, 0, 0.99855787, 0.052509263, -0.9784845, -0.010825648, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
-[node name="Fish" parent="." unique_id=523272719 node_paths=PackedStringArray("SplineFollower") instance=ExtResource("7_i584b")]
+[node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
-SplineFollower = NodePath("../Path3D/PathFollow3D")
+Profile = ExtResource("7_i3xn1")
 
 [node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("8_oxt34")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.026302)

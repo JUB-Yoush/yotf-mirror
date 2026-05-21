@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Fish : CharacterBody3D, IPhotographable
+public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {
     public override void _Notification(int what) => this.Notify(what);
 

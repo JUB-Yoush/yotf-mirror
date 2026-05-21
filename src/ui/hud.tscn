@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud_barometer_border.tres" id="11_0yu74"]
 [ext_resource type="Shader" uid="uid://du12686ff14wf" path="res://src/shaders/barometer_scroll.gdshader" id="12_w0r5e"]
 [ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/barometer_ruler.png" id="13_0m2ia"]
+[ext_resource type="Script" uid="uid://bxh3e6euxlwoy" path="res://src/ui/Minimap.cs" id="14_ipk1d"]
+[ext_resource type="Texture2D" uid="uid://ds0sik53rrrre" path="res://assets/2d/ui/radar_mask.png" id="15_e8jo1"]
 
 [sub_resource type="Environment" id="Environment_dh4so"]
 ambient_light_source = 2
@@ -280,3 +282,24 @@ offset_right = -41.0
 offset_bottom = 274.0
 theme_override_font_sizes/font_size = 48
 text = "0000"
+
+[node name="MiniMap" type="Control" parent="." unique_id=1809783164]
+anchors_preset = 0
+offset_left = 17.0
+offset_top = 11.0
+offset_right = 17.0
+offset_bottom = 11.0
+script = ExtResource("14_ipk1d")
+
+[node name="Mask" type="Sprite2D" parent="MiniMap" unique_id=1001452666]
+clip_children = 1
+position = Vector2(199, 183.99998)
+scale = Vector2(0.47440943, 0.47440946)
+texture = ExtResource("15_e8jo1")
+
+[node name="MiniMapRect" type="ColorRect" parent="MiniMap/Mask" unique_id=2116981880]
+unique_name_in_owner = true
+offset_left = -320.39835
+offset_top = -341.47714
+offset_right = 362.556
+offset_bottom = 352.6002

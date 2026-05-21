@@ -65,18 +65,14 @@ public static class MiscExtensions
         /// <summary>
         /// Loops over scene tree to find the first child of matching type.
         /// </summary>
-        public T? GetNode<T>(bool includeInternal = false, bool mustExist = false)
-            where T : Node
+        public T? GetNode<T>(bool includeInternal = false)
+            where T : class
         {
             foreach (var child in node.GetChildren(includeInternal))
             {
                 if (child is T t)
                     return t;
             }
-            Debug.Assert(
-                !mustExist,
-                $"Node that was supposed to be child of {node.Name} here wasnt"
-            );
             return null;
         }
 
@@ -84,7 +80,7 @@ public static class MiscExtensions
         /// Loops over scene tree to find all children of matching type.
         /// </summary>
         public T[] GetNodes<T>(bool includeInternal = false)
-            where T : Node
+            where T : class
         {
             var res = new List<T>();
             foreach (var child in node.GetChildren(includeInternal))
@@ -109,19 +105,24 @@ public static class MiscExtensions
     }
     extension<T>(List<T> list)
     {
-        public T Pop()
-        {
-            T val = list[^1];
-            list.RemoveAt(list.Count - 1);
-            return val;
-        }
+        public T PopLast() => list.Pop(^1);
 
-        public T PopAt(int i)
+        public T Pop(Index i)
         {
-            T val = list[i];
-            list.RemoveAt(i);
+            var offset = i.GetOffset(list.Count);
+            T val = list[offset];
+            list.RemoveAt(offset);
             return val;
         }
+    }
+
+    extension(Vector3 vec)
+    {
+        public Vector2 XY() => new(vec.X, vec.Y);
+
+        public Vector2 XZ() => new(vec.X, vec.Z);
+
+        public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 
     static void TryMakeDir(string path)
