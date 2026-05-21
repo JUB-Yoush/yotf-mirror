@@ -1,14 +1,12 @@
 [gd_scene format=3 uid="uid://rhd2yy66g8ck"]
 
 [ext_resource type="PackedScene" uid="uid://b0mty4lnr6cjh" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
-[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="2_swlc7"]
+[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
 [ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
-[ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_i5ocd"]
-[ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_oxt34"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
@@ -43,11 +41,16 @@ point_count = 11
 [node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
 
+[node name="Lab2" parent="." unique_id=462287885 instance=ExtResource("2_swlc7")]
+transform = Transform3D(-0.43978155, 0.00084432156, -0.89810437, 0.0019198617, 0.99999815, 0, 0.8981027, -0.0017242363, -0.43978238, 33.89779, -1.1841764, 42.064247)
+labIndex = 1
+
 [node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
 
 [node name="WaterSurface" type="MeshInstance3D" parent="." unique_id=1961154400]
 transform = Transform3D(0.019823706, 0.0010422469, 0.99980295, 0.0017487963, 0.99999785, -0.0010771246, -0.99980193, 0.0017698044, 0.019821841, -2.48, 9.438, -3.195)
+visible = false
 mesh = SubResource("PlaneMesh_odjcq")
 skeleton = NodePath("../WorldEnvironment")
 
@@ -57,6 +60,7 @@ camera_attributes = SubResource("CameraAttributesPractical_fleds")
 
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25357056)
+visible = false
 size = Vector3(179.90964, 54.046265, 163.19116)
 material = null
 
@@ -65,24 +69,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462
 curve = SubResource("Curve3D_i3xn1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
-transform = Transform3D(0.20616548, -0.05137974, 0.97713125, 0, 0.99855787, 0.052509263, -0.9784845, -0.010825648, 0.20588034, -2.041504, 0.20112705, 6.160286)
+transform = Transform3D(0.20616548, -0.051379662, 0.97713125, 0, 0.9985564, 0.052509263, -0.9784845, -0.010825632, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
 [node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
 transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
 Profile = ExtResource("7_i3xn1")
-
-[node name="ShopKiosk" parent="." unique_id=1903364331 instance=ExtResource("8_oxt34")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.223553, 11.127443, 46.026302)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.260403, 47.968678)
 light_energy = 1.148
 omni_range = 3.211
 omni_attenuation = 2.0
-
-[node name="PhotoTerminal" parent="." unique_id=1904242734 instance=ExtResource("8_i5ocd")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.562508, 9.639704, 45.41971)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1336176328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.228592, 10.797223, 49.50978)

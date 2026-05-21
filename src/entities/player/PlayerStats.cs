@@ -10,6 +10,8 @@ public partial class PlayerStats : Node
 
     private PlayerController player = null!;
 
+    public Action<int> GalleryScoreUpdated;
+
     [Node]
     public required Hud HUD { set; get; }
 
@@ -61,9 +63,9 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.MoneyLabel?.Text = $"Money: {value}";
-            foreach (var shop in this.SceneRoot().GetNodes<ShopKiosk>())
+            foreach (var lab in this.SceneRoot().GetNodes<Lab>())
             {
-                shop.ScoreLabel.Text = $"{value:D6}";
+                lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
             }
         }
     }
@@ -74,10 +76,11 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.PhotoLabel?.Text = $"Photo Points: {value}";
-            foreach (var term in this.SceneRoot().GetNodes<PhotoTerminal>())
+            foreach (var lab in this.SceneRoot().GetNodes<Lab>())
             {
-                term.LabelText = $"{value:D6}";
+                lab.PhotoTerminal.LabelText = $"{value:D6}";
             }
+            GalleryScoreUpdated?.Invoke(value);
         }
     }
 

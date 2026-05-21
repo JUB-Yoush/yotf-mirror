@@ -16,6 +16,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
     public required Label3D ScoreLabel { set; get; }
 
     public bool inShop = false;
+
     public int TotalGalleryScore = 0;
     public string LabelText
     {
@@ -42,8 +43,9 @@ public partial class PhotoTerminal : Node3D, IInteractable
             return;
 
         var cam = inventory.GetNode<PhotoCamera>(inventory.GetItemIndex("Camera").ToString());
+        var lab = GetParent<Lab>();
         cam.Film = cam.maxFilm;
-        var gradeUI = GradingUI.New(cam.Photos, this);
+        var gradeUI = GradingUI.New(cam.Photos, this, lab.Index);
         cam.ClearPhotos();
         GetTree().CurrentScene.AddChild(gradeUI);
     }

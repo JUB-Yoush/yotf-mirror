@@ -50,7 +50,7 @@ public partial class Log : Control
     }
 
     public static void PrintLn(
-        object[] message,
+        object message,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0

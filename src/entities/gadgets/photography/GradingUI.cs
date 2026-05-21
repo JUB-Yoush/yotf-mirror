@@ -10,16 +10,22 @@ public partial class GradingUI : Control
     private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
 
     private static readonly Dictionary<string, int> maxPhotoScores = [];
+    private static int labLastRanIn = 0;
 
     private const float PhotoScoreExponent = 2f;
 
     public override void _Notification(int what) => this.Notify(what);
 
-    public static GradingUI New(List<Photo> photos, PhotoTerminal photoTerminal)
+    public static GradingUI New(List<Photo> photos, PhotoTerminal photoTerminal, int labIndex)
     {
         var gradeUI = Packed.Instantiate<GradingUI>();
         gradeUI.uploadedPhotos = photos;
         gradeUI.photoTerminal = photoTerminal;
+        if (labIndex != labLastRanIn)
+        {
+            maxPhotoScores.Clear();
+            labLastRanIn = labIndex;
+        }
         return gradeUI;
     }
 

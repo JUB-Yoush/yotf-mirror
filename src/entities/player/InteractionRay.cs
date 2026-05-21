@@ -22,9 +22,10 @@ public partial class InteractionRay : RayCast3D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("pickup") && currentCollision != null)
+        if (@event.IsActionPressed("pickup"))
         {
-            currentCollision.OnInteraction();
+            currentCollision?.OnInteraction();
+            currentCollision = null;
         }
     }
 
