@@ -224,26 +224,6 @@ environment = SubResource("Environment_dh4so")
 current = true
 fov = 78.74999
 
-[node name="Radar" type="TextureRect" parent="." unique_id=924160055]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 31.0
-offset_right = 345.9928
-offset_bottom = 323.0
-texture = ExtResource("9_o8gp8")
-expand_mode = 3
-
-[node name="RadarCone" type="TextureRect" parent="Radar" unique_id=604729673]
-layout_mode = 0
-offset_left = 74.0
-offset_top = 37.0
-offset_right = 194.0
-offset_bottom = 136.0
-scale = Vector2(1.18, 1.18)
-texture = ExtResource("10_q3bgo")
-expand_mode = 3
-stretch_mode = 4
-
 [node name="Barometer" type="Control" parent="." unique_id=1824829843]
 anchors_preset = 0
 offset_left = 302.0
@@ -303,3 +283,24 @@ offset_left = -320.39835
 offset_top = -341.47714
 offset_right = 362.556
 offset_bottom = 352.6002
+color = Color(1, 1, 1, 0)
+
+[node name="Radar" type="TextureRect" parent="MiniMap" unique_id=924160055]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 20.0
+offset_right = 328.9928
+offset_bottom = 312.0
+texture = ExtResource("9_o8gp8")
+expand_mode = 3
+
+[node name="RadarCone" type="TextureRect" parent="MiniMap/Radar" unique_id=604729673]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 37.0
+offset_right = 194.0
+offset_bottom = 136.0
+scale = Vector2(1.18, 1.18)
+texture = ExtResource("10_q3bgo")
+expand_mode = 3
+stretch_mode = 4

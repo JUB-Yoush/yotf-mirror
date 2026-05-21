@@ -93,7 +93,7 @@ public partial class PhotoCamera : Item
         if (@event.IsActionPressed("look_cam"))
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
-            player.IsInMenu = true;
+            player.IsLookingInCamera = true;
             aiming = true;
             Light.Visible = true;
         }
@@ -101,7 +101,7 @@ public partial class PhotoCamera : Item
         if (@event.IsActionReleased("look_cam"))
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-            player.IsInMenu = false;
+            player.IsLookingInCamera = false;
             aiming = false;
             Light.Visible = false;
             ViewfinderFov = DefaultViewfinderFov;

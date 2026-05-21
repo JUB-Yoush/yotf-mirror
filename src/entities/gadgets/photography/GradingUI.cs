@@ -11,6 +11,8 @@ public partial class GradingUI : Control
 
     private static readonly Dictionary<string, int> maxPhotoScores = [];
 
+    private const float PhotoScoreExponent = 2f;
+
     public override void _Notification(int what) => this.Notify(what);
 
     public static GradingUI New(List<Photo> photos, PhotoTerminal photoTerminal)
@@ -103,24 +105,31 @@ public partial class GradingUI : Control
         HashSet<string> newRecords = [];
         foreach (var (subject, grade) in photo.SubjectGrades)
         {
-            MakeStyleLabel(subject, "Facing Score", Math.Floor(grade.FacingScore * 100.0));
-            MakeStyleLabel(subject, "Centered Score", Math.Floor(grade.CenterScore * 100.0));
-            MakeStyleLabel(subject, "Size Score", Math.Floor(grade.SizeScore * 100.0));
+            Log.PrintLn($"facing{grade.FacingScore}");
+            Log.PrintLn($"centered{grade.CenterScore}");
+            Log.PrintLn($"size{grade.SizeScore}");
+            var facingScore = CaluclateScoreValue(grade.FacingScore);
+            var centeredScore = CaluclateScoreValue(grade.CenterScore);
+            var sizeScore = CaluclateScoreValue(grade.SizeScore);
+            var total = facingScore + centeredScore + sizeScore;
+
+            MakeStyleLabel(subject, "Facing Score", facingScore);
+            MakeStyleLabel(subject, "Centered Score", centeredScore);
+            MakeStyleLabel(subject, "Size Score", sizeScore);
 
             // record highest scoring photo taken of this subject
-            if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore < sum)
+            if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore < total)
             {
                 MakeStyleLabel(subject, "New Record!", 0);
-                sum +=
-                    ((int)((grade.FacingScore + grade.CenterScore + grade.SizeScore) * 100))
-                    - highestScore;
-                maxPhotoScores.TryAdd(subject, sum);
+                sum += total - highestScore;
+                maxPhotoScores.TryAdd(subject, total);
                 newRecords.Add(subject);
             }
             else
             {
                 MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
             }
+            Log.PrintLn($"{highestScore}");
         }
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
         if (!viewedPhotos.Contains(photo))
@@ -134,6 +143,9 @@ public partial class GradingUI : Control
         stats.Money += GalleryTotal;
         stats.TotalGalleryScore += GalleryTotal;
     }
+
+    private static int CaluclateScoreValue(float score) =>
+        (int)Mathf.Floor(Mathf.Pow(score, PhotoScoreExponent) * 100);
 
     private void MakeStyleLabel(string subject, string desc, double score)
     {

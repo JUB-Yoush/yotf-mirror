@@ -28,7 +28,10 @@ public partial class PlayerController : CharacterBody3D
     public required SpringArm3D Arm { set; get; }
 
     [Node]
-    public required Control HUD { set; get; }
+    public required Hud HUD { set; get; }
+
+    [Node]
+    public required ColorRect FishEyeRect { set; get; }
 
     public Vector3 CollisionPivot;
 
@@ -99,7 +102,20 @@ public partial class PlayerController : CharacterBody3D
 
     private bool collisionEnabled = true;
 
+    //TODO(j) should probably be an enum for player interaction state
     public bool IsInMenu
+    {
+        get;
+        set
+        {
+            field = value;
+            this.GetNode<CameraManager>().GetNode<Camera3D>()!.Visible = !field;
+            HUD.Visible = !field;
+            FishEyeRect.Visible = !field;
+        }
+    }
+
+    public bool IsLookingInCamera
     {
         get;
         set
