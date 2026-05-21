@@ -12,6 +12,8 @@ public partial class PlayerController : CharacterBody3D
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    public static Action<IPlayerState, IPlayerState>? StateChanged;
+
     // ====================== REFERENCES ======================
     [Node]
     public required Node3D Skin { set; get; }
@@ -200,6 +202,7 @@ public partial class PlayerController : CharacterBody3D
     {
         if (CurrentState == newState)
             return;
+        StateChanged?.Invoke(CurrentState, newState);
         CurrentState?.Exit(this);
         CurrentState = newState;
         CurrentState.Enter(this);

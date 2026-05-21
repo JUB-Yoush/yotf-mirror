@@ -43,7 +43,9 @@ transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.75731
 
 [node name="Lab2" parent="." unique_id=462287885 instance=ExtResource("2_swlc7")]
 transform = Transform3D(-0.43978155, 0.00084432156, -0.89810437, 0.0019198617, 0.99999815, 0, 0.8981027, -0.0017242363, -0.43978238, 33.89779, -1.1841764, 42.064247)
+Index = 1
 OxygenScale = 0.0
+requiredGalleryScore = 100
 
 [node name="Lab" parent="." unique_id=425056557 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
