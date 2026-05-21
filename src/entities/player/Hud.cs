@@ -84,7 +84,7 @@ public partial class Hud : Control
         var alpha = 1f - Mathf.Exp(-delta / RulerSmoothing);
         smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
         var shaderSpeed = new Vector2(0, smoothedSpeed);
-        barometerShader.SetShaderParameter("scroll_speed", shaderSpeed);
+        barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
     }
 
     public void SetOxygenText(float value)

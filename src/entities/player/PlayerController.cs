@@ -72,7 +72,7 @@ public partial class PlayerController : CharacterBody3D
     public float Depth
     {
         set;
-        get => GlobalPosition.Z;
+        get => (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]

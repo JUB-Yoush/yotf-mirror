@@ -30,12 +30,8 @@ public partial class Lab : Node3D
 
     public override void _Ready()
     {
-        //CurrentLab ??= labIndex == 0 ? this : null;
         if (Index == 0)
-        {
-            Log.PrintLn(Index);
             SetCurrentLab(this);
-        }
     }
 
     internal static void SetCurrentLab(Lab lab)
