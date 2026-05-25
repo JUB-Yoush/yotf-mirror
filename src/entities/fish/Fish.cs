@@ -1,29 +1,30 @@
+using System;
 using Godot;
 
 namespace Yotf;
 
-public partial class Fish : CharacterBody3D, IPhotographable
+[Meta(typeof(IAutoNode))]
+public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     // ====================== SIGNALS ======================
 
     // emitted when an aggressive fish enters melee range of target
-    [Signal]
-    public delegate void AttackedEventHandler(Node3D target);
-
-    // emitted on transition into/out of HiddenState so the scene can toggle mesh visibility and collision
-    [Signal]
-    public delegate void BecameHiddenEventHandler();
-
-    [Signal]
-    public delegate void BecameVisibleEventHandler();
+    public Action<Node3D>? Attacked;
+    public Action? BecameHidden;
+    public Action? BecameVisible;
 
     // ====================== REFERENCES ======================
 
-    [ExportCategory("References")]
-    public VisibleOnScreenNotifier3D VisibilityNotif = null!;
+    [Node]
+    public required VisibleOnScreenNotifier3D VisibilityNotif { set; get; }
 
     [Export]
     public PathFollow3D? SplineFollower;
+
+    [Export]
+    public MeshInstance3D Mesh;
 
     // ====================== BEHAVIOUR ======================
 
@@ -47,13 +48,17 @@ public partial class Fish : CharacterBody3D, IPhotographable
     // null when no player is in range
     public Node3D? ThreatTarget { get; private set; }
 
+    public MeshInstance3D SubjectBoundingMesh
+    {
+        get => Mesh;
+        set;
+    }
+
     // ====================== LIFECYCLE ======================
 
     public override void _Ready()
     {
-        VisibilityNotif = GetNode<VisibleOnScreenNotifier3D>("VisibleOnScreenNotifier3D");
-
-        Area3D detectionZone = GetNode<Area3D>("DetectionZone");
+        Area3D detectionZone = this.GetNode<Area3D>()!;
         detectionZone.BodyEntered += OnBodyEnterRange;
         detectionZone.BodyExited += OnBodyExitRange;
 

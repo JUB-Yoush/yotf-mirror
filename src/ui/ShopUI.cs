@@ -4,31 +4,40 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class ShopUI : Control
 {
-    public static readonly PackedScene ShopItemView = GD.Load<PackedScene>("uid://c8frlegdjskm3");
+    public override void _Notification(int what) => this.Notify(what);
+
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
+    public static readonly PackedScene ShopItemView = GD.Load<PackedScene>(
+        "res://src/ui/shop_item.tscn"
+    );
 
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
-    private HBoxContainer UpgradeContainer = null!;
-    private HBoxContainer ItemContainer = null!;
+
+    [Node]
+    public required HBoxContainer UpgradeView { set; get; }
+
+    [Node]
+    public required HBoxContainer ItemView { set; get; }
+
     private ShopKiosk kiosk = null!;
 
-    public ShopUI Init(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
+    public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
-        this.Items = items;
-        this.Upgrades = upgrades;
-        this.kiosk = kiosk;
-        return this;
+        var shop = Packed.Instantiate<ShopUI>();
+        shop.Items = items;
+        shop.Upgrades = upgrades;
+        shop.kiosk = kiosk;
+        return shop;
     }
 
     public override void _Ready()
     {
-        UpgradeContainer = GetNode<HBoxContainer>("%Upgrades");
-        ItemContainer = GetNode<HBoxContainer>("%Items");
-        GetNode<Button>("ReturnBtn").Pressed += CloseShop;
-
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        this.GetNode<Button>()!.Pressed += CloseShop;
+        var player = this.SceneRoot().GetNode<PlayerController>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
@@ -37,10 +46,10 @@ public partial class ShopUI : Control
 
     private void PopulateShop()
     {
-        ItemContainer.RemoveAllChildren();
-        UpgradeContainer.RemoveAllChildren();
+        ItemView.RemoveAllChildren();
+        UpgradeView.RemoveAllChildren();
 
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetNode<PlayerController>()!.GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
@@ -49,7 +58,7 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Price").Text = $"${item.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
             view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
-            ItemContainer.AddChild(view);
+            ItemView.AddChild(view);
         }
 
         foreach (var upgrade in Upgrades)
@@ -60,13 +69,13 @@ public partial class ShopUI : Control
             view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
             view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
-            UpgradeContainer.AddChild(view);
+            UpgradeView.AddChild(view);
         }
     }
 
     private void BuyUpgrade(ShopItem upgrade)
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= upgrade.Price;
 
         switch (upgrade.upgrade)
@@ -86,11 +95,9 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerStats>("Player/Stats");
+        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= item.Price;
-        var itemDrop = DroppedItem
-            .Packed.Instantiate<DroppedItem>()
-            .Init(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
+        var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
         PopulateShop();

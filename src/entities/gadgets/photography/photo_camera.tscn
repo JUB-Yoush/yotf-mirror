@@ -18,26 +18,29 @@ albedo_color = Color(0.32156864, 1, 1, 1)
 material = SubResource("StandardMaterial3D_jg0tx")
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="PhotoComponent" type="Node3D" unique_id=1592745977]
+[node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
-ItemName = "camera"
+ItemName = "Camera"
 Icon = ExtResource("2_vbjdg")
 DropMesh = SubResource("BoxMesh_68lge")
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]
+[node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
+unique_name_in_owner = true
 
-[node name="PhotoCamera" type="Camera3D" parent="SubViewport" unique_id=1914256525]
+[node name="PhotoCameraCam" type="Camera3D" parent="PhotoViewport" unique_id=1914256525]
 unique_name_in_owner = true
 current = true
 fov = 50.0
 
-[node name="CameraLight" type="SpotLight3D" parent="SubViewport/PhotoCamera" unique_id=104620495]
+[node name="Light" type="SpotLight3D" parent="PhotoViewport/PhotoCameraCam" unique_id=104620495]
+unique_name_in_owner = true
 visible = false
 spot_range = 15.0
 spot_attenuation = 1.5
 spot_angle = 50.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1596944207]
+unique_name_in_owner = true
 mesh = SubResource("BoxMesh_r51j2")
 
 [node name="Control" type="Control" parent="." unique_id=159700314]
@@ -61,7 +64,6 @@ grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,3 +71,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_r51j2")
+
+[node name="FilmLabel" type="Label" parent="Control/PhotoLetterBox" unique_id=1859295132]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 118.0
+offset_top = 995.0
+offset_right = 301.0
+offset_bottom = 1062.0
+theme_override_font_sizes/font_size = 48
+text = "100/100"

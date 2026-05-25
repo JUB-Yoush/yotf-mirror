@@ -12,8 +12,8 @@ public partial class Inventory : Node3D
     const int Capacity = 4;
     private int currentIndex = 0;
 
-    [Node("%HUD")]
-    public required Hud PlayerHUD { set; get; }
+    [Node]
+    public required Hud HUD { set; get; }
 
     //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     private Item?[] InventoryArr
@@ -27,7 +27,7 @@ public partial class Inventory : Node3D
         }
     }
 
-    public override void _Ready()
+    public override async void _Ready()
     {
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
@@ -56,13 +56,12 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
-        PlayerHUD?.SelectSlot(index);
-        InventoryArr[currentIndex]?.Exit();
+        HUD?.SelectSlot(index);
+        InventoryArr[currentIndex]?.Unequipped();
         currentIndex = index;
-        InventoryArr[currentIndex]?.Visible = true;
         InventoryArr[currentIndex]?.CurrentItem = true;
         ClearItems(currentIndex);
-        InventoryArr[currentIndex]?.Enter();
+        InventoryArr[currentIndex]?.Equipped();
     }
 
     private void ClearItems(int notThisOne = -1)
@@ -71,11 +70,11 @@ public partial class Inventory : Node3D
         {
             if (i == notThisOne)
                 continue;
-            InventoryArr[i]?.Visible = false;
             InventoryArr[i]?.CurrentItem = false;
         }
     }
 
+    //TODO (j) consolidate these two functions.
     public void AddItem(Item item)
     {
         Debug.Assert(InventoryArr[currentIndex] == null);
@@ -83,7 +82,8 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
         SetCurrentItem(currentIndex);
-        PlayerHUD.SetItemSlot(currentIndex, item.Icon);
+        HUD.SetItemSlot(currentIndex, item.Icon);
+        item.Added();
     }
 
     public void AddItem(Item item, int index, bool removeIfFilled = false)
@@ -97,14 +97,18 @@ public partial class Inventory : Node3D
         item.InInventory = true;
         AddChild(item);
 
-        PlayerHUD.SetItemSlot(index, item.Icon);
+        HUD.SetItemSlot(index, item.Icon);
+        item.Added();
     }
 
     public void RemoveItem(int index)
     {
         if (InventoryArr[index] == null)
             return;
-        GetChild<Item>(index).QueueFree();
+
+        var item = GetNode<Item>(index.ToString());
+        item.Removed();
+        item.QueueFree();
     }
 
     public void RemoveCurrentItem()

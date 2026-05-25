@@ -181,7 +181,7 @@ op_type = 3
 constant = Vector2(0.05, 0.02)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_vp473"]
-size = Vector2(1376, 684.0001)
+size = Vector2(756, 317)
 title = "Scrolling & Noise"
 tint_color_enabled = true
 tint_color = Color(0.6464844, 0.5127455, 0.41036606, 0.75)

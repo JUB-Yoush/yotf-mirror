@@ -13,7 +13,8 @@ material = SubResource("StandardMaterial3D_g65i8")
 [node name="ShopKiosk" type="Node3D" unique_id=1903364331]
 script = ExtResource("1_cbfys")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=644258684]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=644258684]
+unique_name_in_owner = true
 mesh = SubResource("BoxMesh_g65i8")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2047259221]
@@ -22,3 +23,9 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1015662500]
 shape = SubResource("BoxShape3D_631w7")
+
+[node name="ScoreLabel" type="Label3D" parent="." unique_id=1838206805]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08245742, 0.6213691)
+pixel_size = 0.01
+text = "000000"
