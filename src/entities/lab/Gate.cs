@@ -47,7 +47,8 @@ public partial class Gate : StaticBody3D, IInteractable
     {
         if (canOpen)
         {
-            Lab.SetCurrentLab(lab);
+            //Lab.SetCurrentLab(lab);
+            Lab.CurrentLab = lab;
         }
     }
 }

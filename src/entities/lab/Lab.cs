@@ -10,7 +10,16 @@ public partial class Lab : Node3D
 
     public static Action<Lab>? CurrentLabUpdated;
 
-    public static Lab? CurrentLab = null;
+    public static Lab? CurrentLab
+    {
+        set
+        {
+            field?.Toggle(false);
+            field = value;
+            field!.Toggle(true);
+        }
+        get;
+    }
 
     [Node]
     public required StaticBody3D TopGate { set; get; }
@@ -35,23 +44,15 @@ public partial class Lab : Node3D
 
     public override void _Ready()
     {
-        Log.PrintLn("lab fin");
         if (Index == 0)
-            SetCurrentLab(this);
+            Lab.CurrentLab = this;
     }
 
-    internal static void SetCurrentLab(Lab lab)
+    private void Toggle(bool state)
     {
-        var prev = Lab.CurrentLab;
-        prev?.TopGate.GetNode<CollisionShape3D>()!.Disabled = false;
-        prev?.BottomGate.GetNode<CollisionShape3D>()!.Disabled = false;
-        prev?.TopGate.Visible = true;
-        prev?.BottomGate.Visible = true;
-
-        Lab.CurrentLab = lab;
-        lab.TopGate.GetNode<CollisionShape3D>()!.Disabled = true;
-        lab.BottomGate.GetNode<CollisionShape3D>()!.Disabled = true;
-        lab.TopGate.Visible = false;
-        lab.BottomGate.Visible = false;
+        TopGate.GetNode<CollisionShape3D>()!.Disabled = state;
+        BottomGate.GetNode<CollisionShape3D>()!.Disabled = state;
+        TopGate.Visible = !state;
+        BottomGate.Visible = !state;
     }
 }

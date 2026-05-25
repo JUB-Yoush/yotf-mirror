@@ -65,7 +65,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
         CurrentState = initial;
         CurrentState.Enter(this);
-        Log.PrintLn(GetNode("shinfish").GetNode<MeshInstance3D>()!);
     }
 
     public override void _PhysicsProcess(double delta)

@@ -71,7 +71,6 @@ public partial class ProceduralAnimator : Node3D
         Player = this.SceneRoot().GetNode<PlayerController>()!;
         Camera = Player.GetNode<CameraManager>()!;
 
-        Log.PrintLn($"{RayCastLeft}, {RayCastRight}, {FootTargetLeft}, {FootTargetRight}");
         rootBoneRestY = Skeleton3D.GetBonePosePosition(SpineBoneIdx).Y;
 
         restingPosL = FootTargetLeft.Position;

@@ -58,19 +58,17 @@ public partial class PhotoCamera : Item
     {
         set
         {
-            Log.PrintLn(value);
             field = Math.Clamp(value, 0, maxFilm);
             FilmLabel.Text = $"{field}/{maxFilm}";
         }
         get;
     }
-    public int maxFilm = 10;
+    public int maxFilm = 100;
 
     private bool aiming = false;
 
     public override void _Ready()
     {
-        Log.PrintLn("cam fin");
         Film = maxFilm;
         player = GetParent().GetParent<PlayerController>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
@@ -192,7 +190,6 @@ public partial class PhotoCamera : Item
             var vis = photographable.SubjectBoundingMesh as VisualInstance3D;
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            Log.PrintLn(sizeInPhoto);
             var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
 
             //fish lighting

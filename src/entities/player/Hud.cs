@@ -90,21 +90,6 @@ public partial class Hud : Control
         barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
     }
 
-    public void SetOxygenText(float value)
-    {
-        OxygenLabel?.Text = $"{value}";
-    }
-
-    public void SetOxygen(float value)
-    {
-        OxygenBar.Value = value;
-    }
-
-    public void SetBattery(float value)
-    {
-        BatteryBar.Value = value;
-    }
-
     public void SetItemSlot(int index, Texture2D img)
     {
         InventoryIcons[index].Texture = img;
@@ -113,16 +98,7 @@ public partial class Hud : Control
     public void SelectSlot(int index)
     {
         for (int i = 0; i < InventorySize; i++)
-        {
-            var slotContainer = InventoryIcons[i]?.GetParent<PanelContainer>();
-
-            if (i == index)
-            {
-                slotContainer?.CustomMinimumSize = slotMaxSize;
-            }
-            else
-                slotContainer?.CustomMinimumSize = slotMinSize;
-        }
+            InventoryIcons[i]?.CustomMinimumSize = i == index ? slotMaxSize : slotMinSize;
     }
 
     public void ClearSlots()
