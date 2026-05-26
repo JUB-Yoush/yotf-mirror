@@ -15,13 +15,16 @@ public class SwimmingState : IPlayerState
     {
         player.Velocity = player.Velocity with { Y = 0f };
         Stats = player.GetNode<PlayerStats>("Stats");
+        player.UnderwaterRect.Visible = true;
     }
 
     public void Exit(PlayerController player)
     {
+        Stats.RestoreOxygen();
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
         player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
+        player.UnderwaterRect.Visible = false;
     }
 
     public void Update(PlayerController player, float delta)

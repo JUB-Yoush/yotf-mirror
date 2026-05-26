@@ -71,7 +71,14 @@ public partial class Hud : Control
         player = this.SceneRoot().GetNode<PlayerController>()!;
         prevDepth = player.Depth;
         barometerShader = (ShaderMaterial)Ruler.Material;
+        // PlayerController.StateChanged += OnPlayerStateChanged;
     }
+
+    // private void OnPlayerStateChanged(IPlayerState prevState, IPlayerState newState)
+    // {
+    //     if (prevState is SwimmingState)
+
+    // }
 
     public override void _Process(double delta)
     {

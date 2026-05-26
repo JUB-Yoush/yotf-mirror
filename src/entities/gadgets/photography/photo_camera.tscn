@@ -43,7 +43,7 @@ spot_angle = 50.0
 unique_name_in_owner = true
 mesh = SubResource("BoxMesh_r51j2")
 
-[node name="Control" type="Control" parent="." unique_id=159700314]
+[node name="Control" type="Control" parent="." unique_id=1657750311]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,6 +64,7 @@ grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

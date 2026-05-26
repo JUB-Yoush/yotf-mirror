@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
 using Godot;
 
 namespace Yotf;
@@ -34,6 +33,9 @@ public partial class PlayerController : CharacterBody3D
 
     [Node]
     public required ColorRect FishEyeRect { set; get; }
+
+    [Node]
+    public required ColorRect UnderwaterRect { set; get; }
 
     public Vector3 CollisionPivot;
 

@@ -41,7 +41,7 @@ public partial class WaterVolume : CsgBox3D
 
     private void OnBodyExited(Node3D body)
     {
-        if (Engine.IsEditorHint()) //TODO(j) does this need to be here?
+        if (Engine.IsEditorHint())
             return;
         if (body is PlayerController player)
         {

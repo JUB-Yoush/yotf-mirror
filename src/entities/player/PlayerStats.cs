@@ -10,7 +10,7 @@ public partial class PlayerStats : Node
 
     private PlayerController player = null!;
 
-    public Action<int> GalleryScoreUpdated;
+    public Action<int>? GalleryScoreUpdated;
 
     [Node]
     public required Hud HUD { set; get; }
