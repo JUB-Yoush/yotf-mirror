@@ -183,3 +183,4 @@ roll={
 3d_physics/layer_3="Interactable"
 3d_physics/layer_4="Water"
 3d_physics/layer_5="Fish"
+3d_physics/layer_6="Bubble"

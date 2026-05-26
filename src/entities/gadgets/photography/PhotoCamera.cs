@@ -133,7 +133,7 @@ public partial class PhotoCamera : Item
 
         if (aiming)
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 ViewfinderFov,
                 (float)(ViewfinderLerp * delta)
@@ -142,7 +142,7 @@ public partial class PhotoCamera : Item
         }
         else
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 DefaultFov,
                 (float)(ViewfinderLerp * delta)

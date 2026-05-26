@@ -10,6 +10,15 @@ public partial class Axolotl : Fish
 
     public readonly Wander wanderState = new();
 
+    [Export]
+    float bubbleShotSpeed = 20f;
+
+    [Export]
+    float bubbleRiseSpeed = 2f;
+
+    [Export]
+    float bubbleDeceleration = 0.05f;
+
     public override void _Ready()
     {
         base._Ready();
@@ -72,12 +81,12 @@ public partial class Axolotl : Fish
 
             // check for collisions
             //axlotl.Velocity = Vector3.Zero;
-            var targetRay = axlotl.DirectionRay;
+            //var targetRay = axlotl.DirectionRay;
             //var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
             //targetMesh.TopLevel = true;
-            targetRay.TopLevel = true;
-            targetRay.GlobalPosition = axlotl.GlobalPosition;
-            targetRay.TargetPosition = direction * axlotl.Profile.WanderRadius;
+            // targetRay.TopLevel = true;
+            // targetRay.GlobalPosition = axlotl.GlobalPosition;
+            // targetRay.TargetPosition = direction * axlotl.Profile.WanderRadius;
 
             var target = direction * axlotl.Profile.WanderRadius;
 
@@ -101,6 +110,7 @@ public partial class Axolotl : Fish
             {
                 wanderTimer = 0;
                 wanderTarget = PickWanderDirection(axolotl);
+                MakeBubble(axolotl);
             }
             axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
 
@@ -113,6 +123,18 @@ public partial class Axolotl : Fish
             //Vector3 dir = toTarget.Normalized();
             //Log.PrintLn(toTarget, dir, axolotl.Velocity);
             //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
+        }
+
+        public void MakeBubble(Axolotl axolotl)
+        {
+            var dir = axolotl.GlobalBasis.Z;
+            var bubble = Bubble.New(
+                dir,
+                axolotl.bubbleShotSpeed,
+                axolotl.bubbleRiseSpeed,
+                axolotl.bubbleDeceleration
+            );
+            axolotl.AddChild(bubble);
         }
     }
 }

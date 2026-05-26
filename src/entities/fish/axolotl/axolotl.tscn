@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="2_xm5yq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_reixh"]
-size = Vector3(1.0821387, 0.42712098, 2.1382892)
+size = Vector3(1.0821387, 0.7853378, 2.1382892)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xm5yq"]
 radius = 5.0
@@ -58,7 +58,7 @@ Mesh = NodePath("Salamander/Geo_Gecko")
 Profile = ExtResource("2_xm5yq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1894181027]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0072705, 0.0033767521, 0.21519011)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0072705, 0.18248518, 0.21519011)
 shape = SubResource("BoxShape3D_reixh")
 
 [node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=2055088074]

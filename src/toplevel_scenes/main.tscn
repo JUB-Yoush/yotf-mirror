@@ -73,7 +73,7 @@ curve = SubResource("Curve3D_i3xn1")
 transform = Transform3D(0.20616548, -0.05137962, 0.97713125, 0, 0.9985556, 0.052509263, -0.9784845, -0.010825623, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_oxt34")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, 0.8220706, 48.105244)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -3.0238667, 48.105244)
 Profile = ExtResource("7_odjcq")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]

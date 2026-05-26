@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://df8bejp5wwvtv"]
+
+[ext_resource type="Texture2D" uid="uid://bigvassejyu5s" path="res://assets/2d/bubble_temp.png" id="1_lfysa"]
+[ext_resource type="Script" uid="uid://evqhew0we1yn" path="res://src/entities/fish/axolotl/Bubble.cs" id="1_lts3u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eyssr"]
+radius = 0.59017956
+
+[node name="Bubble" type="CharacterBody3D" unique_id=1023187612]
+collision_layer = 0
+script = ExtResource("1_lts3u")
+bubbleShotSpeed = 20.0
+bubbleDeceleration = 0.04
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=906355692]
+shape = SubResource("SphereShape3D_eyssr")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2073483831]
+billboard = 1
+texture = ExtResource("1_lfysa")
