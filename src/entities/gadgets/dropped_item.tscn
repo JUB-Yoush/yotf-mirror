@@ -18,7 +18,6 @@ radius = 0.25566387
 
 [node name="DroppedItem" type="RigidBody3D" unique_id=1652355677]
 collision_layer = 96
-gravity_scale = 0.0
 script = ExtResource("1_0vdqr")
 meshData = ExtResource("2_2gdub")
 

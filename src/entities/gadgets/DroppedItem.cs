@@ -42,18 +42,19 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     //TODO (j) IHasMesh interface to prevent having multiple properties for each other interface implementation?
     Mesh IBubbleable.Mesh => meshData;
 
-    public Bubble? Bubble { get; set; }
+    public Bubble? BubbleJail { get; set; }
 
     public override void _Ready()
     {
         Mesh.Mesh = meshData;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
-        if (Bubble != null)
+        if (BubbleJail != null)
         {
-            GlobalPosition = Bubble.GlobalPosition;
+            Log.PrintLn(BubbleJail);
+            GlobalPosition = BubbleJail.GlobalPosition;
         }
     }
 
@@ -76,5 +77,10 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         SetDeferred(CollisionShape3D.PropertyName.Disabled, true);
     }
 
-    public void FreeFromBubble() { }
+    public void FreeFromBubble()
+    {
+        BubbleJail = null;
+        Mesh.Visible = true;
+        SetDeferred(CollisionShape3D.PropertyName.Disabled, false);
+    }
 }

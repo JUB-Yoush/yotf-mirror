@@ -108,7 +108,7 @@ public partial class Axolotl : Fish
             wanderTimer += delta;
             if (wanderTimer >= maxWanderTime)
             {
-                wanderTimer = 0;
+                wanderTimer = -100;
                 wanderTarget = PickWanderDirection(axolotl);
                 MakeBubble(axolotl);
             }

@@ -6,7 +6,7 @@ namespace Yotf;
 // on any Node3D
 public interface IBubbleable
 {
-    public Bubble? Bubble { set; get; }
+    public Bubble? BubbleJail { set; get; }
     public Mesh Mesh { get; }
     public Node3D Self
     {

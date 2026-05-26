@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 
 namespace Yotf;
@@ -53,20 +54,32 @@ public partial class Bubble : CharacterBody3D
 
     private void OnBodyEntered(Node3D body)
     {
-        var bubbleable = (IBubbleable)body;
-        if (bubbleable.CanBeBubbled && bubbleable.Bubble == null)
+        PutInBubble((IBubbleable)body);
+    }
+
+    void PutInBubble(IBubbleable bubbleable)
+    {
+        if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null)
         {
             Mesh.Mesh = bubbleable.Mesh;
-            bubbleable.Bubble = this;
+            bubbleable.BubbleJail = this;
             bubbleable.PutInBubble();
             capturedNode = bubbleable;
         }
     }
 
+    void FreeCapturedNode()
+    {
+        Debug.Assert(capturedNode != null);
+        capturedNode.BubbleJail = null;
+        capturedNode.FreeFromBubble();
+        QueueFree();
+    }
+
     public override void _PhysicsProcess(double delta)
     {
-        // lifetime -= (float)delta;
-        if (lifetime <= 0 && capturedNode == null)
+        lifetime -= (float)delta;
+        if (lifetime <= 0)
         {
             capturedNode?.FreeFromBubble();
             QueueFree();
