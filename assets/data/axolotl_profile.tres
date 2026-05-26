@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_o365b")
-MoveSpeed = 0.3
 metadata/_custom_type_script = "uid://cff11lokk5qc2"

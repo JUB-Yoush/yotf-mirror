@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://btgb7l7cdigqw" path="res://src/entities/gadgets/dropped_item.tscn" id="7_i5ocd"]
 [ext_resource type="Resource" uid="uid://dj47up07x4pnk" path="res://assets/data/axolotl_profile.tres" id="7_odjcq"]
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_oxt34"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
@@ -72,8 +73,11 @@ curve = SubResource("Curve3D_i3xn1")
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
 transform = Transform3D(0.20616548, -0.05137962, 0.97713125, 0, 0.9985556, 0.052509263, -0.9784845, -0.010825623, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
+[node name="DroppedItem" parent="." unique_id=1652355677 instance=ExtResource("7_i5ocd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.0584593, 51.422962)
+
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_oxt34")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -3.0238667, 48.105244)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.2574344, 48.105244)
 Profile = ExtResource("7_odjcq")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
@@ -89,7 +93,7 @@ omni_attenuation = 2.0
 omni_shadow_mode = 0
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.123928, 9.324214, 48.538315)
+transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=715837269]
 transform = Transform3D(1, 0, 0, 0, 0.96294165, -0.26970983, 0, 0.26970983, 0.96294165, 0, 0, 1.7089123)

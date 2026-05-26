@@ -6,15 +6,30 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_eyssr"]
 radius = 0.59017956
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_lts3u"]
+radius = 0.9364015
+
 [node name="Bubble" type="CharacterBody3D" unique_id=1023187612]
-collision_layer = 0
+collision_layer = 128
+collision_mask = 129
 script = ExtResource("1_lts3u")
-bubbleShotSpeed = 20.0
-bubbleDeceleration = 0.04
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=906355692]
 shape = SubResource("SphereShape3D_eyssr")
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2073483831]
+[node name="Sprite" type="Sprite3D" parent="." unique_id=2073483831]
+unique_name_in_owner = true
 billboard = 1
+texture_filter = 0
 texture = ExtResource("1_lfysa")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=651903092]
+unique_name_in_owner = true
+
+[node name="BubbleableArea" type="Area3D" parent="." unique_id=1009474505]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BubbleableArea" unique_id=1501924047]
+shape = SubResource("SphereShape3D_lts3u")

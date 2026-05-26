@@ -112,7 +112,7 @@ public partial class Axolotl : Fish
                 wanderTarget = PickWanderDirection(axolotl);
                 MakeBubble(axolotl);
             }
-            axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
+            //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
 
             //Vector3 toTarget = wanderTarget - axolotl.GlobalPosition;
             // if (toTarget.LengthSquared() < 0.1)

@@ -4,18 +4,24 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
+public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubbleable
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    [Export]
     private Mesh meshData = null!;
+
+    [Export]
     public PackedScene ItemRef = null!;
 
     [Export(PropertyHint.Range, "-1,1,")]
     float buoyancy = 0.0f;
 
     [Node]
-    MeshInstance3D Mesh { set; get; }
+    public required MeshInstance3D Mesh { set; get; }
+
+    [Node]
+    public required CollisionShape3D CollisionShape { set; get; }
 
     public static DroppedItem New(Mesh mesh, PackedScene packedItem)
     {
@@ -33,17 +39,28 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
         set;
     }
 
+    //TODO (j) IHasMesh interface to prevent having multiple properties for each other interface implementation?
+    Mesh IBubbleable.Mesh => meshData;
+
+    public Bubble? Bubble { get; set; }
+
     public override void _Ready()
     {
         Mesh.Mesh = meshData;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Bubble != null)
+        {
+            GlobalPosition = Bubble.GlobalPosition;
+        }
     }
 
     public Item GivePickUpItem() => ItemRef.Instantiate<Item>();
 
     public void OnInteraction()
     {
-        // var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
-        // var inventory = player.GetNode<Inventory>("Inventory");
         var player = GetTree().CurrentScene.GetNode<PlayerController>();
         var inventory = player.GetNode<Inventory>()!;
 
@@ -52,4 +69,12 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
         inventory.AddItem(ItemRef.Instantiate<Item>());
         QueueFree();
     }
+
+    public void PutInBubble()
+    {
+        Mesh.Visible = false;
+        SetDeferred(CollisionShape3D.PropertyName.Disabled, true);
+    }
+
+    public void FreeFromBubble() { }
 }
