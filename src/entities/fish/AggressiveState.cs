@@ -4,7 +4,6 @@ namespace Yotf;
 
 public class AggressiveState : IFishState
 {
-    public FishState Type => FishState.Aggressive;
     public bool IsPhotographable => true;
 
     private float attackCooldown;
@@ -32,7 +31,7 @@ public class AggressiveState : IFishState
             return;
         }
 
-        fish.SmoothMoveTo(fish.ThreatTarget.GlobalPosition, fish.Profile.FleeSpeed, delta);
+        //fish.SmoothMoveTo(fish.ThreatTarget.GlobalPosition, fish.Profile.FleeSpeed, delta);
 
         attackCooldown -= delta;
         if (dist <= fish.Profile.AttackRange && attackCooldown <= 0f)

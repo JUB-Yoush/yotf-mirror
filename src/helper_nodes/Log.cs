@@ -51,12 +51,21 @@ public partial class Log : Control
 
     public static void PrintLn(
         object message,
+        object? message2 = null,
+        object? message3 = null,
+        object? message4 = null,
+        object? message5 = null,
+        object? message6 = null,
+        object? message7 = null,
+        object? message8 = null,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0
     )
     {
         string className = Path.GetFileNameWithoutExtension(filePath);
-        GD.Print($"[{className}.{memberName}:{lineNumber}] {message}");
+        GD.Print(
+            $"[{className}.{memberName}:{lineNumber}] {message} {message2} {message3} {message4} {message5} {message6} {message7} {message8}"
+        );
     }
 }

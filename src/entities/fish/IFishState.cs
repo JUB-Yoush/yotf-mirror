@@ -4,16 +4,19 @@ namespace Yotf;
 
 public interface IFishState
 {
-    FishState Type { get; }
+    public bool IsPhotographable
+    {
+        get => true;
+    }
 
-    public bool IsPhotographable { get; }
-
-    void Enter(Fish fish);
-    void Exit(Fish fish);
     void Update(Fish fish, float delta);
 
+    virtual void Enter(Fish fish) { }
+    virtual void Exit(Fish fish) { }
+
     // sensory events
-    void OnThreatDetected(Fish fish, Node3D threat);
-    void OnThreatLost(Fish fish);
-    void OnNoiseHeard(Fish fish, float level, Vector3 source);
+    virtual void OnThreatDetected(Fish fish, Node3D threat) { }
+    virtual void OnThreatLost(Fish fish) { }
+    virtual void OnNoiseHeard(Fish fish, float level, Vector3 source) { }
+    virtual void OnRadiusEntered(Fish fish, float level, Vector3 source) { }
 }

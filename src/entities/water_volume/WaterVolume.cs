@@ -45,7 +45,7 @@ public partial class WaterVolume : CsgBox3D
             return;
         if (body is PlayerController player)
         {
-            player.SetState(new WalkingState());
+            player.SetState(player.WalkingState);
         }
     }
 
@@ -55,7 +55,7 @@ public partial class WaterVolume : CsgBox3D
             return;
         if (body is PlayerController player)
         {
-            player.SetState(new SwimmingState());
+            player.SetState(player.SwimmingState);
         }
     }
 

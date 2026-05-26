@@ -11,6 +11,9 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
     private Mesh meshData = null!;
     public PackedScene ItemRef = null!;
 
+    [Export(PropertyHint.Range, "-1,1,")]
+    float buoyancy = 0.0f;
+
     [Node]
     MeshInstance3D Mesh { set; get; }
 

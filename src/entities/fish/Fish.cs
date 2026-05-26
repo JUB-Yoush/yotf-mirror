@@ -20,6 +20,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Node]
     public required VisibleOnScreenNotifier3D VisibilityNotif { set; get; }
 
+    [Node]
+    public required RayCast3D DirectionRay { set; get; }
+
     [Export]
     public PathFollow3D? SplineFollower;
 
@@ -35,7 +38,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // ====================== STATE MACHINE ======================
 
     public IFishState CurrentState { get; private set; } = null!;
-    public FishState State => CurrentState.Type;
 
     public readonly WanderingState WanderingState = new();
     public readonly FleeingState FleeingState = new();
@@ -48,9 +50,15 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // null when no player is in range
     public Node3D? ThreatTarget { get; private set; }
 
-    public MeshInstance3D SubjectBoundingMesh
+    public required MeshInstance3D SubjectBoundingMesh
     {
         get => Mesh;
+        set;
+    }
+
+    public required Node3D Subject
+    {
+        get => this;
         set;
     }
 
@@ -117,36 +125,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         CurrentState.Enter(this);
     }
 
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
-    {
-        Vector3 toTarget = target - GlobalPosition;
-        if (toTarget.LengthSquared() < arrivalThreshold)
-            return true;
-
-        Vector3 dir = toTarget.Normalized();
-        Velocity = dir * speed * delta;
-
-        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        GlobalRotation = GlobalRotation with
-        {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
-        };
-
-        return false;
-    }
-
     // ====================== IPHOTOGRAPHABLE ======================
 
     // hidden fish are never photographable regardless of screen visibility
-    public bool IsInPhoto()
-    {
-        return CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
-    }
-
-    public Node3D GetSubject() => this;
+    public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
 }

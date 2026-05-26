@@ -4,8 +4,6 @@ namespace Yotf;
 
 public class HiddenState : IFishState
 {
-    public FishState Type => FishState.Hidden;
-
     public bool IsPhotographable => false;
 
     public void Enter(Fish fish)

@@ -4,7 +4,6 @@ namespace Yotf;
 
 public class WanderingState : IFishState
 {
-    public FishState Type => FishState.Wandering;
     public bool IsPhotographable => true;
 
     private Vector3 wanderTarget;
@@ -32,13 +31,14 @@ public class WanderingState : IFishState
         if (fish.SplineFollower == null)
             return;
 
-        if (fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta))
-            fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
+        // if (fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta))
+        //     fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
     }
 
     private void WanderRandomly(Fish fish, float delta)
     {
-        bool arrived = fish.SmoothMoveTo(wanderTarget, fish.Profile.MoveSpeed, delta);
+        bool arrived = false;
+        //fish.SmoothMoveTo(wanderTarget, fish.Profile.MoveSpeed, delta);
         if (arrived)
         {
             wanderTarget = PickNewTarget(fish);

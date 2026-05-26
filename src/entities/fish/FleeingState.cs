@@ -4,7 +4,6 @@ namespace Yotf;
 
 public class FleeingState : IFishState
 {
-    public FishState Type => FishState.Fleeing;
     public bool IsPhotographable => true;
 
     private float fleeTimer;
@@ -24,7 +23,8 @@ public class FleeingState : IFishState
         Vector3 awayDir = (fish.GlobalPosition - fish.ThreatPosition).Normalized();
         Vector3 fleeTarget = fish.GlobalPosition + awayDir * fish.Profile.FleeDistance;
 
-        bool arrived = fish.SmoothMoveTo(fleeTarget, fish.Profile.FleeSpeed, delta);
+        //bool arrived = fish.SmoothMoveTo(fleeTarget, fish.Profile.FleeSpeed, delta);
+        bool arrived = true;
         fleeTimer += delta;
 
         if (arrived || fleeTimer >= fish.Profile.FleeTimeout)

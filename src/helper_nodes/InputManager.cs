@@ -52,24 +52,25 @@ public partial class InputManager : Node
             }
         }
 
-        if (@event is InputEventKey keyEvent && keyEvent.Pressed)
-        {
-            switch (keyEvent.Keycode)
-            {
-                case Key.V:
-                    player.FirstPerson = !player.FirstPerson;
-                    break;
-                case Key.C:
-                    player.CollisionEnabled = !player.CollisionEnabled;
-                    break;
-                case Key.F:
-                    player.SetState(
-                        player.CurrentState == player.SwimmingState
-                            ? player.WalkingState
-                            : player.SwimmingState
-                    );
-                    break;
-            }
-        }
+        //TODO (j) wrap this in some debug mode checker
+        // if (@event is InputEventKey keyEvent && keyEvent.Pressed)
+        // {
+        //     switch (keyEvent.Keycode)
+        //     {
+        //         case Key.V:
+        //             player.FirstPerson = !player.FirstPerson;
+        //             break;
+        //         case Key.C:
+        //             player.CollisionEnabled = !player.CollisionEnabled;
+        //             break;
+        //         case Key.F:
+        //             player.SetState(
+        //                 player.CurrentState == player.SwimmingState
+        //                     ? player.WalkingState
+        //                     : player.SwimmingState
+        //             );
+        //             break;
+        //     }
+        // }
     }
 }

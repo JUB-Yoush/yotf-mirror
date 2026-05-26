@@ -132,12 +132,11 @@ public partial class GradingUI : Control
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
         var player = this.SceneRoot().GetNode<PlayerController>()!;
         var stats = player.GetNode<PlayerStats>()!;
-        if (!viewedPhotos.Contains(photo))
+        if (viewedPhotos.Add(photo))
         {
             GalleryTotal += sum;
-            viewedPhotos.Add(photo);
             stats.Money += GalleryTotal;
-            stats.TotalGalleryScore = GalleryTotal;
+            stats.TotalGalleryScore += GalleryTotal;
         }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
     }
