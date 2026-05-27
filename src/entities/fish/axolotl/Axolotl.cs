@@ -19,14 +19,36 @@ public partial class Axolotl : Fish, IBubbleable
     [Export]
     float bubbleDeceleration = 0.05f;
 
+    IBubbleable? bubbleTarget = null;
+
     public Bubble? BubbleJail { get; set; }
 
     Mesh IBubbleable.Mesh => Mesh.Mesh;
 
+    /*
+     * axolotl wanders randomly until bubbleable thing (that isn't already in bubble) is found in it's detection range
+     * it then goes up to that thing and bubbles it.
+     * If you "press" the axolotl you can make it shoot a bubble
+    */
     public override void _Ready()
     {
         base._Ready();
         SetState(wanderState);
+        DetectionZone.BodyEntered += OnBodyEntered;
+        DetectionZone.BodyExited += OnBodyExited;
+    }
+
+    private void OnBodyExited(Node3D body)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnBodyEntered(Node3D body)
+    {
+        if (body is IBubbleable bubbleable)
+        {
+            bubbleTarget = bubbleable;
+        }
     }
 
     internal bool SmoothMoveTo(
@@ -41,9 +63,8 @@ public partial class Axolotl : Fish, IBubbleable
         //     return true;
 
         Vector3 dir = target.Normalized();
-        // Velocity = dir * speed * delta;
 
-        Velocity = target * speed;
+        Velocity = MiscExt.V3Lerp(Velocity, target * speed, Profile.RotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
@@ -52,6 +73,13 @@ public partial class Axolotl : Fish, IBubbleable
         };
 
         return false;
+    }
+
+    public void MakeBubble()
+    {
+        var dir = GlobalBasis.Z;
+        var bubble = Bubble.New(this, dir, bubbleShotSpeed, bubbleRiseSpeed, bubbleDeceleration);
+        AddChild(bubble);
     }
 
     public void PutInBubble()
@@ -120,22 +148,21 @@ public partial class Axolotl : Fish, IBubbleable
             {
                 wanderTimer = 0;
                 wanderTarget = PickWanderDirection(axolotl);
-                MakeBubble(axolotl);
+                axolotl.MakeBubble();
             }
             axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
         }
+    }
 
-        public static void MakeBubble(Axolotl axolotl)
+    public class Chasing : IFishState
+    {
+        Vector3 targetPosition = Vector3.Zero;
+        Axolotl axolotl = null!;
+
+        public void Update(Fish fish, float delta)
         {
-            var dir = axolotl.GlobalBasis.Z;
-            var bubble = Bubble.New(
-                axolotl,
-                dir,
-                axolotl.bubbleShotSpeed,
-                axolotl.bubbleRiseSpeed,
-                axolotl.bubbleDeceleration
-            );
-            axolotl.AddChild(bubble);
+            axolotl ??= (Axolotl)fish;
+            axolotl.SmoothMoveTo(targetPosition, axolotl.Profile.MoveSpeed, delta);
         }
     }
 }

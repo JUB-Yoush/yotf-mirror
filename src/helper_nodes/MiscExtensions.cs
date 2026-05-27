@@ -7,8 +7,18 @@ using Godot;
 
 namespace Yotf;
 
-public static class MiscExtensions
+public static class MiscExt
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 V3Lerp(Vector3 from, Vector3 to, float weight)
+    {
+        return new(
+            Mathf.Lerp(from.X, to.X, weight),
+            Mathf.Lerp(from.Y, to.Y, weight),
+            Mathf.Lerp(from.Z, to.Z, weight)
+        );
+    }
+
     extension(Tween tween)
     {
         public void Fn(Action action, float delay = 0, bool parallel = false)
@@ -118,10 +128,13 @@ public static class MiscExtensions
 
     extension(Vector3 vec)
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 XY() => new(vec.X, vec.Y);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 XZ() => new(vec.X, vec.Z);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 

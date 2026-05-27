@@ -4,8 +4,9 @@
 [ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="2_xm5yq"]
 [ext_resource type="PackedScene" uid="uid://bik5nqxu10als" path="res://assets/3d/temp/salamander_small.glb" id="3_3732h"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_reixh"]
-size = Vector3(1.0821387, 0.7853378, 2.1382892)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3732h"]
+radius = 0.3935547
+height = 2.7504883
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xm5yq"]
 radius = 5.0
@@ -18,8 +19,8 @@ Mesh = NodePath("salamander_small/Geo_Gecko")
 Profile = ExtResource("2_xm5yq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1894181027]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0072705, 0.18248518, 0.21519011)
-shape = SubResource("BoxShape3D_reixh")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.0072705, 0.19709855, -0.008213316)
+shape = SubResource("CapsuleShape3D_3732h")
 
 [node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=2055088074]
 unique_name_in_owner = true

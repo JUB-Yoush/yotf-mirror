@@ -80,10 +80,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.0584593, 51.422
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.2574344, 48.105244)
 Profile = ExtResource("7_odjcq")
 
-[node name="Axolotl2" parent="." unique_id=328299751 instance=ExtResource("8_oxt34")]
-transform = Transform3D(0.0072430493, 0, -0.9999738, 0, 1, 0, 0.9999738, 0, 0.0072430493, 47.725117, -6.2574344, 48.105244)
-Profile = ExtResource("7_odjcq")
-
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.260403, 47.968678)
 light_energy = 1.148
