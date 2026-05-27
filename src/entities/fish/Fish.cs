@@ -8,6 +8,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    readonly Routine routine = new();
+
     // ====================== SIGNALS ======================
 
     // emitted when an aggressive fish enters melee range of target

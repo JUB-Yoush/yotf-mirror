@@ -39,6 +39,11 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         set;
     }
 
+    bool IBubbleable.AxolotlTargets
+    {
+        get => true;
+    }
+
     //TODO (j) IHasMesh interface to prevent having multiple properties for each other interface implementation?
     Mesh IBubbleable.Mesh => meshData;
 

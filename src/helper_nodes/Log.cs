@@ -26,7 +26,6 @@ public partial class Log : Control
     {
         Instance = this;
         Instance.LogMessages = GetNode<VBoxContainer>("%LogMessages");
-        Log.PrintLn("a", 1, 2, 3, 4, 5);
     }
 
     public override void _UnhandledInput(InputEvent @event)

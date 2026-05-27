@@ -21,8 +21,16 @@ public static class MiscExt
 
     extension(Tween tween)
     {
-        public void Fn(Action action, float delay = 0, bool parallel = false)
+        public void Fn(
+            Action action,
+            float delay = 0,
+            bool parallel = false,
+            bool resetIfRunning = false
+        )
         {
+            if (resetIfRunning && tween.IsRunning())
+                tween.Stop();
+
             if (parallel)
             {
                 tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
@@ -33,16 +41,40 @@ public static class MiscExt
             }
         }
 
-        public void LerpProperty(Node node, StringName property, Variant value, float time)
+        public void LerpProperty(
+            Node node,
+            StringName property,
+            Variant value,
+            float time,
+            bool parallel = false
+        )
         {
             tween.TweenProperty(node, property.ToString(), value, time);
         }
 
-        public void TweenFn<T>(Action<T> action, T from, T to, float time)
+        public void TweenFn<T>(Action<T> action, T from, T to, float time, bool parallel = false)
             where T : struct
         {
-            tween.TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+            if (parallel)
+            {
+                tween
+                    .Parallel()
+                    .TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+            }
+            else
+            {
+                tween.TweenMethod(
+                    Callable.From(action),
+                    Variant.From(from),
+                    Variant.From(to),
+                    time
+                );
+            }
         }
+
+        public SignalAwaiter Done(Node node) => node.ToSignal(tween, Tween.SignalName.Finished);
+
+        public SignalAwaiter Done() => tween.ToSignal(tween, Tween.SignalName.Finished);
     }
 
     extension(Node node)
@@ -115,6 +147,7 @@ public static class MiscExt
     }
     extension<T>(List<T> list)
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T PopLast() => list.Pop(^1);
 
         public T Pop(Index i)
