@@ -49,7 +49,14 @@ public static class MiscExt
             bool parallel = false
         )
         {
-            tween.TweenProperty(node, property.ToString(), value, time);
+            if (parallel)
+            {
+                tween.Parallel().TweenProperty(node, property.ToString(), value, time);
+            }
+            else
+            {
+                tween.TweenProperty(node, property.ToString(), value, time);
+            }
         }
 
         public void TweenFn<T>(Action<T> action, T from, T to, float time, bool parallel = false)
@@ -71,8 +78,6 @@ public static class MiscExt
                 );
             }
         }
-
-        public SignalAwaiter Done(Node node) => node.ToSignal(tween, Tween.SignalName.Finished);
 
         public SignalAwaiter Done() => tween.ToSignal(tween, Tween.SignalName.Finished);
     }

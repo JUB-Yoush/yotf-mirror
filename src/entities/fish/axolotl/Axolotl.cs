@@ -59,6 +59,7 @@ public partial class Axolotl : Fish, IBubbleable
     {
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
+            Log.PrintLn($"Entered: {bubbleable.Spatial.Name}");
             bubbleTargets.Remove(bubbleable);
             if (bubbleTargets.Count == 0)
             {
@@ -71,6 +72,7 @@ public partial class Axolotl : Fish, IBubbleable
     {
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
+            Log.PrintLn($"Detected: {bubbleable.Spatial.Name}");
             bubbleTargets.Add(bubbleable);
             SetState(chaseState);
         }
@@ -207,18 +209,20 @@ public partial class Axolotl : Fish, IBubbleable
 
         public void Enter(Fish fish)
         {
-            Log.PrintLn(fish.Name, "entering chase");
+            axolotl = (Axolotl)fish;
         }
 
-        public void Update(Fish fish, float delta)
+        public void Exit(Fish fish) { }
+
+        public async void Update(Fish fish, float delta)
         {
-            axolotl ??= (Axolotl)fish;
             var currentTarget = axolotl.bubbleTargets[0];
             if (axolotl.atBubbleTarget)
             {
                 if (tween != null)
                     return;
                 Log.PrintLn("start");
+
                 // axolotl.Velocity = MiscExt.V3Lerp(axolotl.Velocity, Vector3.Zero, 0.2f);
                 // axolotl.MakeBubble(currentTarget.Spatial.Position - axolotl.Position);
                 // axolotl.bubbleTargets.Pop(0);
@@ -227,7 +231,8 @@ public partial class Axolotl : Fish, IBubbleable
                 //     axolotl.SetState(axolotl.wanderState);
                 // }
 
-                tween ??= axolotl.CreateTween();
+                tween = axolotl.CreateTween();
+
                 tween.TweenFn<Vector3>(
                     (velocity) => axolotl.Velocity = velocity,
                     axolotl.Velocity,
@@ -252,6 +257,9 @@ public partial class Axolotl : Fish, IBubbleable
                         axolotl.SetState(axolotl.wanderState);
                     }
                 });
+                await tween.Done();
+                tween = null;
+                Log.PrintLn("all done");
             }
             else
             {

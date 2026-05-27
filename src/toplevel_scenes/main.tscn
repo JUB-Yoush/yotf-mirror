@@ -76,6 +76,9 @@ transform = Transform3D(0.20616548, -0.05137962, 0.97713125, 0, 0.9985556, 0.052
 [node name="DroppedItem" parent="." unique_id=1652355677 instance=ExtResource("7_i5ocd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.0584593, 51.422962)
 
+[node name="DroppedItem2" parent="." unique_id=2025619040 instance=ExtResource("7_i5ocd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.104935, -6.0584593, 47.56254)
+
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_oxt34")]
 transform = Transform3D(0.31515223, 0, -0.9490411, 0, 1, 0, 0.9490411, 0, 0.31515223, 41.841026, -6.2574344, 47.724586)
 Profile = ExtResource("7_odjcq")
