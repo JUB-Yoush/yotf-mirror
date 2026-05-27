@@ -96,13 +96,18 @@ public partial class Axolotl : Fish, IBubbleable
 
     public class Wander : IFishState
     {
+        Axolotl axolotl = null!;
         float wanderTimer = 0f;
-        float maxWanderTime = 3f;
+        float maxWanderTime = 10f;
         Vector3 wanderTarget = Vector3.Zero;
 
         public void Enter(Fish fish)
         {
-            wanderTarget = PickWanderDirection((Axolotl)fish);
+            axolotl = (Axolotl)fish;
+            //wanderTarget = PickWanderDirection((Axolotl)fish);
+
+            wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+            axolotl.NavAgent.TargetPosition = wanderTarget;
         }
 
         public static Vector3 PickWanderDirection(Axolotl axlotl)
@@ -144,13 +149,18 @@ public partial class Axolotl : Fish, IBubbleable
                 return;
             }
             wanderTimer += delta;
-            if (wanderTimer >= maxWanderTime)
+            if (wanderTimer >= maxWanderTime || axolotl.NavAgent.IsTargetReached())
             {
                 wanderTimer = 0;
-                wanderTarget = PickWanderDirection(axolotl);
+                //wanderTarget = PickWanderDirection(axolotl);
+                wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
                 axolotl.MakeBubble();
             }
-            axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
+            axolotl.SmoothMoveTo(
+                axolotl.NavAgent.GetNextPathPosition(),
+                axolotl.Profile.MoveSpeed,
+                delta
+            );
         }
     }
 

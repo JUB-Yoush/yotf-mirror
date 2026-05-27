@@ -42,4 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.59965926, 0.41293263)
 [node name="Geo_Gecko" parent="salamander_small" index="0" unique_id=981741876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42826256, -0.4282626)
 
+[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=1439128976]
+unique_name_in_owner = true
+
 [editable path="salamander_small"]

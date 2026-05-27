@@ -24,6 +24,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     public required RayCast3D DirectionRay { set; get; }
 
     [Node]
+    public required NavigationAgent3D NavAgent { set; get; }
+
+    [Node]
     public required Area3D DetectionZone { set; get; }
 
     [Export]
