@@ -132,3 +132,6 @@ transform = Transform3D(0.9988044, -0.0398161, 0.028361738, 0.0142541565, 0.7921
 light_energy = 1.561
 spot_range = 13.173713
 spot_angle = 30.828348
+
+[editable path="Axolotl"]
+[editable path="Axolotl/salamander_small"]

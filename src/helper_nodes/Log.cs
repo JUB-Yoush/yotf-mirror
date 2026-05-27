@@ -62,7 +62,7 @@ public partial class Log : Control
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        bool newlines = false
+        bool newlines = true
     )
     {
         string className = Path.GetFileNameWithoutExtension(filePath);

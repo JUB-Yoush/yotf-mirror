@@ -19,6 +19,9 @@ public partial class Axolotl : Fish, IBubbleable
     [Export]
     float bubbleDeceleration = 0.05f;
 
+    [Export]
+    float minimumWanderRange = 3f;
+
     IBubbleable? bubbleTarget = null;
 
     public Bubble? BubbleJail { get; set; }
@@ -38,10 +41,7 @@ public partial class Axolotl : Fish, IBubbleable
         DetectionZone.BodyExited += OnBodyExited;
     }
 
-    private void OnBodyExited(Node3D body)
-    {
-        throw new NotImplementedException();
-    }
+    private void OnBodyExited(Node3D body) { }
 
     private void OnBodyEntered(Node3D body)
     {
@@ -58,13 +58,14 @@ public partial class Axolotl : Fish, IBubbleable
         float arrivalThreshold = 0.1f
     )
     {
-        // Vector3 toTarget = target - GlobalPosition;
+        //target = GlobalPosition - target;
+        target -= GlobalPosition;
         // if (toTarget.LengthSquared() < arrivalThreshold)
         //     return true;
-
         Vector3 dir = target.Normalized();
 
         Velocity = MiscExt.V3Lerp(Velocity, target * speed, Profile.RotationSpeed * delta);
+        //Velocity = dir * speed;
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
@@ -98,41 +99,45 @@ public partial class Axolotl : Fish, IBubbleable
     {
         Axolotl axolotl = null!;
         float wanderTimer = 0f;
-        float maxWanderTime = 10f;
+        float maxWanderTime = 3f;
         Vector3 wanderTarget = Vector3.Zero;
 
         public void Enter(Fish fish)
         {
             axolotl = (Axolotl)fish;
-            //wanderTarget = PickWanderDirection((Axolotl)fish);
+            wanderTarget = PickWanderDirection((Axolotl)fish);
 
-            wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+            //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
             axolotl.NavAgent.TargetPosition = wanderTarget;
         }
 
         public static Vector3 PickWanderDirection(Axolotl axlotl)
         {
             // pick a direction and move to it.
-            Vector3 direction = new Vector3(
-                GD.Randf() * 2f - 1f,
-                (GD.Randf() * 2f - 1f) * 0.3f,
-                GD.Randf() * 2f - 1f
-            ).Normalized();
+            var stillPickingDir = true;
+            var target = new Vector3();
+            while (stillPickingDir)
+            {
+                Vector3 direction = new Vector3(
+                    GD.Randf() * 2f - 1f,
+                    (GD.Randf() * 2f - 1f) * 1f,
+                    GD.Randf() * 2f - 1f
+                ).Normalized();
+
+                var targetRay = axlotl.DirectionRay;
+                targetRay.TopLevel = true;
+                targetRay.GlobalPosition = axlotl.GlobalPosition;
+                targetRay.TargetPosition = direction * axlotl.minimumWanderRange;
+
+                target = direction * axlotl.Profile.WanderRadius;
+                targetRay.ForceRaycastUpdate();
+                stillPickingDir = targetRay.IsColliding();
+
+                // stillPickingDir =
+                //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
+            }
 
             // check for collisions
-            var targetRay = axlotl.DirectionRay;
-            targetRay.TopLevel = true;
-            targetRay.GlobalPosition = axlotl.GlobalPosition;
-            targetRay.TargetPosition = direction * axlotl.Profile.WanderRadius;
-
-            var target = direction * axlotl.Profile.WanderRadius;
-
-            // targetRay.ForceRaycastUpdate();
-            // if (targetRay.IsColliding())
-            // {
-            //     Log.PrintLn("Collision");
-            //     target = targetRay.GetCollisionPoint();
-            // }
 
             // targetMesh.GlobalPosition = direction;
             //Log.PrintLn(target);
@@ -149,18 +154,27 @@ public partial class Axolotl : Fish, IBubbleable
                 return;
             }
             wanderTimer += delta;
-            if (wanderTimer >= maxWanderTime || axolotl.NavAgent.IsTargetReached())
+            if (wanderTimer >= maxWanderTime)
             {
                 wanderTimer = 0;
-                //wanderTarget = PickWanderDirection(axolotl);
-                wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+                wanderTarget = PickWanderDirection(axolotl);
+                axolotl.NavAgent.TargetPosition = wanderTarget;
+                //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
                 axolotl.MakeBubble();
             }
+            //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
             axolotl.SmoothMoveTo(
                 axolotl.NavAgent.GetNextPathPosition(),
                 axolotl.Profile.MoveSpeed,
                 delta
             );
+            Log.PrintLn(
+                wanderTarget,
+                axolotl.NavAgent.GetNextPathPosition(),
+                axolotl.Velocity,
+                wanderTarget == axolotl.Position
+            );
+            //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
         }
     }
 
