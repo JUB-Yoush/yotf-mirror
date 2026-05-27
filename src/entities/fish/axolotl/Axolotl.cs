@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish
+public partial class Axolotl : Fish, IBubbleable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -18,6 +18,10 @@ public partial class Axolotl : Fish
 
     [Export]
     float bubbleDeceleration = 0.05f;
+
+    public Bubble? BubbleJail { get; set; }
+
+    Mesh IBubbleable.Mesh => Mesh.Mesh;
 
     public override void _Ready()
     {
@@ -50,15 +54,18 @@ public partial class Axolotl : Fish
         return false;
     }
 
-    // public override void _PhysicsProcess(double delta)
-    // {
-    //     base._PhysicsProcess(delta);
-    // }
+    public void PutInBubble()
+    {
+        Mesh.Visible = false;
+        DetectionZone.Monitoring = false;
+    }
 
-    //axl picks direction and moves in it.
-    //axl shoots a bubble after reaching direciton
-    //if there is a dropped item on the ground axl will try to put it in a bubble
-    //anything can get caught in axl bubbles?
+    public void FreeFromBubble()
+    {
+        Mesh.Visible = true;
+        DetectionZone.Monitoring = true;
+    }
+
     public class Wander : IFishState
     {
         float wanderTimer = 0f;
@@ -70,7 +77,7 @@ public partial class Axolotl : Fish
             wanderTarget = PickWanderDirection((Axolotl)fish);
         }
 
-        public Vector3 PickWanderDirection(Axolotl axlotl)
+        public static Vector3 PickWanderDirection(Axolotl axlotl)
         {
             // pick a direction and move to it.
             Vector3 direction = new Vector3(
@@ -80,20 +87,17 @@ public partial class Axolotl : Fish
             ).Normalized();
 
             // check for collisions
-            //axlotl.Velocity = Vector3.Zero;
-            //var targetRay = axlotl.DirectionRay;
-            //var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
-            //targetMesh.TopLevel = true;
-            // targetRay.TopLevel = true;
-            // targetRay.GlobalPosition = axlotl.GlobalPosition;
-            // targetRay.TargetPosition = direction * axlotl.Profile.WanderRadius;
+            var targetRay = axlotl.DirectionRay;
+            targetRay.TopLevel = true;
+            targetRay.GlobalPosition = axlotl.GlobalPosition;
+            targetRay.TargetPosition = direction * axlotl.Profile.WanderRadius;
 
             var target = direction * axlotl.Profile.WanderRadius;
 
             // targetRay.ForceRaycastUpdate();
             // if (targetRay.IsColliding())
             // {
-            //     GD.Print("Collision");
+            //     Log.PrintLn("Collision");
             //     target = targetRay.GetCollisionPoint();
             // }
 
@@ -105,30 +109,27 @@ public partial class Axolotl : Fish
         public void Update(Fish fish, float delta)
         {
             var axolotl = (Axolotl)fish;
+            if (axolotl.BubbleJail != null)
+            {
+                axolotl.GlobalPosition = axolotl.BubbleJail.GlobalPosition;
+                axolotl.Velocity = Vector3.Zero;
+                return;
+            }
             wanderTimer += delta;
             if (wanderTimer >= maxWanderTime)
             {
-                wanderTimer = -100;
+                wanderTimer = 0;
                 wanderTarget = PickWanderDirection(axolotl);
                 MakeBubble(axolotl);
             }
-            //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
-
-            //Vector3 toTarget = wanderTarget - axolotl.GlobalPosition;
-            // if (toTarget.LengthSquared() < 0.1)
-            // {
-            //     toTarget = Vector3.Zero;
-            // }
-
-            //Vector3 dir = toTarget.Normalized();
-            //Log.PrintLn(toTarget, dir, axolotl.Velocity);
-            //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
+            axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
         }
 
-        public void MakeBubble(Axolotl axolotl)
+        public static void MakeBubble(Axolotl axolotl)
         {
             var dir = axolotl.GlobalBasis.Z;
             var bubble = Bubble.New(
+                axolotl,
                 dir,
                 axolotl.bubbleShotSpeed,
                 axolotl.bubbleRiseSpeed,

@@ -34,11 +34,20 @@ public partial class Bubble : CharacterBody3D
 
     private IBubbleable? capturedNode = null;
 
+    private Axolotl origin = null!;
+
     public Vector3 SpawnDir = Vector3.Zero;
 
-    public static Bubble New(Vector3 spawnDir, float shotSpeed, float riseSpeed, float deceleration)
+    public static Bubble New(
+        Axolotl origin,
+        Vector3 spawnDir,
+        float shotSpeed,
+        float riseSpeed,
+        float deceleration
+    )
     {
         var bubble = Packed.Instantiate<Bubble>();
+        bubble.origin = origin;
         bubble.SpawnDir = spawnDir;
         bubble.shotSpeed = shotSpeed;
         bubble.riseSpeed = riseSpeed;
@@ -59,7 +68,7 @@ public partial class Bubble : CharacterBody3D
 
     void PutInBubble(IBubbleable bubbleable)
     {
-        if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null)
+        if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null && origin != bubbleable)
         {
             Mesh.Mesh = bubbleable.Mesh;
             bubbleable.BubbleJail = this;
@@ -70,9 +79,8 @@ public partial class Bubble : CharacterBody3D
 
     void FreeCapturedNode()
     {
-        Debug.Assert(capturedNode != null);
-        capturedNode.BubbleJail = null;
-        capturedNode.FreeFromBubble();
+        capturedNode?.BubbleJail = null;
+        capturedNode?.FreeFromBubble();
         QueueFree();
     }
 
@@ -81,7 +89,7 @@ public partial class Bubble : CharacterBody3D
         lifetime -= (float)delta;
         if (lifetime <= 0)
         {
-            capturedNode?.FreeFromBubble();
+            FreeCapturedNode();
             QueueFree();
         }
         Velocity = SpawnDir * shotSpeed + new Vector3(0, riseSpeed, 0);

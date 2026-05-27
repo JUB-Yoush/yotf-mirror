@@ -23,6 +23,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Node]
     public required RayCast3D DirectionRay { set; get; }
 
+    [Node]
+    public required Area3D DetectionZone { set; get; }
+
     [Export]
     public PathFollow3D? SplineFollower;
 

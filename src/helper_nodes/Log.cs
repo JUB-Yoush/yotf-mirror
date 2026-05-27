@@ -94,7 +94,7 @@ public partial class Log : Control
                 output.Append('|');
             }
         }
-        if (!newlines)
+        if (!newlines && output.Length > 0)
             output.Remove(output.Length - 1, 1);
         GD.Print($"[{className}.{memberName}:{lineNumber}] {output}");
     }
