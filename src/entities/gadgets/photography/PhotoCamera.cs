@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class PhotoCamera : Item
+public partial class PhotoCamera : Item, IMakeNoise
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -46,6 +46,14 @@ public partial class PhotoCamera : Item
     [Node]
     public required Label FilmLabel { set; get; }
 
+    [Node]
+    public required AudioStreamPlayer3D AudioStreamPlayer { get; set; }
+
+    public AudioStreamPlayer3D NoiseSource
+    {
+        get => AudioStreamPlayer;
+    }
+
     private PlayerController player = null!;
 
     private Camera3D playerCamera = null!;
@@ -63,6 +71,7 @@ public partial class PhotoCamera : Item
         }
         get;
     }
+
     public int maxFilm = 100;
 
     private bool aiming = false;
@@ -292,5 +301,10 @@ public partial class PhotoCamera : Item
     public void ClearPhotos()
     {
         Photos = [];
+    }
+
+    public void MakeNoise(float dB)
+    {
+        throw new NotImplementedException();
     }
 }

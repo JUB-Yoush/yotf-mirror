@@ -76,3 +76,6 @@ offset_right = 301.0
 offset_bottom = 1062.0
 theme_override_font_sizes/font_size = 48
 text = "100/100"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1643549579]
+unique_name_in_owner = true

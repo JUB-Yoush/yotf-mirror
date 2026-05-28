@@ -186,3 +186,4 @@ roll={
 3d_physics/layer_6="Bubbleable"
 3d_physics/layer_7="Items"
 3d_physics/layer_8="Bubble"
+3d_physics/layer_9="NoiseListener"
