@@ -43,15 +43,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public FishProfile Profile = null!;
 
-    // ====================== STATE MACHINE ======================
-
-    public IFishState CurrentState { get; private set; } = null!;
-
-    public readonly WanderingState WanderingState = new();
-    public readonly FleeingState FleeingState = new();
-    public readonly AggressiveState AggressiveState = new();
-    public readonly HiddenState HiddenState = new();
-
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vector3 ThreatPosition { get; internal set; }
 
@@ -78,14 +69,14 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         detectionZone.BodyEntered += OnBodyEnterRange;
         detectionZone.BodyExited += OnBodyExitRange;
 
-        IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
-        CurrentState = initial;
-        CurrentState.Enter(this);
+        // IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
+        // CurrentState = initial;
+        // CurrentState.Enter(this);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        CurrentState.Update(this, (float)delta);
+        //CurrentState.Update(this, (float)delta);
         MoveAndSlide();
     }
 
@@ -118,23 +109,26 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // called by whatever gadget reveals hidden fish
     public void Reveal()
     {
-        if (CurrentState is HiddenState)
-            SetState(WanderingState);
+        // if (CurrentState is HiddenState)
+        //     SetState<Axolotl>(WanderingState);
     }
+
+    public bool IsInPhoto() => true;
 
     // ====================== INTERNAL HELPERS ======================
 
-    internal void SetState(IFishState newState)
-    {
-        if (CurrentState == newState)
-            return;
-        CurrentState.Exit(this);
-        CurrentState = newState;
-        CurrentState.Enter(this);
-    }
+    // internal void SetState(IFishState newState)
+    // {
+    //     // if (CurrentState == newState)
+    //     //     return;
+    //     // CurrentState.Exit(this);
+    //     // CurrentState = newState;
+    //     // CurrentState.Enter(this);
+    // }
 
     // ====================== IPHOTOGRAPHABLE ======================
 
     // hidden fish are never photographable regardless of screen visibility
-    public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
+    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
+    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
 }

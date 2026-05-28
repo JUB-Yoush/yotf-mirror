@@ -25,6 +25,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     [Export]
     float minimumWanderRange = 3f;
 
+    public IFishState<Axolotl> CurrentState { get; private set; } = null!;
+
     // chasing
     List<IBubbleable> bubbleTargets = [];
     Vector3 bubbleTargetPosition = Vector3.Zero;
@@ -51,7 +53,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     public override void _Ready()
     {
         base._Ready();
-        SetState(wanderState);
+        //SetState(wanderState);
         DetectionZone.BodyEntered += OnDetectionBodyEntered;
         DetectionZone.BodyExited += OnDetectionBodyExited;
     }
@@ -67,7 +69,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             bubbleTargets.Remove(bubbleable);
             if (bubbleTargets.Count == 0)
             {
-                SetState(wanderState);
+                //    SetState(wanderState);
             }
         }
     }
@@ -77,7 +79,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
             bubbleTargets.Add(bubbleable);
-            SetState(chaseState);
+            //SetState(chaseState);
         }
     }
 
@@ -127,10 +129,10 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         Log.PrintLn("im so fucking scared");
         // if in state that lets me be scared{
         ThreatTarget = noiseNode;
-        SetState(fleeState);
+        //SetState(fleeState);
     }
 
-    public class Wander : IFishState
+    public class Wander : IFishState<Axolotl>
     {
         Axolotl axolotl = null!;
         float wanderTimer = 0f;
@@ -180,9 +182,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             return target;
         }
 
-        public void Update(Fish fish, float delta)
+        public void Update(Axolotl axolotl, float delta)
         {
-            var axolotl = (Axolotl)fish;
             if (axolotl.BubbleJail != null)
             {
                 axolotl.GlobalPosition = axolotl.BubbleJail.GlobalPosition;
@@ -214,7 +215,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         }
     }
 
-    public class Chasing : IFishState
+    public class Chasing : IFishState<Axolotl>
     {
         Axolotl axolotl = null!;
         Tween? tween = null;
@@ -265,7 +266,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
                     axolotl.bubbleTargets.Pop(0);
                     if (axolotl.bubbleTargets.Count == 0)
                     {
-                        axolotl.SetState(axolotl.wanderState);
+                        //axolotl.SetState(axolotl.wanderState);
                     }
                 });
                 await tween.Done();
@@ -281,9 +282,14 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
                 );
             }
         }
+
+        public void Update(Axolotl fish, float delta)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public class Fleeing : IFishState
+    public class Fleeing : IFishState<Axolotl>
     {
         private float fleeTimer;
         Axolotl axolotl = null!;
@@ -306,7 +312,9 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             fleeTimer += delta;
 
             if (arrived || fleeTimer >= axolotl.Profile.FleeTimeout)
-                axolotl.SetState(axolotl.wanderState);
+            {
+                //axolotl.SetState(axolotl.wanderState);
+            }
         }
 
         public void OnThreatDetected(Fish fish, Node3D threat)
@@ -318,7 +326,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
         public void OnThreatLost(Fish fish)
         {
-            axolotl.SetState(axolotl.wanderState);
+            //axolotl.SetState(axolotl.wanderState);
+        }
+
+        public void Update(Axolotl fish, float delta)
+        {
+            throw new NotImplementedException();
         }
     }
 }

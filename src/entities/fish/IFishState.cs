@@ -2,21 +2,22 @@ using Godot;
 
 namespace Yotf;
 
-public interface IFishState
+public interface IFishState<T>
+    where T : Fish
 {
     public bool IsPhotographable
     {
         get => true;
     }
 
-    void Update(Fish fish, float delta);
+    void Update(T fish, float delta);
 
-    virtual void Enter(Fish fish) { }
-    virtual void Exit(Fish fish) { }
+    virtual void Enter(T fish) { }
+    virtual void Exit(T fish) { }
 
     // sensory events
-    virtual void OnThreatDetected(Fish fish, Node3D threat) { }
-    virtual void OnThreatLost(Fish fish) { }
-    virtual void OnNoiseHeard(Fish fish, float level, Vector3 source) { }
-    virtual void OnRadiusEntered(Fish fish, float level, Vector3 source) { }
+    virtual void OnThreatDetected(T fish, Node3D threat) { }
+    virtual void OnThreatLost(T fish) { }
+    virtual void OnNoiseHeard(T fish, float level, Vector3 source) { }
+    virtual void OnRadiusEntered(T fish, float level, Vector3 source) { }
 }
