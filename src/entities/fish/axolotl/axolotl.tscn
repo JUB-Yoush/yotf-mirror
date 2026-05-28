@@ -12,7 +12,7 @@ height = 2.7504883
 radius = 5.0
 
 [node name="Axolotl" type="CharacterBody3D" unique_id=283741704 node_paths=PackedStringArray("Mesh")]
-collision_layer = 48
+collision_layer = 304
 collision_mask = 3
 script = ExtResource("1_0le65")
 Mesh = NodePath("salamander_small/Geo_Gecko")

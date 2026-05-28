@@ -15,7 +15,7 @@ public partial class PhotoCamera : Item, IMakeNoise
 
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
-    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
 
     public List<Photo> Photos = [];
 
@@ -161,17 +161,23 @@ public partial class PhotoCamera : Item, IMakeNoise
 
         if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
         {
-            Film -= 1;
-            var subjects = GetPhotoSubjects();
-            Image image = GetViewportImage();
-            PhotoData photo = PhotoData.New(Name, subjects, image.Data);
-            Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
-            FlashSFX();
-            AddPhoto(photo, grades);
+            TakePhoto();
         }
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
+    }
+
+    void TakePhoto()
+    {
+        Film -= 1;
+        var subjects = GetPhotoSubjects();
+        Image image = GetViewportImage();
+        PhotoData photo = PhotoData.New(Name, subjects, image.Data);
+        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
+        FlashSFX();
+        IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
+        AddPhoto(photo, grades);
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
@@ -301,10 +307,5 @@ public partial class PhotoCamera : Item, IMakeNoise
     public void ClearPhotos()
     {
         Photos = [];
-    }
-
-    public void MakeNoise(float dB)
-    {
-        throw new NotImplementedException();
     }
 }

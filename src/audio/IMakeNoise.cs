@@ -14,20 +14,25 @@ public interface IMakeNoise
 
     AudioStreamPlayer3D NoiseSource { get; }
 
-    public virtual void MakeNoise(float dB, SFX sfx, int radius = -1)
+    public static void MakeNoise(IMakeNoise node, float dB, SFX sfx, int radius = -1)
     {
         // play sound
-        var streamPlayer = NoiseSource;
+        var streamPlayer = node.NoiseSource;
         streamPlayer.Stream = SFXLoader.Map[sfx];
         streamPlayer.Play();
 
         // check who heard it
         //radius = radius == -1 ? GetRadiusFromdB(dB) : radius;
         var audioArea = streamPlayer.GetNode<Area3D>()!;
+        var shape = audioArea.GetNode<CollisionShape3D>()!;
+
+        //shape.Disabled = false;
         foreach (IHearNoise listener in audioArea.GetOverlappingBodies().Cast<IHearNoise>())
         {
-            listener.OnNoiseHeard(audioArea.GlobalPosition, dB, sfx);
+            Log.PrintLn(listener);
+            listener.OnNoiseHeard(audioArea, dB, sfx);
         }
+        //shape.Disabled = true;
     }
 
     public int GetRadiusFromdB(float dB)

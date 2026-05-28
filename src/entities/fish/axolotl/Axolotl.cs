@@ -5,12 +5,13 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish, IBubbleable
+public partial class Axolotl : Fish, IBubbleable, IHearNoise
 {
     public override void _Notification(int what) => this.Notify(what);
 
     public readonly Wander wanderState = new();
     public readonly Chasing chaseState = new();
+    public readonly Fleeing fleeState = new();
 
     [Export]
     float bubbleShotSpeed = 20f;
@@ -57,9 +58,12 @@ public partial class Axolotl : Fish, IBubbleable
 
     private void OnDetectionBodyExited(Node3D body)
     {
-        if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
+        if (
+            body is IBubbleable bubbleable
+            && bubbleable.AxolotlTargets
+            && CurrentState != fleeState
+        )
         {
-            Log.PrintLn($"Entered: {bubbleable.Spatial.Name}");
             bubbleTargets.Remove(bubbleable);
             if (bubbleTargets.Count == 0)
             {
@@ -72,7 +76,6 @@ public partial class Axolotl : Fish, IBubbleable
     {
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
-            Log.PrintLn($"Detected: {bubbleable.Spatial.Name}");
             bubbleTargets.Add(bubbleable);
             SetState(chaseState);
         }
@@ -119,6 +122,14 @@ public partial class Axolotl : Fish, IBubbleable
         DetectionZone.Monitoring = true;
     }
 
+    public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
+    {
+        Log.PrintLn("im so fucking scared");
+        // if in state that lets me be scared{
+        ThreatTarget = noiseNode;
+        SetState(fleeState);
+    }
+
     public class Wander : IFishState
     {
         Axolotl axolotl = null!;
@@ -128,6 +139,7 @@ public partial class Axolotl : Fish, IBubbleable
 
         public void Enter(Fish fish)
         {
+            Log.PrintLn("wander");
             axolotl = (Axolotl)fish;
             wanderTarget = PickWanderDirection((Axolotl)fish);
 
@@ -209,6 +221,7 @@ public partial class Axolotl : Fish, IBubbleable
 
         public void Enter(Fish fish)
         {
+            Log.PrintLn("chase");
             axolotl = (Axolotl)fish;
         }
 
@@ -221,7 +234,6 @@ public partial class Axolotl : Fish, IBubbleable
             {
                 if (tween != null)
                     return;
-                Log.PrintLn("start");
 
                 // axolotl.Velocity = MiscExt.V3Lerp(axolotl.Velocity, Vector3.Zero, 0.2f);
                 // axolotl.MakeBubble(currentTarget.Spatial.Position - axolotl.Position);
@@ -247,7 +259,6 @@ public partial class Axolotl : Fish, IBubbleable
                     3f,
                     true
                 );
-                tween.Fn(() => Log.PrintLn("tween done"));
                 tween.Fn(() =>
                 {
                     axolotl.MakeBubble(currentTarget.Spatial.Position - axolotl.Position);
@@ -259,7 +270,6 @@ public partial class Axolotl : Fish, IBubbleable
                 });
                 await tween.Done();
                 tween = null;
-                Log.PrintLn("all done");
             }
             else
             {
@@ -270,6 +280,45 @@ public partial class Axolotl : Fish, IBubbleable
                     5f
                 );
             }
+        }
+    }
+
+    public class Fleeing : IFishState
+    {
+        private float fleeTimer;
+        Axolotl axolotl = null!;
+
+        public void Enter(Fish fish)
+        {
+            Log.PrintLn("gtfo");
+            axolotl ??= (Axolotl)fish;
+        }
+
+        public void Update(Fish fish, float delta)
+        {
+            if (axolotl.ThreatTarget != null)
+                axolotl.ThreatPosition = axolotl.ThreatTarget.GlobalPosition;
+
+            Vector3 awayDir = (axolotl.GlobalPosition - axolotl.ThreatPosition).Normalized();
+            Vector3 fleeTarget = axolotl.GlobalPosition + awayDir * axolotl.Profile.FleeDistance;
+
+            bool arrived = axolotl.SmoothMoveTo(fleeTarget, axolotl.Profile.FleeSpeed, delta);
+            fleeTimer += delta;
+
+            if (arrived || fleeTimer >= axolotl.Profile.FleeTimeout)
+                axolotl.SetState(axolotl.wanderState);
+        }
+
+        public void OnThreatDetected(Fish fish, Node3D threat)
+        {
+            // reset the timer so a new nearby threat keeps us fleeing
+            axolotl.ThreatPosition = threat.GlobalPosition;
+            fleeTimer = 0f;
+        }
+
+        public void OnThreatLost(Fish fish)
+        {
+            axolotl.SetState(axolotl.wanderState);
         }
     }
 }

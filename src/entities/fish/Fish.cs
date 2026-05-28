@@ -56,7 +56,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     public Vector3 ThreatPosition { get; internal set; }
 
     // null when no player is in range
-    public Node3D? ThreatTarget { get; private set; }
+    public Node3D? ThreatTarget { get; set; }
 
     public required MeshInstance3D SubjectBoundingMesh
     {
@@ -92,28 +92,28 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // ====================== SENSORY ENTRY POINTS ======================
     private void OnBodyEnterRange(Node3D body)
     {
-        if (body is not CharacterBody3D)
-            return;
-        ThreatTarget = body;
-        ThreatPosition = body.GlobalPosition;
-        CurrentState.OnThreatDetected(this, body);
+        // if (body is not CharacterBody3D)
+        //     return;
+        // ThreatTarget = body;
+        // ThreatPosition = body.GlobalPosition;
+        // CurrentState.OnThreatDetected(this, body);
     }
 
     private void OnBodyExitRange(Node3D body)
     {
-        if (body is not CharacterBody3D)
-            return;
-        if (ThreatTarget == body)
-            ThreatTarget = null;
-        CurrentState.OnThreatLost(this);
+        // if (body is not CharacterBody3D)
+        //     return;
+        // if (ThreatTarget == body)
+        //     ThreatTarget = null;
+        // CurrentState.OnThreatLost(this);
     }
 
-    // level is 0-1, source is world pos
-    public void OnNoiseHeard(float level, Vector3 source)
-    {
-        if (level >= Profile.NoiseThreshold)
-            CurrentState.OnNoiseHeard(this, level, source);
-    }
+    // // level is 0-1, source is world pos
+    // public void OnNoiseHeard(float level, Vector3 source)
+    // {
+    //     if (level >= Profile.NoiseThreshold)
+    //         CurrentState.OnNoiseHeard(this, level, source);
+    // }
 
     // called by whatever gadget reveals hidden fish
     public void Reveal()

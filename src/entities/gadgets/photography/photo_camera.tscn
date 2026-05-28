@@ -12,6 +12,9 @@ albedo_color = Color(0.32156864, 1, 1, 1)
 material = SubResource("StandardMaterial3D_4q7ia")
 size = Vector3(0.2, 0.2, 0.2)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_jvh7c"]
+radius = 2.6155052
+
 [node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
 ItemName = "Camera"
@@ -79,3 +82,12 @@ text = "100/100"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1643549579]
 unique_name_in_owner = true
+
+[node name="AudioRange" type="Area3D" parent="AudioStreamPlayer" unique_id=872072090]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AudioStreamPlayer/AudioRange" unique_id=1002190976]
+transform = Transform3D(1, 0, 0, 0, -0.040934015, -0.99916184, 0, 0.99916184, -0.040934015, 0, 0, 0)
+shape = SubResource("SphereShape3D_jvh7c")
+debug_color = Color(0.95739204, 0, 0.5354323, 0.41960785)
