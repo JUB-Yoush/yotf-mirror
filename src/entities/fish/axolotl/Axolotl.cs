@@ -9,9 +9,14 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    public readonly Wander wanderState = new();
-    public readonly Chasing chaseState = new();
-    public readonly Fleeing fleeState = new();
+    private readonly StateMachine<State> stateMachine = new();
+
+    enum State
+    {
+        Wander,
+        Chase,
+        Flee,
+    }
 
     [Export]
     float bubbleShotSpeed = 20f;
@@ -27,6 +32,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public IFishState<Axolotl> CurrentState { get; private set; } = null!;
 
+    //wandering
+    float wanderTimer = 0f;
+    float maxWanderTime = 3f;
+    Vector3 wanderTarget = Vector3.Zero;
+
     // chasing
     List<IBubbleable> bubbleTargets = [];
     Vector3 bubbleTargetPosition = Vector3.Zero;
@@ -35,6 +45,10 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     float maxLastKnownSeekTimer = 5f;
     float endDistance = 1f;
     bool atBubbleTarget;
+    Tween? tween = null;
+
+    //fleeing
+    private float fleeTimer;
 
     public Bubble? BubbleJail { get; set; }
 
@@ -53,9 +67,19 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     public override void _Ready()
     {
         base._Ready();
-        //SetState(wanderState);
+        stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
+        stateMachine.AddState(State.Flee, FleeUpdate);
+        stateMachine.AddState(State.Chase, ChaseUpdate);
+        stateMachine.State = State.Wander;
+
         DetectionZone.BodyEntered += OnDetectionBodyEntered;
         DetectionZone.BodyExited += OnDetectionBodyExited;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        stateMachine.Update(delta);
+        MoveAndSlide();
     }
 
     private void OnDetectionBodyExited(Node3D body)
@@ -63,7 +87,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         if (
             body is IBubbleable bubbleable
             && bubbleable.AxolotlTargets
-            && CurrentState != fleeState
+            && stateMachine.State != State.Flee
         )
         {
             bubbleTargets.Remove(bubbleable);
@@ -76,10 +100,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     private void OnDetectionBodyEntered(Node3D body)
     {
+        Log.PrintLn(body is IBubbleable, ((IBubbleable)body).AxolotlTargets);
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
             bubbleTargets.Add(bubbleable);
-            //SetState(chaseState);
+            stateMachine.State = State.Chase;
         }
     }
 
@@ -126,212 +151,149 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
     {
-        Log.PrintLn("im so fucking scared");
-        // if in state that lets me be scared{
         ThreatTarget = noiseNode;
-        //SetState(fleeState);
+        stateMachine.State = State.Flee;
     }
 
-    public class Wander : IFishState<Axolotl>
+    public void WanderUpdate(float delta)
     {
-        Axolotl axolotl = null!;
-        float wanderTimer = 0f;
-        float maxWanderTime = 3f;
-        Vector3 wanderTarget = Vector3.Zero;
-
-        public void Enter(Fish fish)
+        if (BubbleJail != null)
         {
-            Log.PrintLn("wander");
-            axolotl = (Axolotl)fish;
-            wanderTarget = PickWanderDirection((Axolotl)fish);
+            GlobalPosition = BubbleJail.GlobalPosition;
+            Velocity = Vector3.Zero;
+            return;
+        }
+        wanderTimer += (float)delta;
+        if (wanderTimer >= maxWanderTime)
+        {
+            wanderTimer = 0;
+            wanderTarget = PickWanderDirection();
+            NavAgent.TargetPosition = wanderTarget;
+            //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+            MakeBubble(GlobalBasis.Z);
+        }
+        //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+        SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
+        // Log.PrintLn(
+        //     wanderTarget,
+        //     NavAgent.GetNextPathPosition(),
+        //     Velocity,
+        //     wanderTarget == Position
+        // );
+        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, delta);
+    }
 
-            //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
-            axolotl.NavAgent.TargetPosition = wanderTarget;
+    public Vector3 PickWanderDirection()
+    {
+        // pick a direction and move to it.
+        var stillPickingDir = true;
+        var target = new Vector3();
+        while (stillPickingDir)
+        {
+            Vector3 direction = new Vector3(
+                GD.Randf() * 2f - 1f,
+                (GD.Randf() * 2f - 1f) * 1f,
+                GD.Randf() * 2f - 1f
+            ).Normalized();
+
+            var targetRay = DirectionRay;
+            targetRay.TopLevel = true;
+            targetRay.GlobalPosition = GlobalPosition;
+            targetRay.TargetPosition = direction * minimumWanderRange;
+
+            target = direction * Profile.WanderRadius;
+            targetRay.ForceRaycastUpdate();
+            stillPickingDir = targetRay.IsColliding();
+
+            // stillPickingDir =
+            //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
         }
 
-        public static Vector3 PickWanderDirection(Axolotl axlotl)
+        // check for collisions
+
+        // targetMesh.GlobalPosition = direction;
+        //Log.PrintLn(target);
+        return target;
+    }
+
+    public void WanderEnter()
+    {
+        Log.PrintLn("wander");
+        wanderTarget = PickWanderDirection();
+        //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
+        NavAgent.TargetPosition = wanderTarget;
+    }
+
+    public async void ChaseUpdate(float delta)
+    {
+        Log.PrintLn("chase");
+        var currentTarget = bubbleTargets[0];
+        if (atBubbleTarget)
         {
-            // pick a direction and move to it.
-            var stillPickingDir = true;
-            var target = new Vector3();
-            while (stillPickingDir)
-            {
-                Vector3 direction = new Vector3(
-                    GD.Randf() * 2f - 1f,
-                    (GD.Randf() * 2f - 1f) * 1f,
-                    GD.Randf() * 2f - 1f
-                ).Normalized();
-
-                var targetRay = axlotl.DirectionRay;
-                targetRay.TopLevel = true;
-                targetRay.GlobalPosition = axlotl.GlobalPosition;
-                targetRay.TargetPosition = direction * axlotl.minimumWanderRange;
-
-                target = direction * axlotl.Profile.WanderRadius;
-                targetRay.ForceRaycastUpdate();
-                stillPickingDir = targetRay.IsColliding();
-
-                // stillPickingDir =
-                //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
-            }
-
-            // check for collisions
-
-            // targetMesh.GlobalPosition = direction;
-            //Log.PrintLn(target);
-            return target;
-        }
-
-        public void Update(Axolotl axolotl, float delta)
-        {
-            if (axolotl.BubbleJail != null)
-            {
-                axolotl.GlobalPosition = axolotl.BubbleJail.GlobalPosition;
-                axolotl.Velocity = Vector3.Zero;
+            if (tween != null)
                 return;
-            }
-            wanderTimer += delta;
-            if (wanderTimer >= maxWanderTime)
-            {
-                wanderTimer = 0;
-                wanderTarget = PickWanderDirection(axolotl);
-                axolotl.NavAgent.TargetPosition = wanderTarget;
-                //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
-                axolotl.MakeBubble(axolotl.GlobalBasis.Z);
-            }
-            //wanderTarget = axolotl.SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
-            axolotl.SmoothMoveTo(
-                axolotl.NavAgent.GetNextPathPosition(),
-                axolotl.Profile.MoveSpeed,
-                delta
+
+            // Velocity = MiscExt.V3Lerp(Velocity, Vector3.Zero, 0.2f);
+            // MakeBubble(currentTarget.Spatial.Position - Position);
+            // bubbleTargets.Pop(0);
+            // if (bubbleTargets.Count == 0)
+            // {
+            //     SetState(wanderState);
+            // }
+
+            tween = CreateTween();
+
+            tween.TweenFn<Vector3>(
+                (velocity) => Velocity = velocity,
+                Velocity,
+                Vector3.Zero,
+                2f,
+                true
             );
-            // Log.PrintLn(
-            //     wanderTarget,
-            //     axolotl.NavAgent.GetNextPathPosition(),
-            //     axolotl.Velocity,
-            //     wanderTarget == axolotl.Position
-            // );
-            //axolotl.SmoothMoveTo(wanderTarget, axolotl.Profile.MoveSpeed, delta);
-        }
-    }
-
-    public class Chasing : IFishState<Axolotl>
-    {
-        Axolotl axolotl = null!;
-        Tween? tween = null;
-
-        public void Enter(Fish fish)
-        {
-            Log.PrintLn("chase");
-            axolotl = (Axolotl)fish;
-        }
-
-        public void Exit(Fish fish) { }
-
-        public async void Update(Fish fish, float delta)
-        {
-            var currentTarget = axolotl.bubbleTargets[0];
-            if (axolotl.atBubbleTarget)
+            tween.TweenFn<Vector3>(
+                (target) => LookAt(target),
+                GlobalPosition,
+                currentTarget.Spatial.GlobalPosition,
+                3f,
+                true
+            );
+            tween.Fn(() =>
             {
-                if (tween != null)
-                    return;
-
-                // axolotl.Velocity = MiscExt.V3Lerp(axolotl.Velocity, Vector3.Zero, 0.2f);
-                // axolotl.MakeBubble(currentTarget.Spatial.Position - axolotl.Position);
-                // axolotl.bubbleTargets.Pop(0);
-                // if (axolotl.bubbleTargets.Count == 0)
-                // {
-                //     axolotl.SetState(axolotl.wanderState);
-                // }
-
-                tween = axolotl.CreateTween();
-
-                tween.TweenFn<Vector3>(
-                    (velocity) => axolotl.Velocity = velocity,
-                    axolotl.Velocity,
-                    Vector3.Zero,
-                    2f,
-                    true
-                );
-                tween.TweenFn<Vector3>(
-                    (target) => axolotl.LookAt(target),
-                    axolotl.GlobalPosition,
-                    currentTarget.Spatial.GlobalPosition,
-                    3f,
-                    true
-                );
-                tween.Fn(() =>
+                MakeBubble(currentTarget.Spatial.Position - Position);
+                bubbleTargets.Pop(0);
+                if (bubbleTargets.Count == 0)
                 {
-                    axolotl.MakeBubble(currentTarget.Spatial.Position - axolotl.Position);
-                    axolotl.bubbleTargets.Pop(0);
-                    if (axolotl.bubbleTargets.Count == 0)
-                    {
-                        //axolotl.SetState(axolotl.wanderState);
-                    }
-                });
-                await tween.Done();
-                tween = null;
-            }
-            else
-            {
-                axolotl.atBubbleTarget = axolotl.SmoothMoveTo(
-                    currentTarget.GlobalPosition,
-                    axolotl.Profile.MoveSpeed,
-                    delta,
-                    5f
-                );
-            }
+                    stateMachine.State = State.Wander;
+                }
+            });
+            await tween.Done();
+            tween = null;
         }
-
-        public void Update(Axolotl fish, float delta)
+        else
         {
-            throw new NotImplementedException();
+            atBubbleTarget = SmoothMoveTo(
+                currentTarget.GlobalPosition,
+                Profile.MoveSpeed,
+                delta,
+                5f
+            );
         }
     }
 
-    public class Fleeing : IFishState<Axolotl>
+    public void FleeUpdate(float delta)
     {
-        private float fleeTimer;
-        Axolotl axolotl = null!;
+        if (ThreatTarget != null)
+            ThreatPosition = ThreatTarget.GlobalPosition;
 
-        public void Enter(Fish fish)
+        Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
+        Vector3 fleeTarget = GlobalPosition + awayDir * Profile.FleeDistance;
+
+        bool arrived = SmoothMoveTo(fleeTarget, Profile.FleeSpeed, delta);
+        fleeTimer += delta;
+
+        if (arrived || fleeTimer >= Profile.FleeTimeout)
         {
-            Log.PrintLn("gtfo");
-            axolotl ??= (Axolotl)fish;
-        }
-
-        public void Update(Fish fish, float delta)
-        {
-            if (axolotl.ThreatTarget != null)
-                axolotl.ThreatPosition = axolotl.ThreatTarget.GlobalPosition;
-
-            Vector3 awayDir = (axolotl.GlobalPosition - axolotl.ThreatPosition).Normalized();
-            Vector3 fleeTarget = axolotl.GlobalPosition + awayDir * axolotl.Profile.FleeDistance;
-
-            bool arrived = axolotl.SmoothMoveTo(fleeTarget, axolotl.Profile.FleeSpeed, delta);
-            fleeTimer += delta;
-
-            if (arrived || fleeTimer >= axolotl.Profile.FleeTimeout)
-            {
-                //axolotl.SetState(axolotl.wanderState);
-            }
-        }
-
-        public void OnThreatDetected(Fish fish, Node3D threat)
-        {
-            // reset the timer so a new nearby threat keeps us fleeing
-            axolotl.ThreatPosition = threat.GlobalPosition;
-            fleeTimer = 0f;
-        }
-
-        public void OnThreatLost(Fish fish)
-        {
-            //axolotl.SetState(axolotl.wanderState);
-        }
-
-        public void Update(Axolotl fish, float delta)
-        {
-            throw new NotImplementedException();
+            stateMachine.State = State.Wander;
         }
     }
 }

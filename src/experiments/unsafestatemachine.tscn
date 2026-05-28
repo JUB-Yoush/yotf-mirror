@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dupakv2vp6yhj"]
-
-[ext_resource type="Script" uid="uid://cpo5y1e5txgdn" path="res://src/experiments/Unsafestatemachine.cs" id="1_j8p2r"]
-
-[node name="Unsafestatemachine" type="Node2D" unique_id=1211806398]
-script = ExtResource("1_j8p2r")

@@ -10,13 +10,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     readonly Routine routine = new();
 
-    // ====================== SIGNALS ======================
-
-    // emitted when an aggressive fish enters melee range of target
-    public Action<Node3D>? Attacked;
-    public Action? BecameHidden;
-    public Action? BecameVisible;
-
     // ====================== REFERENCES ======================
 
     [Node]
@@ -61,24 +54,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         set;
     }
 
-    // ====================== LIFECYCLE ======================
-
-    public override void _Ready()
-    {
-        Area3D detectionZone = this.GetNode<Area3D>()!;
-        detectionZone.BodyEntered += OnBodyEnterRange;
-        detectionZone.BodyExited += OnBodyExitRange;
-
-        // IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
-        // CurrentState = initial;
-        // CurrentState.Enter(this);
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        //CurrentState.Update(this, (float)delta);
-        MoveAndSlide();
-    }
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     //CurrentState.Update(this, (float)delta);
+    //     MoveAndSlide();
+    // }
 
     // ====================== SENSORY ENTRY POINTS ======================
     private void OnBodyEnterRange(Node3D body)
