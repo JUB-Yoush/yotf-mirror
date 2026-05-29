@@ -46,9 +46,6 @@ public partial class Hud : Control
     [Node]
     public required TextureRect Ruler { set; get; }
 
-    [Node]
-    public required Label Alert { set; get; }
-
     public TextureRect[] InventoryIcons
     {
         get

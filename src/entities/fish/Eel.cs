@@ -32,10 +32,7 @@ public partial class Eel : Fish
         stateMachine.State = State.Wander;
     }
 
-    private void WanderEnter()
-    {
-        Log.PrintLn("wander");
-    }
+    private void WanderEnter() { }
 
     private void WanderUpdate(float delta)
     {

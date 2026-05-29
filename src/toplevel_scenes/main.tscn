@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="6_i584b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="7_i5ocd"]
+[ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="8_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://8njc6cpo2xsp" path="res://src/entities/fish/ghost_fish/ghost.tscn" id="9_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
@@ -92,6 +93,9 @@ InsideChest = ExtResource("7_i5ocd")
 
 [node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("5_tjs3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.197407, -5.496252, 49.942013)
+
+[node name="Inkfish" parent="." unique_id=192966336 instance=ExtResource("8_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.92645, -4.5881596, 52.51451)
 
 [node name="Ghost" parent="." unique_id=1678250279 instance=ExtResource("9_i3xn1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.576187, -4.5881596, 51.72518)
