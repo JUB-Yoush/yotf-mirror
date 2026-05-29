@@ -8,7 +8,7 @@ public interface IInteractable
 {
     public static readonly Material Outline = GD.Load<ShaderMaterial>("uid://cgcywsatye4gv");
     public void OnInteraction();
-    public Mesh InteractionMesh { set; get; }
+    public Mesh InteractionMesh { get; }
     public void OutlineMesh()
     {
         var mesh = InteractionMesh;

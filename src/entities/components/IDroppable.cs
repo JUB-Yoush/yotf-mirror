@@ -6,4 +6,5 @@ public interface IDroppable
     public Mesh DropMesh { get; }
     public static DroppedItem MakeDropItem(IDroppable droppable) =>
         DroppedItem.New(droppable.DropMesh, droppable.PackedScene);
+    public DroppedItem MakeDropItem() => DroppedItem.New(DropMesh, PackedScene);
 }

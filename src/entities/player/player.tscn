@@ -145,7 +145,6 @@ offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
-horizontal_alignment = 1
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 
