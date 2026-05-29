@@ -30,9 +30,15 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     [Export]
     float minimumWanderRange = 3f;
 
+    [Node]
+    public required MeshInstance3D NavBox { set; get; }
+
+    [Node]
+    public required MeshInstance3D NavBox2 { set; get; }
+
     //wandering
     float wanderTimer = 0f;
-    float maxWanderTime = 3f;
+    float maxWanderTime = 10f;
     Vector3 wanderTarget = Vector3.Zero;
 
     // chasing
@@ -77,6 +83,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     */
     public override void _Ready()
     {
+        CurrentRoom = AssignCurrentRoom();
+        Log.PrintLn($"current room{CurrentRoom}");
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Chase, ChaseUpdate);
@@ -113,7 +121,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
             bubbleTargets.Add(bubbleable);
-            stateMachine.State = State.Chase;
+            //stateMachine.State = State.Chase;
         }
     }
 
@@ -155,7 +163,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderEnter()
     {
-        Log.PrintLn("wander");
         wanderTarget = PickWanderDirection();
         NavAgent.TargetPosition = wanderTarget;
     }
@@ -169,7 +176,10 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             return;
         }
         wanderTimer += (float)delta;
-        if (wanderTimer >= maxWanderTime)
+        if (
+            wanderTimer >= maxWanderTime
+            || SmoothMoveTo(NextPathPosition(), Profile.MoveSpeed, (float)delta)
+        )
         {
             wanderTimer = 0;
             wanderTarget = PickWanderDirection();
@@ -178,45 +188,57 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         }
         // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
         //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
+        NavBox.GlobalPosition = NextPathPosition();
+        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
+
+    public Vector3 NextPathPosition() =>
+        //new(NavAgent.GetNextPathPosition().X, wanderTarget.Y, NavAgent.GetNextPathPosition().Z);
+        NavAgent.GetNextPathPosition();
 
     public Vector3 PickWanderDirection()
     {
         // pick a direction and move to it.
         var stillPickingDir = true;
-        var target = new Vector3();
+        var moveTarget = new Vector3();
         while (stillPickingDir)
         {
-            Vector3 direction = new Vector3(
-                GD.Randf() * 2f - 1f,
-                (GD.Randf() * 2f - 1f) * 1f,
-                GD.Randf() * 2f - 1f
-            ).Normalized();
+            Vector3 direction = new Vector3(GD.Randf(), GD.Randf() * 0.3f, GD.Randf()).Normalized();
 
             var targetRay = DirectionRay;
             targetRay.TopLevel = true;
             targetRay.GlobalPosition = GlobalPosition;
             targetRay.TargetPosition = direction * minimumWanderRange;
 
-            target = direction * Profile.WanderRadius;
+            moveTarget = direction * Profile.WanderRadius;
             targetRay.ForceRaycastUpdate();
-            stillPickingDir = targetRay.IsColliding();
+            stillPickingDir = targetRay.IsColliding(); //|| IsWithinRange(moveTarget);
 
             // stillPickingDir =
             //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
         }
+        CreateTween()
+            .TweenFn<Vector3>(
+                (target) => LookAt(target),
+                -GlobalTransform.Basis.Z,
+                moveTarget.Normalized(),
+                1f
+            );
 
         // check for collisions
 
         // targetMesh.GlobalPosition = direction;
         //Log.PrintLn(target);
-        return target;
+        NavBox2.GlobalPosition = GlobalPosition + moveTarget;
+        return moveTarget;
     }
+
+    private bool IsWithinRange(Vector3 moveTarget) =>
+        (moveTarget - GlobalPosition - CurrentRoom!.GlobalPosition).Length()
+        <= Profile.WanderRadius;
 
     public async void ChaseUpdate(float delta)
     {
-        Log.PrintLn("chase");
         var currentTarget = bubbleTargets[0];
         if (atBubbleTarget)
         {

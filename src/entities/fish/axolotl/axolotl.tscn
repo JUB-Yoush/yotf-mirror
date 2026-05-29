@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bd5qd2orbtbji"]
 
 [ext_resource type="Script" uid="uid://nfvlgxp0wr22" path="res://src/entities/fish/axolotl/Axolotl.cs" id="1_0le65"]
-[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="2_xm5yq"]
+[ext_resource type="Resource" uid="uid://dj47up07x4pnk" path="res://assets/data/axolotl_profile.tres" id="2_3732h"]
 [ext_resource type="Texture2D" uid="uid://bjtccstshcbve" path="res://assets/3d/temp/salamander_small_Tex_Gecko.png" id="3_3732h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3732h"]
@@ -49,12 +49,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_npos5")
 
-[node name="Axolotl" type="CharacterBody3D" unique_id=283741704 node_paths=PackedStringArray("Mesh")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3732h"]
+albedo_color = Color(0.8869811, 0.30556294, 0.57979774, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3732h"]
+material = SubResource("StandardMaterial3D_3732h")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyha5"]
+albedo_color = Color(0.6885155, 0.3468136, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qygoi"]
+material = SubResource("StandardMaterial3D_eyha5")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Axolotl" type="CharacterBody3D" unique_id=283741704]
 collision_layer = 304
 collision_mask = 3
 script = ExtResource("1_0le65")
-Mesh = NodePath("Skin/Mesh")
-Profile = ExtResource("2_xm5yq")
+Profile = ExtResource("2_3732h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1894181027]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.0072705, 0.19709855, -0.008213316)
@@ -86,3 +99,13 @@ skeleton = NodePath("")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=1439128976]
 unique_name_in_owner = true
+
+[node name="NavBox" type="MeshInstance3D" parent="." unique_id=328780000]
+unique_name_in_owner = true
+top_level = true
+mesh = SubResource("BoxMesh_3732h")
+
+[node name="NavBox2" type="MeshInstance3D" parent="." unique_id=466604644]
+unique_name_in_owner = true
+top_level = true
+mesh = SubResource("BoxMesh_qygoi")

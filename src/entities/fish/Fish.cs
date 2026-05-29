@@ -42,6 +42,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     // null when no player is in range
     public Node3D? ThreatTarget { get; set; }
 
+    public FishRoom? CurrentRoom { get; set; }
+
     public required MeshInstance3D SubjectBoundingMesh
     {
         get => Mesh;
@@ -59,6 +61,20 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     //     //CurrentState.Update(this, (float)delta);
     //     MoveAndSlide();
     // }
+
+    public FishRoom AssignCurrentRoom()
+    {
+        FishRoom res = null!;
+        foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
+        {
+            res ??= room;
+            if (room.GlobalPosition - GlobalPosition <= res.GlobalPosition - GlobalPosition)
+            {
+                res = room;
+            }
+        }
+        return res;
+    }
 
     // ====================== SENSORY ENTRY POINTS ======================
     private void OnBodyEnterRange(Node3D body)
