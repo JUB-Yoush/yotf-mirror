@@ -173,6 +173,17 @@ public static class MiscExt
             while (!condition)
                 await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
+
+        public Timer TimedEvent(Action action, float delay)
+        {
+            var timer = new Timer();
+            node.AddChild(timer);
+            timer.WaitTime = delay;
+            timer.Timeout += action;
+            timer.Start();
+            timer.Timeout += () => timer.QueueFree();
+            return timer;
+        }
     }
     extension<T>(List<T> list)
     {

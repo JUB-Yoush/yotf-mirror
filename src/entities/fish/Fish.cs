@@ -24,11 +24,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Node]
     public required Area3D DetectionZone { set; get; }
 
-    [Export]
-    public PathFollow3D? SplineFollower;
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
 
     [Export]
-    public MeshInstance3D Mesh;
+    public PathFollow3D? SplineFollower;
 
     // ====================== BEHAVIOUR ======================
 

@@ -16,6 +16,9 @@ public partial class Chest : Node3D, IInteractable
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required CollisionShape3D InteractionShape { set; get; }
+
     Mesh IInteractable.InteractionMesh
     {
         get => Mesh.Mesh;
@@ -23,8 +26,10 @@ public partial class Chest : Node3D, IInteractable
 
     public void OnInteraction()
     {
-        var node = InsideChest.Instantiate();
+        var node = InsideChest.Instantiate<Node3D>();
         this.SceneRoot().AddChild(node);
-        QueueFree();
+        node.GlobalPosition = GlobalPosition + Vector3.Up;
+        Mesh.Visible = false;
+        InteractionShape.Disabled = true;
     }
 }

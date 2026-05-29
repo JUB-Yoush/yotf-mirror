@@ -150,12 +150,13 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8x1l4")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6lml4"]
-size = Vector3(0.25390625, 0.26849365, 0.2578125)
+size = Vector3(0.86224365, 0.8186493, 0.84051514)
 
 [node name="Chest" type="Node3D" unique_id=1815831206]
 script = ExtResource("1_6lml4")
 
 [node name="Skin" type="Node3D" parent="." unique_id=237450335]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="chest" type="MeshInstance3D" parent="Skin" unique_id=1437101530]
 mesh = SubResource("ArrayMesh_qexrc")
@@ -166,8 +167,12 @@ unique_name_in_owner = true
 mesh = SubResource("ArrayMesh_w7lvq")
 skeleton = NodePath("")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=18051759]
+[node name="InteractionArea" type="Area3D" parent="." unique_id=18051759]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1384838225]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13027954, -0.001953125)
+[node name="InteractionShape" type="CollisionShape3D" parent="InteractionArea" unique_id=1384838225]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.015045166, 0.40535736, 0.0054016113)
 shape = SubResource("BoxShape3D_6lml4")

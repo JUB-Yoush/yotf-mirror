@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel.tscn" id="5_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="6_i584b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="7_i5ocd"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
@@ -82,6 +84,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.228592, 10.797223, 49.5097
 omni_range = 3.296
 omni_attenuation = 2.0
 omni_shadow_mode = 0
+
+[node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("6_i584b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.215233, -6.3204255, 53.984795)
+InsideChest = ExtResource("7_i5ocd")
 
 [node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("5_tjs3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.197407, -5.496252, 49.942013)
