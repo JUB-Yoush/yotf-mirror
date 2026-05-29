@@ -17,6 +17,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
 
+    public static Action<bool>? AimingChanged;
+
     public List<Photo> Photos = [];
 
     private bool equipped = false;
@@ -78,7 +80,15 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public int maxFilm = 100;
 
-    private bool aiming = false;
+    private bool Aiming
+    {
+        get;
+        set
+        {
+            field = value;
+            AimingChanged?.Invoke(field);
+        }
+    }
 
     public override void _Ready()
     {
@@ -117,7 +127,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsLookingInCamera = true;
-            aiming = true;
+            Aiming = true;
             Light.Visible = true;
         }
 
@@ -125,7 +135,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             player.IsLookingInCamera = false;
-            aiming = false;
+            Aiming = false;
             Light.Visible = false;
             ViewfinderFov = DefaultViewfinderFov;
         }
@@ -144,7 +154,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         if (!CurrentItem)
             return;
 
-        if (aiming)
+        if (Aiming)
         {
             playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
@@ -163,7 +173,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             PhotoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
+        if (Input.IsActionJustPressed("take_photo") && Aiming && Film > 0)
         {
             TakePhoto();
         }
