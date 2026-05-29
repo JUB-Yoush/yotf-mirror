@@ -80,8 +80,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.0584593, 51.422
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.104935, -6.0584593, 47.56254)
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_oxt34")]
-transform = Transform3D(0.31515223, 0, -0.9490411, 0, 1, 0, 0.9490411, 0, 0.31515223, 41.841026, -6.2574344, 47.724586)
+transform = Transform3D(0.31515223, 0, -0.9490411, 0, 1, 0, 0.9490411, 0, 0.31515223, 41.841026, -0.6999364, 47.724586)
 Profile = ExtResource("7_odjcq")
+metadata/_edit_group_ = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.260403, 47.968678)

@@ -18,7 +18,7 @@ public interface IBubbleable
     }
     public Vector3 GlobalPosition
     {
-        get => ((Node3D)this).GlobalPosition;
+        get => Spatial.GlobalPosition;
     }
     public bool AxolotlTargets
     {

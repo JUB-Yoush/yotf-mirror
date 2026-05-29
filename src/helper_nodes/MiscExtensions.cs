@@ -82,21 +82,6 @@ public static class MiscExt
         public SignalAwaiter Done() => tween.ToSignal(tween, Tween.SignalName.Finished);
     }
 
-    extension(Area3D area)
-    {
-        public void Enable()
-        {
-            area.Monitorable = true;
-            area.Monitoring = true;
-        }
-
-        public void Disable()
-        {
-            area.Monitorable = false;
-            area.Monitoring = false;
-        }
-    }
-
     extension(Node node)
     {
         public Node SceneRoot() => node.GetTree().CurrentScene;

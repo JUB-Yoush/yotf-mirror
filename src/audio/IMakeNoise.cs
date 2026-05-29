@@ -26,13 +26,12 @@ public interface IMakeNoise
         var audioArea = streamPlayer.GetNode<Area3D>()!;
         var shape = audioArea.GetNode<CollisionShape3D>()!;
 
-        //shape.Disabled = false;
+        //TODO (j) area should only be enabled when the sound is playing.
         foreach (IHearNoise listener in audioArea.GetOverlappingBodies().Cast<IHearNoise>())
         {
             Log.PrintLn(listener);
             listener.OnNoiseHeard(audioArea, dB, sfx);
         }
-        //shape.Disabled = true;
     }
 
     public int GetRadiusFromdB(float dB)

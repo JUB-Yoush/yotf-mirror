@@ -50,14 +50,27 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     //fleeing
     private float fleeTimer;
 
-    public Bubble? BubbleJail { get; set; }
-
     public bool AxolotlTargets
     {
         get => false;
     }
 
+    #region IBubbleable
+    public Bubble? BubbleJail { get; set; }
     Mesh IBubbleable.Mesh => Mesh.Mesh;
+
+    public void PutInBubble()
+    {
+        Mesh.Visible = false;
+        DetectionZone.Monitoring = false;
+    }
+
+    public void FreeFromBubble()
+    {
+        Mesh.Visible = true;
+        DetectionZone.Monitoring = true;
+    }
+    #endregion IBubbleable
 
     /*
      * axolotl wanders randomly until bubbleable thing (that isn't already in bubble) is found in it's detection range
@@ -100,7 +113,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     private void OnDetectionBodyEntered(Node3D body)
     {
-        Log.PrintLn(body is IBubbleable, ((IBubbleable)body).AxolotlTargets);
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
             bubbleTargets.Add(bubbleable);
@@ -137,22 +149,18 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         AddChild(bubble);
     }
 
-    public void PutInBubble()
-    {
-        Mesh.Visible = false;
-        DetectionZone.Monitoring = false;
-    }
-
-    public void FreeFromBubble()
-    {
-        Mesh.Visible = true;
-        DetectionZone.Monitoring = true;
-    }
-
     public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
     {
+        //TODO (j) check if noise is threatening
         ThreatTarget = noiseNode;
         stateMachine.State = State.Flee;
+    }
+
+    public void WanderEnter()
+    {
+        Log.PrintLn("wander");
+        wanderTarget = PickWanderDirection();
+        NavAgent.TargetPosition = wanderTarget;
     }
 
     public void WanderUpdate(float delta)
@@ -169,18 +177,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             wanderTimer = 0;
             wanderTarget = PickWanderDirection();
             NavAgent.TargetPosition = wanderTarget;
-            //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
             MakeBubble(GlobalBasis.Z);
         }
-        //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
-        SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        // Log.PrintLn(
-        //     wanderTarget,
-        //     NavAgent.GetNextPathPosition(),
-        //     Velocity,
-        //     wanderTarget == Position
-        // );
-        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, delta);
+        // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
+        //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
+        SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
 
     public Vector3 PickWanderDirection()
@@ -216,14 +217,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         return target;
     }
 
-    public void WanderEnter()
-    {
-        Log.PrintLn("wander");
-        wanderTarget = PickWanderDirection();
-        //wanderTarget = SceneRoot().GetNode<PlayerController>()!.GlobalPosition;
-        NavAgent.TargetPosition = wanderTarget;
-    }
-
     public async void ChaseUpdate(float delta)
     {
         Log.PrintLn("chase");
@@ -232,14 +225,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         {
             if (tween != null)
                 return;
-
-            // Velocity = MiscExt.V3Lerp(Velocity, Vector3.Zero, 0.2f);
-            // MakeBubble(currentTarget.Spatial.Position - Position);
-            // bubbleTargets.Pop(0);
-            // if (bubbleTargets.Count == 0)
-            // {
-            //     SetState(wanderState);
-            // }
 
             tween = CreateTween();
 
@@ -282,6 +267,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void FleeUpdate(float delta)
     {
+        Log.PrintLn("flee");
         if (ThreatTarget != null)
             ThreatPosition = ThreatTarget.GlobalPosition;
 
