@@ -30,15 +30,13 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     [Export]
     float minimumWanderRange = 3f;
 
-    public IFishState<Axolotl> CurrentState { get; private set; } = null!;
-
     //wandering
     float wanderTimer = 0f;
     float maxWanderTime = 3f;
     Vector3 wanderTarget = Vector3.Zero;
 
     // chasing
-    List<IBubbleable> bubbleTargets = [];
+    readonly List<IBubbleable> bubbleTargets = [];
     Vector3 bubbleTargetPosition = Vector3.Zero;
     Vector3 lastKnownLocation = Vector3.Zero;
     float lastKnownSeekTimer = 5f;
@@ -79,7 +77,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     */
     public override void _Ready()
     {
-        base._Ready();
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Chase, ChaseUpdate);

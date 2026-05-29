@@ -27,13 +27,13 @@ public partial class Gate : StaticBody3D, IInteractable
     public override void _Ready()
     {
         lab = GetParent<Lab>();
-        var playerstats = this.SceneRoot().GetNode<PlayerController>().GetNode<PlayerStats>()!;
+        var playerstats = this.SceneRoot().GetNode<Player>().GetNode<PlayerStats>()!;
         playerstats.GalleryScoreUpdated += GalleryScoreUpdated;
     }
 
     public override void _ExitTree()
     {
-        var playerstats = this.SceneRoot().GetNode<PlayerController>().GetNode<PlayerStats>()!;
+        var playerstats = this.SceneRoot().GetNode<Player>().GetNode<PlayerStats>()!;
         playerstats.GalleryScoreUpdated -= GalleryScoreUpdated;
     }
 

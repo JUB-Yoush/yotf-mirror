@@ -11,14 +11,14 @@ public class SwimmingState : IPlayerState
 
     PlayerStats Stats = null!;
 
-    public void Enter(PlayerController player)
+    public void Enter(Player player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
         Stats = player.GetNode<PlayerStats>("Stats");
         player.UnderwaterRect.Visible = true;
     }
 
-    public void Exit(PlayerController player)
+    public void Exit(Player player)
     {
         Stats.RestoreOxygen();
         Stats.Oxygen = Stats.MaxOxygen;
@@ -27,7 +27,7 @@ public class SwimmingState : IPlayerState
         player.UnderwaterRect.Visible = false;
     }
 
-    public void Update(PlayerController player, float delta)
+    public void Update(Player player, float delta)
     {
         Stats.SpendOxygen(delta);
 

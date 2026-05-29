@@ -7,7 +7,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class PlayerController : CharacterBody3D
+public partial class Player : CharacterBody3D
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -36,6 +36,15 @@ public partial class PlayerController : CharacterBody3D
 
     [Node]
     public required ColorRect UnderwaterRect { set; get; }
+
+    [Node]
+    public required PlayerStats Stats { set; get; }
+
+    [Node]
+    public required Inventory Inventory { set; get; }
+
+    [Node]
+    public required Label Alert { set; get; }
 
     public Vector3 CollisionPivot;
 
@@ -235,7 +244,7 @@ public partial class PlayerController : CharacterBody3D
 
         CollisionShapeBody.Rotation = rotation;
 
-        Skin.Rotation = rotation; // TODO: lerp
+        Skin.Rotation = rotation; // TODO(j): lerp
         Skin.Position = CollisionPivot + rotBasis * (SkinRestPosition - CollisionPivot);
     }
 
@@ -249,5 +258,43 @@ public partial class PlayerController : CharacterBody3D
         inputDir += Camera.GlobalTransform.Basis.Z * Input.GetActionStrength("down");
 
         return inputDir;
+    }
+
+    internal void GetShocked(Vector3 ShockSource)
+    {
+        //hit
+        Stats.Injuries += 3;
+        //kb
+        var dir = (GlobalPosition - ShockSource).Normalized();
+        Velocity += dir * 5;
+
+        // drop ur stuff
+        for (int i = 0; i < Inventory.Capacity; i++)
+        {
+            var item = Inventory.Items[i];
+            if (item != null && item is IDroppable droppable)
+            {
+                var dropItem = IDroppable.MakeDropItem(droppable);
+                dropItem.GlobalTransform = GlobalTransform;
+                GetTree().CurrentScene.AddChild(dropItem);
+                Inventory.RemoveItem(i);
+            }
+        }
+        //disable HUD
+        var tween = CreateTween();
+        tween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffff00), .5f);
+        tween.Fn(() =>
+        {
+            Alert.Visible = true;
+            Alert.RenderGradually(
+                "WARNING: SURGE PROTECTION ACTIVATED.\nRESETING POWER SUPPLY...",
+                0.02f
+            );
+        });
+        tween.TweenInterval(4f);
+        tween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffffff), .5f);
+        tween.LerpProperty(Alert, Control.PropertyName.Modulate, new Color(0xffffff00), .5f, true);
+        tween.Fn(() => Alert.Visible = false);
+        tween.LerpProperty(Alert, Control.PropertyName.Modulate, new Color(0xffffffff), .5f, true);
     }
 }

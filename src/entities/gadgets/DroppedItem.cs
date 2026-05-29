@@ -11,7 +11,6 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     [Export]
     private Mesh meshData = null!;
 
-    [Export]
     public PackedScene ItemRef = null!;
 
     [Export(PropertyHint.Range, "-1,1,")]
@@ -66,7 +65,7 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
 
     public void OnInteraction()
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerController>();
+        var player = GetTree().CurrentScene.GetNode<Player>();
         var inventory = player.GetNode<Inventory>()!;
 
         if (inventory.GetEqippedItem() != null)

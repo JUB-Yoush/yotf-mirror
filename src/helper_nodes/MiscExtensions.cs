@@ -82,6 +82,30 @@ public static class MiscExt
         public SignalAwaiter Done() => tween.ToSignal(tween, Tween.SignalName.Finished);
     }
 
+    extension(Label label)
+    {
+        public void RenderGradually(string msg, float speed)
+        {
+            label.Text = "";
+            var i = 0;
+            var timer = new Timer();
+            label.AddChild(timer);
+            timer.WaitTime = speed;
+            timer.OneShot = false;
+            timer.Timeout += () =>
+            {
+                i++;
+                label.Text = msg[..Math.Min(i, msg.Length)];
+                if (i >= msg.Length)
+                {
+                    timer.Stop();
+                    timer.QueueFree();
+                }
+            };
+            timer.Start();
+        }
+    }
+
     extension(Node node)
     {
         public Node SceneRoot() => node.GetTree().CurrentScene;

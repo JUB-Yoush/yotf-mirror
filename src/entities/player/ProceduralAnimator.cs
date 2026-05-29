@@ -22,7 +22,7 @@ public partial class ProceduralAnimator : Node3D
     [Node]
     public required Skeleton3D Skeleton3D { set; get; }
 
-    private PlayerController Player = null!;
+    private Player Player = null!;
 
     private CameraManager Camera = null!;
 
@@ -68,7 +68,7 @@ public partial class ProceduralAnimator : Node3D
 
     public override void _Ready()
     {
-        Player = this.SceneRoot().GetNode<PlayerController>()!;
+        Player = this.SceneRoot().GetNode<Player>()!;
         Camera = Player.GetNode<CameraManager>()!;
 
         rootBoneRestY = Skeleton3D.GetBonePosePosition(SpineBoneIdx).Y;

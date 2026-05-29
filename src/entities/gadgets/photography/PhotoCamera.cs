@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class PhotoCamera : Item, IMakeNoise
+public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -54,7 +54,7 @@ public partial class PhotoCamera : Item, IMakeNoise
         get => AudioStreamPlayer;
     }
 
-    private PlayerController player = null!;
+    private Player player = null!;
 
     private Camera3D playerCamera = null!;
 
@@ -72,6 +72,10 @@ public partial class PhotoCamera : Item, IMakeNoise
         get;
     }
 
+    public PackedScene PackedScene => Packed;
+
+    public Mesh DropMesh => Mesh.Mesh;
+
     public int maxFilm = 100;
 
     private bool aiming = false;
@@ -79,7 +83,7 @@ public partial class PhotoCamera : Item, IMakeNoise
     public override void _Ready()
     {
         Film = maxFilm;
-        player = GetParent().GetParent<PlayerController>();
+        player = GetParent().GetParent<Player>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
@@ -128,7 +132,7 @@ public partial class PhotoCamera : Item, IMakeNoise
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();

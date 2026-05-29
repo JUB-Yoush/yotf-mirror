@@ -4,11 +4,11 @@ namespace Yotf;
 
 public partial class InputManager : Node
 {
-    private PlayerController player = null!;
+    private Player player = null!;
 
     public override void _Ready()
     {
-        player = GetParent<PlayerController>();
+        player = GetParent<Player>();
 
         if (player.IsMultiplayerAuthority())
         {

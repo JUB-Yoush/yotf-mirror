@@ -10,8 +10,6 @@ public sealed unsafe class StateMachine<TIndex>
 {
     private static readonly int StateCount = Enum.GetValues<TIndex>().Length;
 
-    //private static int StateToIndex(TIndex state) => *(int*)(&state);
-
     private static int StateToIndex(TIndex state) => Unsafe.As<TIndex, int>(ref state);
 
     private readonly Action<float>?[] update = new Action<float>[StateCount];

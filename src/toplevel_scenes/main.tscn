@@ -3,10 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b0mty4lnr6cjh" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
+[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel.tscn" id="5_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
-[ext_resource type="PackedScene" uid="uid://btgb7l7cdigqw" path="res://src/entities/gadgets/dropped_item.tscn" id="7_i5ocd"]
-[ext_resource type="Resource" uid="uid://dj47up07x4pnk" path="res://assets/data/axolotl_profile.tres" id="7_odjcq"]
-[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_oxt34"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
@@ -73,17 +71,6 @@ curve = SubResource("Curve3D_i3xn1")
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
 transform = Transform3D(0.20616548, -0.05137962, 0.97713125, 0, 0.9985556, 0.052509263, -0.9784845, -0.010825623, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
-[node name="DroppedItem" parent="." unique_id=1652355677 instance=ExtResource("7_i5ocd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.951206, -6.0584593, 51.422962)
-
-[node name="DroppedItem2" parent="." unique_id=2025619040 instance=ExtResource("7_i5ocd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.104935, -6.0584593, 47.56254)
-
-[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_oxt34")]
-transform = Transform3D(0.31515223, 0, -0.9490411, 0, 1, 0, 0.9490411, 0, 0.31515223, 41.841026, -0.6999364, 47.724586)
-Profile = ExtResource("7_odjcq")
-metadata/_edit_group_ = true
-
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.260403, 47.968678)
 light_energy = 1.148
@@ -95,6 +82,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.228592, 10.797223, 49.5097
 omni_range = 3.296
 omni_attenuation = 2.0
 omni_shadow_mode = 0
+
+[node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("5_tjs3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.197407, -5.496252, 49.942013)
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
@@ -136,6 +126,3 @@ transform = Transform3D(0.9988044, -0.0398161, 0.028361738, 0.0142541565, 0.7921
 light_energy = 1.561
 spot_range = 13.173713
 spot_angle = 30.828348
-
-[editable path="Axolotl"]
-[editable path="Axolotl/salamander_small"]

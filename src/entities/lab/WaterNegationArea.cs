@@ -13,13 +13,13 @@ public partial class WaterNegationArea : Area3D
 
     private void OnBodyExited(Node3D body)
     {
-        var player = (PlayerController)body;
+        var player = (Player)body;
         player.SetState(player.SwimmingState);
     }
 
     private void OnBodyEntered(Node3D body)
     {
-        var player = (PlayerController)body;
+        var player = (Player)body;
         player.SetState(player.WalkingState);
     }
 

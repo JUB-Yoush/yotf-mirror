@@ -11,7 +11,7 @@ public partial class Hud : Control
 
     public const int InventorySize = 4;
 
-    PlayerController player = null!;
+    Player player = null!;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -46,6 +46,9 @@ public partial class Hud : Control
     [Node]
     public required TextureRect Ruler { set; get; }
 
+    [Node]
+    public required Label Alert { set; get; }
+
     public TextureRect[] InventoryIcons
     {
         get
@@ -68,7 +71,7 @@ public partial class Hud : Control
 
     public override void _Ready()
     {
-        player = this.SceneRoot().GetNode<PlayerController>()!;
+        player = this.SceneRoot().GetNode<Player>()!;
         prevDepth = player.Depth;
         barometerShader = (ShaderMaterial)Ruler.Material;
         // PlayerController.StateChanged += OnPlayerStateChanged;

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cm7pb6e0mhc6y"]
+
+[ext_resource type="Script" uid="uid://cawildxk0ftnk" path="res://src/entities/fish/Eel.cs" id="1_cm51b"]
+[ext_resource type="PackedScene" uid="uid://76ope4ac8tql" path="res://assets/3d/fish/shinfish.tscn" id="3_rdk2u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
+size = Vector3(0.31, 0.3, 0.4591626)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cm51b"]
+radius = 1.5551758
+height = 7.347046
+
+[node name="Eel" type="CharacterBody3D" unique_id=1200339281]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_cm51b")
+
+[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=1228045713]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
+shape = SubResource("BoxShape3D_rq6t1")
+
+[node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.027611732, -0.67337775)
+aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.9458029)
+
+[node name="DetectionZone" type="Area3D" parent="." unique_id=1371043951]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1214767733]
+shape = SubResource("SphereShape3D_rq6t1")
+
+[node name="DirectionRay" type="RayCast3D" parent="." unique_id=1721133760]
+unique_name_in_owner = true
+
+[node name="shinfish" parent="." unique_id=1966897904 instance=ExtResource("3_rdk2u")]
+
+[node name="ZapArea" type="Area3D" parent="." unique_id=608664291]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 18
+
+[node name="ZapShape" type="CollisionShape3D" parent="ZapArea" unique_id=345440302]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.013924122, 0.12997414, -2.253014)
+shape = SubResource("CapsuleShape3D_cm51b")
+disabled = true
+debug_color = Color(0.5130227, 0.5767579, 0.058156997, 0.41960785)
+
+[editable path="shinfish"]

@@ -37,7 +37,7 @@ public partial class ShopUI : Control
     public override void _Ready()
     {
         this.GetNode<Button>()!.Pressed += CloseShop;
-        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
@@ -49,7 +49,7 @@ public partial class ShopUI : Control
         ItemView.RemoveAllChildren();
         UpgradeView.RemoveAllChildren();
 
-        var player = this.SceneRoot().GetNode<PlayerController>()!.GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
@@ -97,7 +97,8 @@ public partial class ShopUI : Control
     {
         var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
         player.Money -= item.Price;
-        var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
+        // TODO (j) figure out how to get a reference to the dropmesh
+        var itemDrop = DroppedItem.New(kiosk.Mesh.Mesh, item.itemScene);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         GetTree().CurrentScene.AddChild(itemDrop);
         PopulateShop();
@@ -106,7 +107,7 @@ public partial class ShopUI : Control
     private void CloseShop()
     {
         kiosk.inShop = false;
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var player = GetTree().CurrentScene.GetNode<Player>("Player");
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();

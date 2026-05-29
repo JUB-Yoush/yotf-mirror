@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://btp1pisa8eq5g"]
 
-[ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://src/entities/player/PlayerController.cs" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://src/entities/player/Player.cs" id="1_yw30f"]
 [ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://src/entities/player/CameraManager.cs" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cg7i77y0de057" path="res://src/entities/player/CameraFollow.cs" id="3_qjkh3"]
 [ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="4_n7e5a"]
@@ -130,6 +130,23 @@ render_target_update_mode = 4
 [node name="HUD" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=1507630057 instance=ExtResource("9_n7e5a")]
 unique_name_in_owner = true
 
+[node name="Alert" type="Label" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=725026750]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -259.0
+offset_right = 264.0
+offset_bottom = -166.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 
 [node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
@@ -155,6 +172,7 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
+unique_name_in_owner = true
 script = ExtResource("8_tk761")
 
 [editable path="Skin"]

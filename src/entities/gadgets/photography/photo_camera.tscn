@@ -20,6 +20,7 @@ script = ExtResource("1_3b58u")
 ItemName = "Camera"
 Icon = ExtResource("2_vbjdg")
 DropMesh = SubResource("BoxMesh_68lge")
+PackedInstance = null
 
 [node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
 unique_name_in_owner = true

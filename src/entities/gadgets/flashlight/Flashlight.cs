@@ -6,17 +6,22 @@ using DependencyAttribute = Chickensoft.AutoInject.DependencyAttribute;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Flashlight : Item
+public partial class Flashlight : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
+    public new readonly PackedScene PackedInstance = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
     [Node]
     public required SpotLight3D SpotLight { set; get; }
 
     [Node]
     public required MeshInstance3D Mesh { set; get; }
+
+    public PackedScene PackedScene => Packed;
+
+    public Mesh DropMesh => Mesh.Mesh;
 
     [Export]
     private float batteryUseRate = 10;
@@ -65,7 +70,7 @@ public partial class Flashlight : Item
 
         if (Input.IsActionJustPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = Camera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();
