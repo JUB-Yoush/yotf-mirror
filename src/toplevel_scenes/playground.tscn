@@ -5,11 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="4_6igj1"]
-[ext_resource type="PackedScene" path="res://src/entities/player/playertrailer.tscn" id="4_kksva"]
+[ext_resource type="Material" uid="uid://b2ij5lojnka04" path="res://assets/3d/environment/materials/ocean_algae.tres" id="5_agt0h"]
 [ext_resource type="Script" uid="uid://haat2taejg2c" path="res://src/helper_nodes/PlayerSpawner.cs" id="6_48c3q"]
+[ext_resource type="Material" uid="uid://cl0p8w21u0sku" path="res://assets/3d/environment/materials/ocean_floor_sand.tres" id="6_cpfrx"]
+[ext_resource type="Material" uid="uid://df02g055vowms" path="res://assets/3d/environment/materials/ocean_rock_fresh.tres" id="7_j0u2v"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="8_208ij"]
+[ext_resource type="Material" uid="uid://dxigqpnec6t1a" path="res://assets/3d/environment/materials/ocean_rock_rolling.tres" id="8_j0u2v"]
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="9_208ij"]
+[ext_resource type="Material" uid="uid://wqi528byuc2p" path="res://assets/3d/environment/materials/ocean_rock_weathered.tres" id="9_f8s1i"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
@@ -171,7 +175,28 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92932, 14.1638565)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2065793896]
-transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -29.701962, -6.547546, -59.905643)
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -29.701132, -6.9002542, -59.394245)
+material_override = ExtResource("5_agt0h")
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D" unique_id=681251229]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -18.318586, -6.9002542, -59.394245)
+material_override = ExtResource("6_cpfrx")
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D" unique_id=1072563823]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -26.840185, -6.9002542, -49.234795)
+material_override = ExtResource("7_j0u2v")
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D" unique_id=2088945596]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -16.28108, -6.9002542, -49.234795)
+material_override = ExtResource("8_j0u2v")
+mesh = SubResource("BoxMesh_o74y8")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="StaticBody3D" unique_id=660241562]
+transform = Transform3D(10, 0, 0, 0, 8, 0, 0, 0, 2, -5.640587, -6.9002542, -49.234795)
+material_override = ExtResource("9_f8s1i")
 mesh = SubResource("BoxMesh_o74y8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=402964624]
@@ -180,7 +205,7 @@ shape = SubResource("BoxShape3D_dpvq1")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
 
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("4_kksva")]
+[node name="Player" parent="." unique_id=678823562]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
 _spawnable_scenes = PackedStringArray("uid://btp1pisa8eq5g")
@@ -193,7 +218,6 @@ transform = Transform3D(0.1858725, 0, 0.98257387, 0, 1, 0, -0.98257387, 0, 0.185
 
 [node name="Fish" parent="." unique_id=19108540 instance=ExtResource("8_208ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5232933, 5.269432)
-sync_to_physics = false
 metadata/_edit_group_ = true
 
 [node name="WaterSurface" type="MeshInstance3D" parent="." unique_id=838566221]
