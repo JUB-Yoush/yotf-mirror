@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bbhi27ogvfdgy"]
+
+[ext_resource type="Shader" uid="uid://cba5viiin0exc" path="res://src/shaders/warble_shader.tres" id="1_snf7m"]
+
+[resource]
+shader = ExtResource("1_snf7m")
+shader_parameter/wobble_scale = 0.02700000093324
