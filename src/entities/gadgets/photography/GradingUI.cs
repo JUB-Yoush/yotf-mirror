@@ -74,7 +74,7 @@ public partial class GradingUI : Control
         };
         ReturnBtn.Pressed += CloseShop;
 
-        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
         //highestScoringPhoto = CalcHighScores();
@@ -84,7 +84,7 @@ public partial class GradingUI : Control
     private void CloseShop()
     {
         photoTerminal.inShop = false;
-        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();
@@ -130,14 +130,13 @@ public partial class GradingUI : Control
             }
         }
         PhotoTotalLabel.Text = $"TOTAL: {sum}";
-        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var player = this.SceneRoot().GetNode<Player>()!;
         var stats = player.GetNode<PlayerStats>()!;
-        if (!viewedPhotos.Contains(photo))
+        if (viewedPhotos.Add(photo))
         {
             GalleryTotal += sum;
-            viewedPhotos.Add(photo);
             stats.Money += GalleryTotal;
-            stats.TotalGalleryScore = GalleryTotal;
+            stats.TotalGalleryScore += GalleryTotal;
         }
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
     }

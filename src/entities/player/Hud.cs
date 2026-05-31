@@ -11,7 +11,7 @@ public partial class Hud : Control
 
     public const int InventorySize = 4;
 
-    PlayerController player = null!;
+    Player player = null!;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -68,10 +68,17 @@ public partial class Hud : Control
 
     public override void _Ready()
     {
-        player = this.SceneRoot().GetNode<PlayerController>()!;
+        player = this.SceneRoot().GetNode<Player>()!;
         prevDepth = player.Depth;
         barometerShader = (ShaderMaterial)Ruler.Material;
+        // PlayerController.StateChanged += OnPlayerStateChanged;
     }
+
+    // private void OnPlayerStateChanged(IPlayerState prevState, IPlayerState newState)
+    // {
+    //     if (prevState is SwimmingState)
+
+    // }
 
     public override void _Process(double delta)
     {

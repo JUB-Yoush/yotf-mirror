@@ -3,14 +3,14 @@ using Godot;
 
 namespace Yotf;
 
-public partial class Item : Node3D
+public partial class Item : Node3D, IDroppable
 {
     public static readonly Texture2D DefaultTexture = GD.Load<Texture2D>(
         "res://assets/2d/mooninicon.png"
     );
 
-    public static DroppedItem MakeDropItem(Mesh mesh, PackedScene itemPacked) =>
-        DroppedItem.New(mesh, itemPacked);
+    // public static DroppedItem MakeDropItem(Mesh mesh, PackedScene itemPacked) =>
+    //     DroppedItem.New(mesh, itemPacked);
 
     [Export]
     public string ItemName = "default_item_name";
@@ -18,11 +18,12 @@ public partial class Item : Node3D
     [Export]
     public Texture2D Icon = DefaultTexture;
 
-    [Export]
-    public Mesh DropMesh = null!;
-
     public bool InInventory = false;
     public bool CurrentItem = false;
+
+    public PackedScene PackedScene => throw new NotImplementedException();
+
+    public Mesh DropMesh => throw new NotImplementedException();
 
     public virtual void Added() { }
 

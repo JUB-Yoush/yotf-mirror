@@ -6,11 +6,11 @@ public class WalkingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Walking;
 
-    public void Enter(PlayerController player) { }
+    public void Enter(Player player) { }
 
-    public void Exit(PlayerController player) { }
+    public void Exit(Player player) { }
 
-    public void Update(PlayerController player, float delta)
+    public void Update(Player player, float delta)
     {
         Vector3 direction = player.GetCameraRelativeDirection();
         Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * player.MoveSpeed;

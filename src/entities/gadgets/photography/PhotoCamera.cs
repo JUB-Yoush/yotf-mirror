@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class PhotoCamera : Item
+public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
-    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+
+    public static Action<bool>? AimingChanged;
 
     public List<Photo> Photos = [];
 
@@ -46,7 +48,15 @@ public partial class PhotoCamera : Item
     [Node]
     public required Label FilmLabel { set; get; }
 
-    private PlayerController player = null!;
+    [Node]
+    public required AudioStreamPlayer3D AudioStreamPlayer { get; set; }
+
+    public AudioStreamPlayer3D NoiseSource
+    {
+        get => AudioStreamPlayer;
+    }
+
+    private Player player = null!;
 
     private Camera3D playerCamera = null!;
 
@@ -63,14 +73,27 @@ public partial class PhotoCamera : Item
         }
         get;
     }
+
+    public PackedScene PackedScene => Packed;
+
+    public Mesh DropMesh => Mesh.Mesh;
+
     public int maxFilm = 100;
 
-    private bool aiming = false;
+    private bool Aiming
+    {
+        get;
+        set
+        {
+            field = value;
+            AimingChanged?.Invoke(field);
+        }
+    }
 
     public override void _Ready()
     {
         Film = maxFilm;
-        player = GetParent().GetParent<PlayerController>();
+        player = GetParent().GetParent<Player>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
@@ -104,7 +127,7 @@ public partial class PhotoCamera : Item
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsLookingInCamera = true;
-            aiming = true;
+            Aiming = true;
             Light.Visible = true;
         }
 
@@ -112,14 +135,14 @@ public partial class PhotoCamera : Item
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             player.IsLookingInCamera = false;
-            aiming = false;
+            Aiming = false;
             Light.Visible = false;
             ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();
@@ -131,9 +154,9 @@ public partial class PhotoCamera : Item
         if (!CurrentItem)
             return;
 
-        if (aiming)
+        if (Aiming)
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 ViewfinderFov,
                 (float)(ViewfinderLerp * delta)
@@ -142,7 +165,7 @@ public partial class PhotoCamera : Item
         }
         else
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 DefaultFov,
                 (float)(ViewfinderLerp * delta)
@@ -150,19 +173,25 @@ public partial class PhotoCamera : Item
             PhotoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
+        if (Input.IsActionJustPressed("take_photo") && Aiming && Film > 0)
         {
-            Film -= 1;
-            var subjects = GetPhotoSubjects();
-            Image image = GetViewportImage();
-            PhotoData photo = PhotoData.New(Name, subjects, image.Data);
-            Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
-            FlashSFX();
-            AddPhoto(photo, grades);
+            TakePhoto();
         }
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
+    }
+
+    void TakePhoto()
+    {
+        Film -= 1;
+        var subjects = GetPhotoSubjects();
+        Image image = GetViewportImage();
+        PhotoData photo = PhotoData.New(Name, subjects, image.Data);
+        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
+        FlashSFX();
+        IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
+        AddPhoto(photo, grades);
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)

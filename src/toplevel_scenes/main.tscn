@@ -2,11 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b0mty4lnr6cjh" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
-[ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
+[ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="6_i584b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
-[ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
-[ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
+[ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="7_i5ocd"]
+[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_i5ocd"]
+[ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="9_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
@@ -42,7 +43,7 @@ point_count = 11
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
 
 [node name="Lab2" parent="." unique_id=462287885 instance=ExtResource("2_swlc7")]
-transform = Transform3D(-0.43978155, 0.00084432156, -0.89810437, 0.0019198617, 0.99999815, 0, 0.8981027, -0.0017242363, -0.43978238, 33.89779, -1.1841764, 42.064247)
+transform = Transform3D(0.1433543, -0.00027522072, -0.98967147, 0.0019198615, 0.99999815, 5.1197407e-11, 0.98966956, -0.0019000325, 0.1433545, -37.011917, -6.815387, -14.412923)
 Index = 1
 OxygenScale = 0.0
 requiredGalleryScore = 100
@@ -58,7 +59,6 @@ mesh = SubResource("PlaneMesh_odjcq")
 skeleton = NodePath("../WorldEnvironment")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=788322636]
-environment = ExtResource("3_oxt34")
 camera_attributes = SubResource("CameraAttributesPractical_fleds")
 
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
@@ -72,11 +72,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.12419, -4.078208, 47.20462
 curve = SubResource("Curve3D_i3xn1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1548204857]
-transform = Transform3D(0.20616548, -0.05137963, 0.97713125, 0, 0.9985557, 0.052509263, -0.9784845, -0.010825625, 0.20588034, -2.041504, 0.20112705, 6.160286)
-
-[node name="Fish" parent="." unique_id=523272719 instance=ExtResource("7_i584b")]
-transform = Transform3D(0.69711506, 0, 0.7169593, 0, 1, 0, -0.7169593, 0, 0.69711506, 37.058285, -4.078208, 47.499737)
-Profile = ExtResource("7_i3xn1")
+transform = Transform3D(0.20616548, -0.05137962, 0.97713125, 0, 0.9985556, 0.052509263, -0.9784845, -0.010825623, 0.20588034, -2.041504, 0.20112705, 6.160286)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1062053233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.85148, 11.260403, 47.968678)
@@ -90,8 +86,15 @@ omni_range = 3.296
 omni_attenuation = 2.0
 omni_shadow_mode = 0
 
+[node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("6_i584b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.87765, -6.3204255, 56.980133)
+InsideChest = ExtResource("7_i5ocd")
+
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.123928, 9.324214, 48.538315)
+transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
+
+[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_i5ocd")]
+transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 40.363266, -2.6906512, 49.047516)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=715837269]
 transform = Transform3D(1, 0, 0, 0, 0.96294165, -0.26970983, 0, 0.26970983, 0.96294165, 0, 0, 1.7089123)
@@ -130,3 +133,6 @@ transform = Transform3D(0.9988044, -0.0398161, 0.028361738, 0.0142541565, 0.7921
 light_energy = 1.561
 spot_range = 13.173713
 spot_angle = 30.828348
+
+[node name="Home" parent="." unique_id=1044421178 instance=ExtResource("9_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.81733, -1.5807338, 48.93997)

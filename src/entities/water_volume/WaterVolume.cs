@@ -41,11 +41,11 @@ public partial class WaterVolume : CsgBox3D
 
     private void OnBodyExited(Node3D body)
     {
-        if (Engine.IsEditorHint()) //TODO(j) does this need to be here?
+        if (Engine.IsEditorHint())
             return;
-        if (body is PlayerController player)
+        if (body is Player player)
         {
-            player.SetState(new WalkingState());
+            player.SetState(player.WalkingState);
         }
     }
 
@@ -53,9 +53,9 @@ public partial class WaterVolume : CsgBox3D
     {
         if (Engine.IsEditorHint())
             return;
-        if (body is PlayerController player)
+        if (body is Player player)
         {
-            player.SetState(new SwimmingState());
+            player.SetState(player.SwimmingState);
         }
     }
 

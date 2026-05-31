@@ -8,9 +8,9 @@ public partial class PlayerStats : Node
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    private PlayerController player = null!;
+    private Player player = null!;
 
-    public Action<int> GalleryScoreUpdated;
+    public Action<int>? GalleryScoreUpdated;
 
     [Node]
     public required Hud HUD { set; get; }
@@ -97,7 +97,7 @@ public partial class PlayerStats : Node
 
     public override void _Ready()
     {
-        player = GetParent<PlayerController>();
+        player = GetParent<Player>();
         HUD.OxygenBar.MaxValue = MaxOxygen;
         HUD.BatteryBar.MaxValue = MaxBattery;
         MaxOxygen = 100;

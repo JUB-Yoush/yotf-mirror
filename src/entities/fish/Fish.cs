@@ -8,23 +8,27 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    // ====================== SIGNALS ======================
-
-    // emitted when an aggressive fish enters melee range of target
-    public Action<Node3D>? Attacked;
-    public Action? BecameHidden;
-    public Action? BecameVisible;
+    readonly Routine routine = new();
 
     // ====================== REFERENCES ======================
 
     [Node]
     public required VisibleOnScreenNotifier3D VisibilityNotif { set; get; }
 
-    [Export]
-    public PathFollow3D? SplineFollower;
+    [Node]
+    public required RayCast3D DirectionRay { set; get; }
+
+    [Node]
+    public required NavigationAgent3D NavAgent { set; get; }
+
+    [Node]
+    public required Area3D DetectionZone { set; get; }
+
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
 
     [Export]
-    public MeshInstance3D Mesh;
+    public PathFollow3D? SplineFollower;
 
     // ====================== BEHAVIOUR ======================
 
@@ -32,121 +36,95 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public FishProfile Profile = null!;
 
-    // ====================== STATE MACHINE ======================
-
-    public IFishState CurrentState { get; private set; } = null!;
-    public FishState State => CurrentState.Type;
-
-    public readonly WanderingState WanderingState = new();
-    public readonly FleeingState FleeingState = new();
-    public readonly AggressiveState AggressiveState = new();
-    public readonly HiddenState HiddenState = new();
-
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vector3 ThreatPosition { get; internal set; }
 
     // null when no player is in range
-    public Node3D? ThreatTarget { get; private set; }
+    public Node3D? ThreatTarget { get; set; }
 
-    public MeshInstance3D SubjectBoundingMesh
+    public FishRoom? CurrentRoom { get; set; }
+
+    public required MeshInstance3D SubjectBoundingMesh
     {
         get => Mesh;
         set;
     }
 
-    // ====================== LIFECYCLE ======================
-
-    public override void _Ready()
+    public required Node3D Subject
     {
-        Area3D detectionZone = this.GetNode<Area3D>()!;
-        detectionZone.BodyEntered += OnBodyEnterRange;
-        detectionZone.BodyExited += OnBodyExitRange;
-
-        IFishState initial = Profile.StartsHidden ? HiddenState : WanderingState;
-        CurrentState = initial;
-        CurrentState.Enter(this);
+        get => this;
+        set;
     }
 
-    public override void _PhysicsProcess(double delta)
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     //CurrentState.Update(this, (float)delta);
+    //     MoveAndSlide();
+    // }
+
+    public FishRoom AssignCurrentRoom()
     {
-        CurrentState.Update(this, (float)delta);
-        MoveAndSlide();
+        FishRoom res = null!;
+        foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
+        {
+            res ??= room;
+            if (room.GlobalPosition - GlobalPosition <= res.GlobalPosition - GlobalPosition)
+            {
+                res = room;
+            }
+        }
+        return res;
     }
 
     // ====================== SENSORY ENTRY POINTS ======================
     private void OnBodyEnterRange(Node3D body)
     {
-        if (body is not CharacterBody3D)
-            return;
-        ThreatTarget = body;
-        ThreatPosition = body.GlobalPosition;
-        CurrentState.OnThreatDetected(this, body);
+        // if (body is not CharacterBody3D)
+        //     return;
+        // ThreatTarget = body;
+        // ThreatPosition = body.GlobalPosition;
+        // CurrentState.OnThreatDetected(this, body);
     }
 
     private void OnBodyExitRange(Node3D body)
     {
-        if (body is not CharacterBody3D)
-            return;
-        if (ThreatTarget == body)
-            ThreatTarget = null;
-        CurrentState.OnThreatLost(this);
+        // if (body is not CharacterBody3D)
+        //     return;
+        // if (ThreatTarget == body)
+        //     ThreatTarget = null;
+        // CurrentState.OnThreatLost(this);
     }
 
-    // level is 0-1, source is world pos
-    public void OnNoiseHeard(float level, Vector3 source)
-    {
-        if (level >= Profile.NoiseThreshold)
-            CurrentState.OnNoiseHeard(this, level, source);
-    }
+    // // level is 0-1, source is world pos
+    // public void OnNoiseHeard(float level, Vector3 source)
+    // {
+    //     if (level >= Profile.NoiseThreshold)
+    //         CurrentState.OnNoiseHeard(this, level, source);
+    // }
 
     // called by whatever gadget reveals hidden fish
     public void Reveal()
     {
-        if (CurrentState is HiddenState)
-            SetState(WanderingState);
+        // if (CurrentState is HiddenState)
+        //     SetState<Axolotl>(WanderingState);
     }
+
+    public bool IsInPhoto() => true;
 
     // ====================== INTERNAL HELPERS ======================
 
-    internal void SetState(IFishState newState)
-    {
-        if (CurrentState == newState)
-            return;
-        CurrentState.Exit(this);
-        CurrentState = newState;
-        CurrentState.Enter(this);
-    }
-
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
-    {
-        Vector3 toTarget = target - GlobalPosition;
-        if (toTarget.LengthSquared() < arrivalThreshold)
-            return true;
-
-        Vector3 dir = toTarget.Normalized();
-        Velocity = dir * speed * delta;
-
-        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        GlobalRotation = GlobalRotation with
-        {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
-        };
-
-        return false;
-    }
+    // internal void SetState(IFishState newState)
+    // {
+    //     // if (CurrentState == newState)
+    //     //     return;
+    //     // CurrentState.Exit(this);
+    //     // CurrentState = newState;
+    //     // CurrentState.Enter(this);
+    // }
 
     // ====================== IPHOTOGRAPHABLE ======================
 
     // hidden fish are never photographable regardless of screen visibility
-    public bool IsInPhoto()
-    {
-        return CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
-    }
-
-    public Node3D GetSubject() => this;
+    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
+    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
 }

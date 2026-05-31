@@ -7,12 +7,30 @@ using Godot;
 
 namespace Yotf;
 
-public static class MiscExtensions
+public static class MiscExt
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 V3Lerp(Vector3 from, Vector3 to, float weight)
+    {
+        return new(
+            Mathf.Lerp(from.X, to.X, weight),
+            Mathf.Lerp(from.Y, to.Y, weight),
+            Mathf.Lerp(from.Z, to.Z, weight)
+        );
+    }
+
     extension(Tween tween)
     {
-        public void Fn(Action action, float delay = 0, bool parallel = false)
+        public void Fn(
+            Action action,
+            float delay = 0,
+            bool parallel = false,
+            bool resetIfRunning = false
+        )
         {
+            if (resetIfRunning && tween.IsRunning())
+                tween.Stop();
+
             if (parallel)
             {
                 tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
@@ -23,15 +41,68 @@ public static class MiscExtensions
             }
         }
 
-        public void LerpProperty(Node node, StringName property, Variant value, float time)
+        public void LerpProperty(
+            Node node,
+            StringName property,
+            Variant value,
+            float time,
+            bool parallel = false
+        )
         {
-            tween.TweenProperty(node, property.ToString(), value, time);
+            if (parallel)
+            {
+                tween.Parallel().TweenProperty(node, property.ToString(), value, time);
+            }
+            else
+            {
+                tween.TweenProperty(node, property.ToString(), value, time);
+            }
         }
 
-        public void TweenFn<T>(Action<T> action, T from, T to, float time)
+        public void TweenFn<T>(Action<T> action, T from, T to, float time, bool parallel = false)
             where T : struct
         {
-            tween.TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+            if (parallel)
+            {
+                tween
+                    .Parallel()
+                    .TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+            }
+            else
+            {
+                tween.TweenMethod(
+                    Callable.From(action),
+                    Variant.From(from),
+                    Variant.From(to),
+                    time
+                );
+            }
+        }
+
+        public SignalAwaiter Done() => tween.ToSignal(tween, Tween.SignalName.Finished);
+    }
+
+    extension(Label label)
+    {
+        public void RenderGradually(string msg, float speed)
+        {
+            label.Text = "";
+            var i = 0;
+            var timer = new Timer();
+            label.AddChild(timer);
+            timer.WaitTime = speed;
+            timer.OneShot = false;
+            timer.Timeout += () =>
+            {
+                i++;
+                label.Text = msg[..Math.Min(i, msg.Length)];
+                if (i >= msg.Length)
+                {
+                    timer.Stop();
+                    timer.QueueFree();
+                }
+            };
+            timer.Start();
         }
     }
 
@@ -102,9 +173,21 @@ public static class MiscExtensions
             while (!condition)
                 await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
+
+        public Timer TimedEvent(Action action, float delay)
+        {
+            var timer = new Timer();
+            node.AddChild(timer);
+            timer.WaitTime = delay;
+            timer.Timeout += action;
+            timer.Start();
+            timer.Timeout += () => timer.QueueFree();
+            return timer;
+        }
     }
     extension<T>(List<T> list)
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T PopLast() => list.Pop(^1);
 
         public T Pop(Index i)
@@ -118,10 +201,13 @@ public static class MiscExtensions
 
     extension(Vector3 vec)
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 XY() => new(vec.X, vec.Y);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 XZ() => new(vec.X, vec.Z);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 

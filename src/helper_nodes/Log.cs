@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Godot;
 
 namespace Yotf;
@@ -25,7 +26,6 @@ public partial class Log : Control
     {
         Instance = this;
         Instance.LogMessages = GetNode<VBoxContainer>("%LogMessages");
-        Print("DEBUG LOG");
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -51,12 +51,81 @@ public partial class Log : Control
 
     public static void PrintLn(
         object message,
+        object? message1 = null,
+        object? message2 = null,
+        object? message3 = null,
+        object? message4 = null,
+        object? message5 = null,
+        object? message6 = null,
+        object? message7 = null,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string filePath = "",
-        [CallerLineNumber] int lineNumber = 0
+        [CallerLineNumber] int lineNumber = 0,
+        bool newlines = true
     )
     {
         string className = Path.GetFileNameWithoutExtension(filePath);
-        GD.Print($"[{className}.{memberName}:{lineNumber}] {message}");
+        object?[] messages =
+        [
+            message,
+            message1,
+            message2,
+            message3,
+            message4,
+            message5,
+            message6,
+            message7,
+        ];
+        StringBuilder output = new("");
+        foreach (var msg in messages)
+        {
+            if (msg == null)
+                continue;
+
+            if (newlines)
+            {
+                output.Append('\n');
+                output.Append(msg.ToString());
+            }
+            else
+            {
+                output.Append(msg.ToString());
+                output.Append('|');
+            }
+        }
+        if (!newlines && output.Length > 0)
+            output.Remove(output.Length - 1, 1);
+        GD.Print($"[{className}.{memberName}:{lineNumber}] {output}");
+    }
+
+    public static void PrintLn(
+        object[] messages,
+        [CallerMemberName] string memberName = "",
+        [CallerFilePath] string filePath = "",
+        [CallerLineNumber] int lineNumber = 0,
+        bool newlines = false
+    )
+    {
+        string className = Path.GetFileNameWithoutExtension(filePath);
+        StringBuilder output = new("");
+        foreach (var msg in messages)
+        {
+            if (msg == null)
+                continue;
+
+            if (newlines)
+            {
+                output.Append('\n');
+                output.Append(msg.ToString());
+            }
+            else
+            {
+                output.Append(msg.ToString());
+                output.Append('|');
+            }
+        }
+        if (!newlines)
+            output.Remove(output.Length - 1, 1);
+        GD.Print($"[{className}.{memberName}:{lineNumber}] {output}");
     }
 }

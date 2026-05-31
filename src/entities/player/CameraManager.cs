@@ -31,7 +31,7 @@ public partial class CameraManager : Node3D
     public override void _Ready()
     {
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
-        PlayerController.StateChanged += StateChanged;
+        Player.StateChanged += StateChanged;
     }
 
     public void StateChanged(IPlayerState prevState, IPlayerState newState)

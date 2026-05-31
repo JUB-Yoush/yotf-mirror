@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/gadgets/photography/PhotoCamera.cs" id="1_3b58u"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="2_r51j2"]
 [ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="2_vbjdg"]
+[ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="3_jvh7c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.32156864, 1, 1, 1)
@@ -11,18 +12,15 @@ albedo_color = Color(0.32156864, 1, 1, 1)
 material = SubResource("StandardMaterial3D_4q7ia")
 size = Vector3(0.2, 0.2, 0.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jg0tx"]
-albedo_color = Color(0.32156864, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_r51j2"]
-material = SubResource("StandardMaterial3D_jg0tx")
-size = Vector3(0.2, 0.2, 0.2)
+[sub_resource type="SphereShape3D" id="SphereShape3D_jvh7c"]
+radius = 2.6155052
 
 [node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
 ItemName = "Camera"
 Icon = ExtResource("2_vbjdg")
 DropMesh = SubResource("BoxMesh_68lge")
+PackedInstance = null
 
 [node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
 unique_name_in_owner = true
@@ -41,9 +39,9 @@ spot_angle = 50.0
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1596944207]
 unique_name_in_owner = true
-mesh = SubResource("BoxMesh_r51j2")
+mesh = ExtResource("3_jvh7c")
 
-[node name="Control" type="Control" parent="." unique_id=159700314]
+[node name="Control" type="Control" parent="." unique_id=1657750311]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,6 +62,7 @@ grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,3 +80,15 @@ offset_right = 301.0
 offset_bottom = 1062.0
 theme_override_font_sizes/font_size = 48
 text = "100/100"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1643549579]
+unique_name_in_owner = true
+
+[node name="AudioRange" type="Area3D" parent="AudioStreamPlayer" unique_id=872072090]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AudioStreamPlayer/AudioRange" unique_id=1002190976]
+transform = Transform3D(1, 0, 0, 0, -0.040934015, -0.99916184, 0, 0.99916184, -0.040934015, 0, 0, 0)
+shape = SubResource("SphereShape3D_jvh7c")
+debug_color = Color(0.95739204, 0, 0.5354323, 0.41960785)

@@ -36,7 +36,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
             return;
         inShop = true;
 
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var player = GetTree().CurrentScene.GetNode<Player>("Player");
         var inventory = player.GetNode<Inventory>("Inventory");
 
         if (inventory.GetItemIndex("Camera") == -1)

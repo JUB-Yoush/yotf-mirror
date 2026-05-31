@@ -25,6 +25,7 @@ public partial class InteractionRay : RayCast3D
         if (@event.IsActionPressed("pickup"))
         {
             currentCollision?.OnInteraction();
+            currentCollision?.RemoveOutlineMesh();
             currentCollision = null;
         }
     }

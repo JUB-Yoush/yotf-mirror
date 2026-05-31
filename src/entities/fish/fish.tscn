@@ -31,7 +31,8 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1214767733]
 shape = SubResource("SphereShape3D_rq6t1")
 
-[node name="TargetRay" type="RayCast3D" parent="." unique_id=1256525334]
+[node name="DirectionRay" type="RayCast3D" parent="." unique_id=1721133760]
+unique_name_in_owner = true
 
 [node name="shinfish" parent="." unique_id=1966897904 instance=ExtResource("3_bubtx")]
 

@@ -19,7 +19,7 @@ public partial class PlayerSpawner : MultiplayerSpawner
     {
         if (!Multiplayer.IsServer())
             return;
-        var player = NetworkPlayer.Instantiate<PlayerController>();
+        var player = NetworkPlayer.Instantiate<Player>();
         player.Name = id.ToString();
 
         GetParent().AddChild(player, true);
