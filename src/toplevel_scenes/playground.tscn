@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://chj7s770vcrql"]
 
-[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/paper_material.tres" id="1_4ktrp"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="1_jdk7o"]
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_kksva"]
 [ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
@@ -12,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="9_208ij"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="11_6igj1"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
+[ext_resource type="PackedScene" uid="uid://cfup3imyxar12" path="res://assets/3d/player_model/skrunko.glb" id="13_agt0h"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
 offsets = PackedFloat32Array(0, 0.60571426)
@@ -154,16 +154,6 @@ refraction_texture = SubResource("NoiseTexture2D_6igj1")
 [node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
 unique_name_in_owner = true
 
-[node name="WarbleEffect" type="CanvasLayer" parent="." unique_id=1608008307]
-
-[node name="ColorRect" type="ColorRect" parent="WarbleEffect" unique_id=377602461]
-material = ExtResource("1_4ktrp")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_deq46")
 camera_attributes = SubResource("CameraAttributesPractical_dikcb")
@@ -219,3 +209,5 @@ transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -7.5
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("11_6igj1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7943404, 0.40294504, 3.7557678)
+
+[node name="skrunko" parent="." unique_id=1666372589 instance=ExtResource("13_agt0h")]

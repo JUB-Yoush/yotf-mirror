@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
 [ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
+[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/paper_material.tres" id="11_kc3pt"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 
@@ -96,9 +97,9 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
-[node name="UnderwaterShader" type="CanvasLayer" parent="." unique_id=154761363]
+[node name="WorldPostShader" type="CanvasLayer" parent="." unique_id=154761363]
 
-[node name="UnderwaterRect" type="ColorRect" parent="UnderwaterShader" unique_id=788417647]
+[node name="UnderwaterRect" type="ColorRect" parent="WorldPostShader" unique_id=788417647]
 unique_name_in_owner = true
 visible = false
 material = ExtResource("22_3d0mj")
@@ -110,7 +111,18 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
+[node name="PaperLike" type="ColorRect" parent="WorldPostShader" unique_id=942680011]
+z_index = 1
+material = ExtResource("11_kc3pt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1974037189]
+layer = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HUDLayer" unique_id=1650928401]
 anchors_preset = 15
@@ -130,9 +142,10 @@ render_target_update_mode = 4
 [node name="HUD" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=1507630057 instance=ExtResource("9_n7e5a")]
 unique_name_in_owner = true
 
-[node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
+[node name="PostShader" type="CanvasLayer" parent="." unique_id=1716511431]
+layer = 2
 
-[node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
+[node name="FadeToBlack" type="ColorRect" parent="PostShader" unique_id=846698092]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,7 +156,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true
 
-[node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
+[node name="FishEyeRect" type="ColorRect" parent="PostShader" unique_id=430145023]
 unique_name_in_owner = true
 material = ExtResource("21_fjj3i")
 anchors_preset = 15
