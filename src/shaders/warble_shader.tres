@@ -58,7 +58,6 @@ op_type = 0
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_suloe"]
 parameter_name = "wobble_scale"
 hint = 1
-min = 0.005
 max = 0.03
 default_value_enabled = true
 default_value = 0.02
@@ -68,19 +67,10 @@ expanded_output_ports = [0]
 texture = SubResource("NoiseTexture2D_shqvl")
 texture_type = 1
 
-[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_wiecs"]
-constant = 0.015
-
-[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_suloe"]
-function = 1
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_wiecs"]
 expanded_output_ports = [0]
 texture = SubResource("NoiseTexture2D_shqvl")
 texture_type = 1
-
-[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_nxl5a"]
-constant = 1.0
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_dopkw"]
 function = 1
@@ -112,14 +102,8 @@ nodes/fragment/40/node = SubResource("VisualShaderNodeFloatParameter_suloe")
 nodes/fragment/40/position = Vector2(-150, -170)
 nodes/fragment/43/node = SubResource("VisualShaderNodeTexture_b6v83")
 nodes/fragment/43/position = Vector2(-2631.6934, -815.8849)
-nodes/fragment/47/node = SubResource("VisualShaderNodeFloatConstant_wiecs")
-nodes/fragment/47/position = Vector2(250, -130)
-nodes/fragment/48/node = SubResource("VisualShaderNodeUVFunc_suloe")
-nodes/fragment/48/position = Vector2(-1030, -520)
 nodes/fragment/51/node = SubResource("VisualShaderNodeTexture_wiecs")
 nodes/fragment/51/position = Vector2(-2276.63, -983.8542)
-nodes/fragment/52/node = SubResource("VisualShaderNodeFloatConstant_nxl5a")
-nodes/fragment/52/position = Vector2(-1286.4191, -432.13705)
 nodes/fragment/53/node = SubResource("VisualShaderNodeUVFunc_dopkw")
 nodes/fragment/53/position = Vector2(560, -210)
-nodes/fragment/connections = PackedInt32Array(7, 0, 28, 0, 28, 0, 25, 0, 34, 0, 17, 1, 11, 1, 38, 0, 25, 0, 0, 0, 36, 1, 38, 1, 48, 0, 11, 0, 48, 0, 36, 0, 52, 0, 48, 1, 38, 0, 17, 0, 17, 0, 53, 0, 47, 0, 53, 1, 53, 0, 28, 1)
+nodes/fragment/connections = PackedInt32Array(7, 0, 28, 0, 28, 0, 25, 0, 34, 0, 17, 1, 11, 1, 38, 0, 25, 0, 0, 0, 36, 1, 38, 1, 38, 0, 17, 0, 17, 0, 53, 0, 53, 0, 28, 1, 40, 0, 53, 1)
