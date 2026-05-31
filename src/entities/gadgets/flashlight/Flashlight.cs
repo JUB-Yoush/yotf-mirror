@@ -46,6 +46,12 @@ public partial class Flashlight : Item
         }
     }
 
+    public override void _Process(double delta)
+    {
+        Mesh.GlobalTransform = Camera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         GlobalTransform = Camera.GlobalTransform;
@@ -70,9 +76,6 @@ public partial class Flashlight : Item
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();
         }
-
-        Mesh.GlobalTransform = Camera.GlobalTransform;
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
     }
 
     public override void Equipped()

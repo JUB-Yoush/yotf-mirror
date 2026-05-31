@@ -4,3 +4,7 @@
 
 [resource]
 albedo_texture = ExtResource("1_vmgmo")
+metallic_specular = 0.0
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("1_vmgmo")
