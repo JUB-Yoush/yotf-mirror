@@ -37,7 +37,8 @@ public class AggressiveState : IFishState
         attackCooldown -= delta;
         if (dist <= fish.Profile.AttackRange && attackCooldown <= 0f)
         {
-            fish.EmitSignal(Fish.SignalName.Attacked, fish.ThreatTarget);
+            //fish.EmitSignal(Fish.SignalName.Attacked, fish.ThreatTarget);
+            fish.Attacked?.Invoke(fish.ThreatTarget);
             attackCooldown = fish.Profile.AttackCooldown;
         }
     }

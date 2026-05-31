@@ -3,40 +3,50 @@ using Godot;
 
 namespace Yotf;
 
-public partial class DroppedItem : RigidBody3D, IInteractable
+[Meta(typeof(IAutoNode))]
+public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap
 {
-    private Mesh mesh = null!;
+    public override void _Notification(int what) => this.Notify(what);
+
+    private Mesh meshData = null!;
     public PackedScene ItemRef = null!;
-    private MeshInstance3D meshInstance = null!;
+
+    [Node]
+    MeshInstance3D Mesh { set; get; }
+
+    public static DroppedItem New(Mesh mesh, PackedScene packedItem)
+    {
+        var dropped = Packed.Instantiate<DroppedItem>();
+        dropped.meshData = mesh;
+        dropped.ItemRef = packedItem;
+        return dropped;
+    }
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
-    //TODO(j) giving big macro/source generator potential...
-    public DroppedItem Init(Mesh mesh, PackedScene packedItem)
+    public required Mesh InteractionMesh
     {
-        this.mesh = mesh;
-        this.ItemRef = packedItem;
-        return this;
+        get => meshData;
+        set;
     }
 
     public override void _Ready()
     {
-        meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
-        meshInstance.Mesh = mesh;
+        Mesh.Mesh = meshData;
     }
 
     public Item GivePickUpItem() => ItemRef.Instantiate<Item>();
 
     public void OnInteraction()
     {
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
-        var inventory = player.GetNode<Inventory>("Inventory");
+        // var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        // var inventory = player.GetNode<Inventory>("Inventory");
+        var player = GetTree().CurrentScene.GetNode<PlayerController>();
+        var inventory = player.GetNode<Inventory>()!;
 
         if (inventory.GetEqippedItem() != null)
             return;
         inventory.AddItem(ItemRef.Instantiate<Item>());
         QueueFree();
     }
-
-    public Mesh GetMesh() => mesh;
 }

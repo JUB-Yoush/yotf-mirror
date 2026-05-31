@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="8_w1g40"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="9_208ij"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="11_6igj1"]
-[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/toplevel_scenes/lab.tscn" id="12_4ktrp"]
+[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
 offsets = PackedFloat32Array(0, 0.60571426)

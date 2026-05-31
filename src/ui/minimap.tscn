@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cxejyi4plhjod"]
+
+[ext_resource type="Script" uid="uid://bxh3e6euxlwoy" path="res://src/ui/Minimap.cs" id="1_hvtb3"]
+
+[node name="MiniMap" type="Control" unique_id=1809783164]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hvtb3")
+
+[node name="MiniMapRect" type="ColorRect" parent="." unique_id=2116981880]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 470.0
+offset_bottom = 470.0

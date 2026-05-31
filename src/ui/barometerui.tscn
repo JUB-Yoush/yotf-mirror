@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://w650hho15hkd"]
+
+[ext_resource type="Script" uid="uid://c52k1hmfk6ig3" path="res://src/ui/Barometerui.cs" id="1_71p7e"]
+[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud_barometer_border.tres" id="2_c7bsg"]
+[ext_resource type="Shader" uid="uid://du12686ff14wf" path="res://src/shaders/barometer_scroll.gdshader" id="3_yajbl"]
+[ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/barometer_ruler.png" id="4_328da"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwbjx"]
+shader = ExtResource("3_yajbl")
+shader_parameter/scroll_speed = Vector2(0, 0)
+
+[node name="Barometerui" type="Control" unique_id=2099941524]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_71p7e")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1312035519]
+texture_repeat = 2
+layout_mode = 0
+offset_right = 97.0
+offset_bottom = 224.0
+texture = ExtResource("2_c7bsg")
+expand_mode = 1
+
+[node name="RulerA" type="TextureRect" parent="TextureRect" unique_id=821414543]
+unique_name_in_owner = true
+texture_repeat = 2
+material = SubResource("ShaderMaterial_gwbjx")
+layout_mode = 0
+offset_left = 17.0
+offset_top = 4.0
+offset_right = 75.0
+offset_bottom = 220.0
+texture = ExtResource("4_328da")

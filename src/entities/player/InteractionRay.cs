@@ -4,24 +4,28 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class InteractionRay : RayCast3D
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private IInteractable? currentCollision = null!;
-    private Inventory inventory = null!;
+
+    [Node]
+    public required Inventory Inventory { set; get; }
 
     public override void _Ready()
     {
-        inventory = GetNode<Inventory>("%Inventory");
-
         TargetPosition = new(0, 0, -2f);
         CollideWithAreas = true;
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("pickup") && currentCollision != null)
+        if (@event.IsActionPressed("pickup"))
         {
-            currentCollision.OnInteraction();
+            currentCollision?.OnInteraction();
+            currentCollision = null;
         }
     }
 

@@ -2,15 +2,30 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class ProceduralAnimator : Node3D
 {
+    public override void _Notification(int what) => this.Notify(what);
+
+    [Node]
+    public required RayCast3D RayCastLeft { set; get; }
+
+    [Node]
+    public required RayCast3D RayCastRight { set; get; }
+
+    [Node]
+    public required Marker3D FootTargetLeft { set; get; }
+
+    [Node]
+    public required Marker3D FootTargetRight { set; get; }
+
+    [Node]
+    public required Skeleton3D Skeleton3D { set; get; }
+
     private PlayerController Player = null!;
 
-    [Export]
-    private Skeleton3D Skeleton = null!;
-
-    [Export]
     private CameraManager Camera = null!;
+
     private const int SpineBoneIdx = 1;
     private const int ChestBoneIdx = 22;
     private const int NeckBoneIdx = 35;
@@ -33,18 +48,6 @@ public partial class ProceduralAnimator : Node3D
     private const float SwimPaddleAmplitude = 0.15f;
     private float swimTime = 0f;
 
-    [Export]
-    private RayCast3D raycastLeft = null!;
-
-    [Export]
-    private RayCast3D raycastRight = null!;
-
-    [Export]
-    private Marker3D footTargetLeft = null!;
-
-    [Export]
-    private Marker3D footTargetRight = null!;
-
     private class FootState
     {
         public Vector3 PlantedPos;
@@ -65,12 +68,13 @@ public partial class ProceduralAnimator : Node3D
 
     public override void _Ready()
     {
-        Player = GetParent<PlayerController>();
+        Player = this.SceneRoot().GetNode<PlayerController>()!;
+        Camera = Player.GetNode<CameraManager>()!;
 
-        rootBoneRestY = Skeleton.GetBonePosePosition(SpineBoneIdx).Y;
+        rootBoneRestY = Skeleton3D.GetBonePosePosition(SpineBoneIdx).Y;
 
-        restingPosL = footTargetLeft.Position;
-        restingPosR = footTargetRight.Position;
+        restingPosL = FootTargetLeft.Position;
+        restingPosR = FootTargetRight.Position;
 
         Vector3 worldRestL = ToGlobal(restingPosL);
         Vector3 worldRestR = ToGlobal(restingPosR);
@@ -121,44 +125,44 @@ public partial class ProceduralAnimator : Node3D
         state = newState;
         if (newState == PlayerState.Swimming)
         {
-            Vector3 currSpinePos = Skeleton.GetBonePosePosition(SpineBoneIdx);
+            Vector3 currSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
             currSpinePos.Y = rootBoneRestY;
-            Skeleton.SetBonePosePosition(SpineBoneIdx, currSpinePos);
+            Skeleton3D.SetBonePosePosition(SpineBoneIdx, currSpinePos);
 
-            Quaternion currChestRot = Skeleton.GetBonePoseRotation(ChestBoneIdx);
+            Quaternion currChestRot = Skeleton3D.GetBonePoseRotation(ChestBoneIdx);
             currChestRot.X = -Mathf.DegToRad(20f);
-            Skeleton.SetBonePoseRotation(ChestBoneIdx, currChestRot);
+            Skeleton3D.SetBonePoseRotation(ChestBoneIdx, currChestRot);
 
-            Quaternion currNeckRot = Skeleton.GetBonePoseRotation(NeckBoneIdx);
+            Quaternion currNeckRot = Skeleton3D.GetBonePoseRotation(NeckBoneIdx);
             currNeckRot.X = -Mathf.DegToRad(10f);
-            Skeleton.SetBonePoseRotation(NeckBoneIdx, currNeckRot);
+            Skeleton3D.SetBonePoseRotation(NeckBoneIdx, currNeckRot);
 
             swimTime = 0f;
         }
         else
         {
-            Vector3 currentSpinePos = Skeleton.GetBonePosePosition(SpineBoneIdx);
+            Vector3 currentSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
             currentSpinePos.Y = rootBoneRestY;
-            Skeleton.SetBonePosePosition(SpineBoneIdx, currentSpinePos);
+            Skeleton3D.SetBonePosePosition(SpineBoneIdx, currentSpinePos);
 
-            Quaternion currentChestRot = Skeleton.GetBonePoseRotation(ChestBoneIdx);
+            Quaternion currentChestRot = Skeleton3D.GetBonePoseRotation(ChestBoneIdx);
             currentChestRot.X = 0f;
-            Skeleton.SetBonePoseRotation(ChestBoneIdx, currentChestRot);
+            Skeleton3D.SetBonePoseRotation(ChestBoneIdx, currentChestRot);
 
-            Quaternion currentNeckRot = Skeleton.GetBonePoseRotation(NeckBoneIdx);
+            Quaternion currentNeckRot = Skeleton3D.GetBonePoseRotation(NeckBoneIdx);
             currentNeckRot.X = 0f;
-            Skeleton.SetBonePoseRotation(NeckBoneIdx, currentNeckRot);
+            Skeleton3D.SetBonePoseRotation(NeckBoneIdx, currentNeckRot);
 
             // Prevent IK snap when re-entering walk/fly
-            footTargetLeft.GlobalPosition = footStateL.PlantedPos;
-            footTargetRight.GlobalPosition = footStateR.PlantedPos;
+            FootTargetLeft.GlobalPosition = footStateL.PlantedPos;
+            FootTargetRight.GlobalPosition = footStateR.PlantedPos;
         }
     }
 
     private void ProcessWalkAnimation(float delta)
     {
-        InterpolateStep(footStateL, footTargetLeft, delta);
-        InterpolateStep(footStateR, footTargetRight, delta);
+        InterpolateStep(footStateL, FootTargetLeft, delta);
+        InterpolateStep(footStateR, FootTargetRight, delta);
         InterpolateHips();
 
         if (ShouldStep(footStateL, footStateR))
@@ -185,8 +189,8 @@ public partial class ProceduralAnimator : Node3D
         float rightY = Mathf.Cos(angle + Mathf.Pi) * StepHeight * velocityScale;
         float rightZ = (Mathf.Sin(angle + Mathf.Pi) - 1f) * SwimPaddleAmplitude * velocityScale;
 
-        footTargetLeft.Position = restingPosL + new Vector3(0f, leftY, leftZ);
-        footTargetRight.Position = restingPosR + new Vector3(0f, rightY, rightZ);
+        FootTargetLeft.Position = restingPosL + new Vector3(0f, leftY, leftZ);
+        FootTargetRight.Position = restingPosR + new Vector3(0f, rightY, rightZ);
     }
 
     private void UpdateDesiredPositions()
@@ -196,12 +200,12 @@ public partial class ProceduralAnimator : Node3D
         Vector3 worldRestL = ToGlobal(restingPosL);
         Vector3 worldRestR = ToGlobal(restingPosR);
 
-        footStateL.DesiredPos = raycastLeft.IsColliding()
-            ? raycastLeft.GetCollisionPoint()
+        footStateL.DesiredPos = RayCastLeft.IsColliding()
+            ? RayCastLeft.GetCollisionPoint()
             : worldRestL;
 
-        footStateR.DesiredPos = raycastRight.IsColliding()
-            ? raycastRight.GetCollisionPoint()
+        footStateR.DesiredPos = RayCastRight.IsColliding()
+            ? RayCastRight.GetCollisionPoint()
             : worldRestR;
 
         if (velocity != Vector3.Zero)
@@ -235,9 +239,9 @@ public partial class ProceduralAnimator : Node3D
         float swingL = Mathf.Sin(footStateL.StepT * Mathf.Pi);
         float swingR = Mathf.Sin(footStateR.StepT * Mathf.Pi);
         float bobOffset = Mathf.Max(swingL, swingR) * HipBobAmount;
-        Skeleton.SetBonePosePosition(
+        Skeleton3D.SetBonePosePosition(
             SpineBoneIdx,
-            Skeleton.GetBonePosePosition(SpineBoneIdx) with
+            Skeleton3D.GetBonePosePosition(SpineBoneIdx) with
             {
                 Y = rootBoneRestY - bobOffset,
             }
@@ -276,9 +280,9 @@ public partial class ProceduralAnimator : Node3D
 
         currentHeadYaw = Mathf.LerpAngle(currentHeadYaw, -targetYaw, HeadLookSpeed * delta);
 
-        Quaternion headRot = Skeleton.GetBonePoseRotation(NeckBoneIdx);
+        Quaternion headRot = Skeleton3D.GetBonePoseRotation(NeckBoneIdx);
         headRot.Y = currentHeadYaw;
 
-        Skeleton.SetBonePoseRotation(NeckBoneIdx, headRot);
+        Skeleton3D.SetBonePoseRotation(NeckBoneIdx, headRot);
     }
 }

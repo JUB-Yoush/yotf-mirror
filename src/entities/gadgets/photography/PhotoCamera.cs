@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -7,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PhotoCamera : Item
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
     public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
@@ -17,40 +21,72 @@ public partial class PhotoCamera : Item
 
     private bool equipped = false;
     const float DefaultFov = 90;
-    const float ViewfinderFov = 50;
     const float ViewfinderLerp = 20;
+    const float DefaultViewfinderFov = 50;
+    private float ViewfinderFov = 50;
 
-    private Camera3D camera = null!;
-    private TextureRect photoLetterBox = null!;
-    private ColorRect flashRect = null!;
-    private PhotoTerminal? photoTerminal = null;
-    private Camera3D photoCamera = null!;
-    private SubViewport photoViewport = null!;
-    private MeshInstance3D mesh = null!;
-    private Inventory inventory = null!;
-    private SpotLight3D light = null!;
+    [Node]
+    public required Camera3D PhotoCameraCam { set; get; }
+
+    [Node]
+    public required TextureRect PhotoLetterBox { set; get; }
+
+    [Node]
+    public required ColorRect FlashRect { set; get; }
+
+    [Node]
+    public required SubViewport PhotoViewport { set; get; }
+
+    [Node]
+    public required MeshInstance3D Mesh { set; get; }
+
+    [Node]
+    public required SpotLight3D Light { set; get; }
+
+    [Node]
+    public required Label FilmLabel { set; get; }
 
     private PlayerController player = null!;
 
-    private int film = 0;
-    private int maxFilm = 0;
+    private Camera3D playerCamera = null!;
+
+    private PhotoTerminal? photoTerminal = null!;
+
+    private Inventory Inventory = null!;
+
+    public int Film
+    {
+        set
+        {
+            field = Math.Clamp(value, 0, maxFilm);
+            FilmLabel.Text = $"{field}/{maxFilm}";
+        }
+        get;
+    }
+    public int maxFilm = 100;
 
     private bool aiming = false;
 
     public override void _Ready()
     {
-        ItemName = "camera";
+        Film = maxFilm;
         player = GetParent().GetParent<PlayerController>();
-        camera = player.GetNode<Camera3D>("%Camera3D");
-        photoLetterBox = GetNode<TextureRect>("%PhotoLetterBox");
-        flashRect ??= GetNode<ColorRect>("%FlashRect");
-        photoTerminal ??= GetTree().CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
-        photoViewport = GetNode<SubViewport>("SubViewport");
-        photoCamera = photoViewport.GetNode<Camera3D>("PhotoCamera");
-        photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-        mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-        inventory = GetParent<Inventory>();
-        light = photoCamera.GetNode<SpotLight3D>("CameraLight");
+        playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
+        Inventory = GetParent<Inventory>();
+        Lab.CurrentLabUpdated += CurrentLabUpdated;
+        photoTerminal = Lab.CurrentLab!.PhotoTerminal;
+
+        PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+    }
+
+    public override void _ExitTree()
+    {
+        Lab.CurrentLabUpdated -= CurrentLabUpdated;
+    }
+
+    public void CurrentLabUpdated(Lab newLab)
+    {
+        photoTerminal = newLab.PhotoTerminal;
     }
 
     public override void _Input(InputEvent @event)
@@ -58,28 +94,35 @@ public partial class PhotoCamera : Item
         if (!CurrentItem)
             return;
 
+        if (@event.IsActionPressed("scroll_up"))
+            ViewfinderFov = Math.Max(ViewfinderFov - 2, 20);
+
+        if (@event.IsActionPressed("scroll_down"))
+            ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
+
         if (@event.IsActionPressed("look_cam"))
         {
-            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
-            player.IsInMenu = true;
+            PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+            player.IsLookingInCamera = true;
             aiming = true;
-            light.Visible = true;
+            Light.Visible = true;
         }
 
         if (@event.IsActionReleased("look_cam"))
         {
-            photoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
-            player.IsInMenu = false;
+            PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+            player.IsLookingInCamera = false;
             aiming = false;
-            light.Visible = false;
+            Light.Visible = false;
+            ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(mesh.Mesh, Packed);
-            dropItem.GlobalTransform = camera.GlobalTransform;
+            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
-            inventory.RemoveCurrentItem();
+            Inventory.RemoveCurrentItem();
         }
     }
 
@@ -90,17 +133,26 @@ public partial class PhotoCamera : Item
 
         if (aiming)
         {
-            camera.Fov = MathExt.Lerp(camera.Fov, ViewfinderFov, (float)(ViewfinderLerp * delta));
-            photoLetterBox.Visible = true;
+            playerCamera.Fov = MathExt.Lerp(
+                playerCamera.Fov,
+                ViewfinderFov,
+                (float)(ViewfinderLerp * delta)
+            );
+            PhotoLetterBox.Visible = true;
         }
         else
         {
-            camera.Fov = MathExt.Lerp(camera.Fov, DefaultFov, (float)(ViewfinderLerp * delta));
-            photoLetterBox.Visible = false;
+            playerCamera.Fov = MathExt.Lerp(
+                playerCamera.Fov,
+                DefaultFov,
+                (float)(ViewfinderLerp * delta)
+            );
+            PhotoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && aiming)
+        if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
         {
+            Film -= 1;
             var subjects = GetPhotoSubjects();
             Image image = GetViewportImage();
             PhotoData photo = PhotoData.New(Name, subjects, image.Data);
@@ -108,9 +160,9 @@ public partial class PhotoCamera : Item
             FlashSFX();
             AddPhoto(photo, grades);
         }
-        mesh.GlobalTransform = camera.GlobalTransform;
-        mesh.GlobalPosition += (-mesh.GlobalBasis.Z / 2) + (mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
-        photoCamera.GlobalTransform = camera.GlobalTransform;
+        Mesh.GlobalTransform = playerCamera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
@@ -123,8 +175,8 @@ public partial class PhotoCamera : Item
             var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
 
             // how centered the fish is
-            var camToFish = subject.GlobalPosition - photoCamera.GlobalPosition;
-            var camFacing = photoCamera.GlobalTransform.Basis.Z;
+            var camToFish = subject.GlobalPosition - PhotoCameraCam.GlobalPosition;
+            var camFacing = PhotoCameraCam.GlobalTransform.Basis.Z;
             var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
             var angleScore = Math.Clamp((angle - 2.6) / (Math.PI - 2.6), 0, 1);
 
@@ -134,10 +186,11 @@ public partial class PhotoCamera : Item
 
             // size of fish on the screen
             // distance from camera scaled based on the size of the bounding box
-            var vis = subject.GetNode<Node3D>("shinfish").GetNode<MeshInstance3D>("%MeshInstance3D") as VisualInstance3D; // TODO(j) maybe have a "photoboundingbox" mesh for fish?
+            var photographable = subject as IPhotographable;
+            var vis = photographable.SubjectBoundingMesh as VisualInstance3D;
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            var sizeScore = Math.Clamp(Math.Min(sizeInPhoto * 10, 1.0f), 0, 1);
+            var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
 
             //fish lighting
             // TODO (j) implement
@@ -152,7 +205,7 @@ public partial class PhotoCamera : Item
 
     private Image GetViewportImage()
     {
-        var img = photoViewport.GetTexture().GetImage();
+        var img = PhotoViewport.GetTexture().GetImage();
         return img;
     }
 
@@ -160,21 +213,17 @@ public partial class PhotoCamera : Item
     {
         List<string> result = [];
         foreach (var child in GetTree().CurrentScene.GetChildren(true))
-        {
             if (child is IPhotographable photographable && photographable.IsInPhoto())
-            {
                 result.Add(child.Name);
-            }
-        }
         return [.. result];
     }
 
     void FlashSFX()
     {
         var tween = CreateTween();
-        tween.Fn(() => flashRect.Visible = true);
+        tween.Fn(() => FlashRect.Visible = true);
         tween.TweenInterval(.1);
-        tween.Fn(() => flashRect.Visible = false);
+        tween.Fn(() => FlashRect.Visible = false);
     }
 
     void TakeScreenShot(string id)
@@ -216,7 +265,7 @@ public partial class PhotoCamera : Item
         );
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
-        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     [Rpc(

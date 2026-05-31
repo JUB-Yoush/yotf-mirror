@@ -2,23 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PlayerController : CharacterBody3D
 {
+    public override void _Notification(int what) => this.Notify(what);
+
+    public static Action<IPlayerState, IPlayerState>? StateChanged;
+
     // ====================== REFERENCES ======================
-    [ExportCategory("References")]
-    [Export]
-    public Node3D Skin = null!;
+    [Node]
+    public required Node3D Skin { set; get; }
+
     public Vector3 SkinRestPosition;
 
-    [Export]
-    public Camera3D Camera = null!;
+    [Node]
+    public required Camera3D Camera { set; get; }
 
-    [Export]
-    public CollisionShape3D CollisionShapeBody = null!;
+    [Node]
+    public required CollisionShape3D CollisionShapeBody { set; get; }
+
+    [Node]
+    public required SpringArm3D Arm { set; get; }
+
+    [Node]
+    public required Hud HUD { set; get; }
+
+    [Node]
+    public required ColorRect FishEyeRect { set; get; }
+
     public Vector3 CollisionPivot;
 
     // ====================== MOVEMENT CONFIG ======================
@@ -54,7 +70,12 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("Debug")]
     private bool firstPerson = false;
 
-    private SpringArm3D springArm = null!;
+    //TODO(j) this needs to be normalized based on the size of the map. or somthing.
+    public float Depth
+    {
+        set;
+        get => (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+    }
 
     [Export]
     public bool FirstPerson
@@ -65,31 +86,45 @@ public partial class PlayerController : CharacterBody3D
             firstPerson = value;
             if (firstPerson)
             {
-                if (springArm == null)
+                if (Arm == null)
                     return;
                 Tween tween = CreateTween();
-                tween.TweenProperty(springArm, "spring_length", 0.0f, 0.33);
+                tween.LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 0.0f, 0.33f);
                 tween.Fn(() => Skin.Visible = false);
             }
             else
             {
-                if (springArm == null)
+                if (Arm == null)
                     return;
                 Skin.Visible = true;
-                CreateTween().TweenProperty(springArm, "spring_length", 2.0f, 0.33);
+                CreateTween().LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 2.0f, 0.33f);
             }
         }
     }
 
     private bool collisionEnabled = true;
 
+    //TODO(j) should probably be an enum for player interaction state
     public bool IsInMenu
     {
         get;
         set
         {
             field = value;
-            GetNode<Hud>("%HUD").Visible = !field;
+            this.GetNode<CameraManager>().GetNode<Camera3D>()!.Visible = !field;
+            HUD.Visible = !field;
+            FishEyeRect.Visible = !field;
+        }
+    }
+
+    public bool IsLookingInCamera
+    {
+        get;
+        set
+        {
+            field = value;
+            this.GetNode<CameraManager>().GetNode<Camera3D>()!.Visible = !field;
+            HUD.Visible = !field;
         }
     }
 
@@ -106,7 +141,6 @@ public partial class PlayerController : CharacterBody3D
     }
 
     // ====================== INTERNAL STATE ======================
-    [Export]
     public ProceduralAnimator ProceduralAnimator = null!;
 
     public IPlayerState CurrentState { get; private set; } = null!;
@@ -132,20 +166,12 @@ public partial class PlayerController : CharacterBody3D
 
     public override void _Ready()
     {
-        raycast = GetNode<RayCast3D>("CameraManager/Camera3D/RayCast3D");
-        Camera ??= GetNode<Camera3D>("%Camera3D");
-
-        Skin ??= GetNode<Node3D>("SkrunkoSkin");
-
+        Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
-        CollisionShapeBody ??= GetNode<CollisionShape3D>("CollisionShapeBody");
         CollisionPivot = CollisionShapeBody.Position;
 
-        ProceduralAnimator ??= GetNode<ProceduralAnimator>("ProceduralAnimator");
-
-        springArm = GetNode<SpringArm3D>("CameraManager/Arm");
-
+        ProceduralAnimator ??= GetNode<Node3D>("Skin").GetNode<ProceduralAnimator>()!;
         if (IsMultiplayerAuthority())
         {
             Camera.Current = true;
@@ -176,6 +202,7 @@ public partial class PlayerController : CharacterBody3D
     {
         if (CurrentState == newState)
             return;
+        StateChanged?.Invoke(CurrentState, newState);
         CurrentState?.Exit(this);
         CurrentState = newState;
         CurrentState.Enter(this);

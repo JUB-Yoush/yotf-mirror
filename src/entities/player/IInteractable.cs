@@ -8,16 +8,16 @@ public interface IInteractable
 {
     public static readonly Material Outline = GD.Load<ShaderMaterial>("uid://cgcywsatye4gv");
     public void OnInteraction();
-    public Mesh GetMesh();
+    public Mesh InteractionMesh { set; get; }
     public void OutlineMesh()
     {
-        var mesh = GetMesh();
+        var mesh = InteractionMesh;
         mesh.SurfaceGetMaterial(0).NextPass = Outline;
     }
 
     public void RemoveOutlineMesh()
     {
-        var mesh = GetMesh();
+        var mesh = InteractionMesh;
         mesh.SurfaceGetMaterial(0).NextPass = null;
     }
 }

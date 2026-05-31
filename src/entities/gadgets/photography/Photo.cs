@@ -63,6 +63,12 @@ public record struct PhotoGrade(
     float SizeScore,
     float FacingScore,
     float LightScore
-);
+)
+{
+    internal void Deconstruct(out object subject, out object grade)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public record Photo(PhotoData Data, Dictionary<string, PhotoGrade> SubjectGrades);

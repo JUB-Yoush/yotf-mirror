@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Yotf;
@@ -21,7 +23,7 @@ public static class MiscExtensions
             }
         }
 
-        public void TweenProperty(Node node, StringName property, Variant value, float time)
+        public void LerpProperty(Node node, StringName property, Variant value, float time)
         {
             tween.TweenProperty(node, property.ToString(), value, time);
         }
@@ -35,7 +37,7 @@ public static class MiscExtensions
 
     extension(Node node)
     {
-        public Node GetSceneRoot() => node.GetTree().CurrentScene;
+        public Node SceneRoot() => node.GetTree().CurrentScene;
 
         public void RemoveAllChildren()
         {
@@ -43,7 +45,7 @@ public static class MiscExtensions
                 child.QueueFree();
         }
 
-        public List<Node> GetAllChildren()
+        public List<Node> GetChildrenRecursive()
         {
             Queue<Node> queue = [];
             List<Node> res = [];
@@ -59,6 +61,68 @@ public static class MiscExtensions
             }
             return res;
         }
+
+        /// <summary>
+        /// Loops over scene tree to find the first child of matching type.
+        /// </summary>
+        public T? GetNode<T>(bool includeInternal = false)
+            where T : class
+        {
+            foreach (var child in node.GetChildren(includeInternal))
+            {
+                if (child is T t)
+                    return t;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Loops over scene tree to find all children of matching type.
+        /// </summary>
+        public T[] GetNodes<T>(bool includeInternal = false)
+            where T : class
+        {
+            var res = new List<T>();
+            foreach (var child in node.GetChildren(includeInternal))
+            {
+                if (child is T t)
+                    res.Add(t);
+            }
+            return [.. res];
+        }
+
+        public async Task WaitUntil(Func<bool> condition)
+        {
+            while (!condition())
+                await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        public async Task WaitUntil(bool condition)
+        {
+            while (!condition)
+                await node.ToSignal(node.GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+    }
+    extension<T>(List<T> list)
+    {
+        public T PopLast() => list.Pop(^1);
+
+        public T Pop(Index i)
+        {
+            var offset = i.GetOffset(list.Count);
+            T val = list[offset];
+            list.RemoveAt(offset);
+            return val;
+        }
+    }
+
+    extension(Vector3 vec)
+    {
+        public Vector2 XY() => new(vec.X, vec.Y);
+
+        public Vector2 XZ() => new(vec.X, vec.Z);
+
+        public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 
     static void TryMakeDir(string path)
