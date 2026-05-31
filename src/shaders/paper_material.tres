@@ -1,7 +1,8 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bbhi27ogvfdgy"]
 
-[ext_resource type="Shader" uid="uid://cba5viiin0exc" path="res://src/shaders/paper_shader.tres" id="1_w7vsa"]
+[ext_resource type="Shader" uid="uid://c1fvyqvev4yor" path="res://src/shaders/kuwahara_shader.gdshader" id="1_w7vsa"]
 
 [resource]
 shader = ExtResource("1_w7vsa")
-shader_parameter/wobble_scale = 0.0170000008075
+shader_parameter/radius = 5
+shader_parameter/offset = Vector3(0, 0, 0)
