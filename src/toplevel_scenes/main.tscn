@@ -95,36 +95,6 @@ omni_shadow_mode = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.87765, -6.3204255, 56.980133)
 InsideChest = ExtResource("7_i5ocd")
 
-[node name="NavGraph" type="Node3D" parent="." unique_id=652533430]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.186752, -3.499792, 46.757706)
-script = ExtResource("7_odjcq")
-
-[node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.265709, -2.3841858e-07, 0.26507568)
-neighbors = [NodePath("../NavNode2")]
-
-[node name="NavNode2" parent="NavGraph" unique_id=4409830 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.988285, -0.07907462, 3.7019958)
-neighbors = [NodePath("../NavNode"), NodePath("../NavNode3")]
-
-[node name="NavNode3" parent="NavGraph" unique_id=1867547506 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2960243, 0.6030328, 1.0280266)
-neighbors = [NodePath("../NavNode2"), NodePath("../NavNode4"), NodePath("../NavNode5")]
-
-[node name="NavNode5" parent="NavGraph" unique_id=537596368 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29353714, 0.6030328, 2.2342262)
-neighbors = [NodePath("../NavNode3")]
-
-[node name="NavNode4" parent="NavGraph" unique_id=120379059 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4840546, 2.137291, 1.372654)
-neighbors = [NodePath("../NavNode3")]
-
-[node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=1201475733]
-unique_name_in_owner = true
-material_override = ExtResource("9_fleds")
-mesh = SubResource("ImmediateMesh_fleds")
-
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
 
@@ -172,3 +142,41 @@ spot_angle = 30.828348
 [node name="Home" parent="." unique_id=1044421178 instance=ExtResource("9_i3xn1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.81733, -1.5807338, 48.93997)
 visible = false
+
+[node name="NavGraph" type="Node3D" parent="." unique_id=652533430]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.186752, -3.499792, 46.757706)
+script = ExtResource("7_odjcq")
+
+[node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.397625, -2.3841858e-07, 0.54973984)
+neighbors = [NodePath("../NavNode2")]
+
+[node name="NavNode2" parent="NavGraph" unique_id=4409830 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.29936, -0.07907462, -0.48841095)
+neighbors = [NodePath("../NavNode"), NodePath("../NavNode3")]
+
+[node name="NavNode3" parent="NavGraph" unique_id=1867547506 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.596935, -0.94768906, 1.3130951)
+neighbors = [NodePath("../NavNode2"), NodePath("../NavNode4")]
+
+[node name="NavNode4" parent="NavGraph" unique_id=120379059 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.635578, -1.940346, -8.358582)
+neighbors = [NodePath("../NavNode3"), NodePath("../NavNode5")]
+
+[node name="NavNode5" parent="NavGraph" unique_id=131348318 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375736, -1.468024, -14.034466)
+neighbors = [NodePath("../NavNode4"), NodePath("../NavNode6"), NodePath("../NavNode7")]
+
+[node name="NavNode6" parent="NavGraph" unique_id=455433254 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.050285, -1.468024, -21.926863)
+neighbors = [NodePath("../NavNode5")]
+
+[node name="NavNode7" parent="NavGraph" unique_id=387721462 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4588127, -1.468024, -20.315878)
+neighbors = [NodePath("../NavNode5")]
+
+[node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=1201475733]
+unique_name_in_owner = true
+material_override = ExtResource("9_fleds")
+mesh = SubResource("ImmediateMesh_fleds")

@@ -17,7 +17,15 @@ public partial class NavGraph : Node3D
 
     public ImmediateMesh immMesh = new();
     public MeshInstance3D EdgesView = null!;
-    public NavNode[] navNodes = null!;
+    public NavNode[] NavNodes
+    {
+        private set;
+        get
+        {
+            field = GetNavNodes();
+            return field;
+        }
+    } = null;
 
     public override void _Ready()
     {
@@ -42,7 +50,7 @@ public partial class NavGraph : Node3D
     {
         if (!Engine.IsEditorHint())
             return;
-        navNodes = GetNavNodes();
+        NavNodes = GetNavNodes();
 
         immMesh.ClearSurfaces();
         immMesh = new ImmediateMesh();
@@ -52,7 +60,7 @@ public partial class NavGraph : Node3D
         HashSet<NavNode> visited = [];
         Queue<NavNode> toDraw = [];
 
-        toDraw.Enqueue(navNodes[0]);
+        toDraw.Enqueue(NavNodes[0]);
 
         while (toDraw.Count > 0)
         {
@@ -83,5 +91,19 @@ public partial class NavGraph : Node3D
                 res.Add(nav);
         }
         return [.. res];
+    }
+
+    public NavNode NodeClosestTo(Vector3 pos)
+    {
+        // TODO(j) shoot a raycast to make sure it's not in a wall or somthn
+        (NavNode?, float) record = (null, 0);
+        foreach (var node in GetNavNodes())
+        {
+            if ((node.GlobalPosition - pos).LengthSquared() > record.Item2)
+            {
+                record = (node, (node.GlobalPosition - pos).LengthSquared());
+            }
+        }
+        return record.Item1!;
     }
 }
