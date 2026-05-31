@@ -169,6 +169,10 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderUpdate(float delta)
     {
+        // pick a node on the graph that is within your wander range from "room"
+        // find closest node that you can reach (nothing in between)
+        // from there traverse the graph until you reach the target
+
         // if (BubbleJail != null)
         // {
         //     GlobalPosition = BubbleJail.GlobalPosition;

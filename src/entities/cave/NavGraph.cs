@@ -8,6 +8,9 @@ namespace Yotf;
 [GlobalClass]
 public partial class NavGraph : Node3D
 {
+    [ExportToolButton("Verify Edge BiDirectionality")]
+    public Callable VerifyBtn => Callable.From(VerifyBiDirectionality);
+
     public static readonly Material EdgeMaterial = GD.Load<Material>(
         "res://assets/materials/node_edge_material.tres"
     );
@@ -18,30 +21,33 @@ public partial class NavGraph : Node3D
 
     public override void _Ready()
     {
-        //TopLevel = true;
-        //GlobalPosition = Vector3.Zero;
+        VerifyBiDirectionality();
         EdgesView = this.GetNode<MeshInstance3D>()!;
-        //navNodes = this.GetNodes<NavNode>();
-        Log.PrintLn("in the editor wooop");
         EdgesView.MaterialOverride = EdgeMaterial;
+
+        // if (!Engine.IsEditorHint())
+        //     Visible = false;
+    }
+
+    private void VerifyBiDirectionality()
+    {
+        foreach (var node in GetNavNodes())
+        {
+            for (int i = 0; i < node.neighbors.Length; i++)
+                node.AddNeighbor(node.neighbors[i]);
+        }
     }
 
     public override void _Process(double delta)
     {
+        if (!Engine.IsEditorHint())
+            return;
         navNodes = GetNavNodes();
-        var navNode = GetNode<NavNode>("NavNode");
-        var navNode2 = GetNode<NavNode>("NavNode2");
 
         immMesh.ClearSurfaces();
         immMesh = new ImmediateMesh();
 
         immMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
-
-        // immMesh.SurfaceAddVertex(navNodes[0].Position);
-        // immMesh.SurfaceAddVertex(navNodes[1].Position);
-        //
-        // immMesh.SurfaceAddVertex(Vector3.Zero);
-        // immMesh.SurfaceAddVertex(Vector3.Up);
 
         HashSet<NavNode> visited = [];
         Queue<NavNode> toDraw = [];
