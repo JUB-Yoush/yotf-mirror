@@ -5,8 +5,11 @@
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="6_i584b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="7_i5ocd"]
+[ext_resource type="Script" uid="uid://bgyveklptn51u" path="res://src/entities/cave/NavGraph.cs" id="7_odjcq"]
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_i5ocd"]
+[ext_resource type="Material" uid="uid://c7is05txhvb60" path="res://assets/materials/node_edge_material.tres" id="9_fleds"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="9_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
 
@@ -36,6 +39,8 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 11
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fleds"]
 
 [node name="Main" type="Node3D" unique_id=1358548990]
 
@@ -89,6 +94,27 @@ omni_shadow_mode = 0
 [node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("6_i584b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.87765, -6.3204255, 56.980133)
 InsideChest = ExtResource("7_i5ocd")
+
+[node name="NavGraph" type="Node3D" parent="." unique_id=652533430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.186752, -3.499792, 46.757706)
+script = ExtResource("7_odjcq")
+
+[node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.89374924, 0, 0.45444107)
+neighbors = [NodePath("../NavNode2")]
+
+[node name="NavNode2" parent="NavGraph" unique_id=4409830 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0520134, -0.07907462, 0.38745117)
+neighbors = [NodePath("../NavNode"), NodePath("../NavNode3")]
+
+[node name="NavNode3" parent="NavGraph" unique_id=1867547506 node_paths=PackedStringArray("neighbors") instance=ExtResource("7_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18831253, 0.18761659, -0.78941345)
+neighbors = [NodePath("../NavNode2"), NodePath("../NavNode")]
+
+[node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=1201475733]
+unique_name_in_owner = true
+material_override = ExtResource("9_fleds")
+mesh = SubResource("ImmediateMesh_fleds")
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)

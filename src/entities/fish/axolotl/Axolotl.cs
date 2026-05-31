@@ -169,32 +169,46 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderUpdate(float delta)
     {
-        if (BubbleJail != null)
-        {
-            GlobalPosition = BubbleJail.GlobalPosition;
-            Velocity = Vector3.Zero;
-            return;
-        }
-        wanderTimer += (float)delta;
-        if (
-            wanderTimer >= maxWanderTime
-            || SmoothMoveTo(NextPathPosition(), Profile.MoveSpeed, (float)delta)
-        )
-        {
-            wanderTimer = 0;
-            wanderTarget = PickWanderDirection();
-            NavAgent.TargetPosition = wanderTarget;
-            MakeBubble(GlobalBasis.Z);
-        }
-        // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
-        //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        NavBox.GlobalPosition = NextPathPosition();
-        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
+        // if (BubbleJail != null)
+        // {
+        //     GlobalPosition = BubbleJail.GlobalPosition;
+        //     Velocity = Vector3.Zero;
+        //     return;
+        // }
+        // wanderTimer += (float)delta;
+        // if (
+        //     wanderTimer >= maxWanderTime
+        //     || SmoothMoveTo(NextPathPosition(), Profile.MoveSpeed, (float)delta)
+        // )
+        // {
+        //     wanderTimer = 0;
+        //     wanderTarget = PickWanderDirection();
+        //     NavAgent.TargetPosition = wanderTarget - GlobalPosition;
+        //     Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
+        //     MakeBubble(GlobalBasis.Z);
+        // }
+        // // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
+        // //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
+        // NavBox.GlobalPosition = NextPathPosition();
+        // //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
 
-    public Vector3 NextPathPosition() =>
-        //new(NavAgent.GetNextPathPosition().X, wanderTarget.Y, NavAgent.GetNextPathPosition().Z);
-        NavAgent.GetNextPathPosition();
+    public Vector3 NextPathPosition()
+    {
+        var target = wanderTarget - GlobalPosition;
+        var ylerp = (float)Mathf.Lerp(GlobalPosition.Y, target.Y, 0.5);
+        //Log.PrintLn(Na)
+        var navPos2 = new Vector3(
+            NavAgent.GetNextPathPosition().X,
+            ylerp,
+            NavAgent.GetNextPathPosition().Z
+        );
+        //var navPos = NavAgent.GetNextPathPosition();
+        //Log.PrintLn($"real: {navPos} ylerp{navPos2}");
+        return navPos2;
+    }
+
+    //NavAgent.GetNextPathPosition();
 
     public Vector3 PickWanderDirection()
     {
@@ -229,6 +243,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
         // targetMesh.GlobalPosition = direction;
         //Log.PrintLn(target);
+
+        Log.PrintLn($"NEW pos: {moveTarget}");
         NavBox2.GlobalPosition = GlobalPosition + moveTarget;
         return moveTarget;
     }
