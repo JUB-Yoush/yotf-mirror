@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chj7s770vcrql"]
 
-[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/warble_material.tres" id="1_4ktrp"]
+[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/paper_material.tres" id="1_4ktrp"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="1_jdk7o"]
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_kksva"]
 [ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
