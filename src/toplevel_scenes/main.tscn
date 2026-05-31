@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
 [ext_resource type="Resource" uid="uid://be6aogjnlynnr" path="res://assets/data/static_fish.tres" id="7_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b3i74qnkww8ow" path="res://src/entities/fish/fish.tscn" id="7_i584b"]
+[ext_resource type="PackedScene" uid="uid://cw6imjbtqwm32" path="res://assets/3d/fish/shinfish.glb" id="9_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="9_oxt34"]
+[ext_resource type="PackedScene" uid="uid://cfup3imyxar12" path="res://assets/3d/player_model/skrunko.glb" id="10_odjcq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
 render_priority = 1
@@ -130,3 +132,9 @@ transform = Transform3D(0.9988044, -0.0398161, 0.028361738, 0.0142541565, 0.7921
 light_energy = 1.561
 spot_range = 13.173713
 spot_angle = 30.828348
+
+[node name="shinfish" parent="." unique_id=1784389178 instance=ExtResource("9_i3xn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.826942, -5.751704, 44.739647)
+
+[node name="skrunko" parent="." unique_id=1666372589 instance=ExtResource("10_odjcq")]
+transform = Transform3D(-0.26664966, 0, 0.9637935, 0, 1, 0, -0.9637935, 0, -0.26664966, 34.87472, -6.371606, 48.833576)

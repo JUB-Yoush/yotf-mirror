@@ -1,15 +1,17 @@
 [gd_resource type="VisualShader" format=3 uid="uid://cba5viiin0exc"]
 
+[sub_resource type="Gradient" id="Gradient_0uo0f"]
+colors = PackedColorArray(0.26293245, 0.26293245, 0.26293245, 1, 0.781407, 0.781407, 0.78140694, 1)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a3qfr"]
-noise_type = 3
-frequency = 0.052
-fractal_lacunarity = 2.74
-fractal_gain = 1.63
+fractal_lacunarity = 5.0
+fractal_gain = 1.0
 metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_shqvl"]
 generate_mipmaps = false
 noise = SubResource("FastNoiseLite_a3qfr")
+color_ramp = SubResource("Gradient_0uo0f")
 seamless = true
 in_3d_space = true
 
@@ -33,15 +35,14 @@ op_type = 0
 constant = -0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_suloe"]
-noise_type = 3
 seed = 1
-frequency = 0.052
-fractal_lacunarity = 5.65
-fractal_gain = 1.87
+fractal_lacunarity = 5.0
+fractal_gain = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_suloe"]
 generate_mipmaps = false
 noise = SubResource("FastNoiseLite_suloe")
+color_ramp = SubResource("Gradient_0uo0f")
 seamless = true
 in_3d_space = true
 
@@ -55,8 +56,9 @@ op_type = 0
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_suloe"]
 parameter_name = "wobble_scale"
-hint = 1
-max = 0.03
+hint = 2
+max = 0.1
+step = 0.001
 default_value_enabled = true
 default_value = 0.02
 

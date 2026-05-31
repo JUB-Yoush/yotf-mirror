@@ -4,4 +4,4 @@
 
 [resource]
 shader = ExtResource("1_w7vsa")
-shader_parameter/wobble_scale = 0.00800000038
+shader_parameter/wobble_scale = 0.0170000008075
