@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://btp1pisa8eq5g"]
+[gd_scene format=3 uid="uid://c483em5h6q8ma"]
 
 [ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://src/entities/player/PlayerController.cs" id="1_yw30f"]
 [ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://src/entities/player/CameraManager.cs" id="2_yw30f"]
