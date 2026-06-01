@@ -97,9 +97,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42826256, -0.4282626)
 mesh = SubResource("ArrayMesh_7snhn")
 skeleton = NodePath("")
 
-[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=1439128976]
-unique_name_in_owner = true
-
 [node name="NavBox" type="MeshInstance3D" parent="." unique_id=328780000]
 unique_name_in_owner = true
 top_level = true

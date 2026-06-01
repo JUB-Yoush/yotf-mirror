@@ -189,29 +189,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         {
             wanderTimer = 0;
             PickWanderTarget();
-            NavAgent.TargetPosition = wanderTarget - GlobalPosition;
-            Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
+            //Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
             MakeBubble(GlobalBasis.Z);
         }
         // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
         //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        NavBox.GlobalPosition = NextPathPosition();
         //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
-    }
-
-    public Vector3 NextPathPosition()
-    {
-        var target = wanderTarget - GlobalPosition;
-        var ylerp = (float)Mathf.Lerp(GlobalPosition.Y, target.Y, 0.5);
-        //Log.PrintLn(Na)
-        var navPos2 = new Vector3(
-            NavAgent.GetNextPathPosition().X,
-            ylerp,
-            NavAgent.GetNextPathPosition().Z
-        );
-        //var navPos = NavAgent.GetNextPathPosition();
-        //Log.PrintLn($"real: {navPos} ylerp{navPos2}");
-        return navPos2;
     }
 
     //NavAgent.GetNextPathPosition();
