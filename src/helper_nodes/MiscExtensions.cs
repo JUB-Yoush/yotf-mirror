@@ -211,6 +211,23 @@ public static class MiscExt
         public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 
+    extension(ref Vector3 vec)
+    {
+        public void Change(float x = 0, float y = 0, float z = 0)
+        {
+            vec.X += x;
+            vec.Y += y;
+            vec.Z += z;
+        }
+
+        public void Set(float x = 0, float y = 0, float z = 0)
+        {
+            vec.X = x;
+            vec.Y = y;
+            vec.Z = z;
+        }
+    }
+
     static void TryMakeDir(string path)
     {
         using var dir = DirAccess.Open(path);

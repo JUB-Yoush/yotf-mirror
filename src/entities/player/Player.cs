@@ -66,7 +66,7 @@ public partial class Player : CharacterBody3D
 
     [ExportCategory("Swim Movement")]
     [Export(PropertyHint.Range, "5,50")]
-    public float SwimSpeed = 10.0f;
+    public float SwimSpeed = 5.0f;
 
     [Export]
     public float SwimRotationSpeed = 5.0f;

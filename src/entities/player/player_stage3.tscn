@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://c483em5h6q8ma"]
+
+[ext_resource type="Script" uid="uid://dri36waboe0ec" path="res://src/entities/player/PlayerController.cs" id="1_yw30f"]
+[ext_resource type="Script" uid="uid://c0mgcb3wfx065" path="res://src/entities/player/CameraManager.cs" id="2_yw30f"]
+[ext_resource type="Script" uid="uid://cg7i77y0de057" path="res://src/entities/player/CameraFollow.cs" id="3_qjkh3"]
+[ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="4_n7e5a"]
+[ext_resource type="PackedScene" uid="uid://da0xkdgkyvua6" path="res://src/entities/player/skrunko_skin.tscn" id="5_a31ob"]
+[ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
+[ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
+[ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
+[ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
+[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/paper_material.tres" id="11_kc3pt"]
+[ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
+[ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_smq6u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwhhq"]
+radius = 0.219345
+height = 1.4714888
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_twc2s"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6fkid"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=678823562]
+collision_layer = 2
+floor_stop_on_slope = false
+floor_constant_speed = true
+script = ExtResource("1_yw30f")
+FirstPerson = true
+
+[node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4401143, 0)
+script = ExtResource("2_yw30f")
+
+[node name="Arm" type="SpringArm3D" parent="CameraManager" unique_id=1403693957]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_smq6u")
+spring_length = 4.0
+margin = 0.5
+
+[node name="ArmPosition" type="Node3D" parent="CameraManager/Arm" unique_id=1721492418]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera3D" parent="CameraManager" unique_id=285023851]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48821163)
+near = 0.25
+far = 16384.0
+script = ExtResource("3_qjkh3")
+
+[node name="InteractionRay" type="RayCast3D" parent="CameraManager/Camera" unique_id=1962571535]
+target_position = Vector3(0, 0, -2)
+collision_mask = 4
+collide_with_areas = true
+script = ExtResource("4_n7e5a")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraManager/Camera" unique_id=2052358448]
+visible = false
+light_color = Color(0.5257421, 0.6534015, 1, 1)
+spot_range = 13.56
+spot_angle = 27.5
+
+[node name="CollisionShapeBody" type="CollisionShape3D" parent="." unique_id=627048012]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7469884, 0)
+shape = SubResource("CapsuleShape3D_lwhhq")
+debug_color = Color(0.16352478, 0.9584989, 0.5340781, 1)
+
+[node name="CollisionShapeRay" type="CollisionShape3D" parent="." unique_id=243987572]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_twc2s")
+
+[node name="Skin" parent="." unique_id=1969374302 instance=ExtResource("5_a31ob")]
+unique_name_in_owner = true
+
+[node name="DebugSphere" parent="Skin/Armature/FootTargetRight" parent_id_path=PackedInt32Array(1969374302, 28899830) index="0" unique_id=109986513]
+visible = false
+
+[node name="DebugSphere" parent="Skin/Armature/FootTargetLeft" parent_id_path=PackedInt32Array(1969374302, 1977071164) index="0" unique_id=946934999]
+visible = false
+
+[node name="InputManager" type="Node" parent="." unique_id=970712292]
+script = ExtResource("6_8fjmc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1880699763]
+replication_config = SubResource("SceneReplicationConfig_6fkid")
+
+[node name="Inventory" type="Node3D" parent="." unique_id=913375540]
+unique_name_in_owner = true
+script = ExtResource("8_1ljfj")
+
+[node name="WorldPostShader" type="CanvasLayer" parent="." unique_id=154761363]
+
+[node name="UnderwaterRect" type="ColorRect" parent="WorldPostShader" unique_id=788417647]
+unique_name_in_owner = true
+visible = false
+material = ExtResource("22_3d0mj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PaperLike" type="ColorRect" parent="WorldPostShader" unique_id=942680011]
+z_index = 1
+material = ExtResource("11_kc3pt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1974037189]
+layer = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUDLayer" unique_id=1650928401]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HUDLayer/SubViewportContainer" unique_id=2112670532]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="HUD" parent="HUDLayer/SubViewportContainer/SubViewport" unique_id=1507630057 instance=ExtResource("9_n7e5a")]
+unique_name_in_owner = true
+
+[node name="PostShader" type="CanvasLayer" parent="." unique_id=1716511431]
+layer = 2
+
+[node name="FadeToBlack" type="ColorRect" parent="PostShader" unique_id=846698092]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="FishEyeRect" type="ColorRect" parent="PostShader" unique_id=430145023]
+unique_name_in_owner = true
+material = ExtResource("21_fjj3i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="Stats" type="Node" parent="." unique_id=1554359426]
+script = ExtResource("8_tk761")
+
+[editable path="Skin"]

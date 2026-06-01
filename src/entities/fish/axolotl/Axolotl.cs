@@ -40,6 +40,9 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     float wanderTimer = 0f;
     float maxWanderTime = 10f;
     Vector3 wanderTarget = Vector3.Zero;
+    NavNode? targetNode = null;
+    NavNode? currentNode = null;
+    NavGraph navGraph = null!;
 
     // chasing
     readonly List<IBubbleable> bubbleTargets = [];
@@ -83,6 +86,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     */
     public override void _Ready()
     {
+        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         CurrentRoom = AssignCurrentRoom();
         Log.PrintLn($"current room{CurrentRoom}");
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
@@ -163,27 +167,30 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderEnter()
     {
-        wanderTarget = PickWanderDirection();
-        NavAgent.TargetPosition = wanderTarget;
+        PickWanderTarget();
     }
 
     public void WanderUpdate(float delta)
     {
-        if (BubbleJail != null)
-        {
-            GlobalPosition = BubbleJail.GlobalPosition;
-            Velocity = Vector3.Zero;
-            return;
-        }
+        // pick a node on the graph that is within your wander range from "room"
+        // find closest node that you can reach (nothing in between)
+        // from there traverse the graph until you reach the target
+
+        // TODO(j) BubbleJail should be a state
+        // if (BubbleJail != null)
+        // {
+        //     GlobalPosition = BubbleJail.GlobalPosition;
+        //     Velocity = Vector3.Zero;
+        //     return;
+        // }
+
         wanderTimer += (float)delta;
-        if (
-            wanderTimer >= maxWanderTime
-            || SmoothMoveTo(NextPathPosition(), Profile.MoveSpeed, (float)delta)
-        )
+        if (wanderTimer >= maxWanderTime)
         {
             wanderTimer = 0;
-            wanderTarget = PickWanderDirection();
-            NavAgent.TargetPosition = wanderTarget;
+            PickWanderTarget();
+            NavAgent.TargetPosition = wanderTarget - GlobalPosition;
+            Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
             MakeBubble(GlobalBasis.Z);
         }
         // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
@@ -192,11 +199,24 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
 
-    public Vector3 NextPathPosition() =>
-        //new(NavAgent.GetNextPathPosition().X, wanderTarget.Y, NavAgent.GetNextPathPosition().Z);
-        NavAgent.GetNextPathPosition();
+    public Vector3 NextPathPosition()
+    {
+        var target = wanderTarget - GlobalPosition;
+        var ylerp = (float)Mathf.Lerp(GlobalPosition.Y, target.Y, 0.5);
+        //Log.PrintLn(Na)
+        var navPos2 = new Vector3(
+            NavAgent.GetNextPathPosition().X,
+            ylerp,
+            NavAgent.GetNextPathPosition().Z
+        );
+        //var navPos = NavAgent.GetNextPathPosition();
+        //Log.PrintLn($"real: {navPos} ylerp{navPos2}");
+        return navPos2;
+    }
 
-    public Vector3 PickWanderDirection()
+    //NavAgent.GetNextPathPosition();
+
+    public void PickWanderTarget()
     {
         // pick a direction and move to it.
         var stillPickingDir = true;
@@ -228,9 +248,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         // check for collisions
 
         // targetMesh.GlobalPosition = direction;
-        //Log.PrintLn(target);
-        NavBox2.GlobalPosition = GlobalPosition + moveTarget;
-        return moveTarget;
+        targetNode = navGraph.NodeClosestTo(moveTarget - GlobalPosition);
+        currentNode = navGraph.NodeClosestTo(GlobalPosition);
     }
 
     private bool IsWithinRange(Vector3 moveTarget) =>
