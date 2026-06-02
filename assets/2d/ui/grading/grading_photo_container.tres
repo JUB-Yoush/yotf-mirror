@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://db5ksxcqe7mbp"]
+
+[ext_resource type="Texture2D" uid="uid://crmnj5wsfo6bm" path="res://assets/2d/grading_ui_spritesheet.png" id="1_5pmjj"]
+
+[resource]
+atlas = ExtResource("1_5pmjj")
+region = Rect2(1010, 9, 529, 529)
