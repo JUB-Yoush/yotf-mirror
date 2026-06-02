@@ -29,16 +29,19 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     [ExportCategory("FishProfile")]
     [Export]
-    public float MoveSpeed = 3f;
+    public float WanderSpeed = 3f;
 
     [Export]
-    public float RotationSpeed = 4f;
+    public float WanderRotationSpeed = 4f;
 
     [Export]
     public float WanderRadius = 6f;
 
     [Export]
     public float FleeSpeed = 7f;
+
+    [Export]
+    public float FleeRotationSpeed = 7f;
 
     [Export]
     public float FleeDistance = 12f;
@@ -52,6 +55,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public float ArrivalThreshold = 10f;
 
+    [Export]
+    public FishRoom? CurrentRoom { get; set; }
+
     [Export(PropertyHint.Range, "0,1")]
     public float NoiseTolerance = 0.4f;
 
@@ -60,8 +66,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     // null when no player is in range
     public Node3D? ThreatTarget { get; set; }
-
-    public FishRoom? CurrentRoom { get; set; }
 
     public required MeshInstance3D SubjectBoundingMesh
     {

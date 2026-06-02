@@ -14,9 +14,16 @@ public partial class Eel : Fish
     [Node]
     public required Area3D ZapArea { set; get; }
 
+    public float Period
+    {
+        private set { field = (float)Mathf.Wrap(value, 0, 2 * Math.PI); }
+        get;
+    }
+
     enum State
     {
         Wander,
+        ReturningToHome,
         Electric,
     }
 
@@ -29,15 +36,34 @@ public partial class Eel : Fish
     {
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Electric, ElectricUpdate, ElectricEnter, ElectricExit);
+        stateMachine.AddState(State.ReturningToHome, ReturningToHomeUpdate);
         stateMachine.State = State.Wander;
     }
 
     private void WanderEnter() { }
 
+    private void ReturningToHomeUpdate(float delta)
+    {
+        if (SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5))
+            stateMachine.State = State.Wander;
+    }
+
     private void WanderUpdate(float delta)
     {
-        //SmoothMoveTo(GlobalPosition + Vector3.Forward, 2, delta);
-        elecTimer -= delta;
+        Period += delta * WanderSpeed;
+        var target = new Vector3(
+            WanderRadius * MathF.Sin(Period),
+            WanderRadius * MathF.Sin(Period * NavRandomOffsetRange),
+            WanderRadius * MathF.Cos(Period)
+        );
+        target += CurrentRoom!.GlobalPosition;
+        SmoothMoveTo(target, WanderSpeed, delta);
+        // Velocity = new(
+        //     (float)-(WanderRadius * Math.Sin(Period)),
+        //     0,
+        //     (float)-(WanderRadius * -Math.Cos(Period))
+        // );
+        //elecTimer -= delta;
         if (elecTimer < 0)
         {
             stateMachine.State = State.Electric;
@@ -84,13 +110,12 @@ public partial class Eel : Fish
         target -= GlobalPosition;
         Vector3 dir = target.Normalized();
 
-        Velocity = MiscExt.V3Lerp(Velocity, target * speed, RotationSpeed * delta);
-        //Velocity = dir * speed;
+        Velocity = MiscExt.V3Lerp(Velocity, target * speed, WanderRotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
         {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, RotationSpeed * delta),
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
         };
 
         return target.LengthSquared() < arrivalThreshold;

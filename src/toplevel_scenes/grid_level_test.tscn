@@ -9,32 +9,33 @@
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="6_c5kmb"]
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_8f42e"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
+[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel.tscn" id="10_1oh74"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_41xod"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1oh74"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8f42e"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xvymr"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_41xod")
+noise = SubResource("FastNoiseLite_1oh74")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1oh74"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6b4fv"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_8f42e")
+refraction_texture = SubResource("NoiseTexture2D_xvymr")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_8f42e"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_1oh74"]
 
 [node name="GridLevelTest" type="Node3D" unique_id=880662218]
 
@@ -46,17 +47,17 @@ OxygenScale = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.535583, 2.7946196, 9.081696)
 visible = false
 size = Vector3(101.736694, 24.019043, 76.52399)
-material = SubResource("StandardMaterial3D_1oh74")
+material = SubResource("StandardMaterial3D_6b4fv")
 
 [node name="NavGraph" type="Node3D" parent="." unique_id=2122102306]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.901182, 8.722274, -6.887496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.635119, 8.722274, 19.499859)
 script = ExtResource("4_8hels")
 
 [node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=157917744]
 unique_name_in_owner = true
 material_override = ExtResource("5_41xod")
-mesh = SubResource("ImmediateMesh_8f42e")
+mesh = SubResource("ImmediateMesh_1oh74")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.304594, 2.717023, 9.393793)
@@ -65,7 +66,7 @@ Room = NodePath("../../Home")
 
 [node name="NavNode2" parent="NavGraph" unique_id=1486648164 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5949612, -0.0052928925, -4.250352)
-neighbors = [NodePath("../NavNode5"), NodePath("../NavNode6"), NodePath("../NavNode7")]
+neighbors = [NodePath("../NavNode5"), NodePath("../NavNode6"), NodePath("../NavNode7"), NodePath("../NavNode3")]
 Room = NodePath("../../Home")
 
 [node name="NavNode3" parent="NavGraph" unique_id=129942454 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
@@ -89,14 +90,18 @@ neighbors = [NodePath("../NavNode2"), NodePath("../NavNode3"), NodePath("../NavN
 Room = NodePath("../../Home")
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.017597, 14.585316, -11.035745)
+transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -22.096567, 4.8978634, 12.261809)
 
 [node name="FuncGodotMap" parent="." unique_id=787583751 instance=ExtResource("1_12fjb")]
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_8f42e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.687819, 6.272392, -4.523817)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.485096, 6.272392, 19.312614)
 
 [node name="Home" parent="." unique_id=1044421178 instance=ExtResource("8_41xod")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.176085, 8.241343, -4.523817)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.823633, 8.241343, 25.361473)
+
+[node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("10_1oh74")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.252299, 7.374778, 18.760485)
+CurrentRoom = NodePath("../Home")
 
 [editable path="Lab"]

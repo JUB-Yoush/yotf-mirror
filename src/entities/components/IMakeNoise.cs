@@ -18,7 +18,7 @@ public interface IMakeNoise
     {
         // play sound
         var streamPlayer = node.NoiseSource;
-        streamPlayer.Stream = SFXLoader.map[sfx];
+        streamPlayer.Stream = SFXLoader.Get(sfx);
         streamPlayer.Play();
 
         // check who heard it

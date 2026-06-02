@@ -150,12 +150,16 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         target -= GlobalPosition;
         Vector3 dir = target.Normalized();
 
-        Velocity = MiscExt.V3Lerp(Velocity, target.Normalized() * speed, RotationSpeed * delta);
+        Velocity = MiscExt.V3Lerp(
+            Velocity,
+            target.Normalized() * speed,
+            WanderRotationSpeed * delta
+        );
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
         {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, RotationSpeed * delta),
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
         };
 
         return target.LengthSquared() < arrivalThreshold;
@@ -196,7 +200,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderUpdate(float delta)
     {
-        if (SmoothMoveTo(CurrentNode!.GlobalPosition, MoveSpeed, ArrivalThreshold, delta))
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, ArrivalThreshold, delta))
         {
             CurrentNode = PickWanderTarget();
         }
@@ -261,7 +265,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         {
             atBubbleTarget = SmoothMoveTo(
                 currentTarget.GlobalPosition,
-                MoveSpeed,
+                WanderSpeed,
                 ArrivalThreshold / 2,
                 delta
             );
