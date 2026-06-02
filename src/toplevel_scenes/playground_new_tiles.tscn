@@ -127,7 +127,7 @@ mesh = SubResource("BoxMesh_ivpme")
 skeleton = NodePath("../../..")
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("7_juep3")]
-transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
+transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 49.498684, 9.487844, 49.19648)
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_2b3pd")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 40.363266, -2.6906512, 49.047516)
