@@ -4,6 +4,18 @@ using Godot;
 
 namespace Yotf;
 
+/*
+ * fish wander navigation.
+ * fish use this graph to traverse the level. fish are not always traveling based on this graph. only when they are wandering or pathfinding ig
+ * when a fish wants to wander:
+ * pick the nearest node to you, that is your current node
+ * travel towards your current node until you reach it
+ * pick one of it's neighbours that is within your travel range (2nd pass)
+   travel range is a stat per fish, the distance from it's current "room" + it's range
+    the closest room to a fish is it's wander room
+* travel to that neighbour
+*/
+
 [Tool]
 [GlobalClass]
 public partial class NavGraph : Node3D
@@ -48,8 +60,8 @@ public partial class NavGraph : Node3D
 
     public override void _Process(double delta)
     {
-        if (!Engine.IsEditorHint())
-            return;
+        // if (!Engine.IsEditorHint())
+        //     return;
         NavNodes = GetNavNodes();
 
         immMesh.ClearSurfaces();
@@ -95,11 +107,11 @@ public partial class NavGraph : Node3D
 
     public NavNode NodeClosestTo(Vector3 pos)
     {
-        // TODO(j) shoot a raycast to make sure it's not in a wall or somthn
-        (NavNode?, float) record = (null, 0);
+        // TODO(j) shoot a raycast to make sure it's not behind a wall or somthn
+        (NavNode?, float) record = (null, float.MaxValue);
         foreach (var node in GetNavNodes())
         {
-            if ((node.GlobalPosition - pos).LengthSquared() > record.Item2)
+            if ((node.GlobalPosition - pos).LengthSquared() <= record.Item2)
             {
                 record = (node, (node.GlobalPosition - pos).LengthSquared());
             }

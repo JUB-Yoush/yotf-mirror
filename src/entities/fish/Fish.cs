@@ -27,11 +27,33 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public PathFollow3D? SplineFollower;
 
-    // ====================== BEHAVIOUR ======================
-
-    [ExportCategory("Behaviour")]
+    [ExportCategory("FishProfile")]
     [Export]
-    public FishProfile Profile = null!;
+    public float MoveSpeed = 3f;
+
+    [Export]
+    public float RotationSpeed = 4f;
+
+    [Export]
+    public float WanderRadius = 6f;
+
+    [Export]
+    public float FleeSpeed = 7f;
+
+    [Export]
+    public float FleeDistance = 12f;
+
+    [Export]
+    public float FleeTimeout = 6f;
+
+    [Export]
+    public float NavRandomOffsetRange = 3f;
+
+    [Export]
+    public float ArrivalThreshold = 10f;
+
+    [Export(PropertyHint.Range, "0,1")]
+    public float NoiseTolerance = 0.4f;
 
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vector3 ThreatPosition { get; internal set; }

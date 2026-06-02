@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2reqj4umvjuo"
-path.s3tc="res://.godot/imported/CHESS.png-d517bd8bd8276b418e50eadc71253c61.s3tc.ctex"
+uid="uid://b7iwfntmbl0pc"
+path="res://.godot/imported/texture_01.png-4dbfe7e7470b380f529afaadee0bf922.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://trenchbroom/textures/CHESS.png"
-dest_files=["res://.godot/imported/CHESS.png-d517bd8bd8276b418e50eadc71253c61.s3tc.ctex"]
+source_file="res://trenchbroom/textures/texture_01.png"
+dest_files=["res://.godot/imported/texture_01.png-4dbfe7e7470b380f529afaadee0bf922.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

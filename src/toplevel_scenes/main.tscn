@@ -46,6 +46,1246 @@ point_count = 11
 
 [node name="PlaytestLevel" parent="." unique_id=1680750340 instance=ExtResource("1_kvr80")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 10.225479, -22.757317, 11.617744)
+visible = false
+
+[node name="entity_0_brush_0_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="1" unique_id=1317346070]
+disabled = true
+
+[node name="entity_0_brush_1_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="2" unique_id=2091764406]
+disabled = true
+
+[node name="entity_0_brush_2_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="3" unique_id=450550125]
+disabled = true
+
+[node name="entity_0_brush_3_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="4" unique_id=399357877]
+disabled = true
+
+[node name="entity_0_brush_4_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="5" unique_id=643188589]
+disabled = true
+
+[node name="entity_0_brush_5_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="6" unique_id=540565136]
+disabled = true
+
+[node name="entity_0_brush_6_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="7" unique_id=1625589443]
+disabled = true
+
+[node name="entity_0_brush_7_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="8" unique_id=9843995]
+disabled = true
+
+[node name="entity_0_brush_8_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="9" unique_id=1799614908]
+disabled = true
+
+[node name="entity_0_brush_9_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="10" unique_id=1932486363]
+disabled = true
+
+[node name="entity_0_brush_10_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="11" unique_id=2130440352]
+disabled = true
+
+[node name="entity_0_brush_11_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="12" unique_id=2108654287]
+disabled = true
+
+[node name="entity_0_brush_12_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="13" unique_id=813001815]
+disabled = true
+
+[node name="entity_0_brush_13_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="14" unique_id=1706958366]
+disabled = true
+
+[node name="entity_0_brush_14_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="15" unique_id=80410854]
+disabled = true
+
+[node name="entity_0_brush_15_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="16" unique_id=376592810]
+disabled = true
+
+[node name="entity_0_brush_16_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="17" unique_id=2116272611]
+disabled = true
+
+[node name="entity_0_brush_17_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="18" unique_id=938010849]
+disabled = true
+
+[node name="entity_0_brush_18_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="19" unique_id=246596695]
+disabled = true
+
+[node name="entity_0_brush_19_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="20" unique_id=1293333902]
+disabled = true
+
+[node name="entity_0_brush_20_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="21" unique_id=267513884]
+disabled = true
+
+[node name="entity_0_brush_21_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="22" unique_id=1042604587]
+disabled = true
+
+[node name="entity_0_brush_22_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="23" unique_id=548927650]
+disabled = true
+
+[node name="entity_0_brush_23_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="24" unique_id=1961302775]
+disabled = true
+
+[node name="entity_0_brush_24_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="25" unique_id=63229529]
+disabled = true
+
+[node name="entity_0_brush_25_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="26" unique_id=2004587894]
+disabled = true
+
+[node name="entity_0_brush_26_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="27" unique_id=1282859907]
+disabled = true
+
+[node name="entity_0_brush_27_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="28" unique_id=1191550988]
+disabled = true
+
+[node name="entity_0_brush_28_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="29" unique_id=106352839]
+disabled = true
+
+[node name="entity_0_brush_29_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="30" unique_id=439077593]
+disabled = true
+
+[node name="entity_0_brush_30_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="31" unique_id=166062104]
+disabled = true
+
+[node name="entity_0_brush_31_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="32" unique_id=1928908730]
+disabled = true
+
+[node name="entity_0_brush_32_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="33" unique_id=327383979]
+disabled = true
+
+[node name="entity_0_brush_33_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="34" unique_id=1651594933]
+disabled = true
+
+[node name="entity_0_brush_34_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="35" unique_id=1535967783]
+disabled = true
+
+[node name="entity_0_brush_35_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="36" unique_id=827835067]
+disabled = true
+
+[node name="entity_0_brush_36_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="37" unique_id=2009159695]
+disabled = true
+
+[node name="entity_0_brush_37_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="38" unique_id=340182126]
+disabled = true
+
+[node name="entity_0_brush_38_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="39" unique_id=1566104304]
+disabled = true
+
+[node name="entity_0_brush_39_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="40" unique_id=825362524]
+disabled = true
+
+[node name="entity_0_brush_40_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="41" unique_id=35152332]
+disabled = true
+
+[node name="entity_0_brush_41_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="42" unique_id=1417955900]
+disabled = true
+
+[node name="entity_0_brush_42_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="43" unique_id=1899697703]
+disabled = true
+
+[node name="entity_0_brush_43_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="44" unique_id=1675871614]
+disabled = true
+
+[node name="entity_0_brush_44_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="45" unique_id=1575835066]
+disabled = true
+
+[node name="entity_0_brush_45_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="46" unique_id=1357150754]
+disabled = true
+
+[node name="entity_0_brush_46_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="47" unique_id=1588937035]
+disabled = true
+
+[node name="entity_0_brush_47_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="48" unique_id=1281135453]
+disabled = true
+
+[node name="entity_0_brush_48_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="49" unique_id=581752444]
+disabled = true
+
+[node name="entity_0_brush_49_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="50" unique_id=1202079136]
+disabled = true
+
+[node name="entity_0_brush_50_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="51" unique_id=1934570710]
+disabled = true
+
+[node name="entity_0_brush_51_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="52" unique_id=1493960637]
+disabled = true
+
+[node name="entity_0_brush_52_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="53" unique_id=344592836]
+disabled = true
+
+[node name="entity_0_brush_53_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="54" unique_id=1716038333]
+disabled = true
+
+[node name="entity_0_brush_54_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="55" unique_id=254345951]
+disabled = true
+
+[node name="entity_0_brush_55_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="56" unique_id=1034145167]
+disabled = true
+
+[node name="entity_0_brush_56_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="57" unique_id=1059513829]
+disabled = true
+
+[node name="entity_0_brush_57_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="58" unique_id=247696420]
+disabled = true
+
+[node name="entity_0_brush_58_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="59" unique_id=1621214291]
+disabled = true
+
+[node name="entity_0_brush_59_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="60" unique_id=1122915402]
+disabled = true
+
+[node name="entity_0_brush_60_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="61" unique_id=1416469201]
+disabled = true
+
+[node name="entity_0_brush_61_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="62" unique_id=1688396920]
+disabled = true
+
+[node name="entity_0_brush_62_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="63" unique_id=1094566948]
+disabled = true
+
+[node name="entity_0_brush_63_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="64" unique_id=647164088]
+disabled = true
+
+[node name="entity_0_brush_64_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="65" unique_id=2146217844]
+disabled = true
+
+[node name="entity_0_brush_65_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="66" unique_id=1984402959]
+disabled = true
+
+[node name="entity_0_brush_66_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="67" unique_id=2007531808]
+disabled = true
+
+[node name="entity_0_brush_67_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="68" unique_id=344800644]
+disabled = true
+
+[node name="entity_0_brush_68_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="69" unique_id=2105479231]
+disabled = true
+
+[node name="entity_0_brush_69_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="70" unique_id=132441440]
+disabled = true
+
+[node name="entity_0_brush_70_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="71" unique_id=115640606]
+disabled = true
+
+[node name="entity_0_brush_71_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="72" unique_id=1890000676]
+disabled = true
+
+[node name="entity_0_brush_72_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="73" unique_id=1378009826]
+disabled = true
+
+[node name="entity_0_brush_73_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="74" unique_id=1872260684]
+disabled = true
+
+[node name="entity_0_brush_74_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="75" unique_id=340752866]
+disabled = true
+
+[node name="entity_0_brush_75_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="76" unique_id=236388219]
+disabled = true
+
+[node name="entity_0_brush_76_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="77" unique_id=415169081]
+disabled = true
+
+[node name="entity_0_brush_77_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="78" unique_id=1865837181]
+disabled = true
+
+[node name="entity_0_brush_78_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="79" unique_id=237631221]
+disabled = true
+
+[node name="entity_0_brush_79_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="80" unique_id=1751650910]
+disabled = true
+
+[node name="entity_0_brush_80_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="81" unique_id=1755038890]
+disabled = true
+
+[node name="entity_0_brush_81_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="82" unique_id=172003395]
+disabled = true
+
+[node name="entity_0_brush_82_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="83" unique_id=289914656]
+disabled = true
+
+[node name="entity_0_brush_83_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="84" unique_id=1719565861]
+disabled = true
+
+[node name="entity_0_brush_84_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="85" unique_id=384970476]
+disabled = true
+
+[node name="entity_0_brush_85_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="86" unique_id=2020186917]
+disabled = true
+
+[node name="entity_0_brush_86_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="87" unique_id=92887636]
+disabled = true
+
+[node name="entity_0_brush_87_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="88" unique_id=1800429525]
+disabled = true
+
+[node name="entity_0_brush_88_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="89" unique_id=1486746477]
+disabled = true
+
+[node name="entity_0_brush_89_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="90" unique_id=783655542]
+disabled = true
+
+[node name="entity_0_brush_90_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="91" unique_id=1208583802]
+disabled = true
+
+[node name="entity_0_brush_91_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="92" unique_id=172116963]
+disabled = true
+
+[node name="entity_0_brush_92_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="93" unique_id=1703892215]
+disabled = true
+
+[node name="entity_0_brush_93_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="94" unique_id=443090477]
+disabled = true
+
+[node name="entity_0_brush_94_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="95" unique_id=170815902]
+disabled = true
+
+[node name="entity_0_brush_95_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="96" unique_id=675855208]
+disabled = true
+
+[node name="entity_0_brush_96_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="97" unique_id=1835891158]
+disabled = true
+
+[node name="entity_0_brush_97_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="98" unique_id=810960554]
+disabled = true
+
+[node name="entity_0_brush_98_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="99" unique_id=1772626546]
+disabled = true
+
+[node name="entity_0_brush_99_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="100" unique_id=1704008889]
+disabled = true
+
+[node name="entity_0_brush_100_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="101" unique_id=1833012495]
+disabled = true
+
+[node name="entity_0_brush_101_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="102" unique_id=928956725]
+disabled = true
+
+[node name="entity_0_brush_102_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="103" unique_id=553712941]
+disabled = true
+
+[node name="entity_0_brush_103_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="104" unique_id=428681182]
+disabled = true
+
+[node name="entity_0_brush_104_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="105" unique_id=2091832341]
+disabled = true
+
+[node name="entity_0_brush_105_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="106" unique_id=1624166064]
+disabled = true
+
+[node name="entity_0_brush_106_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="107" unique_id=1917496108]
+disabled = true
+
+[node name="entity_0_brush_107_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="108" unique_id=257858337]
+disabled = true
+
+[node name="entity_0_brush_108_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="109" unique_id=418351762]
+disabled = true
+
+[node name="entity_0_brush_109_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="110" unique_id=1988645743]
+disabled = true
+
+[node name="entity_0_brush_110_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="111" unique_id=1610871960]
+disabled = true
+
+[node name="entity_0_brush_111_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="112" unique_id=1279168397]
+disabled = true
+
+[node name="entity_0_brush_112_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="113" unique_id=241779312]
+disabled = true
+
+[node name="entity_0_brush_113_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="114" unique_id=1171604092]
+disabled = true
+
+[node name="entity_0_brush_114_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="115" unique_id=1733401543]
+disabled = true
+
+[node name="entity_0_brush_115_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="116" unique_id=1297537886]
+disabled = true
+
+[node name="entity_0_brush_116_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="117" unique_id=563593867]
+disabled = true
+
+[node name="entity_0_brush_117_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="118" unique_id=765948492]
+disabled = true
+
+[node name="entity_0_brush_118_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="119" unique_id=1569639220]
+disabled = true
+
+[node name="entity_0_brush_119_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="120" unique_id=1894905464]
+disabled = true
+
+[node name="entity_0_brush_120_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="121" unique_id=1040378288]
+disabled = true
+
+[node name="entity_0_brush_121_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="122" unique_id=1549659291]
+disabled = true
+
+[node name="entity_0_brush_122_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="123" unique_id=138624199]
+disabled = true
+
+[node name="entity_0_brush_123_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="124" unique_id=2054593617]
+disabled = true
+
+[node name="entity_0_brush_124_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="125" unique_id=556864660]
+disabled = true
+
+[node name="entity_0_brush_125_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="126" unique_id=1817564399]
+disabled = true
+
+[node name="entity_0_brush_126_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="127" unique_id=2140936348]
+disabled = true
+
+[node name="entity_0_brush_127_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="128" unique_id=1989469839]
+disabled = true
+
+[node name="entity_0_brush_128_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="129" unique_id=2046203416]
+disabled = true
+
+[node name="entity_0_brush_129_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="130" unique_id=348454604]
+disabled = true
+
+[node name="entity_0_brush_130_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="131" unique_id=425991902]
+disabled = true
+
+[node name="entity_0_brush_131_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="132" unique_id=2059390614]
+disabled = true
+
+[node name="entity_0_brush_132_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="133" unique_id=1809722349]
+disabled = true
+
+[node name="entity_0_brush_133_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="134" unique_id=1576420682]
+disabled = true
+
+[node name="entity_0_brush_134_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="135" unique_id=346468240]
+disabled = true
+
+[node name="entity_0_brush_135_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="136" unique_id=1757429202]
+disabled = true
+
+[node name="entity_0_brush_136_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="137" unique_id=1925802795]
+disabled = true
+
+[node name="entity_0_brush_137_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="138" unique_id=2094859705]
+disabled = true
+
+[node name="entity_0_brush_138_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="139" unique_id=1394866285]
+disabled = true
+
+[node name="entity_0_brush_139_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="140" unique_id=577593763]
+disabled = true
+
+[node name="entity_0_brush_140_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="141" unique_id=992546953]
+disabled = true
+
+[node name="entity_0_brush_141_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="142" unique_id=482421413]
+disabled = true
+
+[node name="entity_0_brush_142_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="143" unique_id=994566228]
+disabled = true
+
+[node name="entity_0_brush_143_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="144" unique_id=1683187936]
+disabled = true
+
+[node name="entity_0_brush_144_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="145" unique_id=431831312]
+disabled = true
+
+[node name="entity_0_brush_145_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="146" unique_id=995072458]
+disabled = true
+
+[node name="entity_0_brush_146_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="147" unique_id=2078878124]
+disabled = true
+
+[node name="entity_0_brush_147_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="148" unique_id=136388828]
+disabled = true
+
+[node name="entity_0_brush_148_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="149" unique_id=980534101]
+disabled = true
+
+[node name="entity_0_brush_149_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="150" unique_id=1525600836]
+disabled = true
+
+[node name="entity_0_brush_150_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="151" unique_id=1687709278]
+disabled = true
+
+[node name="entity_0_brush_151_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="152" unique_id=2144937948]
+disabled = true
+
+[node name="entity_0_brush_152_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="153" unique_id=550297701]
+disabled = true
+
+[node name="entity_0_brush_153_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="154" unique_id=2023495969]
+disabled = true
+
+[node name="entity_0_brush_154_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="155" unique_id=1740678621]
+disabled = true
+
+[node name="entity_0_brush_155_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="156" unique_id=621709131]
+disabled = true
+
+[node name="entity_0_brush_156_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="157" unique_id=1806560332]
+disabled = true
+
+[node name="entity_0_brush_157_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="158" unique_id=865559300]
+disabled = true
+
+[node name="entity_0_brush_158_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="159" unique_id=1076967984]
+disabled = true
+
+[node name="entity_0_brush_159_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="160" unique_id=163830633]
+disabled = true
+
+[node name="entity_0_brush_160_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="161" unique_id=1833122434]
+disabled = true
+
+[node name="entity_0_brush_161_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="162" unique_id=941677371]
+disabled = true
+
+[node name="entity_0_brush_162_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="163" unique_id=574166696]
+disabled = true
+
+[node name="entity_0_brush_163_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="164" unique_id=1925483604]
+disabled = true
+
+[node name="entity_0_brush_164_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="165" unique_id=383697410]
+disabled = true
+
+[node name="entity_0_brush_165_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="166" unique_id=2134759783]
+disabled = true
+
+[node name="entity_0_brush_166_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="167" unique_id=1513265343]
+disabled = true
+
+[node name="entity_0_brush_167_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="168" unique_id=989934061]
+disabled = true
+
+[node name="entity_0_brush_168_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="169" unique_id=1841543590]
+disabled = true
+
+[node name="entity_0_brush_169_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="170" unique_id=1698657323]
+disabled = true
+
+[node name="entity_0_brush_170_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="171" unique_id=1656483926]
+disabled = true
+
+[node name="entity_0_brush_171_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="172" unique_id=228416087]
+disabled = true
+
+[node name="entity_0_brush_172_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="173" unique_id=1205920217]
+disabled = true
+
+[node name="entity_0_brush_173_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="174" unique_id=1411582060]
+disabled = true
+
+[node name="entity_0_brush_174_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="175" unique_id=551939401]
+disabled = true
+
+[node name="entity_0_brush_175_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="176" unique_id=1477348137]
+disabled = true
+
+[node name="entity_0_brush_176_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="177" unique_id=1620850238]
+disabled = true
+
+[node name="entity_0_brush_177_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="178" unique_id=666487992]
+disabled = true
+
+[node name="entity_0_brush_178_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="179" unique_id=385698699]
+disabled = true
+
+[node name="entity_0_brush_179_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="180" unique_id=1078436216]
+disabled = true
+
+[node name="entity_0_brush_180_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="181" unique_id=963352343]
+disabled = true
+
+[node name="entity_0_brush_181_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="182" unique_id=1576701511]
+disabled = true
+
+[node name="entity_0_brush_182_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="183" unique_id=1226185538]
+disabled = true
+
+[node name="entity_0_brush_183_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="184" unique_id=2070055357]
+disabled = true
+
+[node name="entity_0_brush_184_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="185" unique_id=1668485643]
+disabled = true
+
+[node name="entity_0_brush_185_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="186" unique_id=654476574]
+disabled = true
+
+[node name="entity_0_brush_186_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="187" unique_id=1091019174]
+disabled = true
+
+[node name="entity_0_brush_187_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="188" unique_id=727642043]
+disabled = true
+
+[node name="entity_0_brush_188_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="189" unique_id=436174358]
+disabled = true
+
+[node name="entity_0_brush_189_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="190" unique_id=524165193]
+disabled = true
+
+[node name="entity_0_brush_190_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="191" unique_id=1543108265]
+disabled = true
+
+[node name="entity_0_brush_191_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="192" unique_id=1539397471]
+disabled = true
+
+[node name="entity_0_brush_192_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="193" unique_id=1334543441]
+disabled = true
+
+[node name="entity_0_brush_193_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="194" unique_id=929716627]
+disabled = true
+
+[node name="entity_0_brush_194_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="195" unique_id=1312814879]
+disabled = true
+
+[node name="entity_0_brush_195_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="196" unique_id=1478492433]
+disabled = true
+
+[node name="entity_0_brush_196_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="197" unique_id=137511708]
+disabled = true
+
+[node name="entity_0_brush_197_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="198" unique_id=917180134]
+disabled = true
+
+[node name="entity_0_brush_198_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="199" unique_id=1148372072]
+disabled = true
+
+[node name="entity_0_brush_199_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="200" unique_id=1647723744]
+disabled = true
+
+[node name="entity_0_brush_200_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="201" unique_id=732352598]
+disabled = true
+
+[node name="entity_0_brush_201_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="202" unique_id=291821569]
+disabled = true
+
+[node name="entity_0_brush_202_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="203" unique_id=1549109915]
+disabled = true
+
+[node name="entity_0_brush_203_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="204" unique_id=486148654]
+disabled = true
+
+[node name="entity_0_brush_204_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="205" unique_id=2069312798]
+disabled = true
+
+[node name="entity_0_brush_205_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="206" unique_id=792889087]
+disabled = true
+
+[node name="entity_0_brush_206_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="207" unique_id=557500273]
+disabled = true
+
+[node name="entity_0_brush_207_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="208" unique_id=803721842]
+disabled = true
+
+[node name="entity_0_brush_208_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="209" unique_id=1605664607]
+disabled = true
+
+[node name="entity_0_brush_209_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="210" unique_id=1908038413]
+disabled = true
+
+[node name="entity_0_brush_210_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="211" unique_id=284298037]
+disabled = true
+
+[node name="entity_0_brush_211_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="212" unique_id=716078101]
+disabled = true
+
+[node name="entity_0_brush_212_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="213" unique_id=925989523]
+disabled = true
+
+[node name="entity_0_brush_213_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="214" unique_id=250806005]
+disabled = true
+
+[node name="entity_0_brush_214_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="215" unique_id=250629074]
+disabled = true
+
+[node name="entity_0_brush_215_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="216" unique_id=1043883803]
+disabled = true
+
+[node name="entity_0_brush_216_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="217" unique_id=1739942252]
+disabled = true
+
+[node name="entity_0_brush_217_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="218" unique_id=2105070702]
+disabled = true
+
+[node name="entity_0_brush_218_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="219" unique_id=1682703490]
+disabled = true
+
+[node name="entity_0_brush_219_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="220" unique_id=189788905]
+disabled = true
+
+[node name="entity_0_brush_220_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="221" unique_id=27459382]
+disabled = true
+
+[node name="entity_0_brush_221_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="222" unique_id=399599344]
+disabled = true
+
+[node name="entity_0_brush_222_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="223" unique_id=1641190532]
+disabled = true
+
+[node name="entity_0_brush_223_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="224" unique_id=1906483057]
+disabled = true
+
+[node name="entity_0_brush_224_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="225" unique_id=1069902980]
+disabled = true
+
+[node name="entity_0_brush_225_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="226" unique_id=1810957456]
+disabled = true
+
+[node name="entity_0_brush_226_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="227" unique_id=470348767]
+disabled = true
+
+[node name="entity_0_brush_227_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="228" unique_id=1957890731]
+disabled = true
+
+[node name="entity_0_brush_228_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="229" unique_id=155028062]
+disabled = true
+
+[node name="entity_0_brush_229_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="230" unique_id=1518361781]
+disabled = true
+
+[node name="entity_0_brush_230_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="231" unique_id=816029490]
+disabled = true
+
+[node name="entity_0_brush_231_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="232" unique_id=3016790]
+disabled = true
+
+[node name="entity_0_brush_232_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="233" unique_id=1019343960]
+disabled = true
+
+[node name="entity_0_brush_233_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="234" unique_id=1879396463]
+disabled = true
+
+[node name="entity_0_brush_234_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="235" unique_id=393646229]
+disabled = true
+
+[node name="entity_0_brush_235_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="236" unique_id=282541950]
+disabled = true
+
+[node name="entity_0_brush_236_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="237" unique_id=304034935]
+disabled = true
+
+[node name="entity_0_brush_237_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="238" unique_id=1680494576]
+disabled = true
+
+[node name="entity_0_brush_238_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="239" unique_id=798357822]
+disabled = true
+
+[node name="entity_0_brush_239_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="240" unique_id=1094984469]
+disabled = true
+
+[node name="entity_0_brush_240_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="241" unique_id=201695493]
+disabled = true
+
+[node name="entity_0_brush_241_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="242" unique_id=1255596505]
+disabled = true
+
+[node name="entity_0_brush_242_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="243" unique_id=1668805354]
+disabled = true
+
+[node name="entity_0_brush_243_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="244" unique_id=1048613396]
+disabled = true
+
+[node name="entity_0_brush_244_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="245" unique_id=606733229]
+disabled = true
+
+[node name="entity_0_brush_245_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="246" unique_id=1069024031]
+disabled = true
+
+[node name="entity_0_brush_246_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="247" unique_id=1955655682]
+disabled = true
+
+[node name="entity_0_brush_247_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="248" unique_id=1566162964]
+disabled = true
+
+[node name="entity_0_brush_248_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="249" unique_id=113963606]
+disabled = true
+
+[node name="entity_0_brush_249_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="250" unique_id=1383799699]
+disabled = true
+
+[node name="entity_0_brush_250_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="251" unique_id=170288973]
+disabled = true
+
+[node name="entity_0_brush_251_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="252" unique_id=1622287297]
+disabled = true
+
+[node name="entity_0_brush_252_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="253" unique_id=530538213]
+disabled = true
+
+[node name="entity_0_brush_253_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="254" unique_id=1272504313]
+disabled = true
+
+[node name="entity_0_brush_254_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="255" unique_id=1091189441]
+disabled = true
+
+[node name="entity_0_brush_255_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="256" unique_id=1142461498]
+disabled = true
+
+[node name="entity_0_brush_256_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="257" unique_id=1309448913]
+disabled = true
+
+[node name="entity_0_brush_257_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="258" unique_id=999205868]
+disabled = true
+
+[node name="entity_0_brush_258_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="259" unique_id=2110535433]
+disabled = true
+
+[node name="entity_0_brush_259_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="260" unique_id=931157266]
+disabled = true
+
+[node name="entity_0_brush_260_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="261" unique_id=1648670379]
+disabled = true
+
+[node name="entity_0_brush_261_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="262" unique_id=1035330931]
+disabled = true
+
+[node name="entity_0_brush_262_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="263" unique_id=1120160763]
+disabled = true
+
+[node name="entity_0_brush_263_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="264" unique_id=1029886335]
+disabled = true
+
+[node name="entity_0_brush_264_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="265" unique_id=2089254967]
+disabled = true
+
+[node name="entity_0_brush_265_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="266" unique_id=1119826994]
+disabled = true
+
+[node name="entity_0_brush_266_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="267" unique_id=662703917]
+disabled = true
+
+[node name="entity_0_brush_267_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="268" unique_id=909385705]
+disabled = true
+
+[node name="entity_0_brush_268_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="269" unique_id=1677176154]
+disabled = true
+
+[node name="entity_0_brush_269_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="270" unique_id=811119263]
+disabled = true
+
+[node name="entity_0_brush_270_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="271" unique_id=509360451]
+disabled = true
+
+[node name="entity_0_brush_271_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="272" unique_id=1252225973]
+disabled = true
+
+[node name="entity_0_brush_272_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="273" unique_id=121972950]
+disabled = true
+
+[node name="entity_0_brush_273_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="274" unique_id=110601811]
+disabled = true
+
+[node name="entity_0_brush_274_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="275" unique_id=2091362273]
+disabled = true
+
+[node name="entity_0_brush_275_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="276" unique_id=157639674]
+disabled = true
+
+[node name="entity_0_brush_276_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="277" unique_id=269090707]
+disabled = true
+
+[node name="entity_0_brush_277_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="278" unique_id=1433494367]
+disabled = true
+
+[node name="entity_0_brush_278_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="279" unique_id=1445167356]
+disabled = true
+
+[node name="entity_0_brush_279_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="280" unique_id=109154575]
+disabled = true
+
+[node name="entity_0_brush_280_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="281" unique_id=527809255]
+disabled = true
+
+[node name="entity_0_brush_281_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="282" unique_id=1180952801]
+disabled = true
+
+[node name="entity_0_brush_282_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="283" unique_id=199659785]
+disabled = true
+
+[node name="entity_0_brush_283_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="284" unique_id=29254003]
+disabled = true
+
+[node name="entity_0_brush_284_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="285" unique_id=326562407]
+disabled = true
+
+[node name="entity_0_brush_285_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="286" unique_id=2028463227]
+disabled = true
+
+[node name="entity_0_brush_286_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="287" unique_id=1173362674]
+disabled = true
+
+[node name="entity_0_brush_287_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="288" unique_id=1415029010]
+disabled = true
+
+[node name="entity_0_brush_288_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="289" unique_id=1783318153]
+disabled = true
+
+[node name="entity_0_brush_289_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="290" unique_id=516887445]
+disabled = true
+
+[node name="entity_0_brush_290_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="291" unique_id=1785784565]
+disabled = true
+
+[node name="entity_0_brush_291_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="292" unique_id=1244284598]
+disabled = true
+
+[node name="entity_0_brush_292_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="293" unique_id=726473564]
+disabled = true
+
+[node name="entity_0_brush_293_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="294" unique_id=1444184143]
+disabled = true
+
+[node name="entity_0_brush_294_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="295" unique_id=30191024]
+disabled = true
+
+[node name="entity_0_brush_295_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="296" unique_id=1572561811]
+disabled = true
+
+[node name="entity_0_brush_296_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="297" unique_id=1190369656]
+disabled = true
+
+[node name="entity_0_brush_297_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="298" unique_id=2064855621]
+disabled = true
+
+[node name="entity_0_brush_298_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="299" unique_id=52723811]
+disabled = true
+
+[node name="entity_0_brush_299_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="300" unique_id=2053589261]
+disabled = true
+
+[node name="entity_0_brush_300_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="301" unique_id=1646286334]
+disabled = true
+
+[node name="entity_0_brush_301_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="302" unique_id=747516402]
+disabled = true
+
+[node name="entity_0_brush_302_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="303" unique_id=857343049]
+disabled = true
+
+[node name="entity_0_brush_303_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="304" unique_id=1619549776]
+disabled = true
+
+[node name="entity_0_brush_304_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="305" unique_id=466610570]
+disabled = true
+
+[node name="entity_0_brush_305_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="306" unique_id=1126693134]
+disabled = true
+
+[node name="entity_0_brush_306_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="307" unique_id=392031106]
+disabled = true
+
+[node name="entity_0_brush_307_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="308" unique_id=133882280]
+disabled = true
+
+[node name="entity_0_brush_308_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="309" unique_id=629222561]
+disabled = true
+
+[node name="entity_0_brush_309_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="310" unique_id=1884123590]
+disabled = true
+
+[node name="entity_0_brush_310_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="311" unique_id=651950855]
+disabled = true
+
+[node name="entity_0_brush_311_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="312" unique_id=537365118]
+disabled = true
+
+[node name="entity_0_brush_312_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="313" unique_id=1457175842]
+disabled = true
+
+[node name="entity_0_brush_313_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="314" unique_id=1827669944]
+disabled = true
+
+[node name="entity_0_brush_314_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="315" unique_id=1326609480]
+disabled = true
+
+[node name="entity_0_brush_315_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="316" unique_id=696708758]
+disabled = true
+
+[node name="entity_0_brush_316_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="317" unique_id=2068391138]
+disabled = true
+
+[node name="entity_0_brush_317_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="318" unique_id=1357787878]
+disabled = true
+
+[node name="entity_0_brush_318_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="319" unique_id=1326927807]
+disabled = true
+
+[node name="entity_0_brush_319_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="320" unique_id=221912123]
+disabled = true
+
+[node name="entity_0_brush_320_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="321" unique_id=609446346]
+disabled = true
+
+[node name="entity_0_brush_321_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="322" unique_id=175640212]
+disabled = true
+
+[node name="entity_0_brush_322_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="323" unique_id=382390668]
+disabled = true
+
+[node name="entity_0_brush_323_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="324" unique_id=185915587]
+disabled = true
+
+[node name="entity_0_brush_324_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="325" unique_id=2133393481]
+disabled = true
+
+[node name="entity_0_brush_325_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="326" unique_id=722138316]
+disabled = true
+
+[node name="entity_0_brush_326_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="327" unique_id=1464616899]
+disabled = true
+
+[node name="entity_0_brush_327_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="328" unique_id=695396952]
+disabled = true
+
+[node name="entity_0_brush_328_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="329" unique_id=2101080838]
+disabled = true
+
+[node name="entity_0_brush_329_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="330" unique_id=936399997]
+disabled = true
+
+[node name="entity_0_brush_330_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="331" unique_id=617117600]
+disabled = true
+
+[node name="entity_0_brush_331_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="332" unique_id=1684994470]
+disabled = true
+
+[node name="entity_0_brush_332_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="333" unique_id=94403327]
+disabled = true
+
+[node name="entity_0_brush_333_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="334" unique_id=475048022]
+disabled = true
+
+[node name="entity_0_brush_334_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="335" unique_id=1316648896]
+disabled = true
+
+[node name="entity_0_brush_335_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="336" unique_id=562858585]
+disabled = true
+
+[node name="entity_0_brush_336_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="337" unique_id=8723856]
+disabled = true
+
+[node name="entity_0_brush_337_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="338" unique_id=1995334508]
+disabled = true
+
+[node name="entity_0_brush_338_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="339" unique_id=1538619848]
+disabled = true
+
+[node name="entity_0_brush_339_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="340" unique_id=808647811]
+disabled = true
+
+[node name="entity_0_brush_340_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="341" unique_id=454440833]
+disabled = true
+
+[node name="entity_0_brush_341_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="342" unique_id=1299766621]
+disabled = true
+
+[node name="entity_0_brush_342_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="343" unique_id=1307336922]
+disabled = true
+
+[node name="entity_0_brush_343_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="344" unique_id=834984424]
+disabled = true
+
+[node name="entity_0_brush_344_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="345" unique_id=866514158]
+disabled = true
+
+[node name="entity_0_brush_345_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="346" unique_id=1958410537]
+disabled = true
+
+[node name="entity_0_brush_346_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="347" unique_id=1691310356]
+disabled = true
+
+[node name="entity_0_brush_347_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="348" unique_id=1298481565]
+disabled = true
+
+[node name="entity_0_brush_348_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="349" unique_id=1236196665]
+disabled = true
+
+[node name="entity_0_brush_349_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="350" unique_id=440106603]
+disabled = true
+
+[node name="entity_0_brush_350_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="351" unique_id=863510119]
+disabled = true
+
+[node name="entity_0_brush_351_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="352" unique_id=613361448]
+disabled = true
+
+[node name="entity_0_brush_352_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="353" unique_id=1779649956]
+disabled = true
+
+[node name="entity_0_brush_353_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="354" unique_id=1481331821]
+disabled = true
+
+[node name="entity_0_brush_354_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="355" unique_id=1186227006]
+disabled = true
+
+[node name="entity_0_brush_355_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="356" unique_id=1908359233]
+disabled = true
+
+[node name="entity_0_brush_356_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="357" unique_id=18282309]
+disabled = true
+
+[node name="entity_0_brush_357_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="358" unique_id=1419266969]
+disabled = true
+
+[node name="entity_0_brush_358_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="359" unique_id=873638150]
+disabled = true
+
+[node name="entity_0_brush_359_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="360" unique_id=1237001109]
+disabled = true
+
+[node name="entity_0_brush_360_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="361" unique_id=211259787]
+disabled = true
+
+[node name="entity_0_brush_361_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="362" unique_id=748722511]
+disabled = true
+
+[node name="entity_0_brush_362_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="363" unique_id=279722465]
+disabled = true
+
+[node name="entity_0_brush_363_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="364" unique_id=2004509820]
+disabled = true
+
+[node name="entity_0_brush_364_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="365" unique_id=1084049794]
+disabled = true
+
+[node name="entity_0_brush_365_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="366" unique_id=603524827]
+disabled = true
+
+[node name="entity_0_brush_366_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="367" unique_id=1931971730]
+disabled = true
+
+[node name="entity_0_brush_367_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="368" unique_id=783798979]
+disabled = true
+
+[node name="entity_0_brush_368_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="369" unique_id=267962273]
+disabled = true
+
+[node name="entity_0_brush_369_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="370" unique_id=1191107303]
+disabled = true
+
+[node name="entity_0_brush_370_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="371" unique_id=928163857]
+disabled = true
+
+[node name="entity_0_brush_371_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="372" unique_id=835933502]
+disabled = true
+
+[node name="entity_0_brush_372_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="373" unique_id=1023912997]
+disabled = true
+
+[node name="entity_0_brush_373_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="374" unique_id=1511396790]
+disabled = true
+
+[node name="entity_0_brush_374_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="375" unique_id=1269598458]
+disabled = true
+
+[node name="entity_0_brush_375_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="376" unique_id=494354289]
+disabled = true
+
+[node name="entity_0_brush_376_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="377" unique_id=246639664]
+disabled = true
+
+[node name="entity_0_brush_377_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="378" unique_id=1930302386]
+disabled = true
+
+[node name="entity_0_brush_378_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="379" unique_id=2053401822]
+disabled = true
+
+[node name="entity_0_brush_379_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="380" unique_id=741101222]
+disabled = true
+
+[node name="entity_0_brush_380_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="381" unique_id=1045011917]
+disabled = true
+
+[node name="entity_0_brush_381_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="382" unique_id=1976960425]
+disabled = true
+
+[node name="entity_0_brush_382_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="383" unique_id=1166929505]
+disabled = true
+
+[node name="entity_0_brush_383_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="384" unique_id=1257250181]
+disabled = true
+
+[node name="entity_0_brush_384_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="385" unique_id=156563583]
+disabled = true
+
+[node name="entity_0_brush_385_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="386" unique_id=48999686]
+disabled = true
+
+[node name="entity_0_brush_386_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="387" unique_id=982971015]
+disabled = true
+
+[node name="entity_0_brush_387_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="388" unique_id=1058260776]
+disabled = true
+
+[node name="entity_0_brush_388_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="389" unique_id=436601408]
+disabled = true
+
+[node name="entity_0_brush_389_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="390" unique_id=43922390]
+disabled = true
+
+[node name="entity_0_brush_390_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="391" unique_id=1786738756]
+disabled = true
+
+[node name="entity_0_brush_391_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="392" unique_id=1077439095]
+disabled = true
+
+[node name="entity_0_brush_392_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="393" unique_id=68349915]
+disabled = true
+
+[node name="entity_0_brush_393_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="394" unique_id=1614478419]
+disabled = true
+
+[node name="entity_0_brush_394_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="395" unique_id=625937832]
+disabled = true
+
+[node name="entity_0_brush_395_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="396" unique_id=1423262375]
+disabled = true
+
+[node name="entity_0_brush_396_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="397" unique_id=251939512]
+disabled = true
+
+[node name="entity_0_brush_397_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="398" unique_id=1866916789]
+disabled = true
+
+[node name="entity_0_brush_398_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="399" unique_id=1335741221]
+disabled = true
+
+[node name="entity_0_brush_399_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="400" unique_id=1857751271]
+disabled = true
+
+[node name="entity_0_brush_400_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="401" unique_id=1408615595]
+disabled = true
+
+[node name="entity_0_brush_401_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="402" unique_id=569540546]
+disabled = true
+
+[node name="entity_0_brush_402_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="403" unique_id=746176239]
+disabled = true
+
+[node name="entity_0_brush_403_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="404" unique_id=1993208487]
+disabled = true
+
+[node name="entity_0_brush_404_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="405" unique_id=1477678973]
+disabled = true
+
+[node name="entity_0_brush_405_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="406" unique_id=727148242]
+disabled = true
+
+[node name="entity_0_brush_406_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="407" unique_id=1941079295]
+disabled = true
+
+[node name="entity_0_brush_407_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="408" unique_id=2062370284]
+disabled = true
+
+[node name="entity_0_brush_408_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="409" unique_id=938310599]
+disabled = true
+
+[node name="entity_0_brush_409_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="410" unique_id=987397258]
+disabled = true
+
+[node name="entity_0_brush_410_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="411" unique_id=332436750]
+disabled = true
+
+[node name="entity_0_brush_411_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="412" unique_id=1235763563]
+disabled = true
+
+[node name="entity_0_brush_412_collision_shape" parent="PlaytestLevel/FuncGodotMap/entity_0_worldspawn" parent_id_path=PackedInt32Array(1680750340, 375724197) index="413" unique_id=610466624]
+disabled = true
 
 [node name="Lab2" parent="." unique_id=462287885 instance=ExtResource("2_swlc7")]
 transform = Transform3D(0.1433543, -0.00027522072, -0.98967147, 0.0019198615, 0.99999815, 5.1197407e-11, 0.98966956, -0.0019000325, 0.1433545, -37.011917, -6.815387, -14.412923)
@@ -140,8 +1380,7 @@ spot_range = 13.173713
 spot_angle = 30.828348
 
 [node name="Home" parent="." unique_id=1044421178 instance=ExtResource("9_i3xn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.81733, -1.5807338, 48.93997)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.32608, 2.5154004, 45.023403)
 
 [node name="NavGraph" type="Node3D" parent="." unique_id=652533430]
 unique_name_in_owner = true
@@ -180,3 +1419,5 @@ neighbors = [NodePath("../NavNode5")]
 unique_name_in_owner = true
 material_override = ExtResource("9_fleds")
 mesh = SubResource("ImmediateMesh_fleds")
+
+[editable path="PlaytestLevel"]

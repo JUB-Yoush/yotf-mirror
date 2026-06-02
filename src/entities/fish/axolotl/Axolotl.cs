@@ -40,8 +40,18 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     float wanderTimer = 0f;
     float maxWanderTime = 10f;
     Vector3 wanderTarget = Vector3.Zero;
-    NavNode? targetNode = null;
-    NavNode? currentNode = null;
+    NavNode? CurrentNode
+    {
+        set
+        {
+            field = value;
+            if (field != null)
+            {
+                NavBox.GlobalPosition = field!.GlobalPosition;
+            }
+        }
+        get;
+    } = null;
     NavGraph navGraph = null!;
 
     // chasing
@@ -88,7 +98,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         CurrentRoom = AssignCurrentRoom();
-        Log.PrintLn($"current room{CurrentRoom}");
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Chase, ChaseUpdate);
@@ -129,25 +138,20 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         }
     }
 
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
+    internal bool SmoothMoveTo(Vector3 target, float speed, float arrivalThreshold, float delta)
     {
         target -= GlobalPosition;
         Vector3 dir = target.Normalized();
 
-        Velocity = MiscExt.V3Lerp(Velocity, target * speed, Profile.RotationSpeed * delta);
-        //Velocity = dir * speed;
+        Velocity = MiscExt.V3Lerp(Velocity, target.Normalized() * speed, RotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
         {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, RotationSpeed * delta),
         };
 
+        Log.PrintLn(target.LengthSquared(), arrivalThreshold);
         return target.LengthSquared() < arrivalThreshold;
     }
 
@@ -167,15 +171,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderEnter()
     {
-        PickWanderTarget();
+        CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
     }
 
     public void WanderUpdate(float delta)
     {
-        // pick a node on the graph that is within your wander range from "room"
-        // find closest node that you can reach (nothing in between)
-        // from there traverse the graph until you reach the target
-
         // TODO(j) BubbleJail should be a state
         // if (BubbleJail != null)
         // {
@@ -184,60 +184,35 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         //     return;
         // }
 
-        wanderTimer += (float)delta;
-        if (wanderTimer >= maxWanderTime)
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, MoveSpeed, ArrivalThreshold, delta))
         {
-            wanderTimer = 0;
-            PickWanderTarget();
-            //Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
-            MakeBubble(GlobalBasis.Z);
+            CurrentNode = PickWanderTarget();
         }
-        // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
-        //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
 
     //NavAgent.GetNextPathPosition();
 
-    public void PickWanderTarget()
+    public bool AtCurrentTarget(float arrivalThreshold = 0.2f)
     {
-        // pick a direction and move to it.
-        var stillPickingDir = true;
-        var moveTarget = new Vector3();
-        while (stillPickingDir)
-        {
-            Vector3 direction = new Vector3(GD.Randf(), GD.Randf() * 0.3f, GD.Randf()).Normalized();
+        return (GlobalPosition.LengthSquared() - CurrentNode!.GlobalPosition.LengthSquared())
+            < arrivalThreshold;
+    }
 
-            var targetRay = DirectionRay;
-            targetRay.TopLevel = true;
-            targetRay.GlobalPosition = GlobalPosition;
-            targetRay.TargetPosition = direction * minimumWanderRange;
-
-            moveTarget = direction * Profile.WanderRadius;
-            targetRay.ForceRaycastUpdate();
-            stillPickingDir = targetRay.IsColliding(); //|| IsWithinRange(moveTarget);
-
-            // stillPickingDir =
-            //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
-        }
+    public NavNode PickWanderTarget()
+    {
+        var next = CurrentNode!.neighbors[GD.RandRange(0, CurrentNode.neighbors.Length - 1)];
         CreateTween()
             .TweenFn<Vector3>(
                 (target) => LookAt(target),
-                -GlobalTransform.Basis.Z,
-                moveTarget.Normalized(),
-                1f
+                GlobalRotation,
+                next.GlobalPosition.Normalized(),
+                0.1f
             );
-
-        // check for collisions
-
-        // targetMesh.GlobalPosition = direction;
-        targetNode = navGraph.NodeClosestTo(moveTarget - GlobalPosition);
-        currentNode = navGraph.NodeClosestTo(GlobalPosition);
+        return next;
     }
 
     private bool IsWithinRange(Vector3 moveTarget) =>
-        (moveTarget - GlobalPosition - CurrentRoom!.GlobalPosition).Length()
-        <= Profile.WanderRadius;
+        (moveTarget - GlobalPosition - CurrentRoom!.GlobalPosition).Length() <= WanderRadius;
 
     public async void ChaseUpdate(float delta)
     {
@@ -279,26 +254,25 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         {
             atBubbleTarget = SmoothMoveTo(
                 currentTarget.GlobalPosition,
-                Profile.MoveSpeed,
-                delta,
-                5f
+                MoveSpeed,
+                ArrivalThreshold,
+                delta
             );
         }
     }
 
     public void FleeUpdate(float delta)
     {
-        Log.PrintLn("flee");
         if (ThreatTarget != null)
             ThreatPosition = ThreatTarget.GlobalPosition;
 
         Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
-        Vector3 fleeTarget = GlobalPosition + awayDir * Profile.FleeDistance;
+        Vector3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
 
-        bool arrived = SmoothMoveTo(fleeTarget, Profile.FleeSpeed, delta);
+        bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, ArrivalThreshold, delta);
         fleeTimer += delta;
 
-        if (arrived || fleeTimer >= Profile.FleeTimeout)
+        if (arrived || fleeTimer >= FleeTimeout)
         {
             stateMachine.State = State.Wander;
         }

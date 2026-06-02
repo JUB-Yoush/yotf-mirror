@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2reqj4umvjuo"
-path.s3tc="res://.godot/imported/CHESS.png-d517bd8bd8276b418e50eadc71253c61.s3tc.ctex"
+uid="uid://dcg6xnmocww3v"
+path.s3tc="res://.godot/imported/texture_08.png-24cd9df1b5ed0dc7d6c1d0257f4aa40c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://trenchbroom/textures/CHESS.png"
-dest_files=["res://.godot/imported/CHESS.png-d517bd8bd8276b418e50eadc71253c61.s3tc.ctex"]
+source_file="res://trenchbroom/textures/texture_08.png"
+dest_files=["res://.godot/imported/texture_08.png-24cd9df1b5ed0dc7d6c1d0257f4aa40c.s3tc.ctex"]
 
 [params]
 

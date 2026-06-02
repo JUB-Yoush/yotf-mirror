@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bcgpyuupnxqpi" path="res://src/entities/gadgets/photography/photo_terminal.tscn" id="7_hrqa5"]
 [ext_resource type="PackedScene" uid="uid://boamegnj542cn" path="res://src/entities/shop/shop_kiosk.tscn" id="8_4y0ru"]
 [ext_resource type="Script" uid="uid://hsbasb50w0s2" path="res://src/entities/lab/WaterNegationArea.cs" id="10_gvsyn"]
+[ext_resource type="PackedScene" uid="uid://cppjtwbs1tnwh" path="res://assets/3d/temp/ladder.glb" id="11_aoprf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5n85p"]
 albedo_texture = ExtResource("5_0ibs2")
@@ -188,6 +189,7 @@ shape = SubResource("BoxShape3D_5n85p")
 [node name="BottomGate" type="StaticBody3D" parent="." unique_id=2146708541]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2495608, -0.15988171, -3.727495)
+visible = false
 collision_mask = 2
 script = ExtResource("7_6spo0")
 
@@ -215,3 +217,6 @@ script = ExtResource("10_gvsyn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.909194, 1.7367754, -0.15486908)
 shape = SubResource("BoxShape3D_1n4q7")
 debug_color = Color(0.77046335, 0.3335771, 0.75047326, 0.41960785)
+
+[node name="ladder" parent="." unique_id=1270448898 instance=ExtResource("11_aoprf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.8263807, -1.8350016, -3.8884718)

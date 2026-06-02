@@ -84,13 +84,13 @@ public partial class Eel : Fish
         target -= GlobalPosition;
         Vector3 dir = target.Normalized();
 
-        Velocity = MiscExt.V3Lerp(Velocity, target * speed, Profile.RotationSpeed * delta);
+        Velocity = MiscExt.V3Lerp(Velocity, target * speed, RotationSpeed * delta);
         //Velocity = dir * speed;
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
         {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, RotationSpeed * delta),
         };
 
         return target.LengthSquared() < arrivalThreshold;
