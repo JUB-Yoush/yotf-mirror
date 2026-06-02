@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 
 namespace Yotf;
@@ -53,8 +54,17 @@ public partial class NavGraph : Node3D
     {
         foreach (var node in GetNavNodes())
         {
+            // if(node == null){
+            //    GD.PrintErr("Null node found in ")
+            // }
             for (int i = 0; i < node.neighbors.Length; i++)
+            {
+                if (node.neighbors[i] == null)
+                {
+                    GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at position {i}");
+                }
                 node.AddNeighbor(node.neighbors[i]);
+            }
         }
     }
 
@@ -63,6 +73,9 @@ public partial class NavGraph : Node3D
         // if (!Engine.IsEditorHint())
         //     return;
         NavNodes = GetNavNodes();
+        bool anyConnections = false;
+        if (NavNodes.Length < 2)
+            return;
 
         immMesh.ClearSurfaces();
         immMesh = new ImmediateMesh();
@@ -83,10 +96,17 @@ public partial class NavGraph : Node3D
 
             foreach (var nei in curr.neighbors)
             {
+                //Debug.Assert(nei != null);
                 toDraw.Enqueue(nei);
                 immMesh.SurfaceAddVertex(curr.Position);
                 immMesh.SurfaceAddVertex(nei.Position);
+                anyConnections = true;
             }
+        }
+        if (!anyConnections)
+        {
+            immMesh.SurfaceAddVertex(Vector3.Zero);
+            immMesh.SurfaceAddVertex(Vector3.One);
         }
 
         immMesh.SurfaceEnd();
@@ -102,6 +122,15 @@ public partial class NavGraph : Node3D
             if (node is NavNode nav)
                 res.Add(nav);
         }
+        res.ForEach(
+            (node) =>
+            {
+                if (node == null)
+                {
+                    Log.PrintLn("graph node is null what the flip");
+                }
+            }
+        );
         return [.. res];
     }
 

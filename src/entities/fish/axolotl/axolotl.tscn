@@ -81,6 +81,7 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=609334932]
 unique_name_in_owner = true
+collision_layer = 257
 collision_mask = 98
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=464458426]
