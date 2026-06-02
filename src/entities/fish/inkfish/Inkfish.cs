@@ -68,6 +68,8 @@ public partial class Inkfish : Fish, IHearNoise
         }
 
         Period += delta * WanderSpeed;
+
+        // TODO(j) custom inkfish movement
         var target = new Vector3(
             WanderRadius * MathF.Sin(Period),
             WanderRadius * MathF.Sin(Period * NavRandomOffsetRange),

@@ -40,6 +40,7 @@ public partial class Eel : Fish
 
     private void WanderEnter()
     {
+        CurrentRoom = AssignCurrentRoom();
         ReturningHome = true;
     }
 

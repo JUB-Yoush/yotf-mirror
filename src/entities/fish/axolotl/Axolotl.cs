@@ -158,6 +158,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     public void WanderEnter()
     {
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
+        CurrentRoom = AssignCurrentRoom();
     }
 
     public void WanderUpdate(float delta)
