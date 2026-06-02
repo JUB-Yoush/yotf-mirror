@@ -6,7 +6,7 @@ namespace Yotf;
 // we should probably use a growing visibility notifier to check if there is ink on the screen that is obscuring the camera?
 // not sure the best course of action.
 [Meta(typeof(IAutoNode))]
-public partial class Inkfish : Fish, IHearNoise
+public partial class Inkfish : Fish, IHearNoise, IBubbleable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -19,12 +19,23 @@ public partial class Inkfish : Fish, IHearNoise
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
 
+    public float MeshScale
+    {
+        get => 100;
+    }
+
     private readonly StateMachine<State> stateMachine = new();
 
     public enum State
     {
         Wander,
         Flee,
+        Bubbled,
+    }
+
+    public bool AxolotlTargets
+    {
+        get => true;
     }
 
     public float Period
@@ -33,11 +44,22 @@ public partial class Inkfish : Fish, IHearNoise
         get;
     }
 
+    public Bubble? BubbleJail { get; set; }
+
+    Mesh IBubbleable.Mesh => Mesh.Mesh;
+
     public override void _Ready()
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate, FleeEnter);
+        stateMachine.AddState(State.Bubbled, BubbleUpdate);
+    }
+
+    private void BubbleUpdate(float delta)
+    {
+        GlobalPosition = BubbleJail!.GlobalPosition;
+        Velocity = Vector3.Zero;
     }
 
     public void WanderEnter()
@@ -49,12 +71,6 @@ public partial class Inkfish : Fish, IHearNoise
     {
         stateMachine.Update(delta);
         MoveAndSlide();
-    }
-
-    private void ReturningToHomeUpdate(float delta)
-    {
-        if (SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5))
-            stateMachine.State = State.Wander;
     }
 
     public void WanderUpdate(float delta)
@@ -127,5 +143,19 @@ public partial class Inkfish : Fish, IHearNoise
         ThreatTarget = NoiseSource;
         ThreatPosition = NoiseSource.GlobalPosition;
         stateMachine.State = State.Flee;
+    }
+
+    public void PutInBubble()
+    {
+        stateMachine.State = State.Bubbled;
+        Mesh.Visible = false;
+        DetectionZone.Monitoring = false;
+    }
+
+    public void FreeFromBubble()
+    {
+        stateMachine.State = State.Wander;
+        Mesh.Visible = true;
+        DetectionZone.Monitoring = true;
     }
 }

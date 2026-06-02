@@ -187,10 +187,23 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         return next;
     }
 
-    public async void ChaseUpdate(float delta)
+    public void ChaseUpdate(float delta)
     {
+        if (bubbleTargets.Count == 0)
+        {
+            stateMachine.State = State.Wander;
+            return;
+        }
         var currentTarget = bubbleTargets[0];
-        if (atBubbleTarget)
+
+        if (
+            SmoothMoveTo(
+                currentTarget.Spatial.GlobalPosition,
+                WanderSpeed,
+                delta,
+                ArrivalThreshold / 2
+            )
+        )
         {
             var bubbleDir = (GlobalPosition - currentTarget.Spatial.GlobalPosition).Normalized();
             if (tween != null)
@@ -221,17 +234,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
                     stateMachine.State = State.Wander;
                 }
             });
-            await tween.Done();
-            tween = null;
-        }
-        else
-        {
-            atBubbleTarget = SmoothMoveTo(
-                currentTarget.GlobalPosition,
-                WanderSpeed,
-                ArrivalThreshold / 2,
-                delta
-            );
+            tween.Finished += () => tween = null;
         }
     }
 

@@ -63,14 +63,19 @@ public partial class Bubble : CharacterBody3D
 
     private void OnBodyEntered(Node3D body)
     {
-        PutInBubble((IBubbleable)body);
+        if (body is IBubbleable bubbleable)
+        {
+            PutInBubble(bubbleable);
+        }
     }
 
     void PutInBubble(IBubbleable bubbleable)
     {
         if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null && origin != bubbleable)
         {
+            Log.PrintLn(bubbleable.Mesh);
             Mesh.Mesh = bubbleable.Mesh;
+            Mesh.Scale = new(bubbleable.MeshScale, bubbleable.MeshScale, bubbleable.MeshScale);
             bubbleable.BubbleJail = this;
             bubbleable.PutInBubble();
             capturedNode = bubbleable;

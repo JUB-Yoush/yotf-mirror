@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Eel : Fish
+public partial class Eel : Fish, IBubbleable, IHearNoise
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -20,10 +20,16 @@ public partial class Eel : Fish
         get;
     }
 
+    public Bubble? BubbleJail { get; set; }
+
+    Mesh IBubbleable.Mesh => Mesh.Mesh;
+    float IBubbleable.MeshScale => .3f;
+
     enum State
     {
         Wander,
         Electric,
+        Bubbled,
     }
 
     float elecTimer = 3f;
@@ -35,7 +41,14 @@ public partial class Eel : Fish
     {
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Electric, ElectricUpdate, ElectricEnter, ElectricExit);
+        stateMachine.AddState(State.Bubbled, BubbledUpdate);
         stateMachine.State = State.Wander;
+    }
+
+    private void BubbledUpdate(float delta)
+    {
+        GlobalPosition = BubbleJail!.GlobalPosition;
+        Velocity = Vector3.Zero;
     }
 
     private void WanderEnter()
@@ -108,5 +121,24 @@ public partial class Eel : Fish
     {
         stateMachine.Update(delta);
         MoveAndSlide();
+    }
+
+    public void PutInBubble()
+    {
+        stateMachine.State = State.Bubbled;
+        Mesh.Visible = false;
+        DetectionZone.Monitoring = false;
+    }
+
+    public void FreeFromBubble()
+    {
+        stateMachine.State = State.Wander;
+        Mesh.Visible = true;
+        DetectionZone.Monitoring = true;
+    }
+
+    public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
+    {
+        stateMachine.State = State.Electric;
     }
 }
