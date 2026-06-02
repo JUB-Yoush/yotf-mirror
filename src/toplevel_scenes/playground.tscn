@@ -205,8 +205,6 @@ shape = SubResource("BoxShape3D_dpvq1")
 
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=562360198]
 
-[node name="Player" parent="." unique_id=678823562]
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=317418245]
 _spawnable_scenes = PackedStringArray("uid://btp1pisa8eq5g")
 spawn_path = NodePath("..")

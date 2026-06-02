@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0fxiftydxnpf"
-path="res://.godot/imported/barometer_ruler.png-28b7b6dcd46de881f7441a4174140156.ctex"
+uid="uid://ds0sik53rrrre"
+path="res://.godot/imported/radar_mask.png-f4068ae80c495860bca4cb10241918d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/ui/barometer_ruler.png"
-dest_files=["res://.godot/imported/barometer_ruler.png-28b7b6dcd46de881f7441a4174140156.ctex"]
+source_file="res://assets/2d/ui/hud/radar_mask.png"
+dest_files=["res://.godot/imported/radar_mask.png-f4068ae80c495860bca4cb10241918d8.ctex"]
 
 [params]
 
