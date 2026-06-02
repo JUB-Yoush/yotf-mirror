@@ -32,30 +32,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     float minimumWanderRange = 3f;
 
     [Node]
-    public required MeshInstance3D NavBox { set; get; }
-
-    [Node]
     public required MeshInstance3D NavBox2 { set; get; }
 
     //wandering
     float wanderTimer = 0f;
     float maxWanderTime = 10f;
     Vector3 wanderTarget = Vector3.Zero;
-    NavNode? PrevNode;
-    NavNode? CurrentNode
-    {
-        set
-        {
-            PrevNode = field;
-            field = value;
-            if (field != null)
-            {
-                NavBox.GlobalPosition = field!.GlobalPosition;
-            }
-        }
-        get;
-    } = null;
-    NavGraph navGraph = null!;
 
     // chasing
     readonly List<IBubbleable> bubbleTargets = [];
@@ -145,26 +127,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         }
     }
 
-    internal bool SmoothMoveTo(Vector3 target, float speed, float arrivalThreshold, float delta)
-    {
-        target -= GlobalPosition;
-        Vector3 dir = target.Normalized();
-
-        Velocity = MiscExt.V3Lerp(
-            Velocity,
-            target.Normalized() * speed,
-            WanderRotationSpeed * delta
-        );
-
-        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        GlobalRotation = GlobalRotation with
-        {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
-        };
-
-        return target.LengthSquared() < arrivalThreshold;
-    }
-
     public void MakeBubble(Vector3 dir)
     {
         dir = dir.Normalized();
@@ -200,7 +162,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public void WanderUpdate(float delta)
     {
-        if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, ArrivalThreshold, delta))
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, delta, ArrivalThreshold))
         {
             CurrentNode = PickWanderTarget();
         }
@@ -280,7 +242,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
         Vector3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
 
-        bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, ArrivalThreshold, delta);
+        bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, delta, ArrivalThreshold);
         fleeTimer += delta;
 
         if (arrived || fleeTimer >= FleeTimeout)

@@ -10,6 +10,12 @@ public partial class Inkfish : Fish, IHearNoise
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    [Export]
+    float DecendSpeed = 5f;
+
+    [Export]
+    float PushForce = 5f;
+
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
 
@@ -21,10 +27,22 @@ public partial class Inkfish : Fish, IHearNoise
         Flee,
     }
 
+    public float Period
+    {
+        private set { field = (float)Mathf.Wrap(value, 0, 2 * Math.PI); }
+        get;
+    }
+
     public override void _Ready()
     {
-        stateMachine.AddState(State.Wander, WanderUpdate);
+        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate, FleeEnter);
+    }
+
+    public void WanderEnter()
+    {
+        CurrentRoom = AssignCurrentRoom();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -33,27 +51,74 @@ public partial class Inkfish : Fish, IHearNoise
         MoveAndSlide();
     }
 
-    public void WanderUpdate(float delta) { }
+    private void ReturningToHomeUpdate(float delta)
+    {
+        if (SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5))
+            stateMachine.State = State.Wander;
+    }
 
+    public void WanderUpdate(float delta)
+    {
+        if (ReturningHome)
+        {
+            ReturningHome = !(
+                SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5)
+            );
+            return;
+        }
+
+        Period += delta * WanderSpeed;
+        var target = new Vector3(
+            WanderRadius * MathF.Sin(Period),
+            WanderRadius * MathF.Sin(Period * NavRandomOffsetRange),
+            WanderRadius * MathF.Cos(Period)
+        );
+        target += CurrentRoom!.GlobalPosition;
+        SmoothMoveTo(target, WanderSpeed, delta);
+    }
+
+    /*
+     * on flee:
+     * - point away from fear
+     * - velocity = that * flee speed
+     * - find closest node
+     * - smooth move towards it
+     * - move AWAY from threat
+    */
     public void FleeEnter()
     {
         var tween = CreateTween();
         var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();
-        //LookAt(GlobalPosition - fleeDir);
         tween.TweenFn<Vector3>(
             (target) => LookAt(GlobalPosition - target),
             -GlobalTransform.Basis.Z,
             fleeDir,
-            1
+            .3f
         );
         tween.Fn(() =>
         {
             Velocity = fleeDir * 10;
             InkEmitter.Emitting = true;
         });
+        var fleeVec = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized() * FleeDistance;
+        CurrentNode = navGraph.NodeClosestTo(fleeVec);
     }
 
-    public void FleeUpdate(float delta) { }
+    public void FleeUpdate(float delta)
+    {
+        var fleeVec = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized() * FleeDistance;
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, FleeSpeed, delta, 10))
+        {
+            if ((ThreatTarget!.GlobalPosition - GlobalPosition).Length() >= FleeDistance / 2)
+            {
+                stateMachine.State = State.Wander;
+                return;
+            }
+            CurrentNode = navGraph.NodeClosestTo(fleeVec, CurrentNode);
+        }
+
+        Log.PrintLn((ThreatTarget.GlobalPosition - GlobalPosition).Length());
+    }
 
     public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
     {

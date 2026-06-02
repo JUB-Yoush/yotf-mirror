@@ -24,8 +24,14 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required MeshInstance3D NavBox { set; get; }
+
     [Export]
     public PathFollow3D? SplineFollower;
+
+    [Export]
+    public FishRoom? CurrentRoom { get; set; }
 
     [ExportCategory("FishProfile")]
     [Export]
@@ -55,9 +61,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export]
     public float ArrivalThreshold = 10f;
 
-    [Export]
-    public FishRoom? CurrentRoom { get; set; }
-
     [Export(PropertyHint.Range, "0,1")]
     public float NoiseTolerance = 0.4f;
 
@@ -66,6 +69,24 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     // null when no player is in range
     public Node3D? ThreatTarget { get; set; }
+
+    internal bool ReturningHome = false;
+
+    internal NavNode? PrevNode;
+    internal NavNode? CurrentNode
+    {
+        set
+        {
+            PrevNode = field;
+            field = value;
+            if (field != null)
+            {
+                NavBox.GlobalPosition = field!.GlobalPosition;
+            }
+        }
+        get;
+    } = null;
+    internal NavGraph navGraph = null!;
 
     public required MeshInstance3D SubjectBoundingMesh
     {
@@ -87,16 +108,44 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     public FishRoom AssignCurrentRoom()
     {
-        FishRoom res = null!;
+        FishRoom currentClosest = null!;
         foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
         {
-            res ??= room;
-            if (room.GlobalPosition - GlobalPosition <= res.GlobalPosition - GlobalPosition)
+            currentClosest ??= room;
+            if (
+                (room.GlobalPosition - GlobalPosition).LengthSquared()
+                <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
+            )
             {
-                res = room;
+                currentClosest = room;
             }
         }
-        return res;
+        return currentClosest;
+    }
+
+    internal bool SmoothMoveTo(
+        Vector3 target,
+        float speed,
+        float delta,
+        float arrivalThreshold = 0.1f
+    )
+    {
+        target -= GlobalPosition;
+        Vector3 dir = target.Normalized();
+
+        Velocity = MiscExt.V3Lerp(
+            Velocity,
+            target.Normalized() * speed,
+            WanderRotationSpeed * delta
+        );
+
+        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
+        GlobalRotation = GlobalRotation with
+        {
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
+        };
+
+        return target.LengthSquared() < arrivalThreshold;
     }
 
     // ====================== SENSORY ENTRY POINTS ======================

@@ -23,7 +23,6 @@ public partial class Eel : Fish
     enum State
     {
         Wander,
-        ReturningToHome,
         Electric,
     }
 
@@ -36,20 +35,24 @@ public partial class Eel : Fish
     {
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Electric, ElectricUpdate, ElectricEnter, ElectricExit);
-        stateMachine.AddState(State.ReturningToHome, ReturningToHomeUpdate);
         stateMachine.State = State.Wander;
     }
 
-    private void WanderEnter() { }
-
-    private void ReturningToHomeUpdate(float delta)
+    private void WanderEnter()
     {
-        if (SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5))
-            stateMachine.State = State.Wander;
+        ReturningHome = true;
     }
 
     private void WanderUpdate(float delta)
     {
+        if (ReturningHome)
+        {
+            ReturningHome = !(
+                SmoothMoveTo(CurrentRoom!.GlobalPosition, WanderSpeed, delta, WanderRadius * 5)
+            );
+            return;
+        }
+
         Period += delta * WanderSpeed;
         var target = new Vector3(
             WanderRadius * MathF.Sin(Period),
@@ -98,27 +101,6 @@ public partial class Eel : Fish
             stateMachine.State = State.Wander;
             elecTimer = 3f;
         }
-    }
-
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
-    {
-        target -= GlobalPosition;
-        Vector3 dir = target.Normalized();
-
-        Velocity = MiscExt.V3Lerp(Velocity, target * speed, WanderRotationSpeed * delta);
-
-        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        GlobalRotation = GlobalRotation with
-        {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
-        };
-
-        return target.LengthSquared() < arrivalThreshold;
     }
 
     public override void _PhysicsProcess(double delta)
