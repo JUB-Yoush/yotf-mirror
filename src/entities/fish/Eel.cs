@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Eel : Fish, IBubbleable, IHearNoise
+public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -24,6 +24,8 @@ public partial class Eel : Fish, IBubbleable, IHearNoise
 
     Mesh IBubbleable.Mesh => Mesh.Mesh;
     float IBubbleable.MeshScale => .3f;
+
+    public bool InAction { get; set; }
 
     enum State
     {
@@ -91,11 +93,13 @@ public partial class Eel : Fish, IBubbleable, IHearNoise
     private void ElectricEnter()
     {
         ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, false);
+        InAction = true;
     }
 
     private void ElectricExit()
     {
         ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, true);
+        InAction = false;
     }
 
     private void ElectricUpdate(float delta)

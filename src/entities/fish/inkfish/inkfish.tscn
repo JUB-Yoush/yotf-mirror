@@ -88,6 +88,8 @@ albedo_color = Color(0.05258614, 5.6171593e-05, 0.117364265, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_u0sqe"]
 material = SubResource("StandardMaterial3D_1m4vi")
+radius = 1.0
+height = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3732h"]
 albedo_color = Color(0.8869811, 0.30556294, 0.57979774, 1)
@@ -133,7 +135,7 @@ skeleton = NodePath("")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.046937466, -1.2411616)
 emitting = false
-amount = 32
+amount = 64
 lifetime = 5.0
 one_shot = true
 randomness = 0.5

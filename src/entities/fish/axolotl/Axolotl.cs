@@ -5,7 +5,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish, IBubbleable, IHearNoise
+public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -59,6 +59,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
 
     public Bubble? BubbleJail { get; set; }
     Mesh IBubbleable.Mesh => Mesh.Mesh;
+
+    public bool InAction { get; set; }
 
     public void PutInBubble()
     {
@@ -132,6 +134,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         dir = dir.Normalized();
         var bubble = Bubble.New(this, dir, bubbleShotSpeed, bubbleRiseSpeed, bubbleDeceleration);
         AddChild(bubble);
+        InAction = true;
+        CreateTween().Fn(() => InAction = false, 2);
     }
 
     public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)

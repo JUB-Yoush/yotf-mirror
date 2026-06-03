@@ -244,13 +244,22 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
             var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
+            var inAction = subject is IDoesAction actionable && actionable.InAction;
 
             //fish lighting
             // TODO (j) implement
             var lightScore = 1f;
             result.Add(
                 subject.Name,
-                new((float)angleScore, sizeScore, (float)facingScore, lightScore)
+                new(
+                    (float)angleScore,
+                    sizeScore,
+                    (float)facingScore,
+                    lightScore,
+                    photo.Subjects.Length,
+                    inAction,
+                    false
+                )
             );
         }
         return result;
