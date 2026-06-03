@@ -74,6 +74,7 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.MoneyLabel?.Text = $"Money: {value}";
+            Log.PrintLn(value);
             foreach (var lab in this.SceneRoot().GetNodes<Lab>())
             {
                 lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
@@ -110,7 +111,6 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
-        //TODO (j) we need to come up wtih some normalized depth value relative to the underwater lab or smthn
         OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }

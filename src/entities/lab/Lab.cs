@@ -55,7 +55,6 @@ public partial class Lab : Node3D
 
     private void Toggle(bool state)
     {
-        Log.PrintLn("turning off");
         TopGate.GetNode<CollisionShape3D>()!.Disabled = state;
         BottomGate.GetNode<CollisionShape3D>()!.Disabled = state;
         TopGate.Visible = !state;

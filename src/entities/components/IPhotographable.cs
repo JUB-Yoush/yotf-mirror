@@ -9,14 +9,15 @@ public interface IPhotographable
     {
         None,
         Ink,
+        Treasure,
     }
 
     public MeshInstance3D SubjectBoundingMesh { set; get; }
-    public Node3D Subject { set; get; }
-    public PhotoModifier Modifier
+    public Node3D Subject
     {
-        get => PhotoModifier.None;
+        get => (Node3D)this;
     }
+    public PhotoModifier Modifier { get; set; }
     public bool IsModifier
     {
         get => Modifier != PhotoModifier.None;

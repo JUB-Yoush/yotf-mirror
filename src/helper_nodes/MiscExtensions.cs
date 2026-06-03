@@ -21,7 +21,7 @@ public static class MiscExt
 
     extension(Tween tween)
     {
-        public void Fn(
+        public CallbackTweener Fn(
             Action action,
             float delay = 0,
             bool parallel = false,
@@ -33,15 +33,15 @@ public static class MiscExt
 
             if (parallel)
             {
-                tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
+                return tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
             }
             else
             {
-                tween.TweenCallback(Callable.From(action)).SetDelay(delay);
+                return tween.TweenCallback(Callable.From(action)).SetDelay(delay);
             }
         }
 
-        public void LerpProperty(
+        public PropertyTweener LerpProperty(
             Node node,
             StringName property,
             Variant value,
@@ -51,26 +51,32 @@ public static class MiscExt
         {
             if (parallel)
             {
-                tween.Parallel().TweenProperty(node, property.ToString(), value, time);
+                return tween.Parallel().TweenProperty(node, property.ToString(), value, time);
             }
             else
             {
-                tween.TweenProperty(node, property.ToString(), value, time);
+                return tween.TweenProperty(node, property.ToString(), value, time);
             }
         }
 
-        public void TweenFn<T>(Action<T> action, T from, T to, float time, bool parallel = false)
+        public MethodTweener TweenFn<T>(
+            Action<T> action,
+            T from,
+            T to,
+            float time,
+            bool parallel = false
+        )
             where T : struct
         {
             if (parallel)
             {
-                tween
+                return tween
                     .Parallel()
                     .TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
             }
             else
             {
-                tween.TweenMethod(
+                return tween.TweenMethod(
                     Callable.From(action),
                     Variant.From(from),
                     Variant.From(to),

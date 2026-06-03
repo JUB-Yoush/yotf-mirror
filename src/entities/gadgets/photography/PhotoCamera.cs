@@ -206,6 +206,19 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         AddPhoto(photo, grades, modifiers);
     }
 
+    // private IPhotographable.PhotoModifier[] FindTreasureFish(
+    //     IPhotographable.PhotoModifier[] modifiers
+    // )
+    // {
+    //     foreach (var mod in modifiers)
+    //     {
+    //         if (mod is IPhotographable.PhotoModifier.Treasure)
+    //         {
+    //             player.Stats.Money += TreasureFish.Value;
+    //         }
+    //     }
+    // }
+
     private void ToggleCameraAim(bool state)
     {
         SubViewport.UpdateMode[] updateModes =
@@ -280,26 +293,30 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     private string[] GetPhotoSubjects()
     {
         List<string> result = [];
-        foreach (var child in GetTree().CurrentScene.GetChildren(true))
-            if (
-                child is IPhotographable photographable
-                && photographable.IsInPhoto()
-                && !photographable.IsModifier
-            )
-                result.Add(child.Name);
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+        {
+            if (photographable.IsInPhoto() && !photographable.IsModifier)
+                result.Add(photographable.Subject.Name);
+        }
         return [.. result];
     }
 
     private IPhotographable.PhotoModifier[] GetPhotoModifiers()
     {
         List<IPhotographable.PhotoModifier> result = [];
-        foreach (var child in GetTree().CurrentScene.GetChildren(true))
-            if (
-                child is IPhotographable photographable
-                && photographable.IsInPhoto()
-                && photographable.IsModifier
-            )
-                result.Add(photographable.Modifier);
+
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+            if (photographable.IsInPhoto() && photographable.IsModifier)
+            {
+                if (photographable.Modifier == IPhotographable.PhotoModifier.Treasure)
+                {
+                    player.Stats.Money += TreasureFish.Value;
+                }
+                else
+                {
+                    result.Add(photographable.Modifier);
+                }
+            }
         return [.. result];
     }
 
@@ -314,21 +331,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     void TakeScreenShot(string id)
     {
         GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
-    }
-
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void AddPhoto(string photoJson, string photoTaker)
-    {
-        Rpc(MethodName.UpdateTerminalImage, photoJson);
-        if (photoTaker == Name && player.IsMultiplayerAuthority())
-            Log.Print("I took this photo");
-        else
-            Log.Print("I didn't take this photo");
     }
 
     public void AddPhoto(
@@ -355,27 +357,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
         photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
-    }
-
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void UpdateTerminalImage(string photoJson)
-    {
-        PhotoData imgData = PhotoData.FromJson(photoJson);
-        var photoImg = Image.CreateFromData(
-            imgData.Width,
-            imgData.Height,
-            imgData.Mipmaps,
-            Image.Format.Rgb8,
-            imgData.Bytes
-        );
-        var imgTex = new ImageTexture();
-        imgTex.SetImage(photoImg);
-        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     public void ClearPhotos()

@@ -31,10 +31,10 @@ public partial class InkArea : Area3D, IPhotographable
         get => this;
         set;
     }
-
-    public bool IsModifier
+    public IPhotographable.PhotoModifier Modifier
     {
-        get => true;
+        get => IPhotographable.PhotoModifier.Ink;
+        set;
     }
 
     public static InkArea New(Inkfish parent)

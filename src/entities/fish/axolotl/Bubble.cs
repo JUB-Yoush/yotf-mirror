@@ -73,7 +73,6 @@ public partial class Bubble : CharacterBody3D
     {
         if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null && origin != bubbleable)
         {
-            Log.PrintLn(bubbleable.Mesh);
             Mesh.Mesh = bubbleable.Mesh;
             Mesh.Scale = new(bubbleable.MeshScale, bubbleable.MeshScale, bubbleable.MeshScale);
             bubbleable.BubbleJail = this;

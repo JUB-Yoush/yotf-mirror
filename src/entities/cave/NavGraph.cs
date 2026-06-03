@@ -127,7 +127,7 @@ public partial class NavGraph : Node3D
             {
                 if (node == null)
                 {
-                    Log.PrintLn("graph node is null what the flip");
+                    GD.PrintErr("Graph node is null");
                 }
             }
         );

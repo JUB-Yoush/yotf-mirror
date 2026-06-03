@@ -27,7 +27,7 @@ public partial class Inventory : Node3D
         }
     }
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);

@@ -29,7 +29,6 @@ public interface IMakeNoise
         //TODO (j) area should only be enabled when the sound is playing.
         foreach (IHearNoise listener in audioArea.GetOverlappingBodies().Cast<IHearNoise>())
         {
-            Log.PrintLn(listener);
             listener.OnNoiseHeard(audioArea, dB, sfx);
         }
     }

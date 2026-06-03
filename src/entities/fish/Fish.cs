@@ -99,6 +99,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         get => this;
         set;
     }
+    public IPhotographable.PhotoModifier Modifier
+    {
+        get => IPhotographable.PhotoModifier.None;
+        set;
+    }
 
     // public override void _PhysicsProcess(double delta)
     // {
@@ -181,7 +186,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         //     SetState<Axolotl>(WanderingState);
     }
 
-    public bool IsInPhoto() => true;
+    public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
 
     // ====================== INTERNAL HELPERS ======================
 

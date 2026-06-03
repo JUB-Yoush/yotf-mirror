@@ -11,7 +11,7 @@ public partial class Chest : Node3D, IInteractable
     public override void _Notification(int what) => this.Notify(what);
 
     [Export]
-    public PackedScene InsideChest = null!;
+    public PackedScene? InsideChest = null!;
 
     [Node]
     public required MeshInstance3D Mesh { set; get; }
@@ -26,9 +26,13 @@ public partial class Chest : Node3D, IInteractable
 
     public void OnInteraction()
     {
-        var node = InsideChest.Instantiate<Node3D>();
-        this.SceneRoot().AddChild(node);
-        node.GlobalPosition = GlobalPosition + Vector3.Up;
+        if (InsideChest != null)
+        {
+            var node = InsideChest.Instantiate<Node3D>();
+            this.SceneRoot().AddChild(node);
+            node.GlobalPosition = GlobalPosition + Vector3.Up;
+        }
+
         Mesh.Visible = false;
         InteractionShape.Disabled = true;
     }
