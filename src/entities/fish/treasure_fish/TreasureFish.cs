@@ -16,10 +16,13 @@ public partial class TreasureFish : Fish, IPhotographable
     }
 
     [Export]
-    public float WaitTimer = 1f;
+    float WaitTimer = 1f;
 
     [Export]
-    public float speed = 10f;
+    float speed = 10f;
+
+    [Export]
+    float lifetime = 15f;
 
     bool IPhotographable.IsModifier
     {
@@ -40,9 +43,9 @@ public partial class TreasureFish : Fish, IPhotographable
             1
         );
         tween.Fn(() => swimmingUp = true, WaitTimer, true);
+        tween.Fn(() => QueueFree(), lifetime, true);
     }
 
-    //gently ocilating sin wave...
     public override void _PhysicsProcess(double delta)
     {
         if (swimmingUp)

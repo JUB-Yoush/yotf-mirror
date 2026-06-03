@@ -27,6 +27,12 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     const float DefaultViewfinderFov = 50;
     private float ViewfinderFov = 50;
 
+    static readonly SubViewport.UpdateMode[] updateModes =
+    [
+        SubViewport.UpdateMode.Disabled,
+        SubViewport.UpdateMode.Always,
+    ];
+
     [Node]
     public required Camera3D PhotoCameraCam { set; get; }
 
@@ -221,11 +227,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     private void ToggleCameraAim(bool state)
     {
-        SubViewport.UpdateMode[] updateModes =
-        [
-            SubViewport.UpdateMode.Disabled,
-            SubViewport.UpdateMode.Always,
-        ];
         PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
         player.IsLookingInCamera = state;
         Aiming = state;

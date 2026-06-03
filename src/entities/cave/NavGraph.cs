@@ -169,4 +169,14 @@ public partial class NavGraph : Node3D
         }
         return record.Item1!;
     }
+
+    public NavNode RandomNode(NavNode? notThisOne = null)
+    {
+        var next = NavNodes[GD.RandRange(0, NavNodes.Length - 1)];
+        while (notThisOne != null && next == notThisOne)
+        {
+            next = NavNodes[GD.RandRange(0, NavNodes.Length - 1)];
+        }
+        return next;
+    }
 }

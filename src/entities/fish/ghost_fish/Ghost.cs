@@ -11,10 +11,15 @@ public partial class Ghost : Fish
     [Node]
     public required Node3D Skin { set; get; }
 
+    [Export]
+    public float speed = 2f;
+
     public override void _Ready()
     {
         Skin.Visible = false;
         PhotoCamera.AimingChanged += SetVisibility;
+        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        CurrentNode = navGraph.RandomNode();
     }
 
     public override void _ExitTree()
@@ -25,5 +30,14 @@ public partial class Ghost : Fish
     void SetVisibility(bool state)
     {
         Skin.Visible = state;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, speed, (float)delta))
+        {
+            CurrentNode = navGraph.RandomNode(CurrentNode);
+        }
+        MoveAndSlide();
     }
 }

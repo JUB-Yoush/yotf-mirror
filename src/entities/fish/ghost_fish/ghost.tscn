@@ -369,13 +369,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jdbmo")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3732h"]
+albedo_color = Color(0.8869811, 0.30556294, 0.57979774, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yu5of"]
+material = SubResource("StandardMaterial3D_3732h")
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="Ghost" type="CharacterBody3D" unique_id=1678250279]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_yu5of")
-
-[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=483561614]
-unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=527845019]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
@@ -443,3 +447,8 @@ skeleton = NodePath("")
 unique_name_in_owner = true
 mesh = SubResource("ArrayMesh_2m2ot")
 skeleton = NodePath("")
+
+[node name="NavBox" type="MeshInstance3D" parent="." unique_id=1715957407]
+unique_name_in_owner = true
+top_level = true
+mesh = SubResource("BoxMesh_yu5of")

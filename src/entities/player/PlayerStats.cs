@@ -74,7 +74,6 @@ public partial class PlayerStats : Node
         {
             field = value;
             HUD?.MoneyLabel?.Text = $"Money: {value}";
-            Log.PrintLn(value);
             foreach (var lab in this.SceneRoot().GetNodes<Lab>())
             {
                 lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
