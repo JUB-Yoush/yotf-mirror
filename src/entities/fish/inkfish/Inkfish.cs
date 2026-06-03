@@ -10,6 +10,10 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    static readonly PackedScene InkAreaScene = GD.Load<PackedScene>(
+        "res://src/entities/fish/inkfish/ink_area.tscn"
+    );
+
     [Export]
     float DecendSpeed = 5f;
 
@@ -25,11 +29,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
 
-    [Node]
-    public required Area3D InkArea { set; get; }
-
-    [Node]
-    public required CollisionShape3D InkCollider { set; get; }
+    InkArea? InkArea = null;
 
     public float MeshScale
     {
@@ -132,14 +132,14 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         });
 
         tween.TweenFn<float>(
-            (value) => ((CapsuleShape3D)InkCollider.Shape).Height = value,
+            (value) => ((CapsuleShape3D)InkArea.InkCollider.Shape).Height = value,
             0f,
             InkColliderLength,
             1f
         );
 
         tween.TweenFn<float>(
-            (value) => ((CapsuleShape3D)InkCollider.Shape).Radius = value,
+            (value) => ((CapsuleShape3D)InkArea.InkCollider.Shape).Radius = value,
             0f,
             InkCollisderRaidus,
             1f,
@@ -187,7 +187,16 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     void ToggleInk(bool state)
     {
-        InkCollider.SetDeferred(CollisionShape3D.PropertyName.Disabled, !state);
+        if (state)
+        {
+            InkArea = InkArea.New(this);
+        }
+        else
+        {
+            InkArea?.QueueFree();
+            InkArea = null;
+        }
+        InkArea?.InkCollider.SetDeferred(CollisionShape3D.PropertyName.Disabled, !state);
         InkEmitter.Visible = state;
         InkEmitter.Emitting = state;
         InAction = state;

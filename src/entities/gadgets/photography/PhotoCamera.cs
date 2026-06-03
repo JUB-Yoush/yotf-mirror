@@ -197,9 +197,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     {
         Film -= 1;
         var subjects = GetPhotoSubjects();
+        var modifiers = GetPhotoModifiers();
         Image image = GetViewportImage();
         PhotoData photo = PhotoData.New(Name, subjects, image.Data);
-        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
+        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
         FlashSFX();
         IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
         AddPhoto(photo, grades);
@@ -218,9 +219,13 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Light.Visible = state;
     }
 
-    private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
+    private Dictionary<string, PhotoGrade> GetSubjectGrades(
+        PhotoData photo,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
         Dictionary<string, PhotoGrade> result = [];
+        var modSet = modifiers.ToHashSet<IPhotographable.PhotoModifier>();
 
         foreach (var subjectName in photo.Subjects)
         {
@@ -258,6 +263,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     lightScore,
                     photo.Subjects.Length,
                     inAction,
+                    modSet.Contains(IPhotographable.PhotoModifier.Ink),
                     false
                 )
             );
@@ -275,8 +281,25 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     {
         List<string> result = [];
         foreach (var child in GetTree().CurrentScene.GetChildren(true))
-            if (child is IPhotographable photographable && photographable.IsInPhoto())
+            if (
+                child is IPhotographable photographable
+                && photographable.IsInPhoto()
+                && !photographable.IsModifier
+            )
                 result.Add(child.Name);
+        return [.. result];
+    }
+
+    private IPhotographable.PhotoModifier[] GetPhotoModifiers()
+    {
+        List<IPhotographable.PhotoModifier> result = [];
+        foreach (var child in GetTree().CurrentScene.GetChildren(true))
+            if (
+                child is IPhotographable photographable
+                && photographable.IsInPhoto()
+                && photographable.IsModifier
+            )
+                result.Add(photographable.Modifier);
         return [.. result];
     }
 

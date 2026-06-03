@@ -65,7 +65,12 @@ public record struct PhotoGrade(
     float LightScore,
     int Totalfish,
     bool InAction,
+    bool ContainsInk,
     bool IsDead
 );
 
-public record Photo(PhotoData Data, Dictionary<string, PhotoGrade> SubjectGrades);
+public record Photo(
+    PhotoData Data,
+    Dictionary<string, PhotoGrade> SubjectGrades,
+    IPhotographable.PhotoModifier[] Modifiers
+);
