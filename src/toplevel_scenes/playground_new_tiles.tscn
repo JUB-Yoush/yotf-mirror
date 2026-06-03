@@ -11,7 +11,6 @@
 [ext_resource type="Material" uid="uid://dxigqpnec6t1a" path="res://assets/3d/environment/materials/ocean_rock_rolling.tres" id="5_t1qrl"]
 [ext_resource type="Material" uid="uid://wqi528byuc2p" path="res://assets/3d/environment/materials/ocean_rock_weathered.tres" id="6_83cme"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="6_ulogk"]
-[ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="7_juep3"]
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="8_2b3pd"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="9_t1qrl"]
 
@@ -125,9 +124,6 @@ transform = Transform3D(2.8744555, 0, 0, 0, -0.86646974, 0, 0, 0, 3.8657756, 6.6
 material_override = ExtResource("6_83cme")
 mesh = SubResource("BoxMesh_ivpme")
 skeleton = NodePath("../../..")
-
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("7_juep3")]
-transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 49.498684, 9.487844, 49.19648)
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_2b3pd")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 40.363266, -2.6906512, 49.047516)
