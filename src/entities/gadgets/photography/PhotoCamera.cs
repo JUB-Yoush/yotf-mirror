@@ -203,7 +203,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
         FlashSFX();
         IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
-        AddPhoto(photo, grades);
+        AddPhoto(photo, grades, modifiers);
     }
 
     private void ToggleCameraAim(bool state)
@@ -331,9 +331,13 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             Log.Print("I didn't take this photo");
     }
 
-    public void AddPhoto(PhotoData photoData, Dictionary<string, PhotoGrade> grades)
+    public void AddPhoto(
+        PhotoData photoData,
+        Dictionary<string, PhotoGrade> grades,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
-        var photo = new Photo(photoData, grades);
+        var photo = new Photo(photoData, grades, modifiers);
         Photos.Add(photo);
         UpdateTerminalImage(photo);
     }
