@@ -16,8 +16,20 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
     [Export]
     float PushForce = 5f;
 
+    [Export]
+    float InkCollisderRaidus = 3f;
+
+    [Export]
+    float InkColliderLength = 10f;
+
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
+
+    [Node]
+    public required Area3D InkArea { set; get; }
+
+    [Node]
+    public required CollisionShape3D InkCollider { set; get; }
 
     public float MeshScale
     {
@@ -58,6 +70,11 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
 
     private void BubbleUpdate(float delta)
     {
+        if (BubbleJail == null)
+        {
+            stateMachine.State = State.Wander;
+        }
+
         GlobalPosition = BubbleJail!.GlobalPosition;
         Velocity = Vector3.Zero;
     }
@@ -95,14 +112,6 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
         SmoothMoveTo(target, WanderSpeed, delta);
     }
 
-    /*
-     * on flee:
-     * - point away from fear
-     * - velocity = that * flee speed
-     * - find closest node
-     * - smooth move towards it
-     * - move AWAY from threat
-    */
     public void FleeEnter()
     {
         var tween = CreateTween();
@@ -113,11 +122,27 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
             fleeDir,
             .3f
         );
+
         tween.Fn(() =>
         {
             Velocity = fleeDir * 10;
-            InkEmitter.Emitting = true;
+            ToggleInk(true);
         });
+
+        tween.TweenFn<float>(
+            (value) => ((CapsuleShape3D)InkCollider.Shape).Height = value,
+            0f,
+            InkColliderLength,
+            1f
+        );
+
+        tween.TweenFn<float>(
+            (value) => ((CapsuleShape3D)InkCollider.Shape).Radius = value,
+            0f,
+            InkCollisderRaidus,
+            1f,
+            true
+        );
         var fleeVec = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized() * FleeDistance;
         CurrentNode = navGraph.NodeClosestTo(fleeVec);
     }
@@ -129,13 +154,12 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
         {
             if ((ThreatTarget!.GlobalPosition - GlobalPosition).Length() >= FleeDistance / 2)
             {
+                CreateTween().Fn(() => ToggleInk(false), 3);
                 stateMachine.State = State.Wander;
                 return;
             }
             CurrentNode = navGraph.NodeClosestTo(fleeVec, CurrentNode);
         }
-
-        Log.PrintLn((ThreatTarget.GlobalPosition - GlobalPosition).Length());
     }
 
     public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
@@ -157,5 +181,12 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable
         stateMachine.State = State.Wander;
         Mesh.Visible = true;
         DetectionZone.Monitoring = true;
+    }
+
+    void ToggleInk(bool state)
+    {
+        InkCollider.SetDeferred(CollisionShape3D.PropertyName.Disabled, !state);
+        InkEmitter.Visible = state;
+        InkEmitter.Emitting = state;
     }
 }

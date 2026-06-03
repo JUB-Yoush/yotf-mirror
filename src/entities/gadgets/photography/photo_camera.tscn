@@ -6,7 +6,7 @@
 [ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="3_jvh7c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jvh7c"]
-radius = 4.350222
+radius = 6.340579
 
 [node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")

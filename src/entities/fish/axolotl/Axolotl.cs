@@ -137,6 +137,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
     {
         ThreatTarget = noiseNode;
+        //noiseNode.TreeExited =>
         stateMachine.State = State.Flee;
 
         var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();

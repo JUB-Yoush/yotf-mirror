@@ -90,12 +90,12 @@ public partial class Eel : Fish, IBubbleable, IHearNoise
 
     private void ElectricEnter()
     {
-        ZapShape.Disabled = false;
+        ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, false);
     }
 
     private void ElectricExit()
     {
-        ZapShape.Disabled = true;
+        ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, true);
     }
 
     private void ElectricUpdate(float delta)

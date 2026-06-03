@@ -107,6 +107,12 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
     }
 
+    public override void Removed()
+    {
+        CreateTween().LerpProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        ToggleCameraAim(false);
+    }
+
     public void CurrentLabUpdated(Lab newLab)
     {
         photoTerminal = newLab.PhotoTerminal;
@@ -129,6 +135,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             player.IsLookingInCamera = true;
             Aiming = true;
             Light.Visible = true;
+            ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionReleased("look_cam"))
@@ -196,6 +203,19 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         FlashSFX();
         IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
         AddPhoto(photo, grades);
+    }
+
+    private void ToggleCameraAim(bool state)
+    {
+        SubViewport.UpdateMode[] updateModes =
+        [
+            SubViewport.UpdateMode.Disabled,
+            SubViewport.UpdateMode.Always,
+        ];
+        PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
+        player.IsLookingInCamera = state;
+        Aiming = state;
+        Light.Visible = state;
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
