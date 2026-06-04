@@ -41,7 +41,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
     float lightRange = 10f;
 
     [Export]
-    float lifetime = 6f;
+    float lifetime = 5f;
 
     Vec3 InitialVelocity;
 
@@ -64,8 +64,8 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
             },
             waitTime
         );
-        tween.TweenFn<float>((value) => OmniLight.LightEnergy = value, 0, lightEnergy, 5f, true);
-        tween.TweenFn<float>((value) => OmniLight.OmniRange = value, 0, lightEnergy, 5f, true);
+        tween.TweenFn<float>((value) => OmniLight.LightEnergy = value, 0, lightEnergy, 1f, true);
+        tween.TweenFn<float>((value) => OmniLight.OmniRange = value, 0, lightEnergy, 1f, true);
         tween.Fn(
             () =>
             {

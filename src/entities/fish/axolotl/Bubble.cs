@@ -85,8 +85,8 @@ public partial class Bubble : CharacterBody3D
     {
         Log.PrintLn("freeing from bubble");
         capturedNode?.FreeFromBubble();
-        this.DeferFree();
         capturedNode?.BubbleJail = null;
+        this.DeferFree();
     }
 
     public override void _PhysicsProcess(double delta)

@@ -104,39 +104,30 @@ public partial class NavGraph : Node3D
 
     private NavNode[] GetNavNodes()
     {
-        List<NavNode> res = [];
+        List<NavNode> result = [];
         foreach (var node in GetChildren())
         {
             if (node is NavNode nav)
-                res.Add(nav);
+                result.Add(nav);
         }
-        res.ForEach(
-            (node) =>
-            {
-                if (node == null)
-                {
-                    GD.PrintErr("Graph node is null");
-                }
-            }
-        );
-        return [.. res];
+        return [.. result];
     }
 
     public NavNode NodeClosestTo(Vector3 pos, NavNode? currentToAvoid = null)
     {
         // TODO(j) shoot a raycast to make sure it's not behind a wall or somthn
-        (NavNode?, float) record = (null, float.MaxValue);
+        (NavNode?, float) result = (null, float.MaxValue);
         foreach (var node in GetNavNodes())
         {
             if (
-                (node.GlobalPosition - pos).LengthSquared() <= record.Item2
+                (node.GlobalPosition - pos).LengthSquared() <= result.Item2
                 && (currentToAvoid == null || currentToAvoid != node)
             )
             {
-                record = (node, (node.GlobalPosition - pos).LengthSquared());
+                result = (node, (node.GlobalPosition - pos).LengthSquared());
             }
         }
-        return record.Item1!;
+        return result.Item1!;
     }
 
     public NavNode? NodeAwayFrom(Vector3 pos, Vector3 awayFrom)

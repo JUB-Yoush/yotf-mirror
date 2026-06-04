@@ -4,23 +4,6 @@ using System.Linq;
 
 namespace Yotf;
 
-public static class SFX
-{
-    public static readonly AudioStream Defualt = GD.Load<AudioStream>(
-        "res://assets/audio/sfx/photo.ogg"
-    );
-    public const string CameraShutter = "res://assets/audio/sfx/photo.ogg";
-    public const string Firecracker = "res://assets/audio/sfx/firecracker.ogg";
-}
-
-public static class BGM
-{
-    public static readonly AudioStream Defualt = GD.Load<AudioStream>(
-        "res://assets/audio/bgm/plum_fairy.ogg"
-    );
-    public const string PlumFairy = "res://assets/audio/bgm/plum_fairy.ogg";
-}
-
 /// <summary>
 /// Manages Sound Effects and Background Music
 /// SFX and BGM are lazy loaded and cached
@@ -50,7 +33,7 @@ public partial class Audio : Node
 
     int bus = AudioServer.GetBusIndex("Master");
     AudioStreamPlayer BgmPlayer = new();
-    AudioStreamPlayer[] SfxPlayers = new AudioStreamPlayer[SfxPlayerCount];
+    AudioStreamPlayer[] staticSfxPlayers = new AudioStreamPlayer[SfxPlayerCount];
 
     public override void _Ready()
     {
@@ -58,8 +41,8 @@ public partial class Audio : Node
         AddChild(BgmPlayer);
         for (int i = 0; i < SfxPlayerCount; i++)
         {
-            SfxPlayers[i] = new();
-            AddChild(SfxPlayers[i]);
+            staticSfxPlayers[i] = new();
+            AddChild(staticSfxPlayers[i]);
         }
         BgmPlayer.ProcessMode = ProcessModeEnum.Always;
     }
@@ -75,6 +58,14 @@ public partial class Audio : Node
         Instance.BgmPlayer.Play(playbackPosition);
     }
 
+    public static bool IsPlayingSfx(string sfxName) =>
+        Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer =>
+            sfxPlayer.Stream == Get(sfxName) && sfxPlayer.Playing
+        ) != null;
+
+    public static bool IsPlayingBgm(string bgmName) =>
+        Instance.BgmPlayer.Playing && Instance.BgmPlayer.Stream == Get(bgmName);
+
     public static void PlaySfx(
         string sfxName,
         bool singleStreamOnly = false,
@@ -84,7 +75,7 @@ public partial class Audio : Node
         var sfx = Get(sfxName);
         if (singleStreamOnly)
         {
-            var alreadyPlayingStream = Instance.SfxPlayers.FirstOrDefault(sfxPlayer => //TODO(j) linq iterators are bad for memory allocs, but it's not runnin in a hot loop so we'll fix if it's a problem.
+            var alreadyPlayingStream = Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer => //TODO(j) linq iterators are bad for memory allocs, but it's not runnin in a hot loop so we'll fix if it's a problem.
                 sfxPlayer.Stream == sfx && sfxPlayer.Playing
             );
             if (alreadyPlayingStream != null)
@@ -93,7 +84,9 @@ public partial class Audio : Node
             }
         }
 
-        var sfxPlayer = Instance.SfxPlayers.FirstOrDefault(sfxPlayer => !sfxPlayer.IsPlaying());
+        var sfxPlayer = Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer =>
+            !sfxPlayer.IsPlaying()
+        );
 
         if (sfxPlayer == null)
         {
@@ -119,7 +112,7 @@ public partial class Audio : Node
     public static void StopSfx(string sfxName)
     {
         var sfx = Get(sfxName);
-        var sfxStream = Instance.SfxPlayers.FirstOrDefault(sfxPlayer =>
+        var sfxStream = Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer =>
             sfxPlayer.Stream == sfx && sfxPlayer.Playing
         );
         sfxStream?.Stop();
@@ -132,7 +125,7 @@ public partial class Audio : Node
 
     public static void StopAllSfx()
     {
-        Array.ForEach(Instance.SfxPlayers, (player) => player.Stop());
+        Array.ForEach(Instance.staticSfxPlayers, (player) => player.Stop());
     }
 
     public static void PauseBgm()
