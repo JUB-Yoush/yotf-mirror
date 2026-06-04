@@ -5,5 +5,5 @@ namespace Yotf;
 /// </summary>
 public interface IHearNoise
 {
-    public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise);
+    public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise);
 }

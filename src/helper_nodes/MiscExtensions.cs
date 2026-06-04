@@ -216,6 +216,14 @@ public static class MiscExt
         }
     }
 
+    extension<T>(T[] array)
+    {
+        public void ForEach(Action<T> action)
+        {
+            Array.ForEach<T>(array, action);
+        }
+    }
+
     extension(Vector3 vec)
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

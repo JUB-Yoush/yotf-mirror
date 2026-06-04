@@ -14,11 +14,12 @@ public interface IMakeNoise
 
     AudioStreamPlayer3D NoiseSource { get; }
 
-    public static void MakeNoise(IMakeNoise node, float dB, SFX sfx, int radius = -1)
+    public static void MakeNoise(IMakeNoise node, float dB, string sfx, int radius = -1)
     {
         // play sound
+        Audio.PlaySfx(node.NoiseSource, sfx, 0);
         var streamPlayer = node.NoiseSource;
-        streamPlayer.Stream = SFXLoader.Get(sfx);
+        streamPlayer.Stream = Audio.Get(sfx);
         streamPlayer.Play();
 
         // check who heard it

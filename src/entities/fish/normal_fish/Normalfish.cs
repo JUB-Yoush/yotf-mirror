@@ -76,7 +76,7 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
         }
     }
 
-    public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
+    public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise)
     {
         stateMachine.State = State.Flee;
     }

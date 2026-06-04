@@ -138,7 +138,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         CreateTween().Fn(() => InAction = false, 2);
     }
 
-    public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
+    public void OnNoiseHeard(Node3D noiseNode, float dB, string noise)
     {
         ThreatTarget = noiseNode;
         //noiseNode.TreeExited =>

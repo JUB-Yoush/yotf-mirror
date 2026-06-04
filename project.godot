@@ -23,6 +23,7 @@ config/icon="uid://bjsne24mfw3jm"
 
 NetworkHandler="*uid://igplvuui6k05"
 DebugLog="*uid://celq0411gnxjm"
+Audio="*uid://ctn0ffoi2lglr"
 
 [debug]
 

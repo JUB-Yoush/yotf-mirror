@@ -144,7 +144,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         DetectionZone.Monitoring = true;
     }
 
-    public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
+    public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise)
     {
         stateMachine.State = State.Electric;
     }

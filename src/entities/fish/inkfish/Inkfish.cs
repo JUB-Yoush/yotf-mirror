@@ -164,7 +164,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         }
     }
 
-    public void OnNoiseHeard(Node3D NoiseSource, float dB, SFX noise)
+    public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise)
     {
         ThreatTarget = NoiseSource;
         ThreatPosition = NoiseSource.GlobalPosition;
