@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="9_2qppk"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="9_sjuom"]
-[ext_resource type="PackedScene" uid="uid://dclgtcq541tkx" path="res://src/entities/fish/normal_fish/thwomp_fish.tscn" id="11_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjuom"]
@@ -94,7 +93,7 @@ points = PackedVector3Array(10, 3.3125, -3, 10.418034, 3.3125, -3, 10, 3.25, -3,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d0dvo"]
 points = PackedVector3Array(7.5, 3.3125, -3, 7.5, 3.25, -3, -2.9743168, 3.3125, -2.9999998, -2.9743168, 3.25, -2.9999998, 7.5, 3.3125, -5.5, 7.5, 3.25, -5.5, -2.9716432, 3.3125, -5.5, -2.9716432, 3.25, -5.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_3n2k3"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_rnp1b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qppk"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -418,16 +417,16 @@ points = PackedVector3Array(60, 2.5, -12.5, 60, 2, -12.5, 59, 2.5, -12.5, 59, 2,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nd61s"]
 points = PackedVector3Array(56.5, 2.5, -12.5, 56.5, 2, -12.5, 21.5, 2.5, -12.5, 21.5, 2, -12.5, 56.5, 2.5, -15, 56.5, 2, -15, 21.5, 2.5, -15, 21.5, 2, -15)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2qppk"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3n2k3"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjuom"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2qppk"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_2qppk")
+noise = SubResource("FastNoiseLite_3n2k3")
 seamless = true
 as_normal_map = true
 
@@ -438,7 +437,7 @@ cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_sjuom")
+refraction_texture = SubResource("NoiseTexture2D_2qppk")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -504,7 +503,7 @@ script = ExtResource("4_8hels")
 [node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=157917744]
 unique_name_in_owner = true
 material_override = ExtResource("5_41xod")
-mesh = SubResource("ImmediateMesh_3n2k3")
+mesh = SubResource("ImmediateMesh_rnp1b")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.304594, 2.717023, 9.393793)
@@ -539,9 +538,6 @@ Room = NodePath("../../Home")
 [node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("9_2qppk")]
 transform = Transform3D(-1.0000001, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -1.0000001, -18.143913, 2.5086226, 10.238323)
 InsideChest = ExtResource("9_sjuom")
-
-[node name="ThwompFish" parent="." unique_id=711625347 instance=ExtResource("11_3n2k3")]
-transform = Transform3D(0.12134964, 0, -0.9926098, 0, 1, 0, 0.9926098, 0, 0.12134964, -0.69152594, 4.3042755, 21.035866)
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
 transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -22.096567, 4.8978634, 12.261809)
