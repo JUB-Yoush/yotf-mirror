@@ -49,7 +49,7 @@ public partial class InkArea : Area3D, IPhotographable
         GlobalPosition = parent.GlobalPosition;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         GlobalTransform = parent.GlobalTransform;
     }

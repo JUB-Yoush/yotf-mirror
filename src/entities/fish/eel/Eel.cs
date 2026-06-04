@@ -124,9 +124,13 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         }
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         stateMachine.Update(delta);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
         MoveAndSlide();
     }
 

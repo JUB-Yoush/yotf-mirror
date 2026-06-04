@@ -9,22 +9,6 @@ namespace Yotf;
 
 public static class MiscExt
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Vector3 V3Lerp(Vector3 from, Vector3 to, float weight)
-    {
-        return new(
-            Mathf.Lerp(from.X, to.X, weight),
-            Mathf.Lerp(from.Y, to.Y, weight),
-            Mathf.Lerp(from.Z, to.Z, weight)
-        );
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Vector2 V2Lerp(Vector2 from, Vector2 to, float weight)
-    {
-        return new(Mathf.Lerp(from.X, to.X, weight), Mathf.Lerp(from.Y, to.Y, weight));
-    }
-
     extension(Tween tween)
     {
         public CallbackTweener Fn(

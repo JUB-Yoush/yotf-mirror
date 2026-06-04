@@ -32,12 +32,16 @@ public partial class Ghost : Fish
         Skin.Visible = state;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         if (SmoothMoveTo(CurrentNode!.GlobalPosition, speed, (float)delta))
         {
             CurrentNode = navGraph.RandomNode(CurrentNode);
         }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
         MoveAndSlide();
     }
 }
