@@ -3,10 +3,17 @@ using Godot;
 
 namespace Yotf;
 
-// areas that implement this interface must be on collision layer 3
+/// <summary>
+/// Allows Node3D to hear noises.
+/// Node must have child Area on collision layer Interactable
+/// InteractionMesh must have a material applied.
+/// </summary>
 public interface IInteractable
 {
-    public static readonly Material Outline = GD.Load<ShaderMaterial>("uid://cgcywsatye4gv");
+    public static readonly Material Outline = GD.Load<ShaderMaterial>(
+        "res://assets/materials/outline_material.tres"
+    );
+
     public void OnInteraction();
     public Mesh InteractionMesh { get; }
     public bool CanInteract

@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace Yotf;
 
+/// <summary>
+/// Noel Berry CoRoutine Library
+/// taken from https://github.com/EXOK/Celeste64/blob/main/Source/Helpers/Routine.cs
+/// I don't really think we need it Tweens do about the same thing (they're adding awaiting tweens in godot 4.7)
+/// </summary>
 public readonly struct Co(Co.Types type)
 {
     public static readonly Co Continue = new(Types.Continue);

@@ -27,6 +27,12 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     const float DefaultViewfinderFov = 50;
     private float ViewfinderFov = 50;
 
+    static readonly SubViewport.UpdateMode[] updateModes =
+    [
+        SubViewport.UpdateMode.Disabled,
+        SubViewport.UpdateMode.Always,
+    ];
+
     [Node]
     public required Camera3D PhotoCameraCam { set; get; }
 
@@ -74,9 +80,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         get;
     }
 
-    public PackedScene PackedScene => Packed;
+    public new PackedScene PackedScene => Packed;
 
-    public Mesh DropMesh => Mesh.Mesh;
+    public new Mesh DropMesh => Mesh.Mesh;
 
     public int maxFilm = 100;
 
@@ -107,6 +113,12 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
     }
 
+    public override void Removed()
+    {
+        CreateTween().LerpProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        ToggleCameraAim(false);
+    }
+
     public void CurrentLabUpdated(Lab newLab)
     {
         photoTerminal = newLab.PhotoTerminal;
@@ -129,6 +141,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             player.IsLookingInCamera = true;
             Aiming = true;
             Light.Visible = true;
+            ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionReleased("look_cam"))
@@ -152,7 +165,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public override void _Process(double delta)
     {
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
     }
 
@@ -190,17 +203,30 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     {
         Film -= 1;
         var subjects = GetPhotoSubjects();
+        var modifiers = GetPhotoModifiers();
         Image image = GetViewportImage();
         PhotoData photo = PhotoData.New(Name, subjects, image.Data);
-        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
+        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
         FlashSFX();
         IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
-        AddPhoto(photo, grades);
+        AddPhoto(photo, grades, modifiers);
     }
 
-    private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
+    private void ToggleCameraAim(bool state)
+    {
+        PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
+        player.IsLookingInCamera = state;
+        Aiming = state;
+        Light.Visible = state;
+    }
+
+    private Dictionary<string, PhotoGrade> GetSubjectGrades(
+        PhotoData photo,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
         Dictionary<string, PhotoGrade> result = [];
+        var modSet = modifiers.ToHashSet<IPhotographable.PhotoModifier>();
 
         foreach (var subjectName in photo.Subjects)
         {
@@ -224,13 +250,23 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
             var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
             var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
+            var inAction = subject is IDoesAction actionable && actionable.InAction;
 
             //fish lighting
             // TODO (j) implement
             var lightScore = 1f;
             result.Add(
                 subject.Name,
-                new((float)angleScore, sizeScore, (float)facingScore, lightScore)
+                new(
+                    (float)angleScore,
+                    sizeScore,
+                    (float)facingScore,
+                    lightScore,
+                    photo.Subjects.Length,
+                    inAction,
+                    modSet.Contains(IPhotographable.PhotoModifier.Ink),
+                    false // fish can't die (yet)
+                )
             );
         }
         return result;
@@ -245,9 +281,30 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     private string[] GetPhotoSubjects()
     {
         List<string> result = [];
-        foreach (var child in GetTree().CurrentScene.GetChildren(true))
-            if (child is IPhotographable photographable && photographable.IsInPhoto())
-                result.Add(child.Name);
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+        {
+            if (photographable.IsInPhoto() && !photographable.IsModifier)
+                result.Add(photographable.Subject.Name);
+        }
+        return [.. result];
+    }
+
+    private IPhotographable.PhotoModifier[] GetPhotoModifiers()
+    {
+        List<IPhotographable.PhotoModifier> result = [];
+
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+            if (photographable.IsInPhoto() && photographable.IsModifier)
+            {
+                if (photographable.Modifier == IPhotographable.PhotoModifier.Treasure)
+                {
+                    player.Stats.Money += TreasureFish.Value;
+                }
+                else
+                {
+                    result.Add(photographable.Modifier);
+                }
+            }
         return [.. result];
     }
 
@@ -264,24 +321,13 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
     }
 
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void AddPhoto(string photoJson, string photoTaker)
+    public void AddPhoto(
+        PhotoData photoData,
+        Dictionary<string, PhotoGrade> grades,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
-        Rpc(MethodName.UpdateTerminalImage, photoJson);
-        if (photoTaker == Name && player.IsMultiplayerAuthority())
-            Log.Print("I took this photo");
-        else
-            Log.Print("I didn't take this photo");
-    }
-
-    public void AddPhoto(PhotoData photoData, Dictionary<string, PhotoGrade> grades)
-    {
-        var photo = new Photo(photoData, grades);
+        var photo = new Photo(photoData, grades, modifiers);
         Photos.Add(photo);
         UpdateTerminalImage(photo);
     }
@@ -299,27 +345,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
         photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
-    }
-
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void UpdateTerminalImage(string photoJson)
-    {
-        PhotoData imgData = PhotoData.FromJson(photoJson);
-        var photoImg = Image.CreateFromData(
-            imgData.Width,
-            imgData.Height,
-            imgData.Mipmaps,
-            Image.Format.Rgb8,
-            imgData.Bytes
-        );
-        var imgTex = new ImageTexture();
-        imgTex.SetImage(photoImg);
-        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
     public void ClearPhotos()

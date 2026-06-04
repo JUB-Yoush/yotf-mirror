@@ -17,7 +17,7 @@ public partial class Player : CharacterBody3D
     [Node]
     public required Node3D Skin { set; get; }
 
-    public Vector3 SkinRestPosition;
+    public Vec3 SkinRestPosition;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -46,7 +46,7 @@ public partial class Player : CharacterBody3D
     [Node]
     public required Label Alert { set; get; }
 
-    public Vector3 CollisionPivot;
+    public Vec3 CollisionPivot;
 
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
@@ -114,6 +114,8 @@ public partial class Player : CharacterBody3D
     }
 
     private bool collisionEnabled = true;
+
+    public Tween? shockTween = null;
 
     //TODO(j) should probably be an enum for player interaction state
     public bool IsInMenu
@@ -220,9 +222,9 @@ public partial class Player : CharacterBody3D
         ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
-    internal void UpdateBodyDirection(Vector3 direction, float delta)
+    internal void UpdateBodyDirection(Vec3 direction, float delta)
     {
-        if (direction == Vector3.Zero)
+        if (direction == Vec3.Zero)
         {
             YawVelocity = 0f;
             return;
@@ -238,7 +240,7 @@ public partial class Player : CharacterBody3D
         YawVelocity = Mathf.AngleDifference(prevYaw, Skin.Rotation.Y) / delta;
     }
 
-    internal void UpdateBodyRotation(Vector3 rotation)
+    internal void UpdateBodyRotation(Vec3 rotation)
     {
         Basis rotBasis = Basis.FromEuler(rotation);
 
@@ -248,9 +250,9 @@ public partial class Player : CharacterBody3D
         Skin.Position = CollisionPivot + rotBasis * (SkinRestPosition - CollisionPivot);
     }
 
-    internal Vector3 GetCameraRelativeDirection()
+    internal Vec3 GetCameraRelativeDirection()
     {
-        Vector3 inputDir = Vector3.Zero;
+        Vec3 inputDir = Vec3.Zero;
 
         inputDir -= Camera.GlobalTransform.Basis.X * Input.GetActionStrength("left");
         inputDir += Camera.GlobalTransform.Basis.X * Input.GetActionStrength("right");
@@ -260,13 +262,16 @@ public partial class Player : CharacterBody3D
         return inputDir;
     }
 
-    internal void GetShocked(Vector3 ShockSource)
+    internal void GetShocked(Vec3 ShockSource)
     {
+        if (shockTween != null)
+            return;
+
         //hit
         Stats.Injuries += 3;
         //kb
         var dir = (GlobalPosition - ShockSource).Normalized();
-        Velocity += dir * 5;
+        Velocity += dir * 15;
 
         // drop ur stuff
         for (int i = 0; i < Inventory.Capacity; i++)
@@ -280,10 +285,10 @@ public partial class Player : CharacterBody3D
                 Inventory.RemoveItem(i);
             }
         }
+        shockTween = CreateTween();
         //disable HUD
-        var tween = CreateTween();
-        tween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffff00), .5f);
-        tween.Fn(() =>
+        shockTween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffff00), .5f);
+        shockTween.Fn(() =>
         {
             Alert.Visible = true;
             Alert.RenderGradually(
@@ -291,10 +296,24 @@ public partial class Player : CharacterBody3D
                 0.02f
             );
         });
-        tween.TweenInterval(4f);
-        tween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffffff), .5f);
-        tween.LerpProperty(Alert, Control.PropertyName.Modulate, new Color(0xffffff00), .5f, true);
-        tween.Fn(() => Alert.Visible = false);
-        tween.LerpProperty(Alert, Control.PropertyName.Modulate, new Color(0xffffffff), .5f, true);
+        shockTween.TweenInterval(4f);
+        shockTween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffffff), .5f);
+        shockTween.LerpProperty(
+            Alert,
+            Control.PropertyName.Modulate,
+            new Color(0xffffff00),
+            .5f,
+            true
+        );
+        shockTween.Fn(() => Alert.Visible = false);
+        shockTween.Fn(() => HUD.Visible = true);
+        shockTween.LerpProperty(
+            Alert,
+            Control.PropertyName.Modulate,
+            new Color(0xffffffff),
+            .5f,
+            true
+        );
+        shockTween.Finished += () => shockTween = null;
     }
 }

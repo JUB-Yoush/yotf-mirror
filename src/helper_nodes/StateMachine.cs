@@ -4,7 +4,10 @@ using Godot;
 
 namespace Yotf;
 
-//modified from: https://github.com/EXOK/Celeste64/blob/main/Source/Helpers/StateMachine.cs
+/// <summary>
+/// Noel Berry State Machine Library
+/// modified from: https://github.com/EXOK/Celeste64/blob/main/Source/Helpers/StateMachine.cs
+/// </summary>
 public sealed unsafe class StateMachine<TIndex>
     where TIndex : unmanaged, Enum
 {
@@ -15,21 +18,25 @@ public sealed unsafe class StateMachine<TIndex>
     private readonly Action<float>?[] update = new Action<float>[StateCount];
     private readonly Action?[] enter = new Action[StateCount];
     private readonly Action?[] exit = new Action[StateCount];
+    private readonly Func<CoEnumerator>?[] routine = new Func<CoEnumerator>[StateCount];
 
-    private TIndex? state;
+    private Routine running = new();
 
     public TIndex? State
     {
-        get => state;
+        get;
         set
         {
-            PreviousState = state;
-            state = value;
+            PreviousState = field;
+            field = value;
+            running.Clear();
             if (PreviousState.HasValue)
                 exit[StateToIndex(PreviousState.Value)]?.Invoke();
-            if (state.HasValue)
+            if (field.HasValue)
             {
-                enter[StateToIndex(state.Value)]?.Invoke();
+                enter[StateToIndex(field.Value)]?.Invoke();
+                if (routine[StateToIndex(field.Value)] is { } rt) // type casting trick to assign to new var and check if not null
+                    running.Run(rt());
             }
         }
     }
@@ -39,46 +46,21 @@ public sealed unsafe class StateMachine<TIndex>
         TIndex state,
         Action<float>? update,
         Action? enter = null,
-        Action? exit = null
+        Action? exit = null,
+        Func<CoEnumerator>? routine = null
     )
     {
         int index = StateToIndex(state);
         this.update[index] = update;
         this.enter[index] = enter;
         this.exit[index] = exit;
+        this.routine[index] = routine;
     }
 
     public void Update(double deltaTime)
     {
-        if (state.HasValue)
-            update[StateToIndex(state.Value)]?.Invoke((float)deltaTime);
+        if (State.HasValue)
+            update[StateToIndex(State.Value)]?.Invoke((float)deltaTime);
+        running.Update((float)deltaTime);
     }
 }
-//sample of how to use
-// public partial class Unsafestatemachine : Node2D
-// {
-//     enum State
-//     {
-//         StateOne,
-//         StateTwo,
-//         StateThree,
-//     }
-
-//     private readonly StateMachine<State> stateMachine = new();
-
-//     public override void _Ready()
-//     {
-//         stateMachine.AddState(State.StateOne, S1Update, null, null);
-//         stateMachine.State = State.StateOne;
-//     }
-
-//     public override void _PhysicsProcess(double delta)
-//     {
-//         stateMachine.Update(delta);
-//     }
-
-//     public void S1Update(float delta)
-//     {
-//         Log.PrintLn("state 1 update");
-//     }
-// }

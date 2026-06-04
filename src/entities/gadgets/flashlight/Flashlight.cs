@@ -10,7 +10,6 @@ public partial class Flashlight : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    public new readonly PackedScene PackedInstance = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
     [Node]
@@ -19,9 +18,9 @@ public partial class Flashlight : Item, IDroppable
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
-    public PackedScene PackedScene => Packed;
+    public new PackedScene PackedScene => Packed;
 
-    public Mesh DropMesh => Mesh.Mesh;
+    public new Mesh DropMesh => Mesh.Mesh;
 
     [Export]
     private float batteryUseRate = 10;

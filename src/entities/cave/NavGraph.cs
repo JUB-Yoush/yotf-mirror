@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// A graph of 3D nodes, used for fish pathfinding throughout the level.
+/// </summary>
 [Tool]
 [GlobalClass]
 public partial class NavGraph : Node3D
@@ -42,15 +46,25 @@ public partial class NavGraph : Node3D
         foreach (var node in GetNavNodes())
         {
             for (int i = 0; i < node.neighbors.Length; i++)
+            {
+                if (node.neighbors[i] == null)
+                {
+                    GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at position {i}");
+                }
                 node.AddNeighbor(node.neighbors[i]);
+            }
         }
     }
 
     public override void _Process(double delta)
     {
-        if (!Engine.IsEditorHint())
-            return;
+        // if (!Engine.IsEditorHint())
+        //     return;
+
         NavNodes = GetNavNodes();
+        bool anyConnections = false;
+        if (NavNodes.Length < 2)
+            return;
 
         immMesh.ClearSurfaces();
         immMesh = new ImmediateMesh();
@@ -74,7 +88,13 @@ public partial class NavGraph : Node3D
                 toDraw.Enqueue(nei);
                 immMesh.SurfaceAddVertex(curr.Position);
                 immMesh.SurfaceAddVertex(nei.Position);
+                anyConnections = true;
             }
+        }
+        if (!anyConnections)
+        {
+            immMesh.SurfaceAddVertex(Vec3.Zero);
+            immMesh.SurfaceAddVertex(Vec3.One);
         }
 
         immMesh.SurfaceEnd();
@@ -84,26 +104,58 @@ public partial class NavGraph : Node3D
 
     private NavNode[] GetNavNodes()
     {
-        List<NavNode> res = [];
+        List<NavNode> result = [];
         foreach (var node in GetChildren())
         {
             if (node is NavNode nav)
-                res.Add(nav);
+                result.Add(nav);
         }
-        return [.. res];
+        return [.. result];
     }
 
-    public NavNode NodeClosestTo(Vector3 pos)
+    public NavNode NodeClosestTo(Vec3 pos, NavNode? currentToAvoid = null)
     {
-        // TODO(j) shoot a raycast to make sure it's not in a wall or somthn
-        (NavNode?, float) record = (null, 0);
+        // TODO(j) shoot a raycast to make sure it's not behind a wall or somthn
+        (NavNode?, float) result = (null, float.MaxValue);
         foreach (var node in GetNavNodes())
         {
-            if ((node.GlobalPosition - pos).LengthSquared() > record.Item2)
+            if (
+                (node.GlobalPosition - pos).LengthSquared() <= result.Item2
+                && (currentToAvoid == null || currentToAvoid != node)
+            )
+            {
+                result = (node, (node.GlobalPosition - pos).LengthSquared());
+            }
+        }
+        return result.Item1!;
+    }
+
+    public NavNode? NodeAwayFrom(Vec3 pos, Vec3 awayFrom)
+    {
+        (NavNode?, float) record = (null, float.MaxValue);
+        foreach (var node in GetNavNodes())
+        {
+            if (
+                (node.GlobalPosition - pos).LengthSquared() <= record.Item2
+                && (
+                    (pos - awayFrom).LengthSquared()
+                    <= (node.GlobalPosition - awayFrom).LengthSquared()
+                )
+            )
             {
                 record = (node, (node.GlobalPosition - pos).LengthSquared());
             }
         }
         return record.Item1!;
+    }
+
+    public NavNode RandomNode(NavNode? notThisOne = null)
+    {
+        var next = NavNodes[GD.RandRange(0, NavNodes.Length - 1)];
+        while (notThisOne != null && next == notThisOne)
+        {
+            next = NavNodes[GD.RandRange(0, NavNodes.Length - 1)];
+        }
+        return next;
     }
 }

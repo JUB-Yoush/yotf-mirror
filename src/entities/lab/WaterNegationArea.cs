@@ -3,6 +3,10 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// Nullifies a WaterVolume if placed within
+/// Used to remove the water from underwater labs.
+/// </summary>
 public partial class WaterNegationArea : Area3D
 {
     public override void _Ready()

@@ -3,6 +3,9 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// Base Fish Class
+/// </summary>
 [Meta(typeof(IAutoNode))]
 public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {
@@ -19,30 +22,74 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     public required RayCast3D DirectionRay { set; get; }
 
     [Node]
-    public required NavigationAgent3D NavAgent { set; get; }
-
-    [Node]
     public required Area3D DetectionZone { set; get; }
 
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required MeshInstance3D NavBox { set; get; }
+
     [Export]
     public PathFollow3D? SplineFollower;
 
-    // ====================== BEHAVIOUR ======================
-
-    [ExportCategory("Behaviour")]
     [Export]
-    public FishProfile Profile = null!;
+    public FishRoom? CurrentRoom { get; set; }
+
+    [ExportCategory("FishProfile")]
+    [Export]
+    public float WanderSpeed = 3f;
+
+    [Export]
+    public float WanderRotationSpeed = 4f;
+
+    [Export]
+    public float WanderRadius = 6f;
+
+    [Export]
+    public float FleeSpeed = 7f;
+
+    [Export]
+    public float FleeRotationSpeed = 7f;
+
+    [Export]
+    public float FleeDistance = 12f;
+
+    [Export]
+    public float FleeTimeout = 6f;
+
+    [Export]
+    public float NavRandomOffsetRange = 3f;
+
+    [Export]
+    public float ArrivalThreshold = 10f;
+
+    [Export(PropertyHint.Range, "0,1")]
+    public float NoiseTolerance = 0.4f;
 
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
-    public Vector3 ThreatPosition { get; internal set; }
+    public Vec3 ThreatPosition { get; internal set; }
 
     // null when no player is in range
     public Node3D? ThreatTarget { get; set; }
 
-    public FishRoom? CurrentRoom { get; set; }
+    internal bool ReturningHome = false;
+
+    internal NavNode? PrevNode;
+    internal NavNode? CurrentNode
+    {
+        set
+        {
+            PrevNode = field;
+            field = value;
+            if (field != null)
+            {
+                NavBox.GlobalPosition = field!.GlobalPosition;
+            }
+        }
+        get;
+    } = null;
+    internal NavGraph navGraph = null!;
 
     public required MeshInstance3D SubjectBoundingMesh
     {
@@ -55,6 +102,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         get => this;
         set;
     }
+    public IPhotographable.PhotoModifier Modifier
+    {
+        get => IPhotographable.PhotoModifier.None;
+        set;
+    }
 
     // public override void _PhysicsProcess(double delta)
     // {
@@ -64,16 +116,56 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 
     public FishRoom AssignCurrentRoom()
     {
-        FishRoom res = null!;
+        FishRoom currentClosest = null!;
         foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
         {
-            res ??= room;
-            if (room.GlobalPosition - GlobalPosition <= res.GlobalPosition - GlobalPosition)
+            currentClosest ??= room;
+            if (
+                (room.GlobalPosition - GlobalPosition).LengthSquared()
+                <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
+            )
             {
-                res = room;
+                currentClosest = room;
             }
         }
-        return res;
+        return currentClosest;
+    }
+
+    internal bool SmoothMoveTo(Vec3 target, float speed, float delta, float arrivalThreshold = 0.1f)
+    {
+        target -= GlobalPosition;
+        Vec3 dir = target.Normalized();
+
+        Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
+
+        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
+        GlobalRotation = GlobalRotation with
+        {
+            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
+        };
+
+        return target.LengthSquared() < arrivalThreshold;
+    }
+
+    public NavNode PickWanderTarget(bool sameRoom = true, bool turnTowards = false)
+    {
+        NavNode next = CurrentNode!.RandomNeighbor();
+        while (next.Room != CurrentRoom && sameRoom)
+        {
+            next = CurrentNode.RandomNeighbor();
+        }
+
+        if (turnTowards)
+        {
+            CreateTween()
+                .TweenFn<Vec3>(
+                    (target) => LookAt(target),
+                    GlobalRotation,
+                    next.GlobalPosition.Normalized(),
+                    0.1f
+                );
+        }
+        return next;
     }
 
     // ====================== SENSORY ENTRY POINTS ======================
@@ -96,7 +188,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     }
 
     // // level is 0-1, source is world pos
-    // public void OnNoiseHeard(float level, Vector3 source)
+    // public void OnNoiseHeard(float level, Vec3 source)
     // {
     //     if (level >= Profile.NoiseThreshold)
     //         CurrentState.OnNoiseHeard(this, level, source);
@@ -109,7 +201,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         //     SetState<Axolotl>(WanderingState);
     }
 
-    public bool IsInPhoto() => true;
+    public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
 
     // ====================== INTERNAL HELPERS ======================
 

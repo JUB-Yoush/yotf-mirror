@@ -3,11 +3,12 @@ using Godot;
 
 namespace Yotf;
 
-// only used by classes that are based on Node3D, so we can cast to that safely
+/// <summary>
+/// Allows Node3Ds to be visible on the minimap.
+/// </summary>
 public interface IOnMiniMap
 {
     virtual bool CanBeOnMinimap() => true;
 
-    //vector pointing from the node to the player position
-    Vector2 RelativePositon(Vector2 playerXZ) => ((Node3D)this).GlobalPosition.XZ() - playerXZ;
+    Vec2 RelativePositon(Vec2 playerXZ) => ((Node3D)this).GlobalPosition.XZ() - playerXZ;
 }

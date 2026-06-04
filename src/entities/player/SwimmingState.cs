@@ -32,14 +32,14 @@ public class SwimmingState : IPlayerState
         Stats.SpendOxygen(delta);
 
         Basis cam = player.Camera.GlobalTransform.Basis;
-        Vector3 bodyUp = -cam.Z;
-        Vector3 bodyRight = cam.X;
-        Vector3 bodyBack = bodyUp.Cross(bodyRight);
+        Vec3 bodyUp = -cam.Z;
+        Vec3 bodyRight = cam.X;
+        Vec3 bodyBack = bodyUp.Cross(bodyRight);
         player.UpdateBodyRotation(
             new Basis(bodyRight, bodyUp, bodyBack).Orthonormalized().GetEuler()
         );
 
-        Vector3 moveDir = Vector3.Zero;
+        Vec3 moveDir = Vec3.Zero;
         moveDir -=
             player.Camera.GlobalTransform.Basis.Z
             * (Input.GetActionStrength("up") - Input.GetActionStrength("down"));
@@ -51,10 +51,10 @@ public class SwimmingState : IPlayerState
         if (Input.IsActionJustPressed("jump"))
             speed *= player.SwimBoostMultiplier;
 
-        if (moveDir != Vector3.Zero)
+        if (moveDir != Vec3.Zero)
             player.Velocity = moveDir.Normalized() * speed;
         else
-            player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
+            player.Velocity = player.Velocity.Lerp(Vec3.Zero, player.SwimDamping * delta);
 
         player.MoveAndSlide();
     }

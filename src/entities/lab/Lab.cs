@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Yotf;
@@ -9,6 +10,8 @@ public partial class Lab : Node3D
     public override void _Notification(int what) => this.Notify(what);
 
     public static Action<Lab>? CurrentLabUpdated;
+
+    static readonly HashSet<int> labIndicies = [];
 
     public static Lab? CurrentLab
     {
@@ -44,6 +47,8 @@ public partial class Lab : Node3D
 
     public override void _Ready()
     {
+        if (!labIndicies.Add(Index))
+            GD.PrintErr($"Lab: {Name} has duplicate Index");
         if (Index == 0)
             Lab.CurrentLab = this;
     }

@@ -3,11 +3,18 @@ using Godot;
 
 namespace Yotf;
 
-// on any Node3D
+/// <summary>
+/// Implemented on Node3Ds, Allows them to be captured by a Axolotl bubble.
+/// Implementing bodies must exist on the Bubbleable layer.
+/// </summary>
 public interface IBubbleable
 {
     public Bubble? BubbleJail { set; get; }
     public Mesh Mesh { get; }
+    public float MeshScale
+    {
+        get => 1;
+    }
     public Node3D Spatial
     {
         get => (Node3D)this;
@@ -15,10 +22,6 @@ public interface IBubbleable
     public bool CanBeBubbled
     {
         get => true;
-    }
-    public Vector3 GlobalPosition
-    {
-        get => Spatial.GlobalPosition;
     }
     public bool AxolotlTargets
     {

@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://cj0jgp2r7k00t"
+path="res://.godot/imported/grid_level.map-0288409e43fe1644561c9d6584da5857.tres"
+
+[deps]
+
+source_file="res://assets/maps/grid_level.map"
+dest_files=["res://.godot/imported/grid_level.map-0288409e43fe1644561c9d6584da5857.tres"]
+
+[params]
+

@@ -3,10 +3,8 @@ using Godot;
 
 namespace Yotf;
 
-public partial class FishRoom : Marker3D
-{
-    public override void _Ready()
-    {
-        //this.GetNode<MeshInstance3D>()!.Visible = false;
-    }
-}
+/// <summary>
+/// Used to mark "Rooms" within the map. Fish wander behaviour can ensure fish remain in the same room
+/// </summary>
+[GlobalClass]
+public partial class FishRoom : Marker3D;

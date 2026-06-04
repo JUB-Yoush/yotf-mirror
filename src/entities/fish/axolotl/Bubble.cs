@@ -36,11 +36,11 @@ public partial class Bubble : CharacterBody3D
 
     private Axolotl origin = null!;
 
-    public Vector3 SpawnDir = Vector3.Zero;
+    public Vec3 SpawnDir = Vec3.Zero;
 
     public static Bubble New(
         Axolotl origin,
-        Vector3 spawnDir,
+        Vec3 spawnDir,
         float shotSpeed,
         float riseSpeed,
         float deceleration
@@ -63,7 +63,10 @@ public partial class Bubble : CharacterBody3D
 
     private void OnBodyEntered(Node3D body)
     {
-        PutInBubble((IBubbleable)body);
+        if (body is IBubbleable bubbleable && bubbleable.CanBeBubbled)
+        {
+            PutInBubble(bubbleable);
+        }
     }
 
     void PutInBubble(IBubbleable bubbleable)
@@ -71,6 +74,7 @@ public partial class Bubble : CharacterBody3D
         if (bubbleable.CanBeBubbled && bubbleable.BubbleJail == null && origin != bubbleable)
         {
             Mesh.Mesh = bubbleable.Mesh;
+            Mesh.Scale = new(bubbleable.MeshScale, bubbleable.MeshScale, bubbleable.MeshScale);
             bubbleable.BubbleJail = this;
             bubbleable.PutInBubble();
             capturedNode = bubbleable;
@@ -79,9 +83,10 @@ public partial class Bubble : CharacterBody3D
 
     void FreeCapturedNode()
     {
-        capturedNode?.BubbleJail = null;
+        Log.PrintLn("freeing from bubble");
         capturedNode?.FreeFromBubble();
-        QueueFree();
+        capturedNode?.BubbleJail = null;
+        this.DeferFree();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -90,9 +95,8 @@ public partial class Bubble : CharacterBody3D
         if (lifetime <= 0)
         {
             FreeCapturedNode();
-            QueueFree();
         }
-        Velocity = SpawnDir * shotSpeed + new Vector3(0, riseSpeed, 0);
+        Velocity = SpawnDir * shotSpeed + new Vec3(0, riseSpeed, 0);
         shotSpeed = Mathf.Lerp(shotSpeed, 0, deceleration);
         MoveAndSlide();
     }

@@ -1,0 +1,11 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://bxhbnf8pnaft4"]
+
+[ext_resource type="Texture2D" uid="uid://b8xrfjmuesdsk" path="res://assets/2d/oxygen_icon.png" id="1_10qtk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t62k"]
+albedo_texture = ExtResource("1_10qtk")
+uv1_scale = Vector3(2.2, 2.2, 2.2)
+
+[resource]
+material = SubResource("StandardMaterial3D_0t62k")
+size = Vector3(0.2, 0.2, 0.2)

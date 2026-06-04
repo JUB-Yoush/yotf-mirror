@@ -15,7 +15,7 @@ public partial class Minimap : Control
     [Export]
     float miniMapZoom = 5f;
 
-    Vector2 origin;
+    Vec2 origin;
 
     private readonly List<IOnMiniMap> miniMapItems = [];
     private readonly Dictionary<IOnMiniMap, ColorRect> MapIcons = [];

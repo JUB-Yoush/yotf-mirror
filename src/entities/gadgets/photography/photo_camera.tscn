@@ -5,22 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="2_vbjdg"]
 [ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="3_jvh7c"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
-albedo_color = Color(0.32156864, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_68lge"]
-material = SubResource("StandardMaterial3D_4q7ia")
-size = Vector3(0.2, 0.2, 0.2)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_jvh7c"]
-radius = 2.6155052
+radius = 6.340579
 
 [node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
 ItemName = "Camera"
 Icon = ExtResource("2_vbjdg")
-DropMesh = SubResource("BoxMesh_68lge")
-PackedInstance = null
 
 [node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
 unique_name_in_owner = true

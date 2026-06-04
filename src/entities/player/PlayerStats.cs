@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using Godot;
+using static Yotf.DisposableRestore;
 
 namespace Yotf;
 
@@ -110,17 +112,8 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
-        //TODO (j) we need to come up wtih some normalized depth value relative to the underwater lab or smthn
         OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
-    }
-
-    public override void _Process(double delta)
-    {
-        if (Input.IsActionPressed("roll"))
-        {
-            Injuries += 10 * (float)delta;
-        }
     }
 
     public void Drown()
@@ -134,5 +127,24 @@ public partial class PlayerStats : Node
     internal void RestoreOxygen()
     {
         Oxygen = MaxOxygen - Injuries;
+    }
+
+    public void RestoreStat(Restore restore, float amount)
+    {
+        Debug.Assert(restore != Restore.None, "None restorable item passed into restore function");
+        switch (restore)
+        {
+            case Restore.Oxygen:
+                Oxygen += amount;
+                break;
+
+            case Restore.Battery:
+                Battery += amount;
+                break;
+
+            case Restore.Injuries:
+                Injuries += amount;
+                break;
+        }
     }
 }

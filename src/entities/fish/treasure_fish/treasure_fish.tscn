@@ -103,13 +103,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_u22fb")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3732h"]
+albedo_color = Color(0.8869811, 0.30556294, 0.57979774, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c250"]
+material = SubResource("StandardMaterial3D_3732h")
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="TreasureFish" type="CharacterBody3D" unique_id=711625347]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_2c250")
-
-[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=94284340]
-unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=641768016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
@@ -137,3 +141,8 @@ unique_name_in_owner = true
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_jfchi")
 skeleton = NodePath("")
+
+[node name="NavBox" type="MeshInstance3D" parent="." unique_id=333117279]
+unique_name_in_owner = true
+top_level = true
+mesh = SubResource("BoxMesh_2c250")

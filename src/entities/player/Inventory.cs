@@ -15,7 +15,6 @@ public partial class Inventory : Node3D
     [Node]
     public required Hud HUD { set; get; }
 
-    //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     public Item?[] Items
     {
         get
@@ -27,10 +26,12 @@ public partial class Inventory : Node3D
         }
     }
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
+        AddItem(DisposableRestore.Packed.Instantiate<Item>(), 2);
+        AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 3);
         SetCurrentItem(0);
     }
 

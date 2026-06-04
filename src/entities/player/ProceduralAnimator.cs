@@ -50,18 +50,18 @@ public partial class ProceduralAnimator : Node3D
 
     private class FootState
     {
-        public Vector3 PlantedPos;
-        public Vector3 StepStartPos;
-        public Vector3 StepTargetPos;
-        public Vector3 DesiredPos;
+        public Vec3 PlantedPos;
+        public Vec3 StepStartPos;
+        public Vec3 StepTargetPos;
+        public Vec3 DesiredPos;
         public bool IsStepping;
         public float StepT;
     }
 
     private FootState footStateL = null!;
     private FootState footStateR = null!;
-    private Vector3 restingPosL;
-    private Vector3 restingPosR;
+    private Vec3 restingPosL;
+    private Vec3 restingPosR;
     private float rootBoneRestY;
 
     private PlayerState state = PlayerState.Walking;
@@ -76,8 +76,8 @@ public partial class ProceduralAnimator : Node3D
         restingPosL = FootTargetLeft.Position;
         restingPosR = FootTargetRight.Position;
 
-        Vector3 worldRestL = ToGlobal(restingPosL);
-        Vector3 worldRestR = ToGlobal(restingPosR);
+        Vec3 worldRestL = ToGlobal(restingPosL);
+        Vec3 worldRestR = ToGlobal(restingPosR);
 
         footStateL = new FootState
         {
@@ -125,7 +125,7 @@ public partial class ProceduralAnimator : Node3D
         state = newState;
         if (newState == PlayerState.Swimming)
         {
-            Vector3 currSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
+            Vec3 currSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
             currSpinePos.Y = rootBoneRestY;
             Skeleton3D.SetBonePosePosition(SpineBoneIdx, currSpinePos);
 
@@ -141,7 +141,7 @@ public partial class ProceduralAnimator : Node3D
         }
         else
         {
-            Vector3 currentSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
+            Vec3 currentSpinePos = Skeleton3D.GetBonePosePosition(SpineBoneIdx);
             currentSpinePos.Y = rootBoneRestY;
             Skeleton3D.SetBonePosePosition(SpineBoneIdx, currentSpinePos);
 
@@ -176,7 +176,7 @@ public partial class ProceduralAnimator : Node3D
     {
         UpdateHeadLook(delta);
 
-        Vector3 velocity = Player.Velocity;
+        Vec3 velocity = Player.Velocity;
 
         swimTime += delta;
         float angle = swimTime * SwimPaddleFrequency * Mathf.Tau;
@@ -189,16 +189,16 @@ public partial class ProceduralAnimator : Node3D
         float rightY = Mathf.Cos(angle + Mathf.Pi) * StepHeight * velocityScale;
         float rightZ = (Mathf.Sin(angle + Mathf.Pi) - 1f) * SwimPaddleAmplitude * velocityScale;
 
-        FootTargetLeft.Position = restingPosL + new Vector3(0f, leftY, leftZ);
-        FootTargetRight.Position = restingPosR + new Vector3(0f, rightY, rightZ);
+        FootTargetLeft.Position = restingPosL + new Vec3(0f, leftY, leftZ);
+        FootTargetRight.Position = restingPosR + new Vec3(0f, rightY, rightZ);
     }
 
     private void UpdateDesiredPositions()
     {
-        Vector3 velocity = Player.Velocity;
+        Vec3 velocity = Player.Velocity;
 
-        Vector3 worldRestL = ToGlobal(restingPosL);
-        Vector3 worldRestR = ToGlobal(restingPosR);
+        Vec3 worldRestL = ToGlobal(restingPosL);
+        Vec3 worldRestR = ToGlobal(restingPosR);
 
         footStateL.DesiredPos = RayCastLeft.IsColliding()
             ? RayCastLeft.GetCollisionPoint()
@@ -208,9 +208,9 @@ public partial class ProceduralAnimator : Node3D
             ? RayCastRight.GetCollisionPoint()
             : worldRestR;
 
-        if (velocity != Vector3.Zero)
+        if (velocity != Vec3.Zero)
         {
-            Vector3 prediction = velocity.Normalized() * PredictionScale;
+            Vec3 prediction = velocity.Normalized() * PredictionScale;
             footStateL.DesiredPos += prediction;
             footStateR.DesiredPos += prediction;
         }
@@ -252,7 +252,7 @@ public partial class ProceduralAnimator : Node3D
     {
         if (foot.StepT < 1f)
         {
-            Vector3 newPosition = foot.StepStartPos.Lerp(foot.StepTargetPos, foot.StepT);
+            Vec3 newPosition = foot.StepStartPos.Lerp(foot.StepTargetPos, foot.StepT);
             newPosition.Y += Mathf.Sin(foot.StepT * Mathf.Pi) * StepHeight;
 
             foot.StepT += delta * Player.MoveSpeed * StepSpeed;

@@ -5,7 +5,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish, IBubbleable, IHearNoise
+public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -16,6 +16,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         Wander,
         Chase,
         Flee,
+        Bubbled,
     }
 
     [Export]
@@ -31,23 +32,17 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
     float minimumWanderRange = 3f;
 
     [Node]
-    public required MeshInstance3D NavBox { set; get; }
-
-    [Node]
     public required MeshInstance3D NavBox2 { set; get; }
 
     //wandering
     float wanderTimer = 0f;
     float maxWanderTime = 10f;
-    Vector3 wanderTarget = Vector3.Zero;
-    NavNode? targetNode = null;
-    NavNode? currentNode = null;
-    NavGraph navGraph = null!;
+    Vec3 wanderTarget = Vec3.Zero;
 
     // chasing
     readonly List<IBubbleable> bubbleTargets = [];
-    Vector3 bubbleTargetPosition = Vector3.Zero;
-    Vector3 lastKnownLocation = Vector3.Zero;
+    Vec3 bubbleTargetPosition = Vec3.Zero;
+    Vec3 lastKnownLocation = Vec3.Zero;
     float lastKnownSeekTimer = 5f;
     float maxLastKnownSeekTimer = 5f;
     float endDistance = 1f;
@@ -62,36 +57,35 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         get => false;
     }
 
-    #region IBubbleable
     public Bubble? BubbleJail { get; set; }
     Mesh IBubbleable.Mesh => Mesh.Mesh;
 
+    public bool InAction { get; set; }
+
     public void PutInBubble()
     {
+        stateMachine.State = State.Bubbled;
         Mesh.Visible = false;
         DetectionZone.Monitoring = false;
     }
 
     public void FreeFromBubble()
     {
+        stateMachine.State = State.Wander;
         Mesh.Visible = true;
         DetectionZone.Monitoring = true;
     }
-    #endregion IBubbleable
 
-    /*
-     * axolotl wanders randomly until bubbleable thing (that isn't already in bubble) is found in it's detection range
-     * it then goes up to that thing and bubbles it.
-     * If you "press" the axolotl you can make it shoot a bubble
-    */
     public override void _Ready()
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         CurrentRoom = AssignCurrentRoom();
-        Log.PrintLn($"current room{CurrentRoom}");
+
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Chase, ChaseUpdate);
+        stateMachine.AddState(State.Bubbled, BubbleUpdate);
+
         stateMachine.State = State.Wander;
 
         DetectionZone.BodyEntered += OnDetectionBodyEntered;
@@ -110,6 +104,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
             body is IBubbleable bubbleable
             && bubbleable.AxolotlTargets
             && stateMachine.State != State.Flee
+            && bubbleable.BubbleJail == null
         )
         {
             bubbleTargets.Remove(bubbleable);
@@ -125,159 +120,88 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
         if (body is IBubbleable bubbleable && bubbleable.AxolotlTargets)
         {
             bubbleTargets.Add(bubbleable);
-            //stateMachine.State = State.Chase;
+            stateMachine.State = State.Chase;
         }
     }
 
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
-    {
-        target -= GlobalPosition;
-        Vector3 dir = target.Normalized();
-
-        Velocity = MiscExt.V3Lerp(Velocity, target * speed, Profile.RotationSpeed * delta);
-        //Velocity = dir * speed;
-
-        float targetYaw = Mathf.Atan2(dir.X, dir.Z);
-        GlobalRotation = GlobalRotation with
-        {
-            Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, Profile.RotationSpeed * delta),
-        };
-
-        return target.LengthSquared() < arrivalThreshold;
-    }
-
-    public void MakeBubble(Vector3 dir)
+    public void MakeBubble(Vec3 dir)
     {
         dir = dir.Normalized();
         var bubble = Bubble.New(this, dir, bubbleShotSpeed, bubbleRiseSpeed, bubbleDeceleration);
         AddChild(bubble);
+        InAction = true;
+        CreateTween().Fn(() => InAction = false, 2);
     }
 
-    public void OnNoiseHeard(Node3D noiseNode, float dB, SFX noise)
+    public void OnNoiseHeard(Node3D noiseNode, float dB, string noise)
     {
-        //TODO (j) check if noise is threatening
         ThreatTarget = noiseNode;
+        //noiseNode.TreeExited =>
         stateMachine.State = State.Flee;
+
+        var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();
+        CreateTween()
+            .TweenFn<Vec3>(
+                (target) => LookAt(GlobalPosition - target),
+                -GlobalTransform.Basis.Z,
+                fleeDir,
+                1
+            );
+    }
+
+    public void BubbleUpdate(float delta)
+    {
+        if (BubbleJail != null)
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+            Velocity = Vec3.Zero;
+        }
     }
 
     public void WanderEnter()
     {
-        PickWanderTarget();
+        CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
+        CurrentRoom = AssignCurrentRoom();
     }
 
     public void WanderUpdate(float delta)
     {
-        // pick a node on the graph that is within your wander range from "room"
-        // find closest node that you can reach (nothing in between)
-        // from there traverse the graph until you reach the target
-
-        // TODO(j) BubbleJail should be a state
-        // if (BubbleJail != null)
-        // {
-        //     GlobalPosition = BubbleJail.GlobalPosition;
-        //     Velocity = Vector3.Zero;
-        //     return;
-        // }
-
-        wanderTimer += (float)delta;
-        if (wanderTimer >= maxWanderTime)
+        if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, delta, ArrivalThreshold))
         {
-            wanderTimer = 0;
-            PickWanderTarget();
-            NavAgent.TargetPosition = wanderTarget - GlobalPosition;
-            Log.PrintLn(NavAgent.TargetPosition, NavAgent.TargetPosition - GlobalPosition);
-            MakeBubble(GlobalBasis.Z);
+            CurrentNode = PickWanderTarget();
         }
-        // TODO(j) ignore the Y of next path position as I think it is always level to the floor. movement is all wack uhahsdfasdf
-        //SmoothMoveTo(NavAgent.GetNextPathPosition(), Profile.MoveSpeed, (float)delta);
-        NavBox.GlobalPosition = NextPathPosition();
-        //SmoothMoveTo(wanderTarget, Profile.MoveSpeed, (float)delta);
     }
 
-    public Vector3 NextPathPosition()
+    public void ChaseUpdate(float delta)
     {
-        var target = wanderTarget - GlobalPosition;
-        var ylerp = (float)Mathf.Lerp(GlobalPosition.Y, target.Y, 0.5);
-        //Log.PrintLn(Na)
-        var navPos2 = new Vector3(
-            NavAgent.GetNextPathPosition().X,
-            ylerp,
-            NavAgent.GetNextPathPosition().Z
-        );
-        //var navPos = NavAgent.GetNextPathPosition();
-        //Log.PrintLn($"real: {navPos} ylerp{navPos2}");
-        return navPos2;
-    }
-
-    //NavAgent.GetNextPathPosition();
-
-    public void PickWanderTarget()
-    {
-        // pick a direction and move to it.
-        var stillPickingDir = true;
-        var moveTarget = new Vector3();
-        while (stillPickingDir)
+        if (bubbleTargets.Count == 0)
         {
-            Vector3 direction = new Vector3(GD.Randf(), GD.Randf() * 0.3f, GD.Randf()).Normalized();
-
-            var targetRay = DirectionRay;
-            targetRay.TopLevel = true;
-            targetRay.GlobalPosition = GlobalPosition;
-            targetRay.TargetPosition = direction * minimumWanderRange;
-
-            moveTarget = direction * Profile.WanderRadius;
-            targetRay.ForceRaycastUpdate();
-            stillPickingDir = targetRay.IsColliding(); //|| IsWithinRange(moveTarget);
-
-            // stillPickingDir =
-            //     (target - axlotl.GlobalPosition).Length() < axlotl.minimumWanderRange;
+            stateMachine.State = State.Wander;
+            return;
         }
-        CreateTween()
-            .TweenFn<Vector3>(
-                (target) => LookAt(target),
-                -GlobalTransform.Basis.Z,
-                moveTarget.Normalized(),
-                1f
-            );
-
-        // check for collisions
-
-        // targetMesh.GlobalPosition = direction;
-        targetNode = navGraph.NodeClosestTo(moveTarget - GlobalPosition);
-        currentNode = navGraph.NodeClosestTo(GlobalPosition);
-    }
-
-    private bool IsWithinRange(Vector3 moveTarget) =>
-        (moveTarget - GlobalPosition - CurrentRoom!.GlobalPosition).Length()
-        <= Profile.WanderRadius;
-
-    public async void ChaseUpdate(float delta)
-    {
         var currentTarget = bubbleTargets[0];
-        if (atBubbleTarget)
+
+        if (
+            SmoothMoveTo(
+                currentTarget.Spatial.GlobalPosition,
+                WanderSpeed,
+                delta,
+                ArrivalThreshold / 2
+            )
+        )
         {
+            var bubbleDir = (GlobalPosition - currentTarget.Spatial.GlobalPosition).Normalized();
             if (tween != null)
                 return;
 
             tween = CreateTween();
 
-            tween.TweenFn<Vector3>(
-                (velocity) => Velocity = velocity,
-                Velocity,
-                Vector3.Zero,
-                2f,
-                true
-            );
-            tween.TweenFn<Vector3>(
+            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, 2f, true);
+            tween.TweenFn<Vec3>(
                 (target) => LookAt(target),
-                GlobalPosition,
-                currentTarget.Spatial.GlobalPosition,
-                3f,
+                GlobalTransform.Basis.Z,
+                bubbleDir,
+                1f,
                 true
             );
             tween.Fn(() =>
@@ -289,33 +213,22 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise
                     stateMachine.State = State.Wander;
                 }
             });
-            await tween.Done();
-            tween = null;
-        }
-        else
-        {
-            atBubbleTarget = SmoothMoveTo(
-                currentTarget.GlobalPosition,
-                Profile.MoveSpeed,
-                delta,
-                5f
-            );
+            tween.Finished += () => tween = null;
         }
     }
 
     public void FleeUpdate(float delta)
     {
-        Log.PrintLn("flee");
         if (ThreatTarget != null)
             ThreatPosition = ThreatTarget.GlobalPosition;
 
-        Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
-        Vector3 fleeTarget = GlobalPosition + awayDir * Profile.FleeDistance;
+        Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
+        Vec3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
 
-        bool arrived = SmoothMoveTo(fleeTarget, Profile.FleeSpeed, delta);
+        bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, delta, ArrivalThreshold);
         fleeTimer += delta;
 
-        if (arrived || fleeTimer >= Profile.FleeTimeout)
+        if (arrived || fleeTimer >= FleeTimeout)
         {
             stateMachine.State = State.Wander;
         }
