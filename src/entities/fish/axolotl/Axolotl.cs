@@ -160,6 +160,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void WanderEnter()
     {
+        ThreatTarget = null;
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
         CurrentRoom = AssignCurrentRoom();
     }
@@ -219,7 +220,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void FleeUpdate(float delta)
     {
-        if (ThreatTarget != null)
+        if (GodotObject.IsInstanceValid(ThreatTarget))
             ThreatPosition = ThreatTarget.GlobalPosition;
 
         Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
