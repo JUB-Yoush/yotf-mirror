@@ -29,7 +29,7 @@ public partial class Chest : Node3D, IInteractable
         {
             var node = InsideChest.Instantiate<Node3D>();
             this.SceneRoot().AddChild(node);
-            node.GlobalPosition = GlobalPosition + Vector3.Up;
+            node.GlobalPosition = GlobalPosition + Vec3.Up;
         }
 
         Mesh.Visible = false;

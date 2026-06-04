@@ -10,5 +10,5 @@ public interface IOnMiniMap
 {
     virtual bool CanBeOnMinimap() => true;
 
-    Vector2 RelativePositon(Vector2 playerXZ) => ((Node3D)this).GlobalPosition.XZ() - playerXZ;
+    Vec2 RelativePositon(Vec2 playerXZ) => ((Node3D)this).GlobalPosition.XZ() - playerXZ;
 }

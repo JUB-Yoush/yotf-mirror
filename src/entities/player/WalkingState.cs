@@ -13,7 +13,7 @@ public class WalkingState : IPlayerState
     public void Update(Player player, float delta)
     {
         Vec3 direction = player.GetCameraRelativeDirection();
-        Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
+        Vec2 hVeloc = new Vec2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
 
         player.UpdateBodyDirection(direction, delta);
 

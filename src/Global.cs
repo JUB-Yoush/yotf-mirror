@@ -3,4 +3,8 @@ global using Chickensoft.Introspection;
 global using Godot;
 global using CoEnumerator = System.Collections.Generic.IEnumerator<Yotf.Co>;
 global using Vec2 = Godot.Vector2;
+global using Vec2I = Godot.Vector2I;
 global using Vec3 = Godot.Vector3;
+global using Vec3I = Godot.Vector3I;
+global using Vec4 = Godot.Vector4;
+global using Vec4I = Godot.Vector4I;

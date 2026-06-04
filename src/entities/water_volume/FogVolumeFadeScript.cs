@@ -15,7 +15,7 @@ public partial class FogVolumeFadeScript : FogVolume
         Vec3 fadePlanePos =
             cam.GlobalTransform.Origin + cam.GlobalTransform.Basis.Z * -FadeDistance;
         float fadePlaneDistance = fadePlanePos.Dot(fadePlaneNormal);
-        Vector4 fadePlane = new(
+        Vec4 fadePlane = new(
             fadePlaneNormal.X,
             fadePlaneNormal.Y,
             fadePlaneNormal.Z,

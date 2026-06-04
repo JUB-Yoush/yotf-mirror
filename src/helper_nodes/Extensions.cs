@@ -211,13 +211,13 @@ public static class MiscExt
     extension(Vector3 vec)
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2 XY() => new(vec.X, vec.Y);
+        public Vec2 XY() => new(vec.X, vec.Y);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2 XZ() => new(vec.X, vec.Z);
+        public Vec2 XZ() => new(vec.X, vec.Z);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2 YZ() => new(vec.Y, vec.Z);
+        public Vec2 YZ() => new(vec.Y, vec.Z);
     }
 
     extension(ref Vector3 vec)

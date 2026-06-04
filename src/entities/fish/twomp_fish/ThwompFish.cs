@@ -31,8 +31,8 @@ public partial class ThwompFish : Fish
     float gravity = 9.8f;
 
     Vec3 target = Vec3.Zero;
-    Vector2 jumpTarget = Vector2.Zero;
-    Vector2 velocityXZ = Vector2.Zero;
+    Vec2 jumpTarget = Vec2.Zero;
+    Vec2 velocityXZ = Vec2.Zero;
     float velocityY = 0;
 
     [Node]
@@ -57,7 +57,7 @@ public partial class ThwompFish : Fish
         }
     }
 
-    private Vector2 CalculateJumpTarget()
+    private Vec2 CalculateJumpTarget()
     {
         if ((target - GlobalPosition).Length() < JumpRange)
         {
@@ -75,14 +75,9 @@ public partial class ThwompFish : Fish
         Velocity = new(velocityXZ[0], velocityY, velocityXZ[1]);
     }
 
-    internal bool SmoothMoveXZ(
-        Vector2 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
+    internal bool SmoothMoveXZ(Vec2 target, float speed, float delta, float arrivalThreshold = 0.1f)
     {
-        Vector2 dir = target.Normalized();
+        Vec2 dir = target.Normalized();
 
         velocityXZ.Lerp(target, speed * delta);
 

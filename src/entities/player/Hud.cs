@@ -62,8 +62,8 @@ public partial class Hud : Control
     private float smoothedSpeed = 0f;
     private float prevDepth;
 
-    public Vector2 slotMinSize = new(200, 200);
-    public Vector2 slotMaxSize = new(250, 250);
+    public Vec2 slotMinSize = new(200, 200);
+    public Vec2 slotMaxSize = new(250, 250);
     ShaderMaterial barometerShader = null!;
 
     public override void _Ready()
@@ -86,7 +86,7 @@ public partial class Hud : Control
         prevDepth = player.Depth;
         var alpha = 1f - Mathf.Exp(-delta / RulerSmoothing);
         smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
-        var shaderSpeed = new Vector2(0, smoothedSpeed);
+        var shaderSpeed = new Vec2(0, smoothedSpeed);
         barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
     }
 

@@ -93,8 +93,8 @@ public partial class NavGraph : Node3D
         }
         if (!anyConnections)
         {
-            immMesh.SurfaceAddVertex(Vector3.Zero);
-            immMesh.SurfaceAddVertex(Vector3.One);
+            immMesh.SurfaceAddVertex(Vec3.Zero);
+            immMesh.SurfaceAddVertex(Vec3.One);
         }
 
         immMesh.SurfaceEnd();
@@ -113,7 +113,7 @@ public partial class NavGraph : Node3D
         return [.. result];
     }
 
-    public NavNode NodeClosestTo(Vector3 pos, NavNode? currentToAvoid = null)
+    public NavNode NodeClosestTo(Vec3 pos, NavNode? currentToAvoid = null)
     {
         // TODO(j) shoot a raycast to make sure it's not behind a wall or somthn
         (NavNode?, float) result = (null, float.MaxValue);
@@ -130,7 +130,7 @@ public partial class NavGraph : Node3D
         return result.Item1!;
     }
 
-    public NavNode? NodeAwayFrom(Vector3 pos, Vector3 awayFrom)
+    public NavNode? NodeAwayFrom(Vec3 pos, Vec3 awayFrom)
     {
         (NavNode?, float) record = (null, float.MaxValue);
         foreach (var node in GetNavNodes())
