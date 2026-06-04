@@ -37,12 +37,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
     //wandering
     float wanderTimer = 0f;
     float maxWanderTime = 10f;
-    Vector3 wanderTarget = Vector3.Zero;
+    Vec3 wanderTarget = Vec3.Zero;
 
     // chasing
     readonly List<IBubbleable> bubbleTargets = [];
-    Vector3 bubbleTargetPosition = Vector3.Zero;
-    Vector3 lastKnownLocation = Vector3.Zero;
+    Vec3 bubbleTargetPosition = Vec3.Zero;
+    Vec3 lastKnownLocation = Vec3.Zero;
     float lastKnownSeekTimer = 5f;
     float maxLastKnownSeekTimer = 5f;
     float endDistance = 1f;
@@ -76,11 +76,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         DetectionZone.Monitoring = true;
     }
 
-    /*
-     * axolotl wanders randomly until bubbleable thing (that isn't already in bubble) is found in it's detection range
-     * it then goes up to that thing and bubbles it.
-     * If you "press" the axolotl you can make it shoot a bubble
-    */
     public override void _Ready()
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
@@ -129,7 +124,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         }
     }
 
-    public void MakeBubble(Vector3 dir)
+    public void MakeBubble(Vec3 dir)
     {
         dir = dir.Normalized();
         var bubble = Bubble.New(this, dir, bubbleShotSpeed, bubbleRiseSpeed, bubbleDeceleration);
@@ -146,7 +141,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
         var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();
         CreateTween()
-            .TweenFn<Vector3>(
+            .TweenFn<Vec3>(
                 (target) => LookAt(GlobalPosition - target),
                 -GlobalTransform.Basis.Z,
                 fleeDir,
@@ -159,7 +154,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         if (BubbleJail != null)
         {
             GlobalPosition = BubbleJail!.GlobalPosition;
-            Velocity = Vector3.Zero;
+            Velocity = Vec3.Zero;
         }
     }
 
@@ -201,14 +196,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
             tween = CreateTween();
 
-            tween.TweenFn<Vector3>(
-                (velocity) => Velocity = velocity,
-                Velocity,
-                Vector3.Zero,
-                2f,
-                true
-            );
-            tween.TweenFn<Vector3>(
+            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, 2f, true);
+            tween.TweenFn<Vec3>(
                 (target) => LookAt(target),
                 GlobalTransform.Basis.Z,
                 bubbleDir,
@@ -233,8 +222,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         if (ThreatTarget != null)
             ThreatPosition = ThreatTarget.GlobalPosition;
 
-        Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
-        Vector3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
+        Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
+        Vec3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
 
         bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, delta, ArrivalThreshold);
         fleeTimer += delta;

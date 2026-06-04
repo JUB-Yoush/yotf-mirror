@@ -3,6 +3,9 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// Node3Ds that implement this interface can appear in photos.
+/// </summary>
 public interface IPhotographable
 {
     enum PhotoModifier

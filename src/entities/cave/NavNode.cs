@@ -5,6 +5,9 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// A node of a graph, used for fish pathfinding throughout the level.
+/// </summary>
 [Tool]
 [GlobalClass]
 public partial class NavNode : Node3D
@@ -17,7 +20,6 @@ public partial class NavNode : Node3D
 
     public void AddNeighbor(NavNode nei)
     {
-        //Debug.Assert(nei != null);
         if (!neighbors.Contains<NavNode>(nei))
         {
             var listver = neighbors.ToList<NavNode>();
@@ -25,7 +27,7 @@ public partial class NavNode : Node3D
             neighbors = [.. listver];
         }
 
-        //ensure bi-directionality
+        //ensure bi-directionality of graph
         if (!nei.neighbors.Contains<NavNode>(this))
             nei.AddNeighbor(this);
     }

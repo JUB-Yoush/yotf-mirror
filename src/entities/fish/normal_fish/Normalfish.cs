@@ -18,7 +18,7 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
     //fleeing
     private float fleeTimer;
 
-    StateMachine<State> stateMachine = new();
+    readonly StateMachine<State> stateMachine = new();
 
     public Bubble? BubbleJail { get; set; }
 

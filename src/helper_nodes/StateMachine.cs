@@ -4,7 +4,10 @@ using Godot;
 
 namespace Yotf;
 
-//modified from: https://github.com/EXOK/Celeste64/blob/main/Source/Helpers/StateMachine.cs
+/// <summary>
+/// Noel Berry State Machine Library
+/// modified from: https://github.com/EXOK/Celeste64/blob/main/Source/Helpers/StateMachine.cs
+/// </summary>
 public sealed unsafe class StateMachine<TIndex>
     where TIndex : unmanaged, Enum
 {
@@ -61,31 +64,3 @@ public sealed unsafe class StateMachine<TIndex>
         running.Update((float)deltaTime);
     }
 }
-//sample of how to use
-// public partial class Unsafestatemachine : Node2D
-// {
-//     enum State
-//     {
-//         StateOne,
-//         StateTwo,
-//         StateThree,
-//     }
-
-//     private readonly StateMachine<State> stateMachine = new();
-
-//     public override void _Ready()
-//     {
-//         stateMachine.AddState(State.StateOne, S1Update, null, null);
-//         stateMachine.State = State.StateOne;
-//     }
-
-//     public override void _PhysicsProcess(double delta)
-//     {
-//         stateMachine.Update(delta);
-//     }
-
-//     public void S1Update(float delta)
-//     {
-//         Log.PrintLn("state 1 update");
-//     }
-// }

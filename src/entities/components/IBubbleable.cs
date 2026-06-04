@@ -3,7 +3,10 @@ using Godot;
 
 namespace Yotf;
 
-// on any Node3D
+/// <summary>
+/// Implemented on Node3Ds, Allows them to be captured by a Axolotl bubble.
+/// Implementing bodies must exist on the Bubbleable layer.
+/// </summary>
 public interface IBubbleable
 {
     public Bubble? BubbleJail { set; get; }

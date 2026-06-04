@@ -4,7 +4,6 @@ using Yotf;
 
 namespace Yotf;
 
-// TODO (j) should we make another interface for things that can go in chests?
 [Meta(typeof(IAutoNode))]
 public partial class Chest : Node3D, IInteractable
 {

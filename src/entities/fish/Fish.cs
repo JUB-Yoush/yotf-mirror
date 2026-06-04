@@ -3,6 +3,9 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// Base Fish Class
+/// </summary>
 [Meta(typeof(IAutoNode))]
 public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
 {

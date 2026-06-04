@@ -53,7 +53,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         {
             GlobalPosition = BubbleJail.GlobalPosition;
         }
-        Velocity = Vector3.Zero;
+        Velocity = Vec3.Zero;
     }
 
     private void WanderEnter()
@@ -73,7 +73,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         }
 
         Period += delta * WanderSpeed;
-        var target = new Vector3(
+        var target = new Vec3(
             WanderRadius * MathF.Sin(Period),
             WanderRadius * MathF.Sin(Period * NavRandomOffsetRange),
             WanderRadius * MathF.Cos(Period)

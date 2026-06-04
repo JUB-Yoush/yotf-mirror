@@ -8,10 +8,6 @@ namespace Yotf;
 /// </summary>
 public interface IMakeNoise
 {
-    static readonly PackedScene AudioArea = GD.Load<PackedScene>(
-        "res://src/entities/gadgets/audio_range.tscn"
-    );
-
     AudioStreamPlayer3D NoiseSource { get; }
 
     public static void MakeNoise(IMakeNoise node, float dB, string sfx, int radius = -1)

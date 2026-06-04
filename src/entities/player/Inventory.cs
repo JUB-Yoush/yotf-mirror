@@ -15,7 +15,6 @@ public partial class Inventory : Node3D
     [Node]
     public required Hud HUD { set; get; }
 
-    //TOOD (j) set up setter that adds node to scene tree, is there a way to get the value being passed into the
     public Item?[] Items
     {
         get

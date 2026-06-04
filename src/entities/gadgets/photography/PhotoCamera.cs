@@ -80,9 +80,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         get;
     }
 
-    public PackedScene PackedScene => Packed;
+    public new PackedScene PackedScene => Packed;
 
-    public Mesh DropMesh => Mesh.Mesh;
+    public new Mesh DropMesh => Mesh.Mesh;
 
     public int maxFilm = 100;
 
@@ -212,19 +212,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         AddPhoto(photo, grades, modifiers);
     }
 
-    // private IPhotographable.PhotoModifier[] FindTreasureFish(
-    //     IPhotographable.PhotoModifier[] modifiers
-    // )
-    // {
-    //     foreach (var mod in modifiers)
-    //     {
-    //         if (mod is IPhotographable.PhotoModifier.Treasure)
-    //         {
-    //             player.Stats.Money += TreasureFish.Value;
-    //         }
-    //     }
-    // }
-
     private void ToggleCameraAim(bool state)
     {
         PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
@@ -278,7 +265,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     photo.Subjects.Length,
                     inAction,
                     modSet.Contains(IPhotographable.PhotoModifier.Ink),
-                    false
+                    false // fish can't die (yet)
                 )
             );
         }

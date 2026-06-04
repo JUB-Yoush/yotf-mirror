@@ -114,14 +114,6 @@ public partial class PlayerStats : Node
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
 
-    public override void _Process(double delta)
-    {
-        if (Input.IsActionPressed("roll"))
-        {
-            Injuries += 10 * (float)delta;
-        }
-    }
-
     public void Drown()
     {
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");

@@ -36,11 +36,11 @@ public partial class Bubble : CharacterBody3D
 
     private Axolotl origin = null!;
 
-    public Vector3 SpawnDir = Vector3.Zero;
+    public Vec3 SpawnDir = Vec3.Zero;
 
     public static Bubble New(
         Axolotl origin,
-        Vector3 spawnDir,
+        Vec3 spawnDir,
         float shotSpeed,
         float riseSpeed,
         float deceleration
@@ -96,7 +96,7 @@ public partial class Bubble : CharacterBody3D
         {
             FreeCapturedNode();
         }
-        Velocity = SpawnDir * shotSpeed + new Vector3(0, riseSpeed, 0);
+        Velocity = SpawnDir * shotSpeed + new Vec3(0, riseSpeed, 0);
         shotSpeed = Mathf.Lerp(shotSpeed, 0, deceleration);
         MoveAndSlide();
     }

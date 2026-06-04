@@ -78,7 +78,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         }
 
         GlobalPosition = BubbleJail!.GlobalPosition;
-        Velocity = Vector3.Zero;
+        Velocity = Vec3.Zero;
     }
 
     public void WanderEnter()
@@ -105,7 +105,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         Period += delta * WanderSpeed;
 
         // TODO(j) custom inkfish movement
-        var target = new Vector3(
+        var target = new Vec3(
             WanderRadius * MathF.Sin(Period),
             WanderRadius * MathF.Sin(Period * NavRandomOffsetRange),
             WanderRadius * MathF.Cos(Period)
@@ -118,7 +118,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
     {
         var tween = CreateTween();
         var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();
-        tween.TweenFn<Vector3>(
+        tween.TweenFn<Vec3>(
             (target) => LookAt(GlobalPosition - target),
             -GlobalTransform.Basis.Z,
             fleeDir,
@@ -132,14 +132,14 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         });
 
         tween.TweenFn<float>(
-            (value) => ((CapsuleShape3D)InkArea.InkCollider.Shape).Height = value,
+            (value) => ((CapsuleShape3D)InkArea!.InkCollider.Shape).Height = value,
             0f,
             InkColliderLength,
             1f
         );
 
         tween.TweenFn<float>(
-            (value) => ((CapsuleShape3D)InkArea.InkCollider.Shape).Radius = value,
+            (value) => ((CapsuleShape3D)InkArea!.InkCollider.Shape).Radius = value,
             0f,
             InkCollisderRaidus,
             1f,

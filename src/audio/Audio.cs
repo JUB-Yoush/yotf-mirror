@@ -61,11 +61,6 @@ public partial class Audio : Node
             AddChild(SfxPlayers[i]);
         }
         BgmPlayer.ProcessMode = ProcessModeEnum.Always;
-
-        for (int i = 0; i < SfxPlayerCount + 1; i++)
-        {
-            PlaySfx(SFX.CameraShutter);
-        }
     }
 
     public static void PlayBgm(string bgm, float playbackPosition = 0)

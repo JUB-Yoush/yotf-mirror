@@ -49,6 +49,10 @@ public partial class Log : Control
         MsgCount++;
     }
 
+    /*
+     *TODO(j) I can't figure out a simple way to print values when they're null but not print all 8 values.
+    */
+
     public static void PrintLn(
         object message,
         object? message1 = null,

@@ -3,6 +3,10 @@ using Godot;
 
 namespace Yotf;
 
+/// <summary>
+/// WIP
+/// Jumps towards the player and crushes anything it lands on (including the player and other fish)
+/// </summary>
 [Meta(typeof(IAutoNode))]
 public partial class ThwompFish : Fish
 {

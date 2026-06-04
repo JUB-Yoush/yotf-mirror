@@ -31,8 +31,8 @@ public partial class ShopKiosk : Node3D, IInteractable
 
     public override void _Ready()
     {
-        Items = [(GD.Load<ShopItem>("uid://b23k3n6uvsqhm"))];
-        Upgrades = [(GD.Load<ShopItem>("uid://dkxdiu2kqqy1k"))];
+        Items = [(GD.Load<ShopItem>("res://assets/data/shop_items/camera_item.tres"))];
+        Upgrades = [(GD.Load<ShopItem>("res://assets/data/shop_items/oxygen_up.tres"))];
     }
 
     public void OnInteraction()

@@ -57,7 +57,9 @@ public record PhotoData(
     }
 };
 
-// each parameter is a float from 0-1
+/// <summary>
+/// Each float is on a scale of 0-1
+/// </summary>
 public record struct PhotoGrade(
     float CenterScore,
     float SizeScore,
