@@ -165,7 +165,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public override void _Process(double delta)
     {
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
     }
 

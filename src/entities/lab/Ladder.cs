@@ -19,6 +19,6 @@ public partial class Ladder : Node3D, IInteractable
     public void OnInteraction()
     {
         var player = this.SceneRoot().GetNode<Player>()!;
-        player.Velocity += Vector3.Up * climbForce;
+        player.Velocity += Vec3.Up * climbForce;
     }
 }

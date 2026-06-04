@@ -11,12 +11,16 @@ public partial class FogVolumeFadeScript : FogVolume
         if (cam == null)
             return;
 
-        Vector3 fadePlaneNormal = cam.GlobalTransform.Basis.Z * -1;
-        Vector3 fadePlanePos =
+        Vec3 fadePlaneNormal = cam.GlobalTransform.Basis.Z * -1;
+        Vec3 fadePlanePos =
             cam.GlobalTransform.Origin + cam.GlobalTransform.Basis.Z * -FadeDistance;
         float fadePlaneDistance = fadePlanePos.Dot(fadePlaneNormal);
-        Vector4 fadePlane =
-            new(fadePlaneNormal.X, fadePlaneNormal.Y, fadePlaneNormal.Z, fadePlaneDistance);
+        Vector4 fadePlane = new(
+            fadePlaneNormal.X,
+            fadePlaneNormal.Y,
+            fadePlaneNormal.Z,
+            fadePlaneDistance
+        );
         (Material as ShaderMaterial)?.SetShaderParameter("fade_plane", fadePlane);
     }
 }

@@ -30,6 +30,7 @@ public partial class Inventory : Node3D
     {
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Flashlight.Packed.Instantiate<Item>(), 1);
+        AddItem(DisposableRestore.Packed.Instantiate<Item>(), 2);
         SetCurrentItem(0);
     }
 

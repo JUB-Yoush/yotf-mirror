@@ -17,7 +17,7 @@ public partial class Player : CharacterBody3D
     [Node]
     public required Node3D Skin { set; get; }
 
-    public Vector3 SkinRestPosition;
+    public Vec3 SkinRestPosition;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -46,7 +46,7 @@ public partial class Player : CharacterBody3D
     [Node]
     public required Label Alert { set; get; }
 
-    public Vector3 CollisionPivot;
+    public Vec3 CollisionPivot;
 
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
@@ -222,9 +222,9 @@ public partial class Player : CharacterBody3D
         ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
-    internal void UpdateBodyDirection(Vector3 direction, float delta)
+    internal void UpdateBodyDirection(Vec3 direction, float delta)
     {
-        if (direction == Vector3.Zero)
+        if (direction == Vec3.Zero)
         {
             YawVelocity = 0f;
             return;
@@ -240,7 +240,7 @@ public partial class Player : CharacterBody3D
         YawVelocity = Mathf.AngleDifference(prevYaw, Skin.Rotation.Y) / delta;
     }
 
-    internal void UpdateBodyRotation(Vector3 rotation)
+    internal void UpdateBodyRotation(Vec3 rotation)
     {
         Basis rotBasis = Basis.FromEuler(rotation);
 
@@ -250,9 +250,9 @@ public partial class Player : CharacterBody3D
         Skin.Position = CollisionPivot + rotBasis * (SkinRestPosition - CollisionPivot);
     }
 
-    internal Vector3 GetCameraRelativeDirection()
+    internal Vec3 GetCameraRelativeDirection()
     {
-        Vector3 inputDir = Vector3.Zero;
+        Vec3 inputDir = Vec3.Zero;
 
         inputDir -= Camera.GlobalTransform.Basis.X * Input.GetActionStrength("left");
         inputDir += Camera.GlobalTransform.Basis.X * Input.GetActionStrength("right");
@@ -262,7 +262,7 @@ public partial class Player : CharacterBody3D
         return inputDir;
     }
 
-    internal void GetShocked(Vector3 ShockSource)
+    internal void GetShocked(Vec3 ShockSource)
     {
         if (shockTween != null)
             return;

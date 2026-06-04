@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using Godot;
+using static Yotf.DisposableRestore;
 
 namespace Yotf;
 
@@ -125,5 +127,24 @@ public partial class PlayerStats : Node
     internal void RestoreOxygen()
     {
         Oxygen = MaxOxygen - Injuries;
+    }
+
+    public void RestoreStat(Restore restore, float amount)
+    {
+        Debug.Assert(restore != Restore.None, "None restorable item passed into restore function");
+        switch (restore)
+        {
+            case Restore.Oxygen:
+                Oxygen += amount;
+                break;
+
+            case Restore.Battery:
+                Battery += amount;
+                break;
+
+            case Restore.Injuries:
+                Injuries += amount;
+                break;
+        }
     }
 }

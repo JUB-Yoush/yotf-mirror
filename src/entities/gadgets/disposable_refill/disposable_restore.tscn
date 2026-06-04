@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ctfjn385p4op3"]
+
+[ext_resource type="Script" uid="uid://btr3n3va4bx2t" path="res://src/entities/gadgets/disposable_refill/DisposableRestore.cs" id="1_uf10a"]
+[ext_resource type="BoxMesh" uid="uid://bxhbnf8pnaft4" path="res://assets/3d/gadgets/disposable_oxygen.tres" id="2_lpy8a"]
+[ext_resource type="Texture2D" uid="uid://b8xrfjmuesdsk" path="res://assets/2d/oxygen_icon.png" id="3_yr062"]
+
+[node name="DisposableRestore" type="Node3D" unique_id=928048010]
+script = ExtResource("1_uf10a")
+restoreAmount = 10.0
+OnlyDropMesh = ExtResource("2_lpy8a")
+ItemName = "Oxygen Refill"
+Icon = ExtResource("3_yr062")
+restore = 1

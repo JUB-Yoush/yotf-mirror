@@ -68,7 +68,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     public float NoiseTolerance = 0.4f;
 
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
-    public Vector3 ThreatPosition { get; internal set; }
+    public Vec3 ThreatPosition { get; internal set; }
 
     // null when no player is in range
     public Node3D? ThreatTarget { get; set; }
@@ -131,15 +131,10 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         return currentClosest;
     }
 
-    internal bool SmoothMoveTo(
-        Vector3 target,
-        float speed,
-        float delta,
-        float arrivalThreshold = 0.1f
-    )
+    internal bool SmoothMoveTo(Vec3 target, float speed, float delta, float arrivalThreshold = 0.1f)
     {
         target -= GlobalPosition;
-        Vector3 dir = target.Normalized();
+        Vec3 dir = target.Normalized();
 
         Velocity = MiscExt.V3Lerp(
             Velocity,
@@ -167,7 +162,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         if (turnTowards)
         {
             CreateTween()
-                .TweenFn<Vector3>(
+                .TweenFn<Vec3>(
                     (target) => LookAt(target),
                     GlobalRotation,
                     next.GlobalPosition.Normalized(),
@@ -197,7 +192,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     }
 
     // // level is 0-1, source is world pos
-    // public void OnNoiseHeard(float level, Vector3 source)
+    // public void OnNoiseHeard(float level, Vec3 source)
     // {
     //     if (level >= Profile.NoiseThreshold)
     //         CurrentState.OnNoiseHeard(this, level, source);

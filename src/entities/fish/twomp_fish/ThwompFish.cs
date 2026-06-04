@@ -30,7 +30,7 @@ public partial class ThwompFish : Fish
     [Export]
     float gravity = 9.8f;
 
-    Vector3 target = Vector3.Zero;
+    Vec3 target = Vec3.Zero;
     Vector2 jumpTarget = Vector2.Zero;
     Vector2 velocityXZ = Vector2.Zero;
     float velocityY = 0;

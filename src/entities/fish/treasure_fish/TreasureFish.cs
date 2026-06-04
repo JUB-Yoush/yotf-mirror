@@ -36,10 +36,10 @@ public partial class TreasureFish : Fish, IPhotographable
     public override void _Ready()
     {
         var tween = CreateTween();
-        tween.TweenFn<Vector3>(
+        tween.TweenFn<Vec3>(
             (target) => LookAt(GlobalPosition - target),
             -GlobalTransform.Basis.Z,
-            Vector3.Up,
+            Vec3.Up,
             1
         );
         tween.Fn(() => swimmingUp = true, WaitTimer, true);
@@ -50,7 +50,7 @@ public partial class TreasureFish : Fish, IPhotographable
     {
         if (swimmingUp)
         {
-            Velocity = Vector3.Up * speed;
+            Velocity = Vec3.Up * speed;
             MoveAndSlide();
         }
     }

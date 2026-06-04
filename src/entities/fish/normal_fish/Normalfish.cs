@@ -42,7 +42,7 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
     public void BubbleUpdate(float delta)
     {
         GlobalPosition = BubbleJail!.GlobalPosition;
-        Velocity = Vector3.Zero;
+        Velocity = Vec3.Zero;
     }
 
     private void FleeUpdate(float delta)
@@ -50,8 +50,8 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
         if (ThreatTarget != null)
             ThreatPosition = ThreatTarget.GlobalPosition;
 
-        Vector3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
-        Vector3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
+        Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
+        Vec3 fleeTarget = GlobalPosition + awayDir * FleeDistance;
 
         bool arrived = SmoothMoveTo(fleeTarget, FleeSpeed, delta, ArrivalThreshold);
         fleeTimer += delta;

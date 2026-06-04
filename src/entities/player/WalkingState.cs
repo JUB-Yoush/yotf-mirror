@@ -12,12 +12,12 @@ public class WalkingState : IPlayerState
 
     public void Update(Player player, float delta)
     {
-        Vector3 direction = player.GetCameraRelativeDirection();
+        Vec3 direction = player.GetCameraRelativeDirection();
         Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
 
         player.UpdateBodyDirection(direction, delta);
 
-        Vector3 velocity = player.Velocity;
+        Vec3 velocity = player.Velocity;
 
         if (Input.IsActionPressed("jump") && player.IsOnFloor())
             velocity.Y = player.JumpSpeed;
