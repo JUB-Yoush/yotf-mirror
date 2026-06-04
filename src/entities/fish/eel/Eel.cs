@@ -49,7 +49,10 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 
     private void BubbledUpdate(float delta)
     {
-        GlobalPosition = BubbleJail!.GlobalPosition;
+        if (BubbleJail != null)
+        {
+            GlobalPosition = BubbleJail.GlobalPosition;
+        }
         Velocity = Vector3.Zero;
     }
 

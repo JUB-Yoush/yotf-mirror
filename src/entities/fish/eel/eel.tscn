@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cm7pb6e0mhc6y"]
 
-[ext_resource type="Script" uid="uid://cawildxk0ftnk" path="res://src/entities/fish/Eel.cs" id="1_cm51b"]
+[ext_resource type="Script" uid="uid://cawildxk0ftnk" path="res://src/entities/fish/eel/Eel.cs" id="1_cm51b"]
 [ext_resource type="Texture2D" uid="uid://0stkfp8rgced" path="res://assets/3d/fish/shinfish_LightningFishTexture.png" id="2_cm51b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]

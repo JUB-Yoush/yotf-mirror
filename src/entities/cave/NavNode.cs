@@ -29,4 +29,6 @@ public partial class NavNode : Node3D
         if (!nei.neighbors.Contains<NavNode>(this))
             nei.AddNeighbor(this);
     }
+
+    public NavNode RandomNeighbor() => neighbors[GD.RandRange(0, neighbors.Length - 1)];
 }

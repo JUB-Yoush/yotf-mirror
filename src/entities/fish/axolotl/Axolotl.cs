@@ -156,8 +156,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void BubbleUpdate(float delta)
     {
-        GlobalPosition = BubbleJail!.GlobalPosition;
-        Velocity = Vector3.Zero;
+        if (BubbleJail != null)
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+            Velocity = Vector3.Zero;
+        }
     }
 
     public void WanderEnter()
@@ -172,24 +175,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         {
             CurrentNode = PickWanderTarget();
         }
-    }
-
-    public NavNode PickWanderTarget()
-    {
-        NavNode next = null!;
-        do
-        {
-            next = CurrentNode!.neighbors[GD.RandRange(0, CurrentNode.neighbors.Length - 1)];
-        } while (next.Room != CurrentRoom);
-
-        CreateTween()
-            .TweenFn<Vector3>(
-                (target) => LookAt(target),
-                GlobalRotation,
-                next.GlobalPosition.Normalized(),
-                0.1f
-            );
-        return next;
     }
 
     public void ChaseUpdate(float delta)

@@ -19,6 +19,12 @@ public static class MiscExt
         );
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector2 V2Lerp(Vector2 from, Vector2 to, float weight)
+    {
+        return new(Mathf.Lerp(from.X, to.X, weight), Mathf.Lerp(from.Y, to.Y, weight));
+    }
+
     extension(Tween tween)
     {
         public CallbackTweener Fn(
@@ -166,6 +172,11 @@ public static class MiscExt
                     res.Add(t);
             }
             return [.. res];
+        }
+
+        public void DeferFree()
+        {
+            node.CallDeferred(Node.MethodName.QueueFree);
         }
 
         public async Task WaitUntil(Func<bool> condition)

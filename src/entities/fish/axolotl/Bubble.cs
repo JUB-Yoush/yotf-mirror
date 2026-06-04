@@ -63,7 +63,7 @@ public partial class Bubble : CharacterBody3D
 
     private void OnBodyEntered(Node3D body)
     {
-        if (body is IBubbleable bubbleable)
+        if (body is IBubbleable bubbleable && bubbleable.CanBeBubbled)
         {
             PutInBubble(bubbleable);
         }
@@ -83,9 +83,10 @@ public partial class Bubble : CharacterBody3D
 
     void FreeCapturedNode()
     {
-        capturedNode?.BubbleJail = null;
+        Log.PrintLn("freeing from bubble");
         capturedNode?.FreeFromBubble();
-        QueueFree();
+        this.DeferFree();
+        capturedNode?.BubbleJail = null;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -94,7 +95,6 @@ public partial class Bubble : CharacterBody3D
         if (lifetime <= 0)
         {
             FreeCapturedNode();
-            QueueFree();
         }
         Velocity = SpawnDir * shotSpeed + new Vector3(0, riseSpeed, 0);
         shotSpeed = Mathf.Lerp(shotSpeed, 0, deceleration);

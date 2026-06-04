@@ -153,6 +153,27 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         return target.LengthSquared() < arrivalThreshold;
     }
 
+    public NavNode PickWanderTarget(bool sameRoom = true, bool turnTowards = false)
+    {
+        NavNode next = CurrentNode!.RandomNeighbor();
+        while (next.Room != CurrentRoom && sameRoom)
+        {
+            next = CurrentNode.RandomNeighbor();
+        }
+
+        if (turnTowards)
+        {
+            CreateTween()
+                .TweenFn<Vector3>(
+                    (target) => LookAt(target),
+                    GlobalRotation,
+                    next.GlobalPosition.Normalized(),
+                    0.1f
+                );
+        }
+        return next;
+    }
+
     // ====================== SENSORY ENTRY POINTS ======================
     private void OnBodyEnterRange(Node3D body)
     {
