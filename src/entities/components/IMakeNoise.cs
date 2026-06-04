@@ -14,20 +14,17 @@ public interface IMakeNoise
     {
         // play sound
         Audio.PlaySfx(node.NoiseSource, sfx, 0);
-        var streamPlayer = node.NoiseSource;
-        streamPlayer.Stream = Audio.Get(sfx);
-        streamPlayer.Play();
-
         // check who heard it
-        //radius = radius == -1 ? GetRadiusFromdB(dB) : radius;
+        var streamPlayer = node.NoiseSource; // TODO (j) make this it's own scene to ensure the dependencies are there.
         var audioArea = streamPlayer.GetNode<Area3D>()!;
-        var shape = audioArea.GetNode<CollisionShape3D>()!;
 
         //TODO (j) area should only be enabled when the sound is playing.
-        foreach (IHearNoise listener in audioArea.GetOverlappingBodies().Cast<IHearNoise>())
+        foreach (var body in audioArea.GetOverlappingBodies())
         {
+            var listener = (IHearNoise)body;
             listener.OnNoiseHeard(audioArea, dB, sfx);
         }
+        Log.PrintLn("done playing noise");
     }
 
     public int GetRadiusFromdB(float dB)

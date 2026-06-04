@@ -10,6 +10,7 @@ public static class SFX
         "res://assets/audio/sfx/photo.ogg"
     );
     public const string CameraShutter = "res://assets/audio/sfx/photo.ogg";
+    public const string Firecracker = "res://assets/audio/sfx/firecracker.ogg";
 }
 
 public static class BGM

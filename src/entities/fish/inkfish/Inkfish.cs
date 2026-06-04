@@ -190,6 +190,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         if (state)
         {
             InkArea = InkArea.New(this);
+            this.SceneRoot().AddChild(InkArea);
         }
         else
         {

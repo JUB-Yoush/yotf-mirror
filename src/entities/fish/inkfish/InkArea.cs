@@ -41,9 +41,12 @@ public partial class InkArea : Area3D, IPhotographable
     {
         var inkArea = Packed.Instantiate<InkArea>();
         inkArea.parent = parent;
-        parent.SceneRoot().AddChild(inkArea);
-        inkArea.GlobalPosition = parent.GlobalPosition;
         return inkArea;
+    }
+
+    public override void _Ready()
+    {
+        GlobalPosition = parent.GlobalPosition;
     }
 
     public override void _PhysicsProcess(double delta)
