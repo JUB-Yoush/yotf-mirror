@@ -15,7 +15,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
-    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/photo_camera.tscn"
+    );
 
     public static Action<bool>? AimingChanged;
 

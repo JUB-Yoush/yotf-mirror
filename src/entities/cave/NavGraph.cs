@@ -50,6 +50,7 @@ public partial class NavGraph : Node3D
                 if (node.neighbors[i] == null)
                 {
                     GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at position {i}");
+                    continue;
                 }
                 node.AddNeighbor(node.neighbors[i]);
             }

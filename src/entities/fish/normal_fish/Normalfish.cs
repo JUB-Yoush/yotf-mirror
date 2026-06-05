@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Normalfish : Fish, IHearNoise, IBubbleable
+public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -35,7 +35,6 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
 
     public override void _PhysicsProcess(double delta)
     {
-        Log.PrintLn(ThreatTarget != null);
         stateMachine.Update(delta);
         MoveAndSlide();
     }

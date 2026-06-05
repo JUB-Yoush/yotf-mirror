@@ -7,7 +7,7 @@ namespace Yotf;
 /// Base Fish Class
 /// </summary>
 [Meta(typeof(IAutoNode))]
-public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
+public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonarable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -107,6 +107,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         get => IPhotographable.PhotoModifier.None;
         set;
     }
+    public bool Discovered { get; set; }
 
     // public override void _PhysicsProcess(double delta)
     // {
