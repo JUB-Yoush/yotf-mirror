@@ -60,7 +60,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
             () =>
             {
                 Particles.Emitting = true;
-                IMakeNoise.MakeNoise(this, 0, SFX.Firecracker);
+                IMakeNoise.MakeNoise(this, 0, Sfx.Firecracker);
             },
             waitTime
         );

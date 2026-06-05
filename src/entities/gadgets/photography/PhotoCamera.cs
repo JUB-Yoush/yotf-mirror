@@ -26,8 +26,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderLerp = 20;
-    const float DefaultViewfinderFov = 50;
-    private float ViewfinderFov = 50;
+    const float DefaultViewfinderFov = 70;
+    private float ViewfinderFov = DefaultViewfinderFov;
 
     static readonly SubViewport.UpdateMode[] updateModes =
     [
@@ -140,7 +140,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             return;
 
         if (@event.IsActionPressed("scroll_up"))
-            ViewfinderFov = Math.Max(ViewfinderFov - 2, 20);
+            ViewfinderFov = Math.Max(
+                ViewfinderFov - 2,
+                Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10)
+            );
 
         if (@event.IsActionPressed("scroll_down"))
             ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
@@ -218,7 +221,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         PhotoData photo = PhotoData.New(Name, subjects, image.Data);
         Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
         FlashSFX();
-        IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
+        IMakeNoise.MakeNoise(this, 5, Sfx.CameraShutter, 5);
         AddPhoto(photo, grades, modifiers);
     }
 

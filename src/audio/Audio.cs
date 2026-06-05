@@ -13,21 +13,38 @@ public partial class Audio : Node
     const int SfxPlayerCount = 10;
 
     static Audio Instance = null!; // static singleton instance, global nodes are loaded before the scene tree.
-    readonly Dictionary<string, AudioStream> cache = [];
+    readonly Dictionary<string, AudioStream> sfxCache = [];
+    readonly Dictionary<string, AudioStream> bgmCache = [];
 
-    public static AudioStream Get(string sfx)
+    public static AudioStream GetSfx(string filepath)
     {
-        if (Instance.cache.TryGetValue(sfx, out var stream))
+        if (Instance.sfxCache.TryGetValue(filepath, out var stream))
             return stream;
         try
         {
-            Instance.cache.Add(sfx, GD.Load<AudioStream>(sfx));
-            return Instance.cache[sfx];
+            Instance.sfxCache.Add(filepath, GD.Load<AudioStream>($"{Sfx.path}{filepath}"));
+            return Instance.sfxCache[filepath];
         }
         catch (Exception e)
         {
-            GD.PrintErr($"SFX {sfx} not found in file system: {e}");
-            return SFX.Defualt;
+            GD.PrintErr($"Audio file {Sfx.path}{filepath} not found in file system: {e}");
+            return Sfx.Defualt;
+        }
+    }
+
+    public static AudioStream GetBgm(string filepath)
+    {
+        if (Instance.bgmCache.TryGetValue(filepath, out var stream))
+            return stream;
+        try
+        {
+            Instance.bgmCache.Add(filepath, GD.Load<AudioStream>($"{Bgm.path}{filepath}"));
+            return Instance.bgmCache[filepath];
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"Audio file {Bgm.path}{filepath} not found in file system: {e}");
+            return Bgm.Defualt;
         }
     }
 
@@ -49,7 +66,7 @@ public partial class Audio : Node
 
     public static void PlayBgm(string bgm, float playbackPosition = 0)
     {
-        var music = Get(bgm);
+        var music = GetBgm(bgm);
         if (Instance.BgmPlayer.Stream == music)
         {
             return;
@@ -60,11 +77,11 @@ public partial class Audio : Node
 
     public static bool IsPlayingSfx(string sfxName) =>
         Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer =>
-            sfxPlayer.Stream == Get(sfxName) && sfxPlayer.Playing
+            sfxPlayer.Stream == GetSfx(sfxName) && sfxPlayer.Playing
         ) != null;
 
     public static bool IsPlayingBgm(string bgmName) =>
-        Instance.BgmPlayer.Playing && Instance.BgmPlayer.Stream == Get(bgmName);
+        Instance.BgmPlayer.Playing && Instance.BgmPlayer.Stream == GetBgm(bgmName);
 
     public static void PlaySfx(
         string sfxName,
@@ -72,7 +89,7 @@ public partial class Audio : Node
         float playbackPosition = 0
     )
     {
-        var sfx = Get(sfxName);
+        var sfx = GetSfx(sfxName);
         if (singleStreamOnly)
         {
             var alreadyPlayingStream = Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer => //TODO(j) linq iterators are bad for memory allocs, but it's not runnin in a hot loop so we'll fix if it's a problem.
@@ -104,14 +121,14 @@ public partial class Audio : Node
         float playbackPosition = 0
     )
     {
-        var sfx = Get(sfxName);
+        var sfx = GetSfx(sfxName);
         positionalPlayer.Stream = sfx;
         positionalPlayer.Play(playbackPosition);
     }
 
     public static void StopSfx(string sfxName)
     {
-        var sfx = Get(sfxName);
+        var sfx = GetSfx(sfxName);
         var sfxStream = Instance.staticSfxPlayers.FirstOrDefault(sfxPlayer =>
             sfxPlayer.Stream == sfx && sfxPlayer.Playing
         );

@@ -104,7 +104,12 @@ public partial class PlayerStats : Node
         get => maxFilm;
     }
 
-    public static float MaxZoom { set; get; }
+    static float maxZoom = 10;
+    public static float MaxZoom
+    {
+        set { maxZoom = value; }
+        get => maxZoom;
+    }
 
     public static float ExtraSwimSpeed { set; get; }
 
