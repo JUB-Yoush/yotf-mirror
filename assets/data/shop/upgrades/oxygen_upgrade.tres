@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://dkxdiu2kqqy1k"]
+
+[ext_resource type="Texture2D" uid="uid://b8xrfjmuesdsk" path="res://assets/2d/oxygen_icon.png" id="1_msxol"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="2_cjb72"]
+
+[resource]
+script = ExtResource("2_cjb72")
+Icon = ExtResource("1_msxol")
+Name = "Oxygen Up"
+Description = "Increase Max Oxygen."
+Price = 10
+upgrade = 1
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

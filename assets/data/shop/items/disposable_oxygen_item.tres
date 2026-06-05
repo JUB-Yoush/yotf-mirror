@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://dckehtypvtuad"]
+
+[ext_resource type="BoxMesh" uid="uid://bxhbnf8pnaft4" path="res://assets/3d/gadgets/disposable_oxygen.tres" id="1_hnj6x"]
+[ext_resource type="Texture2D" uid="uid://b8xrfjmuesdsk" path="res://assets/2d/oxygen_icon.png" id="2_cca36"]
+[ext_resource type="PackedScene" uid="uid://btgb7l7cdigqw" path="res://src/entities/gadgets/dropped_item.tscn" id="3_7u7b8"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="4_l7vah"]
+
+[resource]
+script = ExtResource("4_l7vah")
+Icon = ExtResource("2_cca36")
+Name = "Pocket Oxygen"
+Description = "Oxygen in a pinch."
+Price = 10
+ItemType = 1
+ItemId = 5
+Restore = 1
+RestoreAmount = 50.0
+itemScene = ExtResource("3_7u7b8")
+DropMesh = ExtResource("1_hnj6x")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

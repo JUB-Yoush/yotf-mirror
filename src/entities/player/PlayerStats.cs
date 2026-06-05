@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using Godot;
-using static Yotf.DisposableRestore;
+using static Yotf.Disposable;
 
 namespace Yotf;
 
@@ -96,6 +96,17 @@ public partial class PlayerStats : Node
             GalleryScoreUpdated?.Invoke(value);
         }
     }
+
+    static int maxFilm = 12;
+    public static int MaxFilm
+    {
+        set { maxFilm = value; }
+        get => maxFilm;
+    }
+
+    public static float MaxZoom { set; get; }
+
+    public static float SwimSpeed { set; get; }
 
     public override void _Ready()
     {

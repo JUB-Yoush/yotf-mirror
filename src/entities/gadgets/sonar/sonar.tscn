@@ -1,14 +1,20 @@
 [gd_scene format=3 uid="uid://buv0hms3lnb5r"]
 
 [ext_resource type="Script" uid="uid://cfbhckj5fgycp" path="res://src/entities/gadgets/sonar/Sonar.cs" id="1_3vb5o"]
-[ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="1_te1v2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te1v2"]
+albedo_color = Color(0.051382795, 0.58782595, 0.8763824, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3vb5o"]
+material = SubResource("StandardMaterial3D_te1v2")
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Sonar" type="Node3D" unique_id=1429263481]
 script = ExtResource("1_3vb5o")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=263555658]
 unique_name_in_owner = true
-mesh = ExtResource("1_te1v2")
+mesh = SubResource("BoxMesh_3vb5o")
 
 [node name="Reticles" type="Control" parent="." unique_id=1152976397]
 unique_name_in_owner = true

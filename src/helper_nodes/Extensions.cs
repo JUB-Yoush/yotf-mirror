@@ -7,7 +7,7 @@ using Godot;
 
 namespace Yotf;
 
-public static class MiscExt
+public static class Extensions
 {
     extension(Tween tween)
     {
@@ -244,5 +244,36 @@ public static class MiscExt
         {
             DirAccess.MakeDirAbsolute(path);
         }
+    }
+
+    public static Dictionary<StringName, T> LoadFromFolder<T>(string path)
+        where T : Resource
+    {
+        var result = new Dictionary<StringName, T>();
+        using var dir = DirAccess.Open(path);
+        if (dir == null)
+        {
+            GD.PrintErr(
+                $"An error occurred when trying to access the path:{path}: {DirAccess.GetOpenError()}"
+            );
+            return [];
+        }
+
+        dir.ListDirBegin();
+        string fileName = dir.GetNext();
+        while (fileName != "")
+        {
+            if (!dir.CurrentIsDir())
+            {
+                var res = GD.Load<T>($"{path}/{fileName}");
+                result.Add(fileName, res);
+            }
+            else
+            {
+                GD.PushWarning($"folder: {fileName} found in {path}. Ignoring contents");
+            }
+            fileName = dir.GetNext();
+        }
+        return result;
     }
 }

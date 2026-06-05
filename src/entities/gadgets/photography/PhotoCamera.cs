@@ -76,8 +76,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     {
         set
         {
-            field = Math.Clamp(value, 0, maxFilm);
-            FilmLabel.Text = $"{field}/{maxFilm}";
+            field = Math.Clamp(value, 0, PlayerStats.MaxFilm);
+            FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
         }
         get;
     }
@@ -85,8 +85,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public new PackedScene PackedScene => Packed;
 
     public new Mesh DropMesh => Mesh.Mesh;
-
-    public int maxFilm = 100;
 
     private bool Aiming
     {
@@ -100,8 +98,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public override void _Ready()
     {
-        Film = maxFilm;
         player = GetParent().GetParent<Player>();
+        Film = PlayerStats.MaxFilm;
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
@@ -113,6 +111,16 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public override void _ExitTree()
     {
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
+    }
+
+    public override void Equipped()
+    {
+        FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
+    }
+
+    public override void Added()
+    {
+        Film = PlayerStats.MaxFilm;
     }
 
     public override void Removed()

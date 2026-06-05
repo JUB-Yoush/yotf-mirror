@@ -447,6 +447,9 @@ uv1_world_triplanar = true
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
 
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
+transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -24.895155, 14.442931, -11.478544)
+
 [node name="Lab2" parent="." unique_id=938565638 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.57483, -1.2578716, -17.949776)
 Index = 1
@@ -538,9 +541,6 @@ Room = NodePath("../../Home")
 [node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("9_2qppk")]
 transform = Transform3D(-1.0000001, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -1.0000001, -18.143913, 2.5086226, 10.238323)
 InsideChest = ExtResource("9_sjuom")
-
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
-transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -22.096567, 4.8978634, 12.261809)
 
 [node name="FuncGodotMap" parent="." unique_id=787583751 instance=ExtResource("1_12fjb")]
 metadata/_edit_group_ = true

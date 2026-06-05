@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://b23k3n6uvsqhm"]
+
+[ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="1_h0qt4"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="2_ex0cv"]
+[ext_resource type="PackedScene" uid="uid://cgk7l4ybjl37y" path="res://src/entities/gadgets/photography/photo_camera.tscn" id="3_5rwxh"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="4_3p30r"]
+
+[resource]
+script = ExtResource("4_3p30r")
+Icon = ExtResource("2_ex0cv")
+Name = "Camera"
+Description = "Photograph local sea life."
+Price = 10
+ItemType = 1
+ItemId = 1
+itemScene = ExtResource("3_5rwxh")
+DropMesh = ExtResource("1_h0qt4")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

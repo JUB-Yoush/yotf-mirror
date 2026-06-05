@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://5f5dbtps2xg5"]
+
+[ext_resource type="BoxMesh" uid="uid://ciqksjmsi3j4l" path="res://assets/3d/gadgets/disposable_battery.tres" id="1_2bisg"]
+[ext_resource type="Texture2D" uid="uid://dj5208uybol8g" path="res://assets/2d/battery_icon.png" id="2_fpl7q"]
+[ext_resource type="PackedScene" uid="uid://ctfjn385p4op3" path="res://src/entities/gadgets/disposable_refill/disposable.tscn" id="3_0lc62"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="4_f8lht"]
+
+[resource]
+script = ExtResource("4_f8lht")
+Icon = ExtResource("2_fpl7q")
+Name = "Spare Battery"
+Description = "Battery in a pinch"
+Price = 10
+ItemType = 1
+ItemId = 5
+Restore = 2
+RestoreAmount = 50.0
+itemScene = ExtResource("3_0lc62")
+DropMesh = ExtResource("1_2bisg")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

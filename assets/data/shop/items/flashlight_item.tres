@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://cyb0rkdrcr1bn"]
+
+[ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="1_n4081"]
+[ext_resource type="PackedScene" uid="uid://d34ehugbf1dk7" path="res://src/entities/gadgets/flashlight/flashlight.tscn" id="2_knqx1"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="3_f62nj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
+albedo_color = Color(0.3647059, 0.99607843, 0.44705883, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y1wly"]
+material = SubResource("StandardMaterial3D_4q7ia")
+size = Vector3(0.2, 0.2, 0.2)
+
+[resource]
+script = ExtResource("3_f62nj")
+Icon = ExtResource("1_n4081")
+Name = "Flashlight"
+Description = "Illuminate Dark Areas."
+Price = 10
+ItemType = 1
+ItemId = 2
+itemScene = ExtResource("2_knqx1")
+DropMesh = SubResource("BoxMesh_y1wly")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

@@ -54,7 +54,7 @@ public partial class ShopUI : Control
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
-            view.GetNode<Label>("Name").Text = item.ItemName;
+            view.GetNode<Label>("Name").Text = item.Name;
             view.GetNode<Label>("Price").Text = $"${item.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
             view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
@@ -65,7 +65,7 @@ public partial class ShopUI : Control
         {
             var view = ShopItemView.Instantiate<VBoxContainer>();
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
-            view.GetNode<Label>("Name").Text = upgrade.ItemName;
+            view.GetNode<Label>("Name").Text = upgrade.Name;
             view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
             view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
             view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
@@ -75,7 +75,7 @@ public partial class ShopUI : Control
 
     private void BuyUpgrade(ShopItem upgrade)
     {
-        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.Stats;
         player.Money -= upgrade.Price;
 
         switch (upgrade.upgrade)
@@ -88,6 +88,15 @@ public partial class ShopUI : Control
                 player.MaxBattery += 25;
                 player.Battery = player.MaxBattery;
                 break;
+            case ShopItem.Upgrade.Film:
+                PlayerStats.MaxFilm += 3;
+                break;
+            case ShopItem.Upgrade.CameraZoom:
+                PlayerStats.MaxZoom += 10;
+                break;
+            case ShopItem.Upgrade.SwimSpeed:
+                PlayerStats.SwimSpeed += 5;
+                break;
         }
 
         PopulateShop();
@@ -95,12 +104,13 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.Stats;
         player.Money -= item.Price;
-        // TODO (j) figure out how to get a reference to the dropmesh
-        var itemDrop = DroppedItem.New(kiosk.Mesh.Mesh, item.itemScene);
-        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        var mesh = item.DropMesh;
+        var itemDrop = DroppedItem.New(mesh, item.itemScene);
         GetTree().CurrentScene.AddChild(itemDrop);
+        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;
         PopulateShop();
     }
 
