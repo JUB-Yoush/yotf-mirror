@@ -79,7 +79,7 @@ public partial class ThwompFish : Fish
     {
         Vec2 dir = target.Normalized();
 
-        velocityXZ.Lerp(target, speed * delta);
+        velocityXZ = velocityXZ.Lerp(target, speed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Y);
         GlobalRotation = GlobalRotation with

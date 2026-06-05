@@ -137,7 +137,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         target -= GlobalPosition;
         Vec3 dir = target.Normalized();
 
-        Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
+        Velocity = Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
