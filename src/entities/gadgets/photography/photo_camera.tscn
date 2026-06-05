@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eemtb3m8i40b" path="res://src/entities/gadgets/photography/PhotoCamera.cs" id="1_3b58u"]
 [ext_resource type="Texture2D" uid="uid://bmrkidyy5id3x" path="res://assets/2d/camera_letterbox.png" id="2_r51j2"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="2_vbjdg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
 albedo_color = Color(0.32156864, 1, 1, 1)
@@ -17,18 +18,29 @@ albedo_color = Color(0.32156864, 1, 1, 1)
 material = SubResource("StandardMaterial3D_jg0tx")
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="PhotoComponent" type="Node3D" unique_id=1592745977]
+[node name="CameraItem" type="Node3D" unique_id=1592745977]
 script = ExtResource("1_3b58u")
+ItemName = "Camera"
+Icon = ExtResource("2_vbjdg")
 DropMesh = SubResource("BoxMesh_68lge")
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1322795823]
+[node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
+unique_name_in_owner = true
 
-[node name="PhotoCamera" type="Camera3D" parent="SubViewport" unique_id=1914256525]
+[node name="PhotoCameraCam" type="Camera3D" parent="PhotoViewport" unique_id=1914256525]
 unique_name_in_owner = true
 current = true
 fov = 50.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1596944207]
+[node name="Light" type="SpotLight3D" parent="PhotoViewport/PhotoCameraCam" unique_id=104620495]
+unique_name_in_owner = true
+visible = false
+spot_range = 15.0
+spot_attenuation = 1.5
+spot_angle = 50.0
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1596944207]
+unique_name_in_owner = true
 mesh = SubResource("BoxMesh_r51j2")
 
 [node name="Control" type="Control" parent="." unique_id=159700314]
@@ -38,20 +50,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FlashRect" type="ColorRect" parent="Control" unique_id=1979790315]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-offset_left = 280.0
-offset_top = 2.0
-offset_right = 992.0
-offset_bottom = 724.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 724.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_r51j2")
+
+[node name="FilmLabel" type="Label" parent="Control/PhotoLetterBox" unique_id=1859295132]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 118.0
+offset_top = 995.0
+offset_right = 301.0
+offset_bottom = 1062.0
+theme_override_font_sizes/font_size = 48
+text = "100/100"

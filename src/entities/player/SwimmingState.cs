@@ -14,7 +14,6 @@ public class SwimmingState : IPlayerState
     public void Enter(PlayerController player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
-        var UnderwaterRect = player.GetNode<ColorRect>("%UnderwaterRect").Visible = true;
         Stats = player.GetNode<PlayerStats>("Stats");
     }
 
@@ -22,7 +21,6 @@ public class SwimmingState : IPlayerState
     {
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
-        var UnderwaterRect = player.GetNode<ColorRect>("%UnderwaterRect").Visible = false;
         player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
     }
 
@@ -30,8 +28,12 @@ public class SwimmingState : IPlayerState
     {
         Stats.SpendOxygen(delta);
 
+        Basis cam = player.Camera.GlobalTransform.Basis;
+        Vector3 bodyUp = -cam.Z;
+        Vector3 bodyRight = cam.X;
+        Vector3 bodyBack = bodyUp.Cross(bodyRight);
         player.UpdateBodyRotation(
-            new Vector3(player.Camera.GlobalRotation.X, player.Camera.GlobalRotation.Y, 0f)
+            new Basis(bodyRight, bodyUp, bodyBack).Orthonormalized().GetEuler()
         );
 
         Vector3 moveDir = Vector3.Zero;
@@ -50,12 +52,6 @@ public class SwimmingState : IPlayerState
             player.Velocity = moveDir.Normalized() * speed;
         else
             player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
-
-        if (Input.IsActionJustPressed("pickup"))
-        {
-            GD.Print("woosh");
-            player.Velocity = player.Velocity with { Y = player.Velocity.Y + 5 };
-        }
 
         player.MoveAndSlide();
     }

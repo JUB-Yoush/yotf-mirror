@@ -42,7 +42,6 @@ reflected_light_source = 2
 tonemap_mode = 2
 tonemap_exposure = 1.8
 tonemap_white = 2.18
-ssao_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.404663, 0.432653, 0.82572, 1)
 fog_aerial_perspective = 0.5

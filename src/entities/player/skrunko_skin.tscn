@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://da0xkdgkyvua6"]
 
 [ext_resource type="PackedScene" uid="uid://cfup3imyxar12" path="res://assets/3d/player_model/skrunko.glb" id="1_svejk"]
+[ext_resource type="Script" uid="uid://cvbosk6jwj7q6" path="res://src/entities/player/ProceduralAnimator.cs" id="2_emp5r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svejk"]
 albedo_color = Color(0.40987206, 0.69025236, 0.44982922, 1)
@@ -30,10 +31,16 @@ properties/1/replication_mode = 1
 
 [node name="SkrunkoSkin" unique_id=1969374302 instance=ExtResource("1_svejk")]
 
-[node name="TwoBoneIK3D" type="TwoBoneIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1389570637) index="1" unique_id=1186104543]
+[node name="ProceduralAnimator" type="Node3D" parent="." index="0" unique_id=1973083571]
+script = ExtResource("2_emp5r")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="0" unique_id=479032175]
+unique_name_in_owner = true
+
+[node name="TwoBoneIK3D" type="TwoBoneIK3D" parent="Armature/Skeleton3D" index="1" unique_id=1186104543]
 setting_count = 2
-settings/0/target_node = NodePath("../../FootTarget_Left")
-settings/0/pole_node = NodePath("../../FootPole_Left")
+settings/0/target_node = NodePath("../../FootTargetLeft")
+settings/0/pole_node = NodePath("../../FootPoleLeft")
 settings/0/root_bone_name = "Thigh.L"
 settings/0/root_bone = 3
 settings/0/middle_bone_name = "Calf.L"
@@ -43,8 +50,8 @@ settings/0/end_bone_name = "Foot.L"
 settings/0/end_bone = 9
 settings/0/use_virtual_end = false
 settings/0/extend_end_bone = false
-settings/1/target_node = NodePath("../../FootTarget_Right")
-settings/1/pole_node = NodePath("../../FootPole_Right")
+settings/1/target_node = NodePath("../../FootTargetRight")
+settings/1/pole_node = NodePath("../../FootPoleRight")
 settings/1/root_bone_name = "Thigh.R"
 settings/1/root_bone = 13
 settings/1/middle_bone_name = "Calf.R"
@@ -55,36 +62,40 @@ settings/1/end_bone = 19
 settings/1/use_virtual_end = false
 settings/1/extend_end_bone = false
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1389570637) index="2" unique_id=504647397]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="2" unique_id=504647397]
 transform = Transform3D(1, 7.275958e-12, -5.3324948e-05, 1.0891206e-11, 0.9999999, 3.5762784e-07, 5.3324955e-05, -3.5762784e-07, 0.9999999, 5.1260758e-12, 1.281011, -2.5195686e-07)
 bone_name = "Neck"
 bone_idx = 35
 
-[node name="FootRaycast_Right" type="RayCast3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="1" unique_id=1099315328]
+[node name="RayCastRight" type="RayCast3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="1" unique_id=1099315328]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155, 0.01, 0)
 debug_shape_custom_color = Color(0.21756881, 0.48350996, 0.29888844, 1)
 
-[node name="FootRaycast_Left" type="RayCast3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="2" unique_id=579199995]
+[node name="RayCastLeft" type="RayCast3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="2" unique_id=579199995]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.155, 0.01, 0)
 debug_shape_custom_color = Color(0.25885162, 0.43124804, 0.6037694, 1)
 
-[node name="FootPole_Right" type="Node3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="3" unique_id=483858666]
+[node name="FootPoleRight" type="Node3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="3" unique_id=483858666]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.368, 0.77)
 
-[node name="FootPole_Left" type="Node3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="4" unique_id=530942081]
+[node name="FootPoleLeft" type="Node3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="4" unique_id=530942081]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.368, 0.77)
 
-[node name="FootTarget_Right" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="5" unique_id=28899830]
+[node name="FootTargetRight" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="5" unique_id=28899830]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155, 0.05, 0)
 
-[node name="DebugSphere" type="MeshInstance3D" parent="Armature/FootTarget_Right" index="0" unique_id=109986513]
+[node name="DebugSphere" type="MeshInstance3D" parent="Armature/FootTargetRight" index="0" unique_id=109986513]
 mesh = SubResource("SphereMesh_emp5r")
 
-[node name="FootTarget_Left" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(1931301637) index="6" unique_id=1977071164]
+[node name="FootTargetLeft" type="Marker3D" parent="Armature" parent_id_path=PackedInt32Array(694175799) index="6" unique_id=1977071164]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.155, 0.05, 0)
 
-[node name="DebugSphere" type="MeshInstance3D" parent="Armature/FootTarget_Left" index="0" unique_id=946934999]
+[node name="DebugSphere" type="MeshInstance3D" parent="Armature/FootTargetLeft" index="0" unique_id=946934999]
 mesh = SubResource("SphereMesh_5qtxl")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="1" unique_id=109776229]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="2" unique_id=109776229]
 replication_config = SubResource("SceneReplicationConfig_svejk")

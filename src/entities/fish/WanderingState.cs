@@ -8,6 +8,7 @@ public class WanderingState : IFishState
     public bool IsPhotographable => true;
 
     private Vector3 wanderTarget;
+    private float swimTime = 0f;
 
     public void Enter(Fish fish)
     {
@@ -22,41 +23,63 @@ public class WanderingState : IFishState
             FollowSpline(fish, delta);
         else
             WanderRandomly(fish, delta);
+
+        Wiggle(fish, delta);
     }
 
     private void FollowSpline(Fish fish, float delta)
     {
-        fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
-        fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta);
+        if (fish.SplineFollower == null)
+            return;
+
+        if (fish.SmoothMoveTo(fish.SplineFollower.GlobalPosition, fish.Profile.MoveSpeed, delta))
+            fish.SplineFollower.Progress += fish.Profile.MoveSpeed * delta;
     }
 
     private void WanderRandomly(Fish fish, float delta)
     {
         bool arrived = fish.SmoothMoveTo(wanderTarget, fish.Profile.MoveSpeed, delta);
         if (arrived)
+        {
             wanderTarget = PickNewTarget(fish);
+        }
+    }
+
+    private void Wiggle(Fish fish, float delta)
+    {
+        swimTime += delta;
+        float angle = swimTime * Mathf.Tau;
+        fish.Rotation = fish.Rotation with { Z = Mathf.Sin(angle) * 0.5f };
     }
 
     private static Vector3 PickNewTarget(Fish fish)
     {
-        Vector3 offset =
-            new Vector3(
-                GD.Randf() * 2f - 1f,
-                (GD.Randf() * 2f - 1f) * 0.3f,
-                GD.Randf() * 2f - 1f
-            ).Normalized() * fish.Profile.WanderRadius;
-        // check for collisions
-        var targetRay = fish.GetNode<RayCast3D>("TargetRay");
-        var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
-        targetRay.TargetPosition = offset;
+        Vector3 direction = new Vector3(
+            GD.Randf() * 2f - 1f,
+            (GD.Randf() * 2f - 1f) * 0.3f,
+            GD.Randf() * 2f - 1f
+        ).Normalized();
 
-        if (targetRay.IsColliding())
-        {
-            offset =
-                targetRay.GetCollisionPoint() - (targetRay.GetCollisionPoint().Normalized() / 2);
-        }
-        targetMesh.Position = fish.GlobalPosition + offset;
-        return fish.GlobalPosition + offset;
+        // check for collisions
+        // fish.Velocity = Vector3.Zero;
+        // var targetRay = fish.GetNode<RayCast3D>("TargetRay");
+        // var targetMesh = fish.GetNode<MeshInstance3D>("TargetMesh");
+        // targetMesh.TopLevel = true;
+        // targetRay.TopLevel = true;
+        // targetRay.GlobalPosition = fish.GlobalPosition;
+        // targetRay.TargetPosition = direction * fish.Profile.WanderRadius;
+
+        var target = direction * fish.Profile.WanderRadius;
+
+        // targetRay.ForceRaycastUpdate();
+        // if (targetRay.IsColliding())
+        // {
+        //     GD.Print("Collision");
+        //     target = targetRay.GetCollisionPoint();
+        // }
+
+        // targetMesh.GlobalPosition = direction;
+        return target;
     }
 
     public void OnThreatDetected(Fish fish, Node3D threat)

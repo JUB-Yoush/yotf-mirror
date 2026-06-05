@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bqoibl7l0duog"]
+
+[ext_resource type="Texture2D" uid="uid://craudxlij2yxa" path="res://trenchbroom/textures/FLATSTONES.png" id="1_ejkhb"]
+
+[resource]
+albedo_texture = ExtResource("1_ejkhb")
+metallic_specular = 0.0
+texture_filter = 2

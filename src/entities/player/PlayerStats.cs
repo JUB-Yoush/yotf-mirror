@@ -3,19 +3,38 @@ using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class PlayerStats : Node
 {
-    private Hud playerHud = null!;
+    public override void _Notification(int what) => this.Notify(what);
+
+    private PlayerController player = null!;
+
+    public Action<int> GalleryScoreUpdated;
+
+    [Node]
+    public required Hud HUD { set; get; }
 
     [Export]
-    public float OxygenUseRate = 3f;
+    public float OxygenUseRate = 0f;
+
+    public float Injuries
+    {
+        get;
+        set
+        {
+            field = Math.Clamp(value, 0, MaxOxygen);
+            HUD.InjuryBar.Value = Mathf.Floor(field);
+        }
+    }
+
     public float MaxOxygen
     {
         get;
         set
         {
             field = value;
-            playerHud.OxygenBar.MaxValue = field;
+            HUD.OxygenBar.MaxValue = field;
         }
     }
     public float MaxBattery
@@ -24,7 +43,7 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud.BatteryBar.MaxValue = field;
+            HUD.BatteryBar.MaxValue = field;
         }
     }
     public float Oxygen
@@ -32,10 +51,9 @@ public partial class PlayerStats : Node
         get;
         set
         {
-            field = Math.Clamp(value, 0, MaxOxygen);
-            playerHud?.OxygenLabel?.Text = $"O2: {value}/{MaxOxygen}";
-            playerHud?.OxygenBar.Value = value;
-            if (value == 0)
+            field = Math.Clamp(value, 0, MaxOxygen - Injuries);
+            HUD?.OxygenBar.Value = field;
+            if (field == 0)
                 Drown();
         }
     }
@@ -45,8 +63,8 @@ public partial class PlayerStats : Node
         set
         {
             field = Math.Clamp(value, 0, MaxBattery);
-            playerHud?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
-            playerHud?.BatteryBar.Value = value;
+            HUD?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
+            HUD?.BatteryBar.Value = value;
         }
     }
     public int Money
@@ -55,10 +73,11 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud?.MoneyLabel?.Text = $"Money: {value}";
-            var photoTerminal = GetTree()
-                .CurrentScene.GetNodeOrNull<PhotoTerminal>("%PhotoTerminal");
-            photoTerminal.LabelText = $"{value:D6}";
+            HUD?.MoneyLabel?.Text = $"Money: {value}";
+            foreach (var lab in this.SceneRoot().GetNodes<Lab>())
+            {
+                lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
+            }
         }
     }
     public int TotalGalleryScore
@@ -67,15 +86,20 @@ public partial class PlayerStats : Node
         set
         {
             field = value;
-            playerHud?.PhotoLabel?.Text = $"Photo Points: {value}";
+            HUD?.PhotoLabel?.Text = $"Photo Points: {value}";
+            foreach (var lab in this.SceneRoot().GetNodes<Lab>())
+            {
+                lab.PhotoTerminal.LabelText = $"{value:D6}";
+            }
+            GalleryScoreUpdated?.Invoke(value);
         }
     }
 
     public override void _Ready()
     {
-        playerHud = GetNode<Hud>("%HUD");
-        playerHud.OxygenBar.MaxValue = MaxOxygen;
-        playerHud.BatteryBar.MaxValue = MaxBattery;
+        player = GetParent<PlayerController>();
+        HUD.OxygenBar.MaxValue = MaxOxygen;
+        HUD.BatteryBar.MaxValue = MaxBattery;
         MaxOxygen = 100;
         MaxBattery = 100;
         Oxygen = MaxOxygen;
@@ -86,7 +110,17 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
+        //TODO (j) we need to come up wtih some normalized depth value relative to the underwater lab or smthn
+        OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("roll"))
+        {
+            Injuries += 10 * (float)delta;
+        }
     }
 
     public void Drown()
@@ -94,6 +128,11 @@ public partial class PlayerStats : Node
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
         fadeRect.Visible = true;
         var tween = CreateTween();
-        tween.TweenProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
+        tween.LerpProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
+    }
+
+    internal void RestoreOxygen()
+    {
+        Oxygen = MaxOxygen - Injuries;
     }
 }

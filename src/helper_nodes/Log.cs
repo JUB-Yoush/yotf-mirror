@@ -1,14 +1,21 @@
 using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using Godot;
 
 namespace Yotf;
 
+[Meta(typeof(IAutoNode))]
 public partial class Log : Control
 {
+    public override void _Notification(int what) => this.Notify(what);
+
     private static Log Instance { get; set; } = null!;
     public static int MsgCount = 0;
     public const int LOG_LIMIT = 500;
-    VBoxContainer LogMessages = null!;
+
+    [Node]
+    public required VBoxContainer LogMessages { set; get; }
 
     static readonly PackedScene LogMsg = GD.Load<PackedScene>(
         "res://src/helper_nodes/log_label.tscn"
@@ -40,5 +47,16 @@ public partial class Log : Control
         label.Text = msg.ToString();
         Instance.LogMessages.AddChild(label);
         MsgCount++;
+    }
+
+    public static void PrintLn(
+        object message,
+        [CallerMemberName] string memberName = "",
+        [CallerFilePath] string filePath = "",
+        [CallerLineNumber] int lineNumber = 0
+    )
+    {
+        string className = Path.GetFileNameWithoutExtension(filePath);
+        GD.Print($"[{className}.{memberName}:{lineNumber}] {message}");
     }
 }

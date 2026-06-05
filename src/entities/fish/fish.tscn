@@ -2,48 +2,27 @@
 
 [ext_resource type="Script" uid="uid://cnqeiosngu1ue" path="res://src/entities/fish/Fish.cs" id="1_37je6"]
 [ext_resource type="Resource" uid="uid://brmc7odrdn8e3" path="res://assets/data/scared_fish.tres" id="2_rq6t1"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rq6t1"]
-albedo_color = Color(0.75686276, 0.22352941, 0.16470589, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_huvyi"]
-material = SubResource("StandardMaterial3D_rq6t1")
-size = Vector3(0.2, 0.2, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_a3vc6"]
-material = SubResource("StandardMaterial3D_rq6t1")
-size = Vector3(0.3, 0.3, 0.3)
+[ext_resource type="PackedScene" uid="uid://76ope4ac8tql" path="res://assets/3d/fish/shinfish.tscn" id="3_bubtx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
-size = Vector3(0.31, 0.3, 1.27)
+size = Vector3(0.31, 0.3, 0.4591626)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
 radius = 5.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bubtx"]
-albedo_color = Color(0.8784314, 0.9411765, 0.32941177, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_rq6t1"]
-material = SubResource("StandardMaterial3D_bubtx")
-size = Vector3(0.2, 0.2, 0.2)
-
-[node name="Fish" type="CharacterBody3D" unique_id=1200339281]
+[node name="Fish" type="CharacterBody3D" unique_id=1200339281 node_paths=PackedStringArray("Mesh")]
 collision_layer = 16
+collision_mask = 0
 script = ExtResource("1_37je6")
+Mesh = NodePath("shinfish/Armature_001/Skeleton3D/MeshInstance3D")
 Profile = ExtResource("2_rq6t1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=228051366]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12434006)
-mesh = SubResource("BoxMesh_huvyi")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2099692884]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.48915994)
-mesh = SubResource("BoxMesh_a3vc6")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
 shape = SubResource("BoxShape3D_rq6t1")
 
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+[node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.027611732, -0.67337775)
 aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.9458029)
 
@@ -54,6 +33,6 @@ shape = SubResource("SphereShape3D_rq6t1")
 
 [node name="TargetRay" type="RayCast3D" parent="." unique_id=1256525334]
 
-[node name="TargetMesh" type="MeshInstance3D" parent="." unique_id=290706218]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6630225)
-mesh = SubResource("BoxMesh_rq6t1")
+[node name="shinfish" parent="." unique_id=1966897904 instance=ExtResource("3_bubtx")]
+
+[editable path="shinfish"]

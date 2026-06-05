@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b627ai4x06ylo"]
 
-[ext_resource type="Script" uid="uid://h853vpfwanq1" path="res://src/entities/gadgets/photography/GradingUi.cs" id="1_ekfni"]
+[ext_resource type="Script" uid="uid://h853vpfwanq1" path="res://src/entities/gadgets/photography/GradingUI.cs" id="1_ekfni"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="1_klsji"]
 [ext_resource type="LabelSettings" uid="uid://d1hk046eb0hlq" path="res://src/ui/photo_grade_label.tres" id="2_ekfni"]
 
@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_ekfni")
 
 [node name="Panel" type="Panel" parent="." unique_id=1709288932]
@@ -20,16 +21,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ReturnBtn" type="Button" parent="." unique_id=1146951400]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 14.0
+offset_left = 65.0
 offset_top = 675.0
-offset_right = 76.0
-offset_bottom = 706.0
+offset_right = 213.0
+offset_bottom = 742.0
 text = "Return"
 
 [node name="GalleryTotalLabel" type="Label" parent="." unique_id=1657279698]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 538.0
 offset_top = 659.0
@@ -38,7 +42,18 @@ offset_bottom = 704.0
 theme_override_font_sizes/font_size = 32
 text = "Total Points: 0000"
 
+[node name="PhotoTotalLabel" type="Label" parent="." unique_id=1216227524]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 856.0
+offset_top = 600.0
+offset_right = 1156.0
+offset_bottom = 645.0
+theme_override_font_sizes/font_size = 32
+text = "0000"
+
 [node name="NextBtn" type="Button" parent="." unique_id=1905951525]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 694.0
 offset_top = 327.0
@@ -48,6 +63,7 @@ theme_override_font_sizes/font_size = 32
 text = ">"
 
 [node name="PrevBtn" type="Button" parent="." unique_id=2087375208]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 37.0
 offset_top = 330.0
@@ -57,6 +73,7 @@ theme_override_font_sizes/font_size = 32
 text = "<"
 
 [node name="PhotoRect" type="TextureRect" parent="." unique_id=171328670]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(450, 450)
 layout_mode = 0
 offset_left = 89.0
@@ -65,15 +82,6 @@ offset_right = 657.0
 offset_bottom = 630.0
 texture = ExtResource("1_klsji")
 expand_mode = 1
-
-[node name="PhotoTotalLabel" type="Label" parent="." unique_id=1216227524]
-layout_mode = 0
-offset_left = 856.0
-offset_top = 600.0
-offset_right = 1156.0
-offset_bottom = 645.0
-theme_override_font_sizes/font_size = 32
-text = "0000"
 
 [node name="StyleLabels" type="VBoxContainer" parent="." unique_id=396776176]
 unique_name_in_owner = true

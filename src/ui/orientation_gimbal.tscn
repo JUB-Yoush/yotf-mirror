@@ -7,17 +7,19 @@ ambient_light_source = 2
 ambient_light_color = Color(0.7607843, 1, 0.91764706, 1)
 reflected_light_source = 1
 
-[node name="OrientationGimbalViewport" type="SubViewport" unique_id=264943065]
+[node name="Viewport" type="SubViewport" unique_id=264943065]
 own_world_3d = true
 transparent_bg = true
 
-[node name="OrientationGimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
+[node name="Gimbal" parent="." unique_id=829797619 instance=ExtResource("1_dh4so")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9169618, 0)
 
-[node name="Arm" type="Node3D" parent="." unique_id=1634164095]
+[node name="GimbalArm" type="Node3D" parent="." unique_id=1634164095]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5561391, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Arm" unique_id=2002673002]
+[node name="GimbalCamera" type="Camera3D" parent="GimbalArm" unique_id=2002673002]
 transform = Transform3D(-0.99813473, 0.0328014, -0.05148791, 0.012856289, 0.9374173, 0.3479708, 0.059679575, 0.3466598, -0.9360905, 0.15148294, 1.0073153, -2.3938773)
 environment = SubResource("Environment_dh4so")
 current = true

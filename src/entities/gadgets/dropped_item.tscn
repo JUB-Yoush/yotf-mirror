@@ -18,7 +18,8 @@ script = ExtResource("1_0vdqr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1244455249]
 shape = SubResource("SphereShape3D_2lymx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=190850226]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=190850226]
+unique_name_in_owner = true
 mesh = SubResource("TorusMesh_0vdqr")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=341277874]
