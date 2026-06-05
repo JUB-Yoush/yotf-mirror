@@ -106,7 +106,7 @@ public partial class PlayerStats : Node
 
     public static float MaxZoom { set; get; }
 
-    public static float SwimSpeed { set; get; }
+    public static float ExtraSwimSpeed { set; get; }
 
     public override void _Ready()
     {
@@ -143,6 +143,7 @@ public partial class PlayerStats : Node
     public void RestoreStat(Restore restore, float amount)
     {
         Debug.Assert(restore != Restore.None, "None restorable item passed into restore function");
+        Log.PrintLn($"restoring {restore} by {amount}");
         switch (restore)
         {
             case Restore.Oxygen:

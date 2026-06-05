@@ -16,7 +16,7 @@ public partial class Item : Node3D, IDroppable
     public Texture2D Icon = DefaultTexture;
 
     [Export]
-    public Disposable.Restore restore = Disposable.Restore.None;
+    float restoreAmount = 50;
 
     public bool InInventory = false;
     public bool CurrentItem = false;

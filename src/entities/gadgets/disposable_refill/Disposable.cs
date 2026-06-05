@@ -17,6 +17,8 @@ public partial class Disposable : Item
     [Export]
     float restoreAmount = 50;
 
+    public Disposable.Restore restore = Disposable.Restore.None;
+
     public static PackedScene Packed = GD.Load<PackedScene>(
         "res://src/entities/gadgets/disposable_refill/disposable.tscn"
     );

@@ -95,7 +95,7 @@ public partial class ShopUI : Control
                 PlayerStats.MaxZoom += 10;
                 break;
             case ShopItem.Upgrade.SwimSpeed:
-                PlayerStats.SwimSpeed += 5;
+                PlayerStats.ExtraSwimSpeed += 1;
                 break;
         }
 
@@ -108,9 +108,13 @@ public partial class ShopUI : Control
         player.Money -= item.Price;
         var mesh = item.DropMesh;
         var itemDrop = DroppedItem.New(mesh, item.itemScene);
+        itemDrop.restore = item.restore;
+        Log.PrintLn(itemDrop.restore, item.restore);
         GetTree().CurrentScene.AddChild(itemDrop);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;
+
+        if (item.restore != Disposable.Restore.None) { }
         PopulateShop();
     }
 

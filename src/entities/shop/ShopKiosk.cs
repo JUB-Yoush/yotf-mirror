@@ -30,10 +30,12 @@ public partial class ShopKiosk : Node3D, IInteractable
     }
 
     // TODO(j) pass these in from a resource to make unique shop stocks simple
-    static readonly Dictionary<StringName, ShopItem> ShopItems =
-        Extensions.LoadFromFolder<ShopItem>(shopItemPath);
-    static readonly Dictionary<StringName, ShopItem> ShopUpgrades =
-        Extensions.LoadFromFolder<ShopItem>(shopUpgradePath);
+    static readonly Dictionary<StringName, ShopItem> ShopItems = GDExt.LoadFromFolder<ShopItem>(
+        shopItemPath
+    );
+    static readonly Dictionary<StringName, ShopItem> ShopUpgrades = GDExt.LoadFromFolder<ShopItem>(
+        shopUpgradePath
+    );
 
     List<ShopItem> Upgrades = [];
     List<ShopItem> Items = [];

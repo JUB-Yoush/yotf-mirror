@@ -7,7 +7,7 @@ using Godot;
 
 namespace Yotf;
 
-public static class Extensions
+public static class GDExt
 {
     extension(Tween tween)
     {

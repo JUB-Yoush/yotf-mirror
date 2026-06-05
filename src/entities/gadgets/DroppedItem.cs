@@ -30,6 +30,8 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         return dropped;
     }
 
+    public Disposable.Restore restore = Disposable.Restore.None;
+
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
     public required Mesh InteractionMesh
@@ -61,7 +63,16 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         }
     }
 
-    public Item GivePickUpItem() => ItemRef.Instantiate<Item>();
+    public Item GivePickUpItem()
+    {
+        var item = ItemRef.Instantiate<Item>();
+        if (item is Disposable dispose)
+        {
+            dispose.restore = restore;
+            return dispose;
+        }
+        return item;
+    }
 
     public void OnInteraction()
     {
@@ -70,7 +81,18 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
 
         if (inventory.GetEqippedItem() != null)
             return;
-        inventory.AddItem(ItemRef.Instantiate<Item>());
+        var item = ItemRef.Instantiate<Item>();
+        if (restore != Disposable.Restore.None)
+        {
+            var disposable = (Disposable)item;
+            disposable.restore = restore;
+            inventory.AddItem(item);
+            Log.PrintLn(restore, disposable.restore);
+        }
+        else
+        {
+            inventory.AddItem(item);
+        }
         QueueFree();
     }
 

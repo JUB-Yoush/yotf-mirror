@@ -28,10 +28,9 @@ public partial class Inventory : Node3D
 
     public override void _Ready()
     {
-        AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
-        AddItem(Disposable.Packed.Instantiate<Item>(), 2);
-        AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 3);
+        AddItem(Sonar.Packed.Instantiate<Item>(), 1);
+        AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
         SetCurrentItem(0);
     }
 

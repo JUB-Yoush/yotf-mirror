@@ -54,7 +54,7 @@ public partial class ShopItem : Resource
     public Upgrade upgrade;
 
     [Export]
-    public Disposable.Restore Restore;
+    public Disposable.Restore restore;
 
     [Export]
     public float RestoreAmount;

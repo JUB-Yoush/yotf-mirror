@@ -14,7 +14,7 @@ public class SwimmingState : IPlayerState
     public void Enter(Player player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
-        Stats = player.GetNode<PlayerStats>("Stats");
+        Stats = player.Stats;
         player.UnderwaterRect.Visible = true;
     }
 
@@ -47,7 +47,7 @@ public class SwimmingState : IPlayerState
             player.Camera.GlobalTransform.Basis.X
             * (Input.GetActionStrength("right") - Input.GetActionStrength("left"));
 
-        float speed = player.SwimSpeed;
+        float speed = player.SwimSpeed + PlayerStats.ExtraSwimSpeed;
         if (Input.IsActionJustPressed("jump"))
             speed *= player.SwimBoostMultiplier;
 
