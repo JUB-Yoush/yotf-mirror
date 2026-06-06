@@ -187,6 +187,9 @@ public partial class NavNode : Node3D
 
     public override void _Process(double delta)
     {
+        if (!Engine.IsEditorHint())
+            return;
+
         for (int i = 0; i < neighbors.Count; i++)
         {
             var nei = neighbors[i];
