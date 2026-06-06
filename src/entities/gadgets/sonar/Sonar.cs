@@ -20,6 +20,12 @@ public partial class Sonar : Item, IDroppable
     [Export]
     float MinLabelDistance = 10f;
 
+    [Export]
+    float range = 30f;
+
+    [Export]
+    float exponentFalloff = 1.5f;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -36,7 +42,7 @@ public partial class Sonar : Item, IDroppable
 
     readonly Dictionary<ISonarable, Control> ReticleMap = [];
 
-    ISonarable closest = null!;
+    ISonarable? closest = null!;
     Label Label = null!;
 
     public override void _Ready()
@@ -44,7 +50,6 @@ public partial class Sonar : Item, IDroppable
         player = GetParent().GetParent<Player>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Label = player.HUD.SonarLabel;
-        GetTree().CurrentScene.GetViewport().SizeChanged += UpdateScreenSize;
 
         GetTree().NodeAdded += (node) =>
         {
@@ -62,11 +67,6 @@ public partial class Sonar : Item, IDroppable
         {
             AddSonarItem(sonarable);
         }
-    }
-
-    private void UpdateScreenSize()
-    {
-        throw new NotImplementedException();
     }
 
     private void AddSonarItem(ISonarable sonarable)
@@ -89,6 +89,7 @@ public partial class Sonar : Item, IDroppable
         Visible = true;
         player.Alert.Visible = true;
         Reticles.Visible = true;
+        Label.Visible = true;
         player.Alert.RenderGradually("LOCATING...", 0.02f);
     }
 
@@ -97,6 +98,21 @@ public partial class Sonar : Item, IDroppable
         Visible = false;
         Reticles.Visible = false;
         player.Alert.Visible = false;
+        Label.Visible = false;
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!CurrentItem)
+            return;
+
+        if (@event.IsActionPressed("drop_item"))
+        {
+            var dropItem = IDroppable.MakeDropItem(this);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            GetTree().CurrentScene.AddChild(dropItem);
+            player.Inventory.RemoveCurrentItem();
+        }
     }
 
     public override void _Process(double delta)
@@ -106,6 +122,7 @@ public partial class Sonar : Item, IDroppable
 
         foreach (var sonarable in sonarItems)
         {
+            var dist = (sonarable.GlobalPosition - playerCamera.GlobalPosition).Length();
             UpdateRetacleUI(sonarable);
             closest ??= sonarable;
             var newdot = GetDotToTarget(sonarable);
@@ -115,10 +132,12 @@ public partial class Sonar : Item, IDroppable
                 closest = sonarable;
             }
 
-            var dist = (sonarable.GlobalPosition - playerCamera.GlobalPosition).Length();
             if (!sonarable.Discovered)
                 sonarable.Discovered = (dist <= sonarable.DiscoveryDistance);
         }
+        if (closest == null)
+            return;
+
         var distance = (closest.GlobalPosition - playerCamera.GlobalPosition).Length();
         var distanceText = distance <= MinLabelDistance ? distance.ToString("F1") : "???";
         if (closest.Discovered)
@@ -131,14 +150,25 @@ public partial class Sonar : Item, IDroppable
 
     private void UpdateRetacleUI(ISonarable sonarable)
     {
-        var dot = GetDotToTarget(sonarable);
         var reticle = ReticleMap[sonarable];
-        var half = reticle.GetNodes<Sprite2D>();
-        var screen = DisplayServer.WindowGetSize();
-        half[0].Modulate = new(dot, dot, dot, 1);
-        half[1].Modulate = new(dot, dot, dot, 1);
-        half[0].GlobalPosition = new(((screen.X + 128) * dot), screen.Y + 64);
-        half[1].GlobalPosition = new(screen.X * 2 - (screen.X - 128) * dot, screen.Y + 64);
+        var half = reticle.GetNodes<TextureRect>();
+        var dist = (sonarable.GlobalPosition - playerCamera.GlobalPosition).Length();
+
+        if (dist > range)
+        {
+            half[0].Modulate = new(0, 0, 0, 0);
+            half[1].Modulate = new(0, 0, 0, 0);
+            return;
+        }
+        var opacityScale = Mathf.Pow((Math.Clamp((range - dist) / range, 0, 1)), exponentFalloff);
+
+        var dot = GetDotToTarget(sonarable);
+        var screen = GetViewport().GetVisibleRect().Size;
+        var colorScale = dot;
+        half[0].Modulate = new(1 - colorScale, colorScale, 0, opacityScale);
+        half[1].Modulate = new(1 - colorScale, colorScale, 0, opacityScale);
+        half[0].GlobalPosition = new((((screen.X / 2) - 64) * dot), (screen.Y / 2) - 64);
+        half[1].GlobalPosition = new(screen.X - ((screen.X / 2) * dot), (screen.Y / 2) - 64);
     }
 
     float GetDotToTarget(ISonarable sonarable, bool clamped = true)

@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
 [ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
+[ext_resource type="Texture2D" uid="uid://krgqtpe8bcyp" path="res://assets/2d/ui/reticle.png" id="11_kc3pt"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 
@@ -169,6 +170,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2137586156]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=573255140]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_kc3pt")
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 unique_name_in_owner = true

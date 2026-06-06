@@ -278,22 +278,6 @@ public partial class Player : CharacterBody3D
         var dir = (GlobalPosition - ShockSource).Normalized();
         Velocity += dir * 15;
 
-        // drop ur stuff
-        // for (int i = 0; i < Inventory.Capacity; i++)
-        // {
-        //     var item = Inventory.Items[i];
-        //     //var item = Inventory.GetNode<Item>
-        //     if (item != null && item is IDroppable droppable)
-        //     {
-        //         Log.PrintLn($"{item.Name}");
-        //         var dropItem = IDroppable.MakeDropItem(droppable);
-        //         dropItem.GlobalTransform = GlobalTransform;
-        //         GetTree().CurrentScene.AddChild(dropItem);
-        //         Inventory.RemoveItem(i);
-        //     }
-        // }
-        //foreach (var item in Inventory.GetNodes<Item>())
-
         for (int i = 0; i < Inventory.Capacity; i++)
         {
             var item = Inventory.Items[i];
@@ -301,11 +285,10 @@ public partial class Player : CharacterBody3D
             {
                 Log.PrintLn($"{item.Name}");
                 var dropItem = IDroppable.MakeDropItem(droppable);
-                var randomDir = new Vec3(GD.Randf(), 1, GD.Randf()).Normalized();
+                var randomDir = new Vec3(GD.Randf(), 0.5f, GD.Randf()).Normalized();
                 GetTree().CurrentScene.AddChild(dropItem);
                 dropItem.GlobalTransform = GlobalTransform;
-                dropItem.GlobalPosition = GlobalPosition + Vec3.Down;
-                dropItem.ApplyImpulse(randomDir * 3);
+                dropItem.ApplyImpulse(randomDir * 5);
                 Inventory.RemoveItem(i);
             }
         }

@@ -12,11 +12,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
         "res://src/entities/gadgets/firecracker/firecracker.tscn"
     );
 
-    public static Firecracker New(Vec3 initialVelocity)
+    public static Firecracker New(Node parent, Vec3 initialVelocity)
     {
         var firecracker = Packed.Instantiate<Firecracker>();
-        firecracker.InitialVelocity = initialVelocity;
-        firecracker.LinearVelocity = initialVelocity;
+        parent.AddChild(firecracker);
+        firecracker.ApplyImpulse(initialVelocity);
         return firecracker;
     }
 
@@ -32,7 +32,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
     public AudioStreamPlayer3D NoiseSource => AudioPlayer;
 
     [Export]
-    float waitTime = 0f;
+    float waitTime = 3f;
 
     [Export]
     float lightEnergy = 5f;
@@ -41,7 +41,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
     float lightRange = 10f;
 
     [Export]
-    float lifetime = 1f;
+    float lifetime = 5f;
 
     Vec3 InitialVelocity;
 

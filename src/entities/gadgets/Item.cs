@@ -38,4 +38,6 @@ public partial class Item : Node3D, IDroppable
     {
         Visible = false;
     }
+
+    public override void _Input(InputEvent @event) { }
 }

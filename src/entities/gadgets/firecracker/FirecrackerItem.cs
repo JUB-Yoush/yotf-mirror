@@ -54,10 +54,9 @@ public partial class FirecrackerItem : Item, IDroppable
     public void MakeFirecracker()
     {
         var initialVelocity = -playerCamera.GlobalTransform.Basis.Z * throwForce;
-        var firecracker = Firecracker.New(initialVelocity);
-        this.SceneRoot().AddChild(firecracker);
-        firecracker.GlobalPosition =
-            GlobalPosition + -playerCamera.GlobalTransform.Basis.Z * throwForce;
+        var firecracker = Firecracker.New(this.SceneRoot(), initialVelocity);
+        //this.SceneRoot().AddChild(firecracker);
+        firecracker.GlobalPosition = GlobalPosition + -playerCamera.GlobalTransform.Basis.Z;
     }
 
     public override void _Process(double delta)

@@ -154,11 +154,6 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         if (GodotObject.IsInstanceValid(BubbleJail))
         {
             GlobalPosition = BubbleJail!.GlobalPosition;
-        }
-
-        if (BubbleJail != null)
-        {
-            GlobalPosition = BubbleJail!.GlobalPosition;
             Velocity = Vec3.Zero;
         }
     }

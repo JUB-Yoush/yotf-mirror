@@ -11,12 +11,8 @@
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
-[ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="14_3n2k3"]
-[ext_resource type="PackedScene" uid="uid://8njc6cpo2xsp" path="res://src/entities/fish/ghost_fish/ghost.tscn" id="15_2qppk"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
-[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="16_2qppk"]
 [ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
-[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="17_sjuom"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjuom"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -96,7 +92,7 @@ points = PackedVector3Array(10, 3.3125, -3, 10.418034, 3.3125, -3, 10, 3.25, -3,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d0dvo"]
 points = PackedVector3Array(7.5, 3.3125, -3, 7.5, 3.25, -3, -2.9743168, 3.3125, -2.9999998, -2.9743168, 3.25, -2.9999998, 7.5, 3.3125, -5.5, 7.5, 3.25, -5.5, -2.9716432, 3.3125, -5.5, -2.9716432, 3.25, -5.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_sjuom"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_7t1ah"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qppk"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -420,27 +416,27 @@ points = PackedVector3Array(60, 2.5, -12.5, 60, 2, -12.5, 59, 2.5, -12.5, 59, 2,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nd61s"]
 points = PackedVector3Array(56.5, 2.5, -12.5, 56.5, 2, -12.5, 21.5, 2.5, -12.5, 21.5, 2, -12.5, 56.5, 2.5, -15, 56.5, 2, -15, 21.5, 2.5, -15, 21.5, 2, -15)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_sjuom"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t1ah"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ihph0"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rnp1b"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_sjuom")
+noise = SubResource("FastNoiseLite_7t1ah")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41kwd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3n2k3"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_ihph0")
+refraction_texture = SubResource("NoiseTexture2D_rnp1b")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -507,7 +503,7 @@ script = ExtResource("4_8hels")
 [node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=157917744]
 unique_name_in_owner = true
 material_override = ExtResource("5_41xod")
-mesh = SubResource("ImmediateMesh_sjuom")
+mesh = SubResource("ImmediateMesh_7t1ah")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, -3.6924024, 18.637867)
@@ -1373,40 +1369,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.025204, 9.657761, 30.68105
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("15_3n2k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.13556, 7.9508743, 6.4459534)
 size = Vector3(85.0166, 13.066666, 70.028625)
-material = SubResource("StandardMaterial3D_41kwd")
+material = SubResource("StandardMaterial3D_3n2k3")
 metadata/_edit_lock_ = true
 
-[node name="Ghost" parent="." unique_id=1678250279 instance=ExtResource("15_2qppk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4170151, 8.780424, -10.055843)
-
-[node name="Ghost2" parent="." unique_id=1995736717 instance=ExtResource("15_2qppk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3929548, 9.245403, 22.934175)
-
-[node name="Axolotl" parent="." unique_id=283741704 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("17_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.284096, 8.780424, -8.382481)
-CurrentRoom = NodePath("../Home2")
-
-[node name="Axolotl2" parent="." unique_id=1980130496 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("17_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.415222, 8.780424, -4.142789)
-CurrentRoom = NodePath("../Home2")
-
-[node name="Inkfish" parent="." unique_id=192966336 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("14_3n2k3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.226633, 6.6086645, 18.15977)
-CurrentRoom = NodePath("../Home")
-
 [node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.405004, 7.099675, -1.6068597)
-
-[node name="NormalFish3" parent="." unique_id=842660647 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.784618, 7.099675, -5.786679)
-
-[node name="NormalFish2" parent="." unique_id=1050514082 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8072329, 7.099675, 24.567581)
-
-[node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("16_2qppk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0268965, 4.4813643, 19.073406)
-CurrentRoom = NodePath("../Home")
-WanderSpeed = 1.0
-WanderRotationSpeed = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.203253, 7.866131, -1.3688822)
 
 [editable path="Lab"]
