@@ -111,7 +111,12 @@ public partial class PlayerStats : Node
         get => maxZoom;
     }
 
-    public static float ExtraSwimSpeed { set; get; }
+    static float extraSwimSpeed = 3;
+    public static float ExtraSwimSpeed
+    {
+        set { extraSwimSpeed = value; }
+        get => extraSwimSpeed;
+    }
 
     public override void _Ready()
     {
@@ -137,7 +142,15 @@ public partial class PlayerStats : Node
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
         fadeRect.Visible = true;
         var tween = CreateTween();
-        tween.LerpProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
+        //HUD.DeathText.Visible;
+        tween.AnimateProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 3f);
+        tween.AnimateProperty(
+            HUD.DeathText,
+            TextureRect.PropertyName.Modulate,
+            new Color(1, 1, 1, 1),
+            1f,
+            true
+        );
     }
 
     internal void RestoreOxygen()

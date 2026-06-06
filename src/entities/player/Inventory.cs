@@ -108,9 +108,23 @@ public partial class Inventory : Node3D
 
         var item = GetNode<Item>(index.ToString());
         HUD.SetItemSlot(index, null);
+        item.Unequipped();
         item.Removed();
         item.QueueFree();
     }
+
+    // public void RemoveItem(Item item)
+    // {
+    //     // removes first instance
+    //     if (Items[index] == null)
+    //         return;
+
+    //     //var item = GetNode<Item>(index.ToString());
+    //     HUD.SetItemSlot(index, null);
+    //     item.Unequipped();
+    //     item.Removed();
+    //     item.QueueFree();
+    // }
 
     public void RemoveCurrentItem()
     {

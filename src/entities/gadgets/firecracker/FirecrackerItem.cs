@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class FirecrackerItem : Item
+public partial class FirecrackerItem : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 

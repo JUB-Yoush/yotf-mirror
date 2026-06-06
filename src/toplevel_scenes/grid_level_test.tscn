@@ -10,11 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="6_c5kmb"]
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
-[ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="9_2qppk"]
-[ext_resource type="Script" uid="uid://vvkdhiibtom3" path="res://src/entities/cave/NavNode.cs" id="9_ihph0"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
-[ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="9_sjuom"]
+[ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="14_3n2k3"]
+[ext_resource type="PackedScene" uid="uid://8njc6cpo2xsp" path="res://src/entities/fish/ghost_fish/ghost.tscn" id="15_2qppk"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
+[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="16_2qppk"]
+[ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
+[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="17_sjuom"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjuom"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -94,7 +96,7 @@ points = PackedVector3Array(10, 3.3125, -3, 10.418034, 3.3125, -3, 10, 3.25, -3,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d0dvo"]
 points = PackedVector3Array(7.5, 3.3125, -3, 7.5, 3.25, -3, -2.9743168, 3.3125, -2.9999998, -2.9743168, 3.25, -2.9999998, 7.5, 3.3125, -5.5, 7.5, 3.25, -5.5, -2.9716432, 3.3125, -5.5, -2.9716432, 3.25, -5.5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_3n2k3"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_sjuom"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qppk"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -418,27 +420,27 @@ points = PackedVector3Array(60, 2.5, -12.5, 60, 2, -12.5, 59, 2.5, -12.5, 59, 2,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nd61s"]
 points = PackedVector3Array(56.5, 2.5, -12.5, 56.5, 2, -12.5, 21.5, 2.5, -12.5, 21.5, 2, -12.5, 56.5, 2.5, -15, 56.5, 2, -15, 21.5, 2.5, -15, 21.5, 2, -15)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2qppk"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sjuom"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjuom"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ihph0"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_2qppk")
+noise = SubResource("FastNoiseLite_sjuom")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihph0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41kwd"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_sjuom")
+refraction_texture = SubResource("NoiseTexture2D_ihph0")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -454,7 +456,6 @@ transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.843
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.57483, -1.2578716, -17.949776)
 Index = 1
 OxygenScale = 0.0
-requiredGalleryScore = -1
 
 [node name="entity_0_worldspawn2" type="StaticBody3D" parent="Lab2" unique_id=1229228830 groups=["res://trenchbroom/primary_fgd.tres"]]
 collision_mask = 0
@@ -506,668 +507,551 @@ script = ExtResource("4_8hels")
 [node name="EdgesView" type="MeshInstance3D" parent="NavGraph" unique_id=157917744]
 unique_name_in_owner = true
 material_override = ExtResource("5_41xod")
-mesh = SubResource("ImmediateMesh_3n2k3")
+mesh = SubResource("ImmediateMesh_sjuom")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, -3.6924024, 18.637867)
 neighbors = [NodePath("../NavNode3"), NodePath("../NavNode9"), NodePath("../NavNode17")]
 Room = NodePath("../../Home")
 
-[node name="NavNode2" type="Node3D" parent="NavGraph" unique_id=534829104 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode2" parent="NavGraph" unique_id=534829104 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, -3.6924024, -9.0978565)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode4"), NodePath("../NavNode6"), NodePath("../NavNode11"), NodePath("../NavNode10"), NodePath("../NavNode9"), NodePath("../NavNode18"), NodePath("../NavNode60")]
 Room = NodePath("../../Home")
 
-[node name="NavNode3" type="Node3D" parent="NavGraph" unique_id=154195144 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode3" parent="NavGraph" unique_id=154195144 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, -3.6924024, 11.880336)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode"), NodePath("../NavNode4"), NodePath("../NavNode10"), NodePath("../NavNode19")]
 Room = NodePath("../../Home")
 
-[node name="NavNode4" type="Node3D" parent="NavGraph" unique_id=2011675939 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode4" parent="NavGraph" unique_id=2011675939 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, -3.6924024, 1.5629272)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode3"), NodePath("../NavNode2"), NodePath("../NavNode11"), NodePath("../NavNode20")]
 Room = NodePath("../../Home")
 
-[node name="NavNode5" type="Node3D" parent="NavGraph" unique_id=982878297 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode5" parent="NavGraph" unique_id=982878297 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, -3.6924024, 17.637867)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode9"), NodePath("../NavNode6"), NodePath("../NavNode8"), NodePath("../NavNode7"), NodePath("../NavNode16"), NodePath("../NavNode21")]
 Room = NodePath("../../Home")
 
-[node name="NavNode6" type="Node3D" parent="NavGraph" unique_id=937774489 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode6" parent="NavGraph" unique_id=937774489 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, -3.6924024, -10.0978565)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode12"), NodePath("../NavNode2"), NodePath("../NavNode11"), NodePath("../NavNode10"), NodePath("../NavNode9"), NodePath("../NavNode8"), NodePath("../NavNode7"), NodePath("../NavNode5"), NodePath("../NavNode13"), NodePath("../NavNode22")]
 Room = NodePath("../../Home")
 
-[node name="NavNode7" type="Node3D" parent="NavGraph" unique_id=1875796227 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode7" parent="NavGraph" unique_id=1875796227 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, -3.6924024, 10.880336)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode10"), NodePath("../NavNode6"), NodePath("../NavNode8"), NodePath("../NavNode5"), NodePath("../NavNode15"), NodePath("../NavNode23")]
 Room = NodePath("../../Home")
 
-[node name="NavNode8" type="Node3D" parent="NavGraph" unique_id=824748794 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode8" parent="NavGraph" unique_id=824748794 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, -3.6924024, 0.56292725)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode11"), NodePath("../NavNode6"), NodePath("../NavNode7"), NodePath("../NavNode5"), NodePath("../NavNode14"), NodePath("../NavNode24")]
 Room = NodePath("../../Home")
 
-[node name="NavNode9" type="Node3D" parent="NavGraph" unique_id=2132476215 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode9" parent="NavGraph" unique_id=2132476215 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, -3.6924024, 18.137867)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode5"), NodePath("../NavNode"), NodePath("../NavNode2"), NodePath("../NavNode6"), NodePath("../NavNode11"), NodePath("../NavNode10"), NodePath("../NavNode12"), NodePath("../NavNode25")]
 Room = NodePath("../../Home")
 
-[node name="NavNode10" type="Node3D" parent="NavGraph" unique_id=912929722 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode10" parent="NavGraph" unique_id=912929722 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, -3.6924024, 11.380336)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode3"), NodePath("../NavNode7"), NodePath("../NavNode2"), NodePath("../NavNode6"), NodePath("../NavNode11"), NodePath("../NavNode9"), NodePath("../NavNode12"), NodePath("../NavNode26")]
 Room = NodePath("../../Home")
 
-[node name="NavNode11" type="Node3D" parent="NavGraph" unique_id=562736366 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode11" parent="NavGraph" unique_id=562736366 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, -3.6924024, 1.0629272)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode8"), NodePath("../NavNode4"), NodePath("../NavNode2"), NodePath("../NavNode6"), NodePath("../NavNode10"), NodePath("../NavNode9"), NodePath("../NavNode12"), NodePath("../NavNode27")]
 Room = NodePath("../../Home")
 
-[node name="NavNode12" type="Node3D" parent="NavGraph" unique_id=704186194 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode12" parent="NavGraph" unique_id=704186194 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, -3.6924024, -9.5978565)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode6"), NodePath("../NavNode11"), NodePath("../NavNode10"), NodePath("../NavNode9"), NodePath("../NavNode28"), NodePath("../NavNode60")]
 Room = NodePath("../../Home")
 
-[node name="NavNode13" type="Node3D" parent="NavGraph" unique_id=357473012 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode13" parent="NavGraph" unique_id=357473012 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -3.6924024, -8.075042)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode6"), NodePath("../NavNode16"), NodePath("../NavNode15"), NodePath("../NavNode14"), NodePath("../NavNode33")]
 Room = NodePath("../../Home")
 
-[node name="NavNode14" type="Node3D" parent="NavGraph" unique_id=1810716770 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode14" parent="NavGraph" unique_id=1810716770 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -3.6924024, 0.79665756)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode8"), NodePath("../NavNode16"), NodePath("../NavNode15"), NodePath("../NavNode13"), NodePath("../NavNode30")]
 Room = NodePath("../../Home")
 
-[node name="NavNode15" type="Node3D" parent="NavGraph" unique_id=2096056312 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode15" parent="NavGraph" unique_id=2096056312 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -3.6924024, 11.114066)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode7"), NodePath("../NavNode16"), NodePath("../NavNode14"), NodePath("../NavNode13"), NodePath("../NavNode80")]
 Room = NodePath("../../Home")
 
-[node name="NavNode16" type="Node3D" parent="NavGraph" unique_id=21069688 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode16" parent="NavGraph" unique_id=21069688 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -3.6924024, 17.871597)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode5"), NodePath("../NavNode15"), NodePath("../NavNode14"), NodePath("../NavNode13"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode17" type="Node3D" parent="NavGraph" unique_id=685988596 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode17" parent="NavGraph" unique_id=685988596 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, 3.1278944, 18.595385)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode18" type="Node3D" parent="NavGraph" unique_id=2139908799 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode18" parent="NavGraph" unique_id=2139908799 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.097969, 3.1278944, -9.140339)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode2"), NodePath("../NavNode17"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32"), NodePath("../NavNode60")]
 Room = NodePath("../../Home")
 
-[node name="NavNode19" type="Node3D" parent="NavGraph" unique_id=216937064 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode19" parent="NavGraph" unique_id=216937064 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, 3.1278944, 11.837853)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode3"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode20" type="Node3D" parent="NavGraph" unique_id=1210519625 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode20" parent="NavGraph" unique_id=1210519625 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.492889, 3.1278944, 1.5204449)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode4"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode21" type="Node3D" parent="NavGraph" unique_id=1962004418 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode21" parent="NavGraph" unique_id=1962004418 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, 3.1278944, 17.595385)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode5"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode22" type="Node3D" parent="NavGraph" unique_id=489460866 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode22" parent="NavGraph" unique_id=489460866 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, 3.1278944, -10.140339)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode6"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode23" type="Node3D" parent="NavGraph" unique_id=758230665 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode23" parent="NavGraph" unique_id=758230665 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, 3.1278944, 10.837853)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode7"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode24" type="Node3D" parent="NavGraph" unique_id=2049028456 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode24" parent="NavGraph" unique_id=2049028456 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.965883, 3.1278944, 0.52044487)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode8"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode25" type="Node3D" parent="NavGraph" unique_id=510742879 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode25" parent="NavGraph" unique_id=510742879 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, 3.1278944, 18.095385)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode9"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode26" type="Node3D" parent="NavGraph" unique_id=1858201711 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode26" parent="NavGraph" unique_id=1858201711 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, 3.1278944, 11.337853)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode10"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode27" type="Node3D" parent="NavGraph" unique_id=444343038 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode27" parent="NavGraph" unique_id=444343038 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, 3.1278944, 1.0204449)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode11"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode28" type="Node3D" parent="NavGraph" unique_id=902683885 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode28" parent="NavGraph" unique_id=902683885 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7364969, 3.1278944, -9.640339)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode12"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32"), NodePath("../NavNode60")]
 Room = NodePath("../../Home")
 
-[node name="NavNode29" type="Node3D" parent="NavGraph" unique_id=1546247990 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode29" parent="NavGraph" unique_id=1546247990 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, 3.1278944, -8.117524)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode30"), NodePath("../NavNode31"), NodePath("../NavNode32"), NodePath("../NavNode33")]
 Room = NodePath("../../Home")
 
-[node name="NavNode30" type="Node3D" parent="NavGraph" unique_id=1133428532 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode30" parent="NavGraph" unique_id=1133428532 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, 3.1278944, 0.7541752)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode14"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode31"), NodePath("../NavNode32")]
 Room = NodePath("../../Home")
 
-[node name="NavNode31" type="Node3D" parent="NavGraph" unique_id=1640267019 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode31" parent="NavGraph" unique_id=1640267019 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, 3.1278944, 11.071584)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode32"), NodePath("../NavNode80")]
 Room = NodePath("../../Home")
 
-[node name="NavNode32" type="Node3D" parent="NavGraph" unique_id=1361352997 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode32" parent="NavGraph" unique_id=1361352997 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, 3.1278944, 17.829115)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode16"), NodePath("../NavNode17"), NodePath("../NavNode18"), NodePath("../NavNode19"), NodePath("../NavNode20"), NodePath("../NavNode21"), NodePath("../NavNode22"), NodePath("../NavNode23"), NodePath("../NavNode24"), NodePath("../NavNode25"), NodePath("../NavNode26"), NodePath("../NavNode27"), NodePath("../NavNode28"), NodePath("../NavNode29"), NodePath("../NavNode30"), NodePath("../NavNode31")]
 Room = NodePath("../../Home")
 
-[node name="NavNode33" type="Node3D" parent="NavGraph" unique_id=1249554818 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode33" parent="NavGraph" unique_id=1249554818 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -1.0481317, -8.096283)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode13"), NodePath("../NavNode29"), NodePath("../NavNode34")]
 
-[node name="NavNode34" type="Node3D" parent="NavGraph" unique_id=1816475993 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode34" parent="NavGraph" unique_id=1816475993 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.441833, -3.3247936, -8.47203)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode33"), NodePath("../NavNode36"), NodePath("../NavNode42"), NodePath("../NavNode47")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode35" type="Node3D" parent="NavGraph" unique_id=130665062 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode35" parent="NavGraph" unique_id=130665062 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.441833, -3.3247936, -33.360397)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode36"), NodePath("../NavNode40"), NodePath("../NavNode48")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode36" type="Node3D" parent="NavGraph" unique_id=1274678971 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode36" parent="NavGraph" unique_id=1274678971 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.82968, -3.3247936, -20.916214)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode35"), NodePath("../NavNode34"), NodePath("../NavNode45"), NodePath("../NavNode49")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode37" type="Node3D" parent="NavGraph" unique_id=405037392 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode37" parent="NavGraph" unique_id=405037392 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.662453, -3.3247936, -20.77013)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode39"), NodePath("../NavNode38"), NodePath("../NavNode46"), NodePath("../NavNode50")]
 Room = NodePath("../../Home4")
 metadata/_edit_lock_ = true
 
-[node name="NavNode38" type="Node3D" parent="NavGraph" unique_id=1174208950 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode38" parent="NavGraph" unique_id=1174208950 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.17015, -3.3247936, -8.325947)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode39"), NodePath("../NavNode37"), NodePath("../NavNode42"), NodePath("../NavNode51")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode39" type="Node3D" parent="NavGraph" unique_id=627885087 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode39" parent="NavGraph" unique_id=627885087 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.17015, -3.3247936, -33.214314)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode37"), NodePath("../NavNode38"), NodePath("../NavNode40"), NodePath("../NavNode52"), NodePath("../NavNode114")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode40" type="Node3D" parent="NavGraph" unique_id=886484323 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode40" parent="NavGraph" unique_id=886484323 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.30604, -3.3127956, -33.28898)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode39"), NodePath("../NavNode35"), NodePath("../NavNode42"), NodePath("../NavNode43"), NodePath("../NavNode53"), NodePath("../NavNode114")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode41" type="Node3D" parent="NavGraph" unique_id=501050608 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode41" parent="NavGraph" unique_id=501050608 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.447826, -3.3247936, -20.843172)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode43"), NodePath("../NavNode44"), NodePath("../NavNode45"), NodePath("../NavNode46"), NodePath("../NavNode54")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode42" type="Node3D" parent="NavGraph" unique_id=1254459903 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode42" parent="NavGraph" unique_id=1254459903 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, -3.3247936, -8.398989)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode38"), NodePath("../NavNode34"), NodePath("../NavNode40"), NodePath("../NavNode44"), NodePath("../NavNode55")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode43" type="Node3D" parent="NavGraph" unique_id=96102334 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode43" parent="NavGraph" unique_id=96102334 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, -3.3247936, -27.065262)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode40"), NodePath("../NavNode41"), NodePath("../NavNode56")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode44" type="Node3D" parent="NavGraph" unique_id=258442369 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode44" parent="NavGraph" unique_id=258442369 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, -3.3247936, -14.62108)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode41"), NodePath("../NavNode42"), NodePath("../NavNode57")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode45" type="Node3D" parent="NavGraph" unique_id=502120171 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode45" parent="NavGraph" unique_id=502120171 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.873913, -3.3247936, -20.879692)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode36"), NodePath("../NavNode41"), NodePath("../NavNode58")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode46" type="Node3D" parent="NavGraph" unique_id=776878289 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode46" parent="NavGraph" unique_id=776878289 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.055138, -3.3247936, -20.806652)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode37"), NodePath("../NavNode41"), NodePath("../NavNode59")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode47" type="Node3D" parent="NavGraph" unique_id=453944887 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode47" parent="NavGraph" unique_id=453944887 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.441833, 2.8464653, -8.606854)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode34"), NodePath("../NavNode48"), NodePath("../NavNode49"), NodePath("../NavNode55"), NodePath("../NavNode51"), NodePath("../NavNode54")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode48" type="Node3D" parent="NavGraph" unique_id=1150137180 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode48" parent="NavGraph" unique_id=1150137180 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.441833, 2.8464653, -33.495224)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode35"), NodePath("../NavNode47"), NodePath("../NavNode49"), NodePath("../NavNode52"), NodePath("../NavNode53"), NodePath("../NavNode54")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode49" type="Node3D" parent="NavGraph" unique_id=1000702760 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode49" parent="NavGraph" unique_id=1000702760 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.583668, 2.8464653, -21.051039)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode36"), NodePath("../NavNode47"), NodePath("../NavNode48"), NodePath("../NavNode58"), NodePath("../NavNode54"), NodePath("../NavNode59"), NodePath("../NavNode50")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode50" type="Node3D" parent="NavGraph" unique_id=1948212651 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode50" parent="NavGraph" unique_id=1948212651 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.662453, 2.8464653, -20.904955)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode37"), NodePath("../NavNode51"), NodePath("../NavNode52"), NodePath("../NavNode49"), NodePath("../NavNode58"), NodePath("../NavNode54"), NodePath("../NavNode59")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode51" type="Node3D" parent="NavGraph" unique_id=929781770 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode51" parent="NavGraph" unique_id=929781770 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.17015, 2.8464653, -8.460772)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode38"), NodePath("../NavNode50"), NodePath("../NavNode52"), NodePath("../NavNode47"), NodePath("../NavNode55"), NodePath("../NavNode54")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode52" type="Node3D" parent="NavGraph" unique_id=2000036315 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode52" parent="NavGraph" unique_id=2000036315 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.17015, 2.8464653, -33.349136)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode39"), NodePath("../NavNode50"), NodePath("../NavNode51"), NodePath("../NavNode53"), NodePath("../NavNode48"), NodePath("../NavNode54"), NodePath("../NavNode114")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode53" type="Node3D" parent="NavGraph" unique_id=271278363 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode53" parent="NavGraph" unique_id=271278363 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.30604, 2.8584633, -33.423805)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode40"), NodePath("../NavNode54"), NodePath("../NavNode55"), NodePath("../NavNode56"), NodePath("../NavNode57"), NodePath("../NavNode52"), NodePath("../NavNode48"), NodePath("../NavNode114")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode54" type="Node3D" parent="NavGraph" unique_id=1927045241 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode54" parent="NavGraph" unique_id=1927045241 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.447826, 2.8464653, -20.977997)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode41"), NodePath("../NavNode53"), NodePath("../NavNode55"), NodePath("../NavNode56"), NodePath("../NavNode57"), NodePath("../NavNode49"), NodePath("../NavNode58"), NodePath("../NavNode59"), NodePath("../NavNode50"), NodePath("../NavNode51"), NodePath("../NavNode47"), NodePath("../NavNode48"), NodePath("../NavNode52")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode55" type="Node3D" parent="NavGraph" unique_id=1624731749 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode55" parent="NavGraph" unique_id=1624731749 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, 2.8464653, -8.533813)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode42"), NodePath("../NavNode53"), NodePath("../NavNode54"), NodePath("../NavNode56"), NodePath("../NavNode57"), NodePath("../NavNode47"), NodePath("../NavNode51")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode56" type="Node3D" parent="NavGraph" unique_id=1099894349 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode56" parent="NavGraph" unique_id=1099894349 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, 2.8464653, -27.200087)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode43"), NodePath("../NavNode53"), NodePath("../NavNode54"), NodePath("../NavNode55"), NodePath("../NavNode57")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode57" type="Node3D" parent="NavGraph" unique_id=1424329955 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode57" parent="NavGraph" unique_id=1424329955 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.305992, 2.8464653, -14.755905)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode44"), NodePath("../NavNode53"), NodePath("../NavNode54"), NodePath("../NavNode55"), NodePath("../NavNode56")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode58" type="Node3D" parent="NavGraph" unique_id=806282867 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode58" parent="NavGraph" unique_id=806282867 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.873913, 2.8464653, -21.014517)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode45"), NodePath("../NavNode49"), NodePath("../NavNode54"), NodePath("../NavNode59"), NodePath("../NavNode50")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode59" type="Node3D" parent="NavGraph" unique_id=602103882 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode59" parent="NavGraph" unique_id=602103882 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.055138, 2.8464653, -20.941477)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode46"), NodePath("../NavNode49"), NodePath("../NavNode58"), NodePath("../NavNode54"), NodePath("../NavNode50")]
 Room = NodePath("../../Home4")
 
-[node name="NavNode60" type="Node3D" parent="NavGraph" unique_id=642851680 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode60" parent="NavGraph" unique_id=642851680 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.761829, -0.7900624, -9.3478565)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode2"), NodePath("../NavNode12"), NodePath("../NavNode28"), NodePath("../NavNode18"), NodePath("../NavNode62")]
 
-[node name="NavNode62" type="Node3D" parent="NavGraph" unique_id=359476502 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode62" parent="NavGraph" unique_id=359476502 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.977632, -3.5528092, -18.855879)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode60"), NodePath("../NavNode63"), NodePath("../NavNode64"), NodePath("../NavNode70"), NodePath("../NavNode71")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode63" type="Node3D" parent="NavGraph" unique_id=1755645199 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode63" parent="NavGraph" unique_id=1755645199 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1555524, -3.6286292, -18.848913)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode62"), NodePath("../NavNode68"), NodePath("../NavNode72")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode64" type="Node3D" parent="NavGraph" unique_id=869957637 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode64" parent="NavGraph" unique_id=869957637 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.912779, -3.7547345, -18.984537)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode62"), NodePath("../NavNode69"), NodePath("../NavNode73")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode66" type="Node3D" parent="NavGraph" unique_id=866268019 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode66" parent="NavGraph" unique_id=866268019 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.986839, -3.7340093, -31.163631)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../@Node3D@97822"), NodePath("../NavNode69"), NodePath("../NavNode74")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode67" type="Node3D" parent="NavGraph" unique_id=1630396778 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode67" parent="NavGraph" unique_id=1630396778 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19214, -3.798244, -31.028008)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../@Node3D@97822"), NodePath("../NavNode68"), NodePath("../NavNode75")]
 Room = NodePath("../../Home2")
 
-[node name="@Node3D@97822" type="Node3D" parent="NavGraph" unique_id=2116110741 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="@Node3D@97822" parent="NavGraph" unique_id=2116110741 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39735, -3.7661266, -31.09582)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode66"), NodePath("../NavNode67"), NodePath("../NavNode70"), NodePath("../NavNode76")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode68" type="Node3D" parent="NavGraph" unique_id=1483521566 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode68" parent="NavGraph" unique_id=1483521566 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6738462, -3.7134366, -24.938461)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode63"), NodePath("../NavNode67"), NodePath("../NavNode70"), NodePath("../@Node3D@162205")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode69" type="Node3D" parent="NavGraph" unique_id=1859011509 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode69" parent="NavGraph" unique_id=1859011509 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.449809, -3.744372, -25.074085)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode66"), NodePath("../NavNode64"), NodePath("../NavNode70"), NodePath("../NavNode78")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode70" type="Node3D" parent="NavGraph" unique_id=1328119713 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode70" parent="NavGraph" unique_id=1328119713 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1037846, -3.6530843, -25.006273)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode68"), NodePath("../NavNode69"), NodePath("../@Node3D@97822"), NodePath("../NavNode62"), NodePath("../NavNode79")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode71" type="Node3D" parent="NavGraph" unique_id=265580533 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode71" parent="NavGraph" unique_id=265580533 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0400844, 2.7194853, -19.026918)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode62"), NodePath("../NavNode72"), NodePath("../NavNode73"), NodePath("../NavNode79")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode72" type="Node3D" parent="NavGraph" unique_id=1211311986 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode72" parent="NavGraph" unique_id=1211311986 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0931001, 2.6436653, -19.019953)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode63"), NodePath("../NavNode71"), NodePath("../NavNode77")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode73" type="Node3D" parent="NavGraph" unique_id=862868356 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode73" parent="NavGraph" unique_id=862868356 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.975231, 2.51756, -19.155577)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode64"), NodePath("../NavNode71"), NodePath("../NavNode78")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode74" type="Node3D" parent="NavGraph" unique_id=1664939802 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode74" parent="NavGraph" unique_id=1664939802 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.049292, 2.5382853, -31.334671)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode66"), NodePath("../NavNode78"), NodePath("../NavNode76")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode75" type="Node3D" parent="NavGraph" unique_id=1854779973 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode75" parent="NavGraph" unique_id=1854779973 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1296878, 2.4740505, -31.199047)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode67"), NodePath("../NavNode77"), NodePath("../NavNode76")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode76" type="Node3D" parent="NavGraph" unique_id=206893007 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode76" parent="NavGraph" unique_id=206893007 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.459802, 2.506168, -31.266857)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../@Node3D@97822"), NodePath("../NavNode74"), NodePath("../NavNode75"), NodePath("../NavNode79")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode77" type="Node3D" parent="NavGraph" unique_id=1619609022 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode77" parent="NavGraph" unique_id=1619609022 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6113939, 2.558858, -25.1095)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode75"), NodePath("../NavNode72"), NodePath("../NavNode79"), NodePath("../@Node3D@162205")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode78" type="Node3D" parent="NavGraph" unique_id=338892003 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode78" parent="NavGraph" unique_id=338892003 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.512261, 2.5279226, -25.245125)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode69"), NodePath("../NavNode74"), NodePath("../NavNode73"), NodePath("../NavNode79")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode79" type="Node3D" parent="NavGraph" unique_id=906518668 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode79" parent="NavGraph" unique_id=906518668 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.166237, 2.6192102, -25.177313)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode70"), NodePath("../NavNode77"), NodePath("../NavNode76"), NodePath("../NavNode71"), NodePath("../NavNode78")]
 Room = NodePath("../../Home2")
 
-[node name="NavNode80" type="Node3D" parent="NavGraph" unique_id=2124519791 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode80" parent="NavGraph" unique_id=2124519791 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.108143, -0.28225398, 11.092825)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode31"), NodePath("../NavNode15"), NodePath("../NavNode84")]
 
-[node name="NavNode81" type="Node3D" parent="NavGraph" unique_id=2115672336 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode81" parent="NavGraph" unique_id=2115672336 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(0.99998975, -0.003573726, -0.002769951, 0.0035663992, 0.9999901, -0.0026452586, 0.0027793779, 0.0026353516, 0.99999267, 38.286858, -3.1391888, 11.61962)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode82"), NodePath("../NavNode83"), NodePath("../NavNode84"), NodePath("../NavNode88"), NodePath("../NavNode99")]
 
-[node name="NavNode82" type="Node3D" parent="NavGraph" unique_id=1627521963 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode82" parent="NavGraph" unique_id=1627521963 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.27665, -3.1392171, 2.1810665)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode81"), NodePath("../NavNode90"), NodePath("../NavNode98")]
 
-[node name="NavNode83" type="Node3D" parent="NavGraph" unique_id=778082095 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode83" parent="NavGraph" unique_id=778082095 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.02062, -3.1392171, 19.710962)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode81"), NodePath("../NavNode89"), NodePath("../NavNode97")]
 
-[node name="NavNode84" type="Node3D" parent="NavGraph" unique_id=255795711 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode84" parent="NavGraph" unique_id=255795711 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.600067, -0.28225398, 11.359987)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode80"), NodePath("../NavNode81")]
 
-[node name="NavNode85" type="Node3D" parent="NavGraph" unique_id=289374843 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode85" parent="NavGraph" unique_id=289374843 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.67507, -2.9652073, 2.4327679)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode87"), NodePath("../NavNode90"), NodePath("../NavNode91")]
 
-[node name="NavNode86" type="Node3D" parent="NavGraph" unique_id=852009666 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode86" parent="NavGraph" unique_id=852009666 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.419037, -2.9652073, 19.962664)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode87"), NodePath("../NavNode89"), NodePath("../NavNode92")]
 
-[node name="NavNode87" type="Node3D" parent="NavGraph" unique_id=752985514 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode87" parent="NavGraph" unique_id=752985514 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.547054, -2.9652073, 11.197716)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode86"), NodePath("../NavNode85"), NodePath("../NavNode88"), NodePath("../NavNode93")]
 
-[node name="NavNode88" type="Node3D" parent="NavGraph" unique_id=1471862113 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode88" parent="NavGraph" unique_id=1471862113 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.416954, -3.052198, 11.4086685)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode81"), NodePath("../NavNode87"), NodePath("../NavNode89"), NodePath("../NavNode90"), NodePath("../NavNode94")]
 
-[node name="NavNode89" type="Node3D" parent="NavGraph" unique_id=1682204096 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode89" parent="NavGraph" unique_id=1682204096 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.219826, -3.0522122, 19.836813)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode83"), NodePath("../NavNode86"), NodePath("../NavNode88"), NodePath("../NavNode95")]
 
-[node name="NavNode90" type="Node3D" parent="NavGraph" unique_id=2133862186 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode90" parent="NavGraph" unique_id=2133862186 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.47586, -3.0522122, 2.3069172)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode85"), NodePath("../NavNode82"), NodePath("../NavNode88"), NodePath("../NavNode96")]
 
-[node name="NavNode91" type="Node3D" parent="NavGraph" unique_id=2078122881 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode91" parent="NavGraph" unique_id=2078122881 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.67507, 3.6856935, 2.238762)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode85"), NodePath("../NavNode96"), NodePath("../NavNode93")]
 
-[node name="NavNode92" type="Node3D" parent="NavGraph" unique_id=1061044802 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode92" parent="NavGraph" unique_id=1061044802 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.419037, 3.6856935, 19.768658)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode86"), NodePath("../NavNode93"), NodePath("../NavNode95")]
 
-[node name="NavNode93" type="Node3D" parent="NavGraph" unique_id=975123651 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode93" parent="NavGraph" unique_id=975123651 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.547054, 3.6856935, 11.00371)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode87"), NodePath("../NavNode91"), NodePath("../NavNode92"), NodePath("../NavNode94")]
 
-[node name="NavNode94" type="Node3D" parent="NavGraph" unique_id=126710114 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode94" parent="NavGraph" unique_id=126710114 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.416954, 3.598703, 11.214663)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode88"), NodePath("../NavNode93"), NodePath("../NavNode96"), NodePath("../NavNode99"), NodePath("../NavNode95")]
 
-[node name="NavNode95" type="Node3D" parent="NavGraph" unique_id=1885234214 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode95" parent="NavGraph" unique_id=1885234214 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.219826, 3.5986886, 19.642807)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode89"), NodePath("../NavNode92"), NodePath("../NavNode97"), NodePath("../NavNode94")]
 
-[node name="NavNode96" type="Node3D" parent="NavGraph" unique_id=1168943834 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode96" parent="NavGraph" unique_id=1168943834 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.47586, 3.5986886, 2.1129112)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode90"), NodePath("../NavNode91"), NodePath("../NavNode98"), NodePath("../NavNode94")]
 
-[node name="NavNode97" type="Node3D" parent="NavGraph" unique_id=1685468678 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode97" parent="NavGraph" unique_id=1685468678 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.02062, 3.5116837, 19.516956)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode83"), NodePath("../NavNode95"), NodePath("../NavNode99")]
 
-[node name="NavNode98" type="Node3D" parent="NavGraph" unique_id=373778114 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode98" parent="NavGraph" unique_id=373778114 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.27665, 3.5116837, 1.9870605)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode82"), NodePath("../NavNode96"), NodePath("../NavNode99")]
 
-[node name="NavNode99" type="Node3D" parent="NavGraph" unique_id=810683061 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode99" parent="NavGraph" unique_id=810683061 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.286858, 3.511712, 11.425614)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode81"), NodePath("../NavNode97"), NodePath("../NavNode98"), NodePath("../NavNode94")]
 
-[node name="@Node3D@162205" type="Node3D" parent="NavGraph" unique_id=589931009 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="@Node3D@162205" parent="NavGraph" unique_id=589931009 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6871233, -0.57728934, -24.214565)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode77"), NodePath("../NavNode68"), NodePath("../NavNode100")]
 
-[node name="NavNode100" type="Node3D" parent="NavGraph" unique_id=519899668 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode100" parent="NavGraph" unique_id=519899668 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.125109, -1.6713169, -23.43682)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../@Node3D@162205"), NodePath("../NavNode101"), NodePath("../NavNode102"), NodePath("../NavNode108"), NodePath("../NavNode109")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode101" type="Node3D" parent="NavGraph" unique_id=1373303380 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode101" parent="NavGraph" unique_id=1373303380 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.968914, 1.617285, -27.450985)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode100"), NodePath("../NavNode107"), NodePath("../NavNode109"), NodePath("../NavNode108")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode102" type="Node3D" parent="NavGraph" unique_id=559205940 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode102" parent="NavGraph" unique_id=559205940 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.237129, 1.617284, -19.26056)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode100"), NodePath("../NavNode106"), NodePath("../NavNode109"), NodePath("../NavNode108")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode103" type="Node3D" parent="NavGraph" unique_id=1825754255 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode103" parent="NavGraph" unique_id=1825754255 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.194954, 1.617284, -19.247597)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode104"), NodePath("../NavNode106"), NodePath("../NavNode109"), NodePath("../NavNode108")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode104" type="Node3D" parent="NavGraph" unique_id=1883923056 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode104" parent="NavGraph" unique_id=1883923056 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.761055, -1.6713178, -23.270739)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode105"), NodePath("../NavNode103"), NodePath("../NavNode108"), NodePath("../NavNode109")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode105" type="Node3D" parent="NavGraph" unique_id=843210730 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode105" parent="NavGraph" unique_id=843210730 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.633627, 1.617284, -26.791748)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode104"), NodePath("../NavNode107"), NodePath("../NavNode109"), NodePath("../NavNode108")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode106" type="Node3D" parent="NavGraph" unique_id=352004817 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode106" parent="NavGraph" unique_id=352004817 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.66136, -1.6713173, -17.729342)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode102"), NodePath("../NavNode103"), NodePath("../NavNode108"), NodePath("../NavNode109")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode107" type="Node3D" parent="NavGraph" unique_id=767214156 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode107" parent="NavGraph" unique_id=767214156 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.142593, -1.6713173, -29.459795)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode105"), NodePath("../NavNode101"), NodePath("../NavNode108"), NodePath("../NavNode109"), NodePath("../NavNode110")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode108" type="Node3D" parent="NavGraph" unique_id=1467623880 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode108" parent="NavGraph" unique_id=1467623880 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.94308, 3.6826112, -23.353779)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode104"), NodePath("../NavNode100"), NodePath("../NavNode107"), NodePath("../NavNode106"), NodePath("../NavNode109"), NodePath("../NavNode101"), NodePath("../NavNode102"), NodePath("../NavNode103"), NodePath("../NavNode105")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode109" type="Node3D" parent="NavGraph" unique_id=1360326931 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode109" parent="NavGraph" unique_id=1360326931 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.675995, -4.324936, -23.764488)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode108"), NodePath("../NavNode107"), NodePath("../NavNode105"), NodePath("../NavNode104"), NodePath("../NavNode103"), NodePath("../NavNode106"), NodePath("../NavNode102"), NodePath("../NavNode101"), NodePath("../NavNode100")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode110" type="Node3D" parent="NavGraph" unique_id=667962937 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
+[node name="NavNode110" parent="NavGraph" unique_id=667962937 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.733295, -0.03337598, -29.140507)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode107"), NodePath("../NavNode111")]
 Room = NodePath("../../Home3")
 
-[node name="NavNode111" type="Node3D" parent="NavGraph" unique_id=1492719472 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode111" parent="NavGraph" unique_id=1492719472 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.733295, -0.03337598, -44.98845)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode110"), NodePath("../NavNode112")]
 
-[node name="NavNode112" type="Node3D" parent="NavGraph" unique_id=2058406430 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode112" parent="NavGraph" unique_id=2058406430 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.58886, -0.03337598, -44.88942)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode111"), NodePath("../NavNode113")]
 
-[node name="NavNode113" type="Node3D" parent="NavGraph" unique_id=981821614 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode113" parent="NavGraph" unique_id=981821614 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.225018, -0.03337598, -45.059776)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode112"), NodePath("../NavNode114")]
 
-[node name="NavNode114" type="Node3D" parent="NavGraph" unique_id=1541250449 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
+[node name="NavNode114" parent="NavGraph" unique_id=1541250449 node_paths=PackedStringArray("neighbors") instance=ExtResource("6_8hels")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.225067, -0.021377563, -34.896324)
-script = ExtResource("9_ihph0")
 neighbors = [NodePath("../NavNode113"), NodePath("../NavNode53"), NodePath("../NavNode40"), NodePath("../NavNode52"), NodePath("../NavNode39")]
-
-[node name="Chest" parent="." unique_id=1815831206 instance=ExtResource("9_2qppk")]
-transform = Transform3D(-1.0000001, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -1.0000001, -18.143913, 2.5086226, 10.238323)
-InsideChest = ExtResource("9_sjuom")
 
 [node name="FuncGodotMap" parent="." unique_id=787583751 instance=ExtResource("1_12fjb")]
 metadata/_edit_group_ = true
@@ -1489,7 +1373,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.025204, 9.657761, 30.68105
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("15_3n2k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.13556, 7.9508743, 6.4459534)
 size = Vector3(85.0166, 13.066666, 70.028625)
-material = SubResource("StandardMaterial3D_ihph0")
+material = SubResource("StandardMaterial3D_41kwd")
 metadata/_edit_lock_ = true
+
+[node name="Ghost" parent="." unique_id=1678250279 instance=ExtResource("15_2qppk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4170151, 8.780424, -10.055843)
+
+[node name="Ghost2" parent="." unique_id=1995736717 instance=ExtResource("15_2qppk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3929548, 9.245403, 22.934175)
+
+[node name="Axolotl" parent="." unique_id=283741704 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("17_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.284096, 8.780424, -8.382481)
+CurrentRoom = NodePath("../Home2")
+
+[node name="Axolotl2" parent="." unique_id=1980130496 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("17_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.415222, 8.780424, -4.142789)
+CurrentRoom = NodePath("../Home2")
+
+[node name="Inkfish" parent="." unique_id=192966336 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("14_3n2k3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.226633, 6.6086645, 18.15977)
+CurrentRoom = NodePath("../Home")
+
+[node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.405004, 7.099675, -1.6068597)
+
+[node name="NormalFish3" parent="." unique_id=842660647 instance=ExtResource("16_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.784618, 7.099675, -5.786679)
+
+[node name="NormalFish2" parent="." unique_id=1050514082 instance=ExtResource("16_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8072329, 7.099675, 24.567581)
+
+[node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("16_2qppk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0268965, 4.4813643, 19.073406)
+CurrentRoom = NodePath("../Home")
+WanderSpeed = 1.0
+WanderRotationSpeed = 10.0
 
 [editable path="Lab"]

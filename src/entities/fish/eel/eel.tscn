@@ -200,6 +200,7 @@ bones/11/scale = Vector3(1, 1, 1)
 
 [node name="Mesh" type="MeshInstance3D" parent="shinfish/Armature_001/Skeleton3D" unique_id=1447193432]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9004009)
 mesh = SubResource("ArrayMesh_ey7uf")
 skin = SubResource("Skin_gkl5q")
 

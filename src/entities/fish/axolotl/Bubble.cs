@@ -83,7 +83,6 @@ public partial class Bubble : CharacterBody3D
 
     void FreeCapturedNode()
     {
-        Log.PrintLn("freeing from bubble");
         capturedNode?.FreeFromBubble();
         capturedNode?.BubbleJail = null;
         this.DeferFree();

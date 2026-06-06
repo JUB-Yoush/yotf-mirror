@@ -49,6 +49,12 @@ public partial class Hud : Control
     [Node]
     public required TextureRect Ruler { set; get; }
 
+    [Node]
+    public required TextureRect DeathText { set; get; }
+
+    [Node]
+    public required TextureRect WinText { set; get; }
+
     public TextureRect[] InventoryIcons
     {
         get
@@ -74,6 +80,21 @@ public partial class Hud : Control
         player = this.SceneRoot().GetNode<Player>()!;
         prevDepth = player.Depth;
         barometerShader = (ShaderMaterial)Ruler.Material;
+        Lab.CurrentLabUpdated += LabUpdated;
+    }
+
+    private void LabUpdated(Lab lab)
+    {
+        if (lab.FinalLab)
+        {
+            CreateTween()
+                .AnimateProperty(
+                    WinText,
+                    TextureRect.PropertyName.Modulate,
+                    new Color(1, 1, 1, 1),
+                    1f
+                );
+        }
     }
 
     public override void _Process(double delta)

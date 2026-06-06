@@ -151,6 +151,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void BubbleUpdate(float delta)
     {
+        if (GodotObject.IsInstanceValid(BubbleJail))
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+        }
+
         if (BubbleJail != null)
         {
             GlobalPosition = BubbleJail!.GlobalPosition;
@@ -208,10 +213,13 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
             tween.Fn(() =>
             {
                 MakeBubble(currentTarget.Spatial.Position - Position);
-                bubbleTargets.Pop(0);
                 if (bubbleTargets.Count == 0)
                 {
                     stateMachine.State = State.Wander;
+                }
+                else
+                {
+                    bubbleTargets.Pop(0);
                 }
             });
             tween.Finished += () => tween = null;

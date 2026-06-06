@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://buv0hms3lnb5r"]
 
 [ext_resource type="Script" uid="uid://cfbhckj5fgycp" path="res://src/entities/gadgets/sonar/Sonar.cs" id="1_3vb5o"]
+[ext_resource type="Texture2D" uid="uid://bw43qw7ome6qw" path="res://assets/2d/sonar_icon.png" id="2_3vb5o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te1v2"]
 albedo_color = Color(0.051382795, 0.58782595, 0.8763824, 1)
@@ -11,6 +12,7 @@ size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Sonar" type="Node3D" unique_id=1429263481]
 script = ExtResource("1_3vb5o")
+Icon = ExtResource("2_3vb5o")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=263555658]
 unique_name_in_owner = true

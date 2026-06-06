@@ -41,7 +41,10 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
 
     public void BubbleUpdate(float delta)
     {
-        GlobalPosition = BubbleJail!.GlobalPosition;
+        if (GodotObject.IsInstanceValid(BubbleJail))
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+        }
         Velocity = Vec3.Zero;
     }
 

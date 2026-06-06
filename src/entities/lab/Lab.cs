@@ -39,6 +39,9 @@ public partial class Lab : Node3D
     [Export]
     public int requiredGalleryScore;
 
+    [Export]
+    public bool FinalLab;
+
     [Node]
     public required PhotoTerminal PhotoTerminal { set; get; }
 

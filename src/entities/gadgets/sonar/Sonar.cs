@@ -5,7 +5,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Sonar : Item
+public partial class Sonar : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 

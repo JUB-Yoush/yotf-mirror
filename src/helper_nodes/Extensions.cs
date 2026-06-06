@@ -31,7 +31,7 @@ public static class GDExt
             }
         }
 
-        public PropertyTweener LerpProperty(
+        public PropertyTweener AnimateProperty(
             Node node,
             StringName property,
             Variant value,
@@ -100,6 +100,10 @@ public static class GDExt
             };
             timer.Start();
         }
+    }
+    extension(GodotObject obj)
+    {
+        public bool IsValid() => GodotObject.IsInstanceValid(obj);
     }
 
     extension(Node node)
@@ -245,6 +249,14 @@ public static class GDExt
             DirAccess.MakeDirAbsolute(path);
         }
     }
+
+    // public static Vec3 RandomUnitVec(float x = 0, float y = 0, float z = 0)
+    // {
+    //     x = x != 0 ? x : GD.Randf();
+    //     y = y != 0 ? y : GD.Randf();
+    //     z = z != 0 ? z : GD.Randf();
+    //     return new Vec3(x, y, z).Normalized();
+    // }
 
     public static Dictionary<StringName, T> LoadFromFolder<T>(string path)
         where T : Resource

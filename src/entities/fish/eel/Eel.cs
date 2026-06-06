@@ -49,9 +49,14 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 
     private void BubbledUpdate(float delta)
     {
-        if (BubbleJail != null)
+        // if (BubbleJail != null)
+        // {
+        //     GlobalPosition = BubbleJail.GlobalPosition;
+        // }
+
+        if (GodotObject.IsInstanceValid(BubbleJail))
         {
-            GlobalPosition = BubbleJail.GlobalPosition;
+            GlobalPosition = BubbleJail!.GlobalPosition;
         }
         Velocity = Vec3.Zero;
     }

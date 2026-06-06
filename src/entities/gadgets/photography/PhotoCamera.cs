@@ -125,7 +125,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public override void Removed()
     {
-        CreateTween().LerpProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        Log.PrintLn("dropping camera");
+        Aiming = false;
+        //CreateTween().AnimateProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        playerCamera.Fov = DefaultFov;
         ToggleCameraAim(false);
     }
 
@@ -358,6 +361,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var imgTex = new ImageTexture();
         imgTex.SetImage(photoImg);
         photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+    }
+
+    public override void Unequipped()
+    {
+        Visible = false;
     }
 
     public void ClearPhotos()

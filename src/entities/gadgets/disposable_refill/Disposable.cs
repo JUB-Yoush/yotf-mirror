@@ -4,7 +4,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class Disposable : Item
+public partial class Disposable : Item, IDroppable
 {
     public enum Restore
     {
