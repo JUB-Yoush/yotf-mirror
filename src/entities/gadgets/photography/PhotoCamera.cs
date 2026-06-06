@@ -171,9 +171,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = IDroppable.MakeDropItem(this);
-            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            var dropItem = DroppedItem.New(DropMesh, PackedScene, Photos);
             GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
             Inventory.RemoveCurrentItem();
         }
     }

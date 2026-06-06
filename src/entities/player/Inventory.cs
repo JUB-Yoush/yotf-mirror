@@ -12,6 +12,8 @@ public partial class Inventory : Node3D
     public const int Capacity = 4;
     private int currentIndex = 0;
 
+    private bool canSwitchItems = true;
+
     [Node]
     public required Hud HUD { set; get; }
 
@@ -31,11 +33,20 @@ public partial class Inventory : Node3D
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
+        PhotoCamera.AimingChanged += OnAimingChanged;
         SetCurrentItem(0);
+    }
+
+    private void OnAimingChanged(bool state)
+    {
+        canSwitchItems = !state;
     }
 
     public override void _Input(InputEvent @event)
     {
+        if (!canSwitchItems)
+            return;
+
         if (@event.IsActionPressed("set_item_1"))
         {
             SetCurrentItem(0);

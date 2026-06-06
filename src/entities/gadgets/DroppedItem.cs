@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Yotf;
@@ -22,13 +23,17 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     [Node]
     public required CollisionShape3D CollisionShape { set; get; }
 
-    public static DroppedItem New(Mesh mesh, PackedScene packedItem)
+    public static DroppedItem New(Mesh mesh, PackedScene packedItem, List<Photo>? photos = null)
     {
         var dropped = Packed.Instantiate<DroppedItem>();
         dropped.meshData = mesh;
         dropped.ItemRef = packedItem;
+        dropped.photosFromCamera = photos;
         return dropped;
     }
+
+    //Photos needed to persist after a camera was dropped and the instance was freed. Could've went with a static variable but then every camera would have each other's photos.
+    public List<Photo>? photosFromCamera;
 
     public Disposable.Restore restore = Disposable.Restore.None;
 
@@ -86,13 +91,14 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         {
             var disposable = (Disposable)item;
             disposable.restore = restore;
-            inventory.AddItem(item);
-            Log.PrintLn(restore, disposable.restore);
         }
-        else
+        else if (photosFromCamera != null)
         {
-            inventory.AddItem(item);
+            var camera = (PhotoCamera)item;
+            camera.Photos.AddRange(photosFromCamera);
         }
+
+        inventory.AddItem(item);
         QueueFree();
     }
 
