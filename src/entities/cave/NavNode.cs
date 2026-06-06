@@ -183,13 +183,8 @@ public partial class NavNode : Node3D
             nei.AddNeighbor(this);
     }
 
-    public override void _Ready() { }
-
-    public override void _Process(double delta)
+    public void ClearMissingNeighbours()
     {
-        if (!Engine.IsEditorHint())
-            return;
-
         for (int i = 0; i < neighbors.Count; i++)
         {
             var nei = neighbors[i];
@@ -198,12 +193,6 @@ public partial class NavNode : Node3D
                 neighbors.Remove(nei);
             }
         }
-        // {
-        //     if (nei == null)
-        //     {
-        //         neighbors.Remove(nei);
-        //     }
-        // }
     }
 
     public NavNode RandomNeighbor() => neighbors[GD.RandRange(0, neighbors.Count - 1)];
