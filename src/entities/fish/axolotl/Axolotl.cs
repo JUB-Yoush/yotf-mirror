@@ -79,7 +79,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
     public override void _Ready()
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
-        CurrentRoom = AssignCurrentRoom();
+        CurrentRoom ??= AssignCurrentRoom();
 
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);

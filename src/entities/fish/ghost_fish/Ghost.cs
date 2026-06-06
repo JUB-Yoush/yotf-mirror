@@ -34,7 +34,6 @@ public partial class Ghost : Fish
 
     public override void _Process(double delta)
     {
-        Log.PrintLn(Velocity);
         if (SmoothMoveTo(CurrentNode!.GlobalPosition - GlobalPosition, speed, (float)delta))
         {
             CurrentNode = navGraph.RandomNode(CurrentNode);
