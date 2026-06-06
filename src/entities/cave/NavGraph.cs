@@ -45,7 +45,7 @@ public partial class NavGraph : Node3D
     {
         foreach (var node in GetNavNodes())
         {
-            for (int i = 0; i < node.neighbors.Length; i++)
+            for (int i = 0; i < node.neighbors.Count; i++)
             {
                 if (node.neighbors[i] == null)
                 {
