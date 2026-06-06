@@ -74,9 +74,9 @@ public partial class NavNode : Node3D
                 joinMutex = true;
 
                 var selected = EditorInterface.Singleton.GetSelection().GetSelectedNodes();
-                if (selected.Count != 2)
+                if (selected.Count < 2)
                 {
-                    GD.PrintErr("More or less than 2 nav nodes selected");
+                    GD.PrintErr("Less than 2 nav nodes selected");
                     return;
                 }
                 JoinNodes(selected);
@@ -89,7 +89,37 @@ public partial class NavNode : Node3D
         get;
     }
 
-    private static void JoinNodes(Array<Node> nodes) { }
+    private static void JoinNodes(Array<Node> nodes)
+    {
+        Array<NavNode> navNodes = [];
+        foreach (var node in nodes)
+        {
+            if (node is not NavNode)
+            {
+                GD.PrintErr("Non nav node passed into Join Function");
+                return;
+            }
+            else
+            {
+                navNodes.Add((NavNode)node);
+            }
+        }
+
+        foreach (var navNode in navNodes)
+        {
+            foreach (var otherNode in navNodes)
+            {
+                if (navNode == otherNode)
+                    continue;
+
+                if (!navNode.neighbors.Contains(otherNode))
+                    navNode.neighbors.Add(otherNode);
+
+                if (!otherNode.neighbors.Contains(navNode))
+                    otherNode.neighbors.Add(navNode);
+            }
+        }
+    }
 
     [Export]
     public bool NewPoint
