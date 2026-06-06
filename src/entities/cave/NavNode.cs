@@ -132,8 +132,6 @@ public partial class NavNode : Node3D
         get;
     }
 
-    //public Callable BallsBtn => Callable.From(Balls);
-
     static bool bisectMutex = false;
     static bool joinMutex = false;
     static int newPointMutex = 0;
@@ -183,6 +181,26 @@ public partial class NavNode : Node3D
         //ensure bi-directionality of graph
         if (!nei.neighbors.Contains<NavNode>(this))
             nei.AddNeighbor(this);
+    }
+
+    public override void _Ready() { }
+
+    public override void _Process(double delta)
+    {
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            var nei = neighbors[i];
+            if (!nei.IsInsideTree())
+            {
+                neighbors.Remove(nei);
+            }
+        }
+        // {
+        //     if (nei == null)
+        //     {
+        //         neighbors.Remove(nei);
+        //     }
+        // }
     }
 
     public NavNode RandomNeighbor() => neighbors[GD.RandRange(0, neighbors.Count - 1)];

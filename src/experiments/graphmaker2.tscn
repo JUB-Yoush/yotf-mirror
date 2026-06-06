@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://bgyveklptn51u" path="res://src/entities/cave/NavGraph.cs" id="1_oyhy4"]
 [ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="2_0l307"]
 [ext_resource type="Material" uid="uid://c7is05txhvb60" path="res://assets/materials/node_edge_material.tres" id="3_isdjk"]
-[ext_resource type="Script" uid="uid://vvkdhiibtom3" path="res://src/entities/cave/NavNode.cs" id="4_0l307"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_0l307"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_oyhy4"]
 
 [node name="Node3D" type="Node3D" unique_id=461513559]
 
@@ -15,22 +14,12 @@ script = ExtResource("1_oyhy4")
 [node name="EdgesView" type="MeshInstance3D" parent="Node3D" unique_id=65863981]
 unique_name_in_owner = true
 material_override = ExtResource("3_isdjk")
-mesh = SubResource("ImmediateMesh_0l307")
+mesh = SubResource("ImmediateMesh_oyhy4")
 
 [node name="NavNode" parent="Node3D" unique_id=614728555 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_0l307")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.696876, 0.21411443, 6.229324)
-neighbors = [NodePath("../NavNode3"), NodePath("../NavNode4")]
+neighbors = [NodePath("../NavNode2")]
 
 [node name="NavNode2" parent="Node3D" unique_id=691805789 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_0l307")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8744186, -1.1920929e-07, 3.1326954)
-neighbors = [NodePath("../NavNode3")]
-
-[node name="NavNode3" type="Node3D" parent="Node3D" unique_id=99335725 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_0l307")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8917975, 0.10705668, 3.3102627)
-script = ExtResource("4_0l307")
-neighbors = [NodePath("../NavNode2"), NodePath("../NavNode")]
-
-[node name="NavNode4" type="Node3D" parent="Node3D" unique_id=1292110476 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_0l307")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3245087, 0.21411443, 6.9382367)
-script = ExtResource("4_0l307")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.417117, -3.5762787e-07, 5.121114)
 neighbors = [NodePath("../NavNode")]
