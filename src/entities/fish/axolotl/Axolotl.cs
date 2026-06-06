@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Godot;
 
 namespace Yotf;
 
@@ -166,6 +164,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void WanderUpdate(float delta)
     {
+        if (CurrentNode == null)
+        {
+            return;
+        }
+
         if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, delta, ArrivalThreshold))
         {
             CurrentNode = PickWanderTarget();

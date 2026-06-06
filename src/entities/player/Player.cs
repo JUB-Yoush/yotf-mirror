@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Godot;
 
 namespace Yotf;
 
@@ -222,7 +218,7 @@ public partial class Player : CharacterBody3D
         ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
-    internal void UpdateBodyDirection(Vec3 direction, float delta)
+    internal void UpdateBodyWalkDirection(Vec3 direction, float delta)
     {
         if (direction == Vec3.Zero)
         {
@@ -240,7 +236,7 @@ public partial class Player : CharacterBody3D
         YawVelocity = Mathf.AngleDifference(prevYaw, Skin.Rotation.Y) / delta;
     }
 
-    internal void UpdateBodyRotation(Vec3 rotation)
+    internal void UpdateBodySwimRotation(Vec3 rotation)
     {
         Basis rotBasis = Basis.FromEuler(rotation);
 

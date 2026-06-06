@@ -1,10 +1,9 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Firecracker : RigidBody3D, IMakeNoise
+public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -31,6 +30,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
 
     public AudioStreamPlayer3D NoiseSource => AudioPlayer;
 
+    public Light3D LightSource => OmniLight;
+
+    [Node]
+    public required Area3D LightArea { set; get; }
+
     [Export]
     float waitTime = 3f;
 
@@ -42,6 +46,8 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
 
     [Export]
     float lifetime = 5f;
+
+    private List<IPhotographable> trackedSubjects = [];
 
     Vec3 InitialVelocity;
 
@@ -74,6 +80,38 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
             },
             lifetime
         );
+
+        LightArea.AreaEntered += OnReceivedObject;
+        LightArea.AreaExited += OnRemovedObject;
+    }
+
+    public void OnReceivedObject(Node3D body)
+    {
+        GD.Print($"Firecracker detected {body}");
+        if (body is IPhotographable p && !p.IsModifier)
+        {
+            trackedSubjects.Add(p);
+            p.OnReceivedLight(this);
+            GD.Print($"Firecracker added light to {p}");
+        }
+    }
+
+    public void OnRemovedObject(Node3D body)
+    {
+        GD.Print($"Firecracker lost track of {body}");
+        if (body is IPhotographable p)
+        {
+            trackedSubjects.Remove(p);
+            p.OnRemovedLight(this);
+            GD.Print($"Firecracker removed light from {p}");
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        foreach (var p in trackedSubjects)
+            p.OnRemovedLight(this);
+        trackedSubjects.Clear();
     }
 
     public override void _Process(double delta)

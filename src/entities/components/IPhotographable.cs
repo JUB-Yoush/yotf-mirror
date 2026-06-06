@@ -1,5 +1,4 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
@@ -25,5 +24,16 @@ public interface IPhotographable
     {
         get => Modifier != PhotoModifier.None;
     }
+    public List<IGiveLight> NearbyLights { get; set; }
     public bool IsInPhoto();
+
+    public void OnReceivedLight(IGiveLight light)
+    {
+        NearbyLights.Add(light);
+    }
+
+    public void OnRemovedLight(IGiveLight light)
+    {
+        NearbyLights.Remove(light);
+    }
 }

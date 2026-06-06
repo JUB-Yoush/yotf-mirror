@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 
 namespace Yotf;
 
@@ -107,14 +106,16 @@ public partial class GradingUI : Control
         HashSet<string> newRecords = [];
         foreach (var (subject, grade) in photo.SubjectGrades)
         {
-            var facingScore = CaluclateScoreValue(grade.FacingScore);
-            var centeredScore = CaluclateScoreValue(grade.CenterScore);
-            var sizeScore = CaluclateScoreValue(grade.SizeScore);
-            var total = facingScore + centeredScore + sizeScore;
+            var facingScore = CalculateScoreValue(grade.FacingScore);
+            var centeredScore = CalculateScoreValue(grade.CenterScore);
+            var sizeScore = CalculateScoreValue(grade.SizeScore);
+            var lightScore = CalculateScoreValue(grade.LightScore);
+            var total = facingScore + centeredScore + sizeScore + lightScore;
 
             MakeStyleLabel(subject, "Facing Score", facingScore);
             MakeStyleLabel(subject, "Centered Score", centeredScore);
             MakeStyleLabel(subject, "Size Score", sizeScore);
+            MakeStyleLabel(subject, "Light Score", lightScore);
 
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore <= total)
@@ -141,7 +142,7 @@ public partial class GradingUI : Control
         GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
     }
 
-    private static int CaluclateScoreValue(float score) =>
+    private static int CalculateScoreValue(float score) =>
         (int)Mathf.Floor(Mathf.Pow(score, PhotoScoreExponent) * 100);
 
     private void MakeStyleLabel(string subject, string desc, double score)

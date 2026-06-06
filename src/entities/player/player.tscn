@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
+[ext_resource type="Shader" uid="uid://c1fvyqvev4yor" path="res://src/shaders/kuwahara_shader.gdshader" id="9_kc3pt"]
 [ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
@@ -27,6 +28,11 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3c4mh"]
+shader = ExtResource("9_kc3pt")
+shader_parameter/radius = 4
+shader_parameter/offset = Vector3(0, 0, 0)
 
 [node name="Player" type="CharacterBody3D" unique_id=678823562]
 collision_layer = 2
@@ -111,6 +117,12 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1974037189]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUDLayer" unique_id=487371966]
+material = SubResource("ShaderMaterial_3c4mh")
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HUDLayer" unique_id=1650928401]
 anchors_preset = 15
@@ -147,6 +159,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
+layer = 3
 
 [node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
 unique_name_in_owner = true

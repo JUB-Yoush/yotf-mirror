@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Yotf;
 
 public class SwimmingState : IPlayerState
@@ -23,7 +21,7 @@ public class SwimmingState : IPlayerState
         Stats.RestoreOxygen();
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
-        player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
+        player.UpdateBodySwimRotation(player.Skin.Rotation with { X = 0f });
         player.UnderwaterRect.Visible = false;
     }
 
@@ -35,7 +33,7 @@ public class SwimmingState : IPlayerState
         Vec3 bodyUp = -cam.Z;
         Vec3 bodyRight = cam.X;
         Vec3 bodyBack = bodyUp.Cross(bodyRight);
-        player.UpdateBodyRotation(
+        player.UpdateBodySwimRotation(
             new Basis(bodyRight, bodyUp, bodyBack).Orthonormalized().GetEuler()
         );
 

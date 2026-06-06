@@ -1,5 +1,4 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
@@ -108,11 +107,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         set;
     }
 
-    // public override void _PhysicsProcess(double delta)
-    // {
-    //     //CurrentState.Update(this, (float)delta);
-    //     MoveAndSlide();
-    // }
+    public List<IGiveLight> NearbyLights { get; set; } = [];
 
     public FishRoom AssignCurrentRoom()
     {
@@ -136,7 +131,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         target -= GlobalPosition;
         Vec3 dir = target.Normalized();
 
-        Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
+        Velocity = Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
@@ -168,55 +163,5 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         return next;
     }
 
-    // ====================== SENSORY ENTRY POINTS ======================
-    private void OnBodyEnterRange(Node3D body)
-    {
-        // if (body is not CharacterBody3D)
-        //     return;
-        // ThreatTarget = body;
-        // ThreatPosition = body.GlobalPosition;
-        // CurrentState.OnThreatDetected(this, body);
-    }
-
-    private void OnBodyExitRange(Node3D body)
-    {
-        // if (body is not CharacterBody3D)
-        //     return;
-        // if (ThreatTarget == body)
-        //     ThreatTarget = null;
-        // CurrentState.OnThreatLost(this);
-    }
-
-    // // level is 0-1, source is world pos
-    // public void OnNoiseHeard(float level, Vec3 source)
-    // {
-    //     if (level >= Profile.NoiseThreshold)
-    //         CurrentState.OnNoiseHeard(this, level, source);
-    // }
-
-    // called by whatever gadget reveals hidden fish
-    public void Reveal()
-    {
-        // if (CurrentState is HiddenState)
-        //     SetState<Axolotl>(WanderingState);
-    }
-
     public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
-
-    // ====================== INTERNAL HELPERS ======================
-
-    // internal void SetState(IFishState newState)
-    // {
-    //     // if (CurrentState == newState)
-    //     //     return;
-    //     // CurrentState.Exit(this);
-    //     // CurrentState = newState;
-    //     // CurrentState.Enter(this);
-    // }
-
-    // ====================== IPHOTOGRAPHABLE ======================
-
-    // hidden fish are never photographable regardless of screen visibility
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
 }
