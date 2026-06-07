@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Yotf;
 
 public class WalkingState : IPlayerState
@@ -15,7 +13,7 @@ public class WalkingState : IPlayerState
         Vec3 direction = player.GetCameraRelativeDirection();
         Vec2 hVeloc = new Vec2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
 
-        player.UpdateBodyDirection(direction, delta);
+        player.UpdateBodyWalkDirection(direction, delta);
 
         Vec3 velocity = player.Velocity;
 
