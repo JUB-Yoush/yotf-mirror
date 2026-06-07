@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=4 uid="uid://b8jql4adc5yhp"]
 
-[ext_resource type="Texture2D" uid="uid://cm11hr2nswy0t" path="res://assets/2d/ui/hud_inventory_slots.tres" id="1_ymo1y"]
+[ext_resource type="Texture2D" uid="uid://cm11hr2nswy0t" path="res://assets/2d/ui/hud/hud_inventory_slots.tres" id="1_ymo1y"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0uhk"]
 content_margin_left = 24.0

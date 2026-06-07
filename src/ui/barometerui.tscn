@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://w650hho15hkd"]
 
-[ext_resource type="Script" uid="uid://c52k1hmfk6ig3" path="res://src/ui/Barometerui.cs" id="1_71p7e"]
-[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud_barometer_border.tres" id="2_c7bsg"]
+[ext_resource type="Script" path="res://src/ui/Barometerui.cs" id="1_71p7e"]
+[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud/hud_barometer_border.tres" id="2_c7bsg"]
 [ext_resource type="Shader" uid="uid://du12686ff14wf" path="res://src/shaders/barometer_scroll.gdshader" id="3_yajbl"]
-[ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/barometer_ruler.png" id="4_328da"]
+[ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/hud/barometer_ruler.png" id="4_328da"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gwbjx"]
 shader = ExtResource("3_yajbl")
