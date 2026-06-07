@@ -1986,137 +1986,77 @@ cache/1/16/0/underline_thickness = 0.390625
 cache/1/16/0/scale = 1.0
 cache/1/16/0/textures/0/offsets = PackedInt32Array(162, 0, 94, 18, 20, 18, 236, 21)
 cache/1/16/0/textures/0/image = SubResource("Image_dggxd")
-<<<<<<< HEAD
 cache/1/16/0/glyphs/20/advance = Vector2(29.856218, 21.796875)
-=======
-cache/1/16/0/glyphs/20/advance = Vector2(26.256227, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/20/offset = Vector2(-1, -15)
 cache/1/16/0/glyphs/20/size = Vector2(10, 16)
 cache/1/16/0/glyphs/20/uv_rect = Rect2(1, 1, 10, 16)
 cache/1/16/0/glyphs/20/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/17/advance = Vector2(25.090609, 21.796875)
-=======
-cache/1/16/0/glyphs/17/advance = Vector2(21.490618, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/17/offset = Vector2(0, -5)
 cache/1/16/0/glyphs/17/size = Vector2(6, 6)
 cache/1/16/0/glyphs/17/uv_rect = Rect2(13, 1, 6, 6)
 cache/1/16/0/glyphs/17/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/18/advance = Vector2(26.949978, 21.796875)
-=======
-cache/1/16/0/glyphs/18/advance = Vector2(23.349987, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/18/offset = Vector2(-2, -15)
 cache/1/16/0/glyphs/18/size = Vector2(11, 16)
 cache/1/16/0/glyphs/18/uv_rect = Rect2(21, 1, 11, 16)
 cache/1/16/0/glyphs/18/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/69/advance = Vector2(30.668716, 21.796875)
-=======
-cache/1/16/0/glyphs/69/advance = Vector2(27.068726, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/69/offset = Vector2(0, -15)
 cache/1/16/0/glyphs/69/size = Vector2(12, 16)
 cache/1/16/0/glyphs/69/uv_rect = Rect2(34, 1, 12, 16)
 cache/1/16/0/glyphs/69/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/62/advance = Vector2(25.965607, 21.796875)
-=======
-cache/1/16/0/glyphs/62/advance = Vector2(22.365616, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/62/offset = Vector2(0, -15)
 cache/1/16/0/glyphs/62/size = Vector2(8, 19)
 cache/1/16/0/glyphs/62/uv_rect = Rect2(1, 19, 8, 19)
 cache/1/16/0/glyphs/62/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/64/advance = Vector2(25.965607, 21.796875)
-=======
-cache/1/16/0/glyphs/64/advance = Vector2(22.365616, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/64/offset = Vector2(-1, -15)
 cache/1/16/0/glyphs/64/size = Vector2(8, 19)
 cache/1/16/0/glyphs/64/uv_rect = Rect2(11, 19, 8, 19)
 cache/1/16/0/glyphs/64/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/70/advance = Vector2(28.653097, 21.796875)
-=======
-cache/1/16/0/glyphs/70/advance = Vector2(25.053106, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/70/offset = Vector2(-1, -12)
 cache/1/16/0/glyphs/70/size = Vector2(11, 13)
 cache/1/16/0/glyphs/70/uv_rect = Rect2(48, 1, 11, 13)
 cache/1/16/0/glyphs/70/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/72/advance = Vector2(29.918718, 21.796875)
-=======
-cache/1/16/0/glyphs/72/advance = Vector2(26.318727, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/72/offset = Vector2(-1, -12)
 cache/1/16/0/glyphs/72/size = Vector2(12, 13)
 cache/1/16/0/glyphs/72/uv_rect = Rect2(61, 1, 12, 13)
 cache/1/16/0/glyphs/72/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/81/advance = Vector2(30.871841, 21.796875)
-=======
-cache/1/16/0/glyphs/81/advance = Vector2(27.27185, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/81/offset = Vector2(0, -12)
 cache/1/16/0/glyphs/81/size = Vector2(12, 13)
 cache/1/16/0/glyphs/81/uv_rect = Rect2(75, 1, 12, 13)
 cache/1/16/0/glyphs/81/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/87/advance = Vector2(27.028103, 21.796875)
-=======
-cache/1/16/0/glyphs/87/advance = Vector2(23.428112, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/87/offset = Vector2(-1, -14)
 cache/1/16/0/glyphs/87/size = Vector2(10, 15)
 cache/1/16/0/glyphs/87/uv_rect = Rect2(89, 1, 10, 15)
 cache/1/16/0/glyphs/87/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/85/advance = Vector2(27.606226, 21.796875)
-=======
-cache/1/16/0/glyphs/85/advance = Vector2(24.006235, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/85/offset = Vector2(0, -12)
 cache/1/16/0/glyphs/85/size = Vector2(9, 13)
 cache/1/16/0/glyphs/85/uv_rect = Rect2(101, 1, 9, 13)
 cache/1/16/0/glyphs/85/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/76/advance = Vector2(25.168734, 21.796875)
-=======
-cache/1/16/0/glyphs/76/advance = Vector2(21.568743, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/76/offset = Vector2(0, -15)
 cache/1/16/0/glyphs/76/size = Vector2(6, 16)
 cache/1/16/0/glyphs/76/uv_rect = Rect2(112, 1, 6, 16)
 cache/1/16/0/glyphs/76/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/21/advance = Vector2(29.856218, 21.796875)
-=======
-cache/1/16/0/glyphs/21/advance = Vector2(26.256227, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/21/offset = Vector2(-1, -15)
 cache/1/16/0/glyphs/21/size = Vector2(12, 16)
 cache/1/16/0/glyphs/21/uv_rect = Rect2(120, 1, 12, 16)
 cache/1/16/0/glyphs/21/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/22/advance = Vector2(29.856218, 21.796875)
-=======
-cache/1/16/0/glyphs/22/advance = Vector2(26.256227, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/22/offset = Vector2(-1, -15)
 cache/1/16/0/glyphs/22/size = Vector2(12, 16)
 cache/1/16/0/glyphs/22/uv_rect = Rect2(134, 1, 12, 16)
 cache/1/16/0/glyphs/22/texture_idx = 0
-<<<<<<< HEAD
 cache/1/16/0/glyphs/23/advance = Vector2(29.856218, 21.796875)
-=======
-cache/1/16/0/glyphs/23/advance = Vector2(26.256227, 21.796875)
->>>>>>> light-grading
 cache/1/16/0/glyphs/23/offset = Vector2(-1, -15)
 cache/1/16/0/glyphs/23/size = Vector2(13, 16)
 cache/1/16/0/glyphs/23/uv_rect = Rect2(148, 1, 13, 16)
@@ -2128,38 +2068,22 @@ cache/1/48/0/underline_thickness = 1.171875
 cache/1/48/0/scale = 1.0
 cache/1/48/0/textures/0/offsets = PackedInt32Array(59, 0, 453, 43, 64, 43, 448, 44)
 cache/1/48/0/textures/0/image = SubResource("Image_8pjja")
-<<<<<<< HEAD
 cache/1/48/0/glyphs/20/advance = Vector2(96, 65)
-=======
-cache/1/48/0/glyphs/20/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/1/48/0/glyphs/20/offset = Vector2(1, -40)
 cache/1/48/0/glyphs/20/size = Vector2(22, 41)
 cache/1/48/0/glyphs/20/uv_rect = Rect2(1, 1, 22, 41)
 cache/1/48/0/glyphs/20/texture_idx = 0
-<<<<<<< HEAD
 cache/1/48/0/glyphs/23/advance = Vector2(96, 65)
-=======
-cache/1/48/0/glyphs/23/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/1/48/0/glyphs/23/offset = Vector2(-1, -40)
 cache/1/48/0/glyphs/23/size = Vector2(33, 41)
 cache/1/48/0/glyphs/23/uv_rect = Rect2(25, 1, 33, 41)
 cache/1/48/0/glyphs/23/texture_idx = 0
-<<<<<<< HEAD
 cache/1/48/0/glyphs/22/advance = Vector2(96, 65)
-=======
-cache/1/48/0/glyphs/22/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/1/48/0/glyphs/22/offset = Vector2(0, -41)
 cache/1/48/0/glyphs/22/size = Vector2(30, 42)
 cache/1/48/0/glyphs/22/uv_rect = Rect2(1, 44, 30, 42)
 cache/1/48/0/glyphs/22/texture_idx = 0
-<<<<<<< HEAD
 cache/1/48/0/glyphs/21/advance = Vector2(96, 65)
-=======
-cache/1/48/0/glyphs/21/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/1/48/0/glyphs/21/offset = Vector2(0, -41)
 cache/1/48/0/glyphs/21/size = Vector2(30, 42)
 cache/1/48/0/glyphs/21/uv_rect = Rect2(33, 44, 30, 42)
@@ -2180,11 +2104,7 @@ cache/2/16/0/underline_thickness = 0.390625
 cache/2/16/0/scale = 1.0
 cache/2/16/0/textures/0/offsets = PackedInt32Array(12, 0, 244, 18)
 cache/2/16/0/textures/0/image = SubResource("Image_b8am3")
-<<<<<<< HEAD
 cache/2/16/0/glyphs/20/advance = Vector2(29.856218, 21.796875)
-=======
-cache/2/16/0/glyphs/20/advance = Vector2(26.256227, 21.796875)
->>>>>>> light-grading
 cache/2/16/0/glyphs/20/offset = Vector2(1, -15)
 cache/2/16/0/glyphs/20/size = Vector2(10, 16)
 cache/2/16/0/glyphs/20/uv_rect = Rect2(1, 1, 10, 16)
@@ -2275,11 +2195,7 @@ cache/2/32/0/underline_thickness = 0.78125
 cache/2/32/0/scale = 1.0
 cache/2/32/0/textures/0/offsets = PackedInt32Array(19, 0, 237, 30)
 cache/2/32/0/textures/0/image = SubResource("Image_dl2g6")
-<<<<<<< HEAD
 cache/2/32/0/glyphs/20/advance = Vector2(87, 44)
-=======
-cache/2/32/0/glyphs/20/advance = Vector2(75, 44)
->>>>>>> light-grading
 cache/2/32/0/glyphs/20/offset = Vector2(4, -27)
 cache/2/32/0/glyphs/20/size = Vector2(17, 28)
 cache/2/32/0/glyphs/20/uv_rect = Rect2(1, 1, 17, 28)
@@ -2291,38 +2207,22 @@ cache/2/48/0/underline_thickness = 1.171875
 cache/2/48/0/scale = 1.0
 cache/2/48/0/textures/0/offsets = PackedInt32Array(62, 0, 450, 43, 74, 43, 438, 44)
 cache/2/48/0/textures/0/image = SubResource("Image_o8b17")
-<<<<<<< HEAD
 cache/2/48/0/glyphs/20/advance = Vector2(96, 65)
-=======
-cache/2/48/0/glyphs/20/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/2/48/0/glyphs/20/offset = Vector2(7, -40)
 cache/2/48/0/glyphs/20/size = Vector2(24, 41)
 cache/2/48/0/glyphs/20/uv_rect = Rect2(1, 1, 24, 41)
 cache/2/48/0/glyphs/20/texture_idx = 0
-<<<<<<< HEAD
 cache/2/48/0/glyphs/21/advance = Vector2(96, 65)
-=======
-cache/2/48/0/glyphs/21/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/2/48/0/glyphs/21/offset = Vector2(1, -41)
 cache/2/48/0/glyphs/21/size = Vector2(35, 42)
 cache/2/48/0/glyphs/21/uv_rect = Rect2(1, 44, 35, 42)
 cache/2/48/0/glyphs/21/texture_idx = 0
-<<<<<<< HEAD
 cache/2/48/0/glyphs/22/advance = Vector2(96, 65)
-=======
-cache/2/48/0/glyphs/22/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/2/48/0/glyphs/22/offset = Vector2(1, -41)
 cache/2/48/0/glyphs/22/size = Vector2(35, 42)
 cache/2/48/0/glyphs/22/uv_rect = Rect2(38, 44, 35, 42)
 cache/2/48/0/glyphs/22/texture_idx = 0
-<<<<<<< HEAD
 cache/2/48/0/glyphs/23/advance = Vector2(96, 65)
-=======
-cache/2/48/0/glyphs/23/advance = Vector2(84, 65)
->>>>>>> light-grading
 cache/2/48/0/glyphs/23/offset = Vector2(1, -40)
 cache/2/48/0/glyphs/23/size = Vector2(34, 41)
 cache/2/48/0/glyphs/23/uv_rect = Rect2(27, 1, 34, 41)

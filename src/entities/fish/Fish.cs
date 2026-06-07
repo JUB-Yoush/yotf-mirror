@@ -173,6 +173,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
 
+    public void TakeDamage(float amount, Vec3 knockback, Node3D source)
+    {
+        throw new System.NotImplementedException();
+    }
+
     // ====================== INTERNAL HELPERS ======================
 
     // internal void SetState(IFishState newState)
