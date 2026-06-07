@@ -100,7 +100,7 @@ size = Vector3(3, 0.3, 3)
 size = Vector3(3, 0.3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5n85p"]
-size = Vector3(3.175293, 0.5795654, 3.2338867)
+size = Vector3(3.6240234, 1.6115097, 4.069275)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1n4q7"]
 size = Vector3(12.95997, 2.9720058, 7.6858063)
@@ -183,7 +183,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="TopGate/Area3D" unique_id=1322447965]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22024155, 0.13978267, -0.19519329)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25393295, 0.65575504, -0.1925993)
 shape = SubResource("BoxShape3D_5n85p")
 
 [node name="BottomGate" type="StaticBody3D" parent="." unique_id=2146708541]

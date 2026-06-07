@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://cmggctvt5xqmi"]
+
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="1_775lt"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="1_c751f"]
+
+[resource]
+script = ExtResource("1_775lt")
+Icon = ExtResource("1_c751f")
+Name = "Film Upgrade"
+Description = "Increase Film Reel Capacity"
+Price = 10
+upgrade = 3
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

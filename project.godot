@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="2026-yotf"
-run/main_scene="uid://btfuhnflg1f2m"
+run/main_scene="uid://rhd2yy66g8ck"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
 config/icon="uid://bjsne24mfw3jm"
 
@@ -193,3 +193,4 @@ use_item={
 3d_physics/layer_7="Items"
 3d_physics/layer_8="Bubble"
 3d_physics/layer_9="NoiseListener"
+3d_physics/layer_10="Damage"

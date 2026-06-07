@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using Godot;
-using static Yotf.DisposableRestore;
+using static Yotf.Disposable;
 
 namespace Yotf;
 
@@ -97,6 +97,27 @@ public partial class PlayerStats : Node
         }
     }
 
+    static int maxFilm = 12;
+    public static int MaxFilm
+    {
+        set { maxFilm = value; }
+        get => maxFilm;
+    }
+
+    static float maxZoom = 10;
+    public static float MaxZoom
+    {
+        set { maxZoom = value; }
+        get => maxZoom;
+    }
+
+    static float extraSwimSpeed = 3;
+    public static float ExtraSwimSpeed
+    {
+        set { extraSwimSpeed = value; }
+        get => extraSwimSpeed;
+    }
+
     public override void _Ready()
     {
         player = GetParent<Player>();
@@ -121,7 +142,15 @@ public partial class PlayerStats : Node
         var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
         fadeRect.Visible = true;
         var tween = CreateTween();
-        tween.LerpProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 1f);
+        //HUD.DeathText.Visible;
+        tween.AnimateProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 3f);
+        tween.AnimateProperty(
+            HUD.DeathText,
+            TextureRect.PropertyName.Modulate,
+            new Color(1, 1, 1, 1),
+            1f,
+            true
+        );
     }
 
     internal void RestoreOxygen()
@@ -132,6 +161,7 @@ public partial class PlayerStats : Node
     public void RestoreStat(Restore restore, float amount)
     {
         Debug.Assert(restore != Restore.None, "None restorable item passed into restore function");
+        Log.PrintLn($"restoring {restore} by {amount}");
         switch (restore)
         {
             case Restore.Oxygen:

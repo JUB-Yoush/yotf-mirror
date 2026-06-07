@@ -1,5 +1,4 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
@@ -36,6 +35,8 @@ public partial class InkArea : Area3D, IPhotographable
         get => IPhotographable.PhotoModifier.Ink;
         set;
     }
+
+    public List<IGiveLight> NearbyLights { get; set; } = [];
 
     public static InkArea New(Inkfish parent)
     {

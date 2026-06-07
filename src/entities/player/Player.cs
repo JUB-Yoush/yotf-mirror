@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Godot;
 
 namespace Yotf;
 
@@ -100,7 +96,7 @@ public partial class Player : CharacterBody3D
                 if (Arm == null)
                     return;
                 Tween tween = CreateTween();
-                tween.LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 0.0f, 0.33f);
+                tween.AnimateProperty(Arm, SpringArm3D.PropertyName.SpringLength, 0.0f, 0.33f);
                 tween.Fn(() => Skin.Visible = false);
             }
             else
@@ -108,7 +104,8 @@ public partial class Player : CharacterBody3D
                 if (Arm == null)
                     return;
                 Skin.Visible = true;
-                CreateTween().LerpProperty(Arm, SpringArm3D.PropertyName.SpringLength, 2.0f, 0.33f);
+                CreateTween()
+                    .AnimateProperty(Arm, SpringArm3D.PropertyName.SpringLength, 2.0f, 0.33f);
             }
         }
     }
@@ -116,6 +113,8 @@ public partial class Player : CharacterBody3D
     private bool collisionEnabled = true;
 
     public Tween? shockTween = null;
+
+    bool gettingShocked = false;
 
     //TODO(j) should probably be an enum for player interaction state
     public bool IsInMenu
@@ -207,6 +206,7 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        //Log.PrintLn(Camera.Fov);
         CurrentState.Update(this, (float)delta);
         // check for items in the player raycast
     }
@@ -222,7 +222,7 @@ public partial class Player : CharacterBody3D
         ProceduralAnimator.OnStateChanged(newState.Type);
     }
 
-    internal void UpdateBodyDirection(Vec3 direction, float delta)
+    internal void UpdateBodyWalkDirection(Vec3 direction, float delta)
     {
         if (direction == Vec3.Zero)
         {
@@ -240,7 +240,7 @@ public partial class Player : CharacterBody3D
         YawVelocity = Mathf.AngleDifference(prevYaw, Skin.Rotation.Y) / delta;
     }
 
-    internal void UpdateBodyRotation(Vec3 rotation)
+    internal void UpdateBodySwimRotation(Vec3 rotation)
     {
         Basis rotBasis = Basis.FromEuler(rotation);
 
@@ -264,8 +264,9 @@ public partial class Player : CharacterBody3D
 
     internal void GetShocked(Vec3 ShockSource)
     {
-        if (shockTween != null)
+        if (gettingShocked)
             return;
+        gettingShocked = true;
 
         //hit
         Stats.Injuries += 3;
@@ -273,21 +274,24 @@ public partial class Player : CharacterBody3D
         var dir = (GlobalPosition - ShockSource).Normalized();
         Velocity += dir * 15;
 
-        // drop ur stuff
         for (int i = 0; i < Inventory.Capacity; i++)
         {
             var item = Inventory.Items[i];
-            if (item != null && item is IDroppable droppable)
+            if (item != null && item.IsValid() && item is IDroppable droppable)
             {
+                Log.PrintLn($"{item.Name}");
                 var dropItem = IDroppable.MakeDropItem(droppable);
-                dropItem.GlobalTransform = GlobalTransform;
+                var randomDir = new Vec3(GD.Randf(), 0.5f, GD.Randf()).Normalized();
                 GetTree().CurrentScene.AddChild(dropItem);
+                dropItem.GlobalTransform = GlobalTransform;
+                dropItem.ApplyImpulse(randomDir * 5);
                 Inventory.RemoveItem(i);
             }
         }
+
         shockTween = CreateTween();
         //disable HUD
-        shockTween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffff00), .5f);
+        shockTween.AnimateProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffff00), .5f);
         shockTween.Fn(() =>
         {
             Alert.Visible = true;
@@ -297,8 +301,8 @@ public partial class Player : CharacterBody3D
             );
         });
         shockTween.TweenInterval(4f);
-        shockTween.LerpProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffffff), .5f);
-        shockTween.LerpProperty(
+        shockTween.AnimateProperty(HUD, Control.PropertyName.Modulate, new Color(0xffffffff), .5f);
+        shockTween.AnimateProperty(
             Alert,
             Control.PropertyName.Modulate,
             new Color(0xffffff00),
@@ -307,13 +311,17 @@ public partial class Player : CharacterBody3D
         );
         shockTween.Fn(() => Alert.Visible = false);
         shockTween.Fn(() => HUD.Visible = true);
-        shockTween.LerpProperty(
+        shockTween.AnimateProperty(
             Alert,
             Control.PropertyName.Modulate,
             new Color(0xffffffff),
             .5f,
             true
         );
-        shockTween.Finished += () => shockTween = null;
+        shockTween.Finished += () =>
+        {
+            shockTween = null;
+            gettingShocked = false;
+        };
     }
 }

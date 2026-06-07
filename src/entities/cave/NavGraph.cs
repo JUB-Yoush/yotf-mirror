@@ -45,11 +45,12 @@ public partial class NavGraph : Node3D
     {
         foreach (var node in GetNavNodes())
         {
-            for (int i = 0; i < node.neighbors.Length; i++)
+            for (int i = 0; i < node.neighbors.Count; i++)
             {
                 if (node.neighbors[i] == null)
                 {
                     GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at position {i}");
+                    continue;
                 }
                 node.AddNeighbor(node.neighbors[i]);
             }
@@ -62,6 +63,11 @@ public partial class NavGraph : Node3D
         //     return;
 
         NavNodes = GetNavNodes();
+        foreach (var node in NavNodes)
+        {
+            node.ClearMissingNeighbours();
+        }
+
         bool anyConnections = false;
         if (NavNodes.Length < 2)
             return;

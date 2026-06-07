@@ -16,7 +16,7 @@ public partial class Item : Node3D, IDroppable
     public Texture2D Icon = DefaultTexture;
 
     [Export]
-    public DisposableRestore.Restore restore = DisposableRestore.Restore.None;
+    float restoreAmount = 50;
 
     public bool InInventory = false;
     public bool CurrentItem = false;
@@ -38,4 +38,6 @@ public partial class Item : Node3D, IDroppable
     {
         Visible = false;
     }
+
+    public override void _Input(InputEvent @event) { }
 }

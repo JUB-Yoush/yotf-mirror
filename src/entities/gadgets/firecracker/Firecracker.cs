@@ -1,10 +1,9 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Firecracker : RigidBody3D, IMakeNoise
+public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -12,11 +11,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
         "res://src/entities/gadgets/firecracker/firecracker.tscn"
     );
 
-    public static Firecracker New(Vec3 initalVelocity)
+    public static Firecracker New(Node parent, Vec3 initialVelocity)
     {
         var firecracker = Packed.Instantiate<Firecracker>();
-        firecracker.InitialVelocity = initalVelocity;
-        firecracker.LinearVelocity = initalVelocity;
+        parent.AddChild(firecracker);
+        firecracker.ApplyImpulse(initialVelocity);
         return firecracker;
     }
 
@@ -31,6 +30,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
 
     public AudioStreamPlayer3D NoiseSource => AudioPlayer;
 
+    public Light3D LightSource => OmniLight;
+
+    [Node]
+    public required Area3D LightArea { set; get; }
+
     [Export]
     float waitTime = 3f;
 
@@ -43,9 +47,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
     [Export]
     float lifetime = 5f;
 
+    private List<IPhotographable> trackedSubjects = [];
+
     Vec3 InitialVelocity;
 
-    bool on = false;
+    bool ran = false;
 
     public override void _Ready()
     {
@@ -60,7 +66,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
             () =>
             {
                 Particles.Emitting = true;
-                IMakeNoise.MakeNoise(this, 0, SFX.Firecracker);
+                IMakeNoise.MakeNoise(this, 0, Sfx.Firecracker);
             },
             waitTime
         );
@@ -70,14 +76,51 @@ public partial class Firecracker : RigidBody3D, IMakeNoise
             () =>
             {
                 AudioPlayer.Stop();
-                this.DeferFree();
+                ran = true;
             },
             lifetime
         );
+
+        LightArea.AreaEntered += OnReceivedObject;
+        LightArea.AreaExited += OnRemovedObject;
+    }
+
+    public void OnReceivedObject(Node3D body)
+    {
+        GD.Print($"Firecracker detected {body}");
+        if (body is IPhotographable p && !p.IsModifier)
+        {
+            trackedSubjects.Add(p);
+            p.OnReceivedLight(this);
+            GD.Print($"Firecracker added light to {p}");
+        }
+    }
+
+    public void OnRemovedObject(Node3D body)
+    {
+        GD.Print($"Firecracker lost track of {body}");
+        if (body is IPhotographable p)
+        {
+            trackedSubjects.Remove(p);
+            p.OnRemovedLight(this);
+            GD.Print($"Firecracker removed light from {p}");
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        foreach (var p in trackedSubjects)
+            p.OnRemovedLight(this);
+        trackedSubjects.Clear();
     }
 
     public override void _Process(double delta)
     {
         Particles.GlobalPosition = GlobalPosition;
+
+        if (ran == true)
+        {
+            QueueFree();
+        }
     }
 }

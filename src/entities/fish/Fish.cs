@@ -1,5 +1,4 @@
-using System;
-using Godot;
+using System.Collections.Generic;
 
 namespace Yotf;
 
@@ -7,7 +6,7 @@ namespace Yotf;
 /// Base Fish Class
 /// </summary>
 [Meta(typeof(IAutoNode))]
-public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
+public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonarable, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -67,6 +66,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
     [Export(PropertyHint.Range, "0,1")]
     public float NoiseTolerance = 0.4f;
 
+    [Export]
+    public float MaxHp = 10f;
+
+    public float Hp = 10f;
+
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vec3 ThreatPosition { get; internal set; }
 
@@ -107,12 +111,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         get => IPhotographable.PhotoModifier.None;
         set;
     }
+    public bool Discovered { get; set; }
+    public float Health { get; set; }
+    public bool Invincible { get; set; }
 
-    // public override void _PhysicsProcess(double delta)
-    // {
-    //     //CurrentState.Update(this, (float)delta);
-    //     MoveAndSlide();
-    // }
+    public List<IGiveLight> NearbyLights { get; set; } = [];
 
     public FishRoom AssignCurrentRoom()
     {
@@ -136,7 +139,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         target -= GlobalPosition;
         Vec3 dir = target.Normalized();
 
-        Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
+        Velocity = Velocity.Lerp(target.Normalized() * speed, WanderRotationSpeed * delta);
 
         float targetYaw = Mathf.Atan2(dir.X, dir.Z);
         GlobalRotation = GlobalRotation with
@@ -168,40 +171,12 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap
         return next;
     }
 
-    // ====================== SENSORY ENTRY POINTS ======================
-    private void OnBodyEnterRange(Node3D body)
-    {
-        // if (body is not CharacterBody3D)
-        //     return;
-        // ThreatTarget = body;
-        // ThreatPosition = body.GlobalPosition;
-        // CurrentState.OnThreatDetected(this, body);
-    }
-
-    private void OnBodyExitRange(Node3D body)
-    {
-        // if (body is not CharacterBody3D)
-        //     return;
-        // if (ThreatTarget == body)
-        //     ThreatTarget = null;
-        // CurrentState.OnThreatLost(this);
-    }
-
-    // // level is 0-1, source is world pos
-    // public void OnNoiseHeard(float level, Vec3 source)
-    // {
-    //     if (level >= Profile.NoiseThreshold)
-    //         CurrentState.OnNoiseHeard(this, level, source);
-    // }
-
-    // called by whatever gadget reveals hidden fish
-    public void Reveal()
-    {
-        // if (CurrentState is HiddenState)
-        //     SetState<Axolotl>(WanderingState);
-    }
-
     public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
+
+    public void TakeDamage(float amount, Vec3 knockback, Node3D source)
+    {
+        throw new System.NotImplementedException();
+    }
 
     // ====================== INTERNAL HELPERS ======================
 

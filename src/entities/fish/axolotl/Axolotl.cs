@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Godot;
 
 namespace Yotf;
 
@@ -79,7 +77,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
     public override void _Ready()
     {
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
-        CurrentRoom = AssignCurrentRoom();
+        CurrentRoom ??= AssignCurrentRoom();
 
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
@@ -151,7 +149,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void BubbleUpdate(float delta)
     {
-        if (BubbleJail != null)
+        if (GodotObject.IsInstanceValid(BubbleJail))
         {
             GlobalPosition = BubbleJail!.GlobalPosition;
             Velocity = Vec3.Zero;
@@ -160,12 +158,18 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void WanderEnter()
     {
+        ThreatTarget = null;
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
         CurrentRoom = AssignCurrentRoom();
     }
 
     public void WanderUpdate(float delta)
     {
+        if (CurrentNode == null)
+        {
+            return;
+        }
+
         if (SmoothMoveTo(CurrentNode!.GlobalPosition, WanderSpeed, delta, ArrivalThreshold))
         {
             CurrentNode = PickWanderTarget();
@@ -207,10 +211,13 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
             tween.Fn(() =>
             {
                 MakeBubble(currentTarget.Spatial.Position - Position);
-                bubbleTargets.Pop(0);
                 if (bubbleTargets.Count == 0)
                 {
                     stateMachine.State = State.Wander;
+                }
+                else
+                {
+                    bubbleTargets.Pop(0);
                 }
             });
             tween.Finished += () => tween = null;
@@ -219,7 +226,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public void FleeUpdate(float delta)
     {
-        if (ThreatTarget != null)
+        if (GodotObject.IsInstanceValid(ThreatTarget))
             ThreatPosition = ThreatTarget.GlobalPosition;
 
         Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();

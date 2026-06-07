@@ -2,20 +2,22 @@
 
 [ext_resource type="Script" uid="uid://btkxd1qj11xm6" path="res://src/entities/player/Hud.cs" id="1_fwgqd"]
 [ext_resource type="Theme" uid="uid://b8jql4adc5yhp" path="res://assets/themes/hud_ui_items.tres" id="2_ipk1d"]
-[ext_resource type="Texture2D" uid="uid://cc8ieg0tmq0l8" path="res://assets/2d/ui/hud_oxygen_bar_border.tres" id="3_e8jo1"]
-[ext_resource type="Texture2D" uid="uid://ia0hslmcaehr" path="res://assets/2d/ui/hud_oxygen_bar_fill.tres" id="4_24csc"]
-[ext_resource type="Texture2D" uid="uid://7l50h4h6efue" path="res://assets/2d/ui/injurybar.tres" id="5_24csc"]
-[ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/hud_battery_bar_border.tres" id="5_vk5sl"]
-[ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud_battery_bar_fill.tres" id="6_8576i"]
-[ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud_top_border.tres" id="7_3yh4q"]
+[ext_resource type="Texture2D" uid="uid://cc8ieg0tmq0l8" path="res://assets/2d/ui/hud/hud_oxygen_bar_border.tres" id="3_e8jo1"]
+[ext_resource type="Texture2D" uid="uid://ia0hslmcaehr" path="res://assets/2d/ui/hud/hud_oxygen_bar_fill.tres" id="4_24csc"]
+[ext_resource type="Texture2D" uid="uid://7l50h4h6efue" path="res://assets/2d/ui/hud/injurybar.tres" id="5_24csc"]
+[ext_resource type="Texture2D" uid="uid://jvwndwdigtva" path="res://assets/2d/ui/hud/hud_battery_bar_border.tres" id="5_vk5sl"]
+[ext_resource type="Texture2D" uid="uid://cfx8bdnkt6d4b" path="res://assets/2d/ui/hud/hud_battery_bar_fill.tres" id="6_8576i"]
+[ext_resource type="Texture2D" uid="uid://cxsaj8x8y51oy" path="res://assets/2d/ui/hud/hud_top_border.tres" id="7_3yh4q"]
 [ext_resource type="PackedScene" uid="uid://d32fu7pyar1p1" path="res://assets/3d/ui/orientation_gimbal.glb" id="8_r20cs"]
-[ext_resource type="Texture2D" uid="uid://c17falthwsbhl" path="res://assets/2d/ui/radar.tres" id="9_o8gp8"]
-[ext_resource type="Texture2D" uid="uid://kdwc0qd3ol11" path="res://assets/2d/ui/radar_cone.tres" id="10_q3bgo"]
-[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud_barometer_border.tres" id="11_0yu74"]
+[ext_resource type="Texture2D" uid="uid://c17falthwsbhl" path="res://assets/2d/ui/hud/radar.tres" id="9_o8gp8"]
+[ext_resource type="Texture2D" uid="uid://kdwc0qd3ol11" path="res://assets/2d/ui/hud/radar_cone.tres" id="10_q3bgo"]
+[ext_resource type="Texture2D" uid="uid://deh8ruhy1bx28" path="res://assets/2d/ui/hud/hud_barometer_border.tres" id="11_0yu74"]
 [ext_resource type="Shader" uid="uid://du12686ff14wf" path="res://src/shaders/barometer_scroll.gdshader" id="12_w0r5e"]
-[ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/barometer_ruler.png" id="13_0m2ia"]
+[ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/hud/barometer_ruler.png" id="13_0m2ia"]
 [ext_resource type="Script" uid="uid://bxh3e6euxlwoy" path="res://src/ui/Minimap.cs" id="14_ipk1d"]
 [ext_resource type="Texture2D" uid="uid://ds0sik53rrrre" path="res://assets/2d/ui/radar_mask.png" id="15_e8jo1"]
+[ext_resource type="Texture2D" uid="uid://cckhpqpskymx" path="res://assets/2d/ui/death_screen_temp.png" id="17_vk5sl"]
+[ext_resource type="Texture2D" uid="uid://lwxk8sbn6380" path="res://assets/2d/ui/win_screen_temp.png" id="18_8576i"]
 
 [sub_resource type="Environment" id="Environment_dh4so"]
 ambient_light_source = 2
@@ -325,3 +327,43 @@ scale = Vector2(1.18, 1.18)
 texture = ExtResource("10_q3bgo")
 expand_mode = 3
 stretch_mode = 4
+
+[node name="SonarLabel" type="Label" parent="." unique_id=505399242]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -162.0
+offset_right = 264.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+
+[node name="DeathText" type="TextureRect" parent="." unique_id=2098675165]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("17_vk5sl")
+
+[node name="WinText" type="TextureRect" parent="." unique_id=1734738887]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("18_8576i")

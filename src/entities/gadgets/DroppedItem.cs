@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Yotf;
@@ -22,13 +23,19 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     [Node]
     public required CollisionShape3D CollisionShape { set; get; }
 
-    public static DroppedItem New(Mesh mesh, PackedScene packedItem)
+    public static DroppedItem New(Mesh mesh, PackedScene packedItem, List<Photo>? photos = null)
     {
         var dropped = Packed.Instantiate<DroppedItem>();
         dropped.meshData = mesh;
         dropped.ItemRef = packedItem;
+        dropped.photosFromCamera = photos;
         return dropped;
     }
+
+    //Photos needed to persist after a camera was dropped and the instance was freed. Could've went with a static variable but then every camera would have each other's photos.
+    public List<Photo>? photosFromCamera;
+
+    public Disposable.Restore restore = Disposable.Restore.None;
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
@@ -61,7 +68,16 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         }
     }
 
-    public Item GivePickUpItem() => ItemRef.Instantiate<Item>();
+    public Item GivePickUpItem()
+    {
+        var item = ItemRef.Instantiate<Item>();
+        if (item is Disposable dispose)
+        {
+            dispose.restore = restore;
+            return dispose;
+        }
+        return item;
+    }
 
     public void OnInteraction()
     {
@@ -70,7 +86,19 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
 
         if (inventory.GetEqippedItem() != null)
             return;
-        inventory.AddItem(ItemRef.Instantiate<Item>());
+        var item = ItemRef.Instantiate<Item>();
+        if (restore != Disposable.Restore.None)
+        {
+            var disposable = (Disposable)item;
+            disposable.restore = restore;
+        }
+        else if (photosFromCamera != null)
+        {
+            var camera = (PhotoCamera)item;
+            camera.Photos.AddRange(photosFromCamera);
+        }
+
+        inventory.AddItem(item);
         QueueFree();
     }
 

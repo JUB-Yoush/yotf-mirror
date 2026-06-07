@@ -7,7 +7,7 @@ using Godot;
 
 namespace Yotf;
 
-public static class MiscExt
+public static class GDExt
 {
     extension(Tween tween)
     {
@@ -31,7 +31,7 @@ public static class MiscExt
             }
         }
 
-        public PropertyTweener LerpProperty(
+        public PropertyTweener AnimateProperty(
             Node node,
             StringName property,
             Variant value,
@@ -100,6 +100,10 @@ public static class MiscExt
             };
             timer.Start();
         }
+    }
+    extension(GodotObject obj)
+    {
+        public bool IsValid() => GodotObject.IsInstanceValid(obj);
     }
 
     extension(Node node)
@@ -244,5 +248,44 @@ public static class MiscExt
         {
             DirAccess.MakeDirAbsolute(path);
         }
+    }
+
+    // public static Vec3 RandomUnitVec(float x = 0, float y = 0, float z = 0)
+    // {
+    //     x = x != 0 ? x : GD.Randf();
+    //     y = y != 0 ? y : GD.Randf();
+    //     z = z != 0 ? z : GD.Randf();
+    //     return new Vec3(x, y, z).Normalized();
+    // }
+
+    public static Dictionary<StringName, T> LoadFromFolder<T>(string path)
+        where T : Resource
+    {
+        var result = new Dictionary<StringName, T>();
+        using var dir = DirAccess.Open(path);
+        if (dir == null)
+        {
+            GD.PrintErr(
+                $"An error occurred when trying to access the path:{path}: {DirAccess.GetOpenError()}"
+            );
+            return [];
+        }
+
+        dir.ListDirBegin();
+        string fileName = dir.GetNext();
+        while (fileName != "")
+        {
+            if (!dir.CurrentIsDir())
+            {
+                var res = GD.Load<T>($"{path}/{fileName}");
+                result.Add(fileName, res);
+            }
+            else
+            {
+                GD.PushWarning($"folder: {fileName} found in {path}. Ignoring contents");
+            }
+            fileName = dir.GetNext();
+        }
+        return result;
     }
 }

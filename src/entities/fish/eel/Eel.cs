@@ -20,6 +20,15 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         get;
     }
 
+    [Export]
+    float zapDamage = 3f;
+
+    [Export]
+    float zapDuration = 3f;
+
+    [Export]
+    float zapKnockback = 3f;
+
     public Bubble? BubbleJail { get; set; }
 
     Mesh IBubbleable.Mesh => Mesh.Mesh;
@@ -34,7 +43,6 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         Bubbled,
     }
 
-    float elecTimer = 3f;
     float wanderTimer = 3f;
 
     private readonly StateMachine<State> stateMachine = new();
@@ -49,9 +57,9 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 
     private void BubbledUpdate(float delta)
     {
-        if (BubbleJail != null)
+        if (GodotObject.IsInstanceValid(BubbleJail))
         {
-            GlobalPosition = BubbleJail.GlobalPosition;
+            GlobalPosition = BubbleJail!.GlobalPosition;
         }
         Velocity = Vec3.Zero;
     }
@@ -86,10 +94,10 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         //     (float)-(WanderRadius * -Math.Cos(Period))
         // );
         //elecTimer -= delta;
-        if (elecTimer < 0)
+        if (zapDuration < 0)
         {
             stateMachine.State = State.Electric;
-            elecTimer = 3f;
+            zapDuration = 3f;
         }
     }
 
@@ -111,16 +119,18 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         {
             if (overlapper == this)
                 continue;
-            if (overlapper is Player player)
+            if (overlapper is ITakeDamage damageTaker)
             {
-                player.GetShocked(this.GlobalPosition);
+                var kb =
+                    (damageTaker.Node.GlobalPosition - GlobalPosition).Normalized() * zapKnockback;
+                damageTaker.TakeDamage(3, kb, this);
             }
         }
-        elecTimer -= delta;
-        if (elecTimer < 0)
+        zapDuration -= delta;
+        if (zapDuration < 0)
         {
             stateMachine.State = State.Wander;
-            elecTimer = 3f;
+            zapDuration = 3f;
         }
     }
 

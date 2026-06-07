@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Yotf;
 
 public class SwimmingState : IPlayerState
@@ -14,7 +12,7 @@ public class SwimmingState : IPlayerState
     public void Enter(Player player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
-        Stats = player.GetNode<PlayerStats>("Stats");
+        Stats = player.Stats;
         player.UnderwaterRect.Visible = true;
     }
 
@@ -23,7 +21,7 @@ public class SwimmingState : IPlayerState
         Stats.RestoreOxygen();
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
-        player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
+        player.UpdateBodySwimRotation(player.Skin.Rotation with { X = 0f });
         player.UnderwaterRect.Visible = false;
     }
 
@@ -35,7 +33,7 @@ public class SwimmingState : IPlayerState
         Vec3 bodyUp = -cam.Z;
         Vec3 bodyRight = cam.X;
         Vec3 bodyBack = bodyUp.Cross(bodyRight);
-        player.UpdateBodyRotation(
+        player.UpdateBodySwimRotation(
             new Basis(bodyRight, bodyUp, bodyBack).Orthonormalized().GetEuler()
         );
 
@@ -47,7 +45,7 @@ public class SwimmingState : IPlayerState
             player.Camera.GlobalTransform.Basis.X
             * (Input.GetActionStrength("right") - Input.GetActionStrength("left"));
 
-        float speed = player.SwimSpeed;
+        float speed = player.SwimSpeed + PlayerStats.ExtraSwimSpeed;
         if (Input.IsActionJustPressed("jump"))
             speed *= player.SwimBoostMultiplier;
 

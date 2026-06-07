@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ds0sik53rrrre"
-path="res://.godot/imported/radar_mask.png-01f4bcc77210ac8e0437e008190e2b2a.ctex"
+uid="uid://dl7cifwlbcvw4"
+path="res://.godot/imported/grading_photo_mask.png-7139cd54b72efd0d7bff9d1cff484eae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/ui/radar_mask.png"
-dest_files=["res://.godot/imported/radar_mask.png-01f4bcc77210ac8e0437e008190e2b2a.ctex"]
+source_file="res://assets/2d/ui/grading/grading_photo_mask.png"
+dest_files=["res://.godot/imported/grading_photo_mask.png-7139cd54b72efd0d7bff9d1cff484eae.ctex"]
 
 [params]
 

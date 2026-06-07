@@ -68,6 +68,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate, FleeEnter);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
+        stateMachine.State = State.Wander;
     }
 
     private void BubbleUpdate(float delta)
@@ -77,7 +78,11 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
             stateMachine.State = State.Wander;
         }
 
-        GlobalPosition = BubbleJail!.GlobalPosition;
+        if (GodotObject.IsInstanceValid(BubbleJail))
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+        }
+
         Velocity = Vec3.Zero;
     }
 
@@ -151,10 +156,15 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     public void FleeUpdate(float delta)
     {
-        var fleeVec = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized() * FleeDistance;
+        if (GodotObject.IsInstanceValid(ThreatTarget))
+        {
+            ThreatPosition = ThreatTarget!.GlobalPosition;
+        }
+
+        var fleeVec = (GlobalPosition - ThreatPosition).Normalized() * FleeDistance;
         if (SmoothMoveTo(CurrentNode!.GlobalPosition, FleeSpeed, delta, 10))
         {
-            if ((ThreatTarget!.GlobalPosition - GlobalPosition).Length() >= FleeDistance / 2)
+            if ((ThreatPosition - GlobalPosition).Length() >= FleeDistance / 2)
             {
                 CreateTween().Fn(() => ToggleInk(false), 3);
                 stateMachine.State = State.Wander;
@@ -168,7 +178,14 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
     {
         ThreatTarget = NoiseSource;
         ThreatPosition = NoiseSource.GlobalPosition;
-        stateMachine.State = State.Flee;
+        if (stateMachine.State != State.Flee)
+        {
+            stateMachine.State = State.Flee;
+        }
+        else
+        {
+            ThreatTarget = NoiseSource;
+        }
     }
 
     public void PutInBubble()

@@ -41,15 +41,15 @@ public partial class InputManager : Node
                 //GetViewport().SetInputAsHandled();
             }
 
-            switch (mouseEvent.ButtonIndex)
-            {
-                case MouseButton.WheelUp:
-                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed + 5, 2, 500);
-                    break;
-                case MouseButton.WheelDown:
-                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed - 5, 2, 500);
-                    break;
-            }
+            // switch (mouseEvent.ButtonIndex)
+            // {
+            //     case MouseButton.WheelUp:
+            //         player.MoveSpeed = Mathf.Clamp(player.MoveSpeed + 5, 2, 500);
+            //         break;
+            //     case MouseButton.WheelDown:
+            //         player.MoveSpeed = Mathf.Clamp(player.MoveSpeed - 5, 2, 500);
+            //         break;
+            // }
         }
 
         //TODO (j) wrap this in some debug mode checker

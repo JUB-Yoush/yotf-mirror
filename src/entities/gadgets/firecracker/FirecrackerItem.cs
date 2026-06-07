@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class FirecrackerItem : Item
+public partial class FirecrackerItem : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -54,10 +54,9 @@ public partial class FirecrackerItem : Item
     public void MakeFirecracker()
     {
         var initialVelocity = -playerCamera.GlobalTransform.Basis.Z * throwForce;
-        var firecracker = Firecracker.New(initialVelocity);
-        this.SceneRoot().AddChild(firecracker);
-        firecracker.GlobalPosition =
-            GlobalPosition + -playerCamera.GlobalTransform.Basis.Z * throwForce;
+        var firecracker = Firecracker.New(this.SceneRoot(), initialVelocity);
+        //this.SceneRoot().AddChild(firecracker);
+        firecracker.GlobalPosition = GlobalPosition + -playerCamera.GlobalTransform.Basis.Z;
     }
 
     public override void _Process(double delta)

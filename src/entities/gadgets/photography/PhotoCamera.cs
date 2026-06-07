@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Yotf;
@@ -15,7 +15,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
 
-    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/photo_camera.tscn"
+    );
 
     public static Action<bool>? AimingChanged;
 
@@ -24,8 +26,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderLerp = 20;
-    const float DefaultViewfinderFov = 50;
-    private float ViewfinderFov = 50;
+    const float DefaultViewfinderFov = 70;
+    private float ViewfinderFov = DefaultViewfinderFov;
 
     static readonly SubViewport.UpdateMode[] updateModes =
     [
@@ -62,6 +64,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         get => AudioStreamPlayer;
     }
 
+    [Export]
+    public float LightFalloffExponent = 1.5f;
+
     private Player player = null!;
 
     private Camera3D playerCamera = null!;
@@ -74,8 +79,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     {
         set
         {
-            field = Math.Clamp(value, 0, maxFilm);
-            FilmLabel.Text = $"{field}/{maxFilm}";
+            field = Math.Clamp(value, 0, PlayerStats.MaxFilm);
+            FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
         }
         get;
     }
@@ -83,8 +88,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public new PackedScene PackedScene => Packed;
 
     public new Mesh DropMesh => Mesh.Mesh;
-
-    public int maxFilm = 100;
 
     private bool Aiming
     {
@@ -98,8 +101,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public override void _Ready()
     {
-        Film = maxFilm;
         player = GetParent().GetParent<Player>();
+        Film = PlayerStats.MaxFilm;
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
@@ -113,9 +116,22 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
     }
 
+    public override void Equipped()
+    {
+        FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
+    }
+
+    public override void Added()
+    {
+        Film = PlayerStats.MaxFilm;
+    }
+
     public override void Removed()
     {
-        CreateTween().LerpProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        Log.PrintLn("dropping camera");
+        Aiming = false;
+        //CreateTween().AnimateProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        playerCamera.Fov = DefaultFov;
         ToggleCameraAim(false);
     }
 
@@ -130,7 +146,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             return;
 
         if (@event.IsActionPressed("scroll_up"))
-            ViewfinderFov = Math.Max(ViewfinderFov - 2, 20);
+            ViewfinderFov = Math.Max(
+                ViewfinderFov - 2,
+                Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10)
+            );
 
         if (@event.IsActionPressed("scroll_down"))
             ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
@@ -155,9 +174,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = IDroppable.MakeDropItem(this);
-            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            var dropItem = DroppedItem.New(DropMesh, PackedScene, Photos);
             GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
             Inventory.RemoveCurrentItem();
         }
     }
@@ -207,8 +227,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Image image = GetViewportImage();
         PhotoData photo = PhotoData.New(Name, subjects, image.Data);
         Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
-        FlashSFX();
-        IMakeNoise.MakeNoise(this, 5, SFX.CameraShutter, 5);
+        FlashVFX();
+        IMakeNoise.MakeNoise(this, 5, Sfx.CameraShutter, 5);
         AddPhoto(photo, grades, modifiers);
     }
 
@@ -254,7 +274,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
             //fish lighting
             // TODO (j) implement
-            var lightScore = 1f;
+            var lightScore = ScoreLightForSubject(subject, photographable);
+
             result.Add(
                 subject.Name,
                 new(
@@ -308,7 +329,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         return [.. result];
     }
 
-    void FlashSFX()
+    void FlashVFX()
     {
         var tween = CreateTween();
         tween.Fn(() => FlashRect.Visible = true);
@@ -347,8 +368,59 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
+    public override void Unequipped()
+    {
+        Visible = false;
+    }
+
     public void ClearPhotos()
     {
         Photos = [];
+    }
+
+    private float ScoreLightForSubject(Node3D subject, IPhotographable photographable)
+    {
+        GD.Print($"Found {photographable.NearbyLights.Count} nearby lights for {subject.Name}");
+        var nearbyLights = photographable.NearbyLights.Where(l => l.IsActive).ToList();
+        if (nearbyLights.Count == 0)
+            return 0f;
+
+        var spaceState = subject.GetWorld3D().DirectSpaceState;
+        var excludeRids = new Godot.Collections.Array<Rid>();
+        if (subject is CollisionObject3D col)
+            excludeRids.Add(col.GetRid());
+
+        float closestDist = float.MaxValue;
+        IGiveLight? closestLight = null;
+
+        foreach (var light in nearbyLights)
+        {
+            var query = PhysicsRayQueryParameters3D.Create(
+                subject.GlobalPosition,
+                light.LightPosition
+            );
+            query.Exclude = excludeRids;
+            if (light is CollisionObject3D lightCol)
+                query.Exclude.Add(lightCol.GetRid());
+
+            var hit = spaceState.IntersectRay(query);
+            if (hit.Count > 0)
+                continue;
+
+            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
+            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestLight = light;
+            }
+        }
+
+        if (closestLight is null)
+            return 0f;
+
+        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
+        return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
     }
 }

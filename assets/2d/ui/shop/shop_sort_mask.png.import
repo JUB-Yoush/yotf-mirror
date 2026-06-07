@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0fxiftydxnpf"
-path="res://.godot/imported/barometer_ruler.png-28b7b6dcd46de881f7441a4174140156.ctex"
+uid="uid://bvq4mddwiq3pp"
+path="res://.godot/imported/shop_sort_mask.png-8cca8b6e6719cc5b20d660c444fc34b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/ui/barometer_ruler.png"
-dest_files=["res://.godot/imported/barometer_ruler.png-28b7b6dcd46de881f7441a4174140156.ctex"]
+source_file="res://assets/2d/ui/shop/shop_sort_mask.png"
+dest_files=["res://.godot/imported/shop_sort_mask.png-8cca8b6e6719cc5b20d660c444fc34b7.ctex"]
 
 [params]
 

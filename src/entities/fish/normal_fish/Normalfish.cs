@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Normalfish : Fish, IHearNoise, IBubbleable
+public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -41,13 +41,16 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
 
     public void BubbleUpdate(float delta)
     {
-        GlobalPosition = BubbleJail!.GlobalPosition;
+        if (GodotObject.IsInstanceValid(BubbleJail))
+        {
+            GlobalPosition = BubbleJail!.GlobalPosition;
+        }
         Velocity = Vec3.Zero;
     }
 
     private void FleeUpdate(float delta)
     {
-        if (ThreatTarget != null)
+        if (GodotObject.IsInstanceValid(ThreatTarget))
             ThreatPosition = ThreatTarget.GlobalPosition;
 
         Vec3 awayDir = (GlobalPosition - ThreatPosition).Normalized();
@@ -79,6 +82,7 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable
     public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise)
     {
         stateMachine.State = State.Flee;
+        ThreatTarget = NoiseSource;
     }
 
     public void PutInBubble()

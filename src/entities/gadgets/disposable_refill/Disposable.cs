@@ -4,7 +4,7 @@ using Godot;
 
 namespace Yotf;
 
-public partial class DisposableRestore : Item
+public partial class Disposable : Item, IDroppable
 {
     public enum Restore
     {
@@ -17,10 +17,10 @@ public partial class DisposableRestore : Item
     [Export]
     float restoreAmount = 50;
 
-    //public static Dictionary<Restores,(float,float)> RestoreMap = [{Oxygen,()}];
+    public Disposable.Restore restore = Disposable.Restore.None;
 
     public static PackedScene Packed = GD.Load<PackedScene>(
-        "res://src/entities/gadgets/disposable_refill/disposable_restore.tscn"
+        "res://src/entities/gadgets/disposable_refill/disposable.tscn"
     );
 
     [Export]
@@ -32,7 +32,7 @@ public partial class DisposableRestore : Item
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("use_item"))
+        if (@event.IsActionPressed("take_photo"))
             Use();
 
         if (@event.IsActionPressed("drop_item"))

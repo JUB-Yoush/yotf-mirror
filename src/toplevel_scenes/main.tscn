@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b0mty4lnr6cjh" path="res://src/helper_nodes/playtest_level.tscn" id="1_kvr80"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="2_swlc7"]
+[ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="3_oxt34"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="4_i3xn1"]
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="6_i584b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_tjs3j"]
@@ -59,6 +60,7 @@ mesh = SubResource("PlaneMesh_odjcq")
 skeleton = NodePath("../WorldEnvironment")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=788322636]
+environment = ExtResource("3_oxt34")
 camera_attributes = SubResource("CameraAttributesPractical_fleds")
 
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_tjs3j")]
@@ -90,11 +92,10 @@ omni_shadow_mode = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.87765, -6.3204255, 56.980133)
 InsideChest = ExtResource("7_i5ocd")
 
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
-transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 50.533947, -6.250486, 48.538315)
-
-[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("8_i5ocd")]
+[node name="Axolotl" parent="." unique_id=283741704 node_paths=PackedStringArray("SplineFollower", "CurrentRoom") instance=ExtResource("8_i5ocd")]
 transform = Transform3D(0.19238494, 0, 0.98131955, 0, 1, 0, -0.98131955, 0, 0.19238494, 40.363266, -4.0498934, 49.047516)
+SplineFollower = NodePath("../Path3D/PathFollow3D")
+CurrentRoom = NodePath("../Home")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=715837269]
 transform = Transform3D(1, 0, 0, 0, 0.96294165, -0.26970983, 0, 0.26970983, 0.96294165, 0, 0, 1.7089123)
@@ -136,5 +137,8 @@ spot_angle = 30.828348
 
 [node name="Home" parent="." unique_id=1044421178 instance=ExtResource("9_i3xn1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.32608, 2.5154004, 45.023403)
+
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("9_oxt34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.367992, 9.340918, 49.13082)
 
 [editable path="PlaytestLevel"]
