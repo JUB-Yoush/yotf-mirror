@@ -142,7 +142,14 @@ public partial class Sonar : Item, IDroppable
         var distanceText = distance <= MinLabelDistance ? distance.ToString("F1") : "???";
         if (closest.Discovered)
         {
-            player.Alert.Text = "DISCOVERED";
+            if (GradingUI.maxPhotoScores.TryGetValue(closest.Name, out var score))
+            {
+                player.Alert.Text = $"MAX PHOTO: {score}";
+            }
+            else
+            {
+                player.Alert.Text = $"UNPHOTOGRAPHED: {score}";
+            }
         }
         var nameText = closest.Discovered ? closest.Name.ToString() : "UNKNOWN";
         Label.Text = $"{nameText}| {distanceText}m";

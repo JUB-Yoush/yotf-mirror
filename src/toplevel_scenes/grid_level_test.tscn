@@ -1375,4 +1375,7 @@ metadata/_edit_lock_ = true
 [node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.203253, 7.866131, -1.3688822)
 
+[node name="NormalFish2" parent="." unique_id=1208467565 instance=ExtResource("16_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.802319, 7.866131, -3.0672042)
+
 [editable path="Lab"]

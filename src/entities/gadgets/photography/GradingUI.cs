@@ -9,7 +9,7 @@ public partial class GradingUI : Control
 {
     private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
 
-    private static readonly Dictionary<string, int> maxPhotoScores = [];
+    public static readonly Dictionary<string, int> maxPhotoScores = [];
     private static int labLastRanIn = 0;
 
     private const float PhotoScoreExponent = 2f;

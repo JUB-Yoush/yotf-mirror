@@ -7,7 +7,7 @@ namespace Yotf;
 /// Base Fish Class
 /// </summary>
 [Meta(typeof(IAutoNode))]
-public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonarable
+public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonarable, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -67,6 +67,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     [Export(PropertyHint.Range, "0,1")]
     public float NoiseTolerance = 0.4f;
 
+    [Export]
+    public float MaxHp = 10f;
+
+    public float Hp = 10f;
+
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vec3 ThreatPosition { get; internal set; }
 
@@ -108,6 +113,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         set;
     }
     public bool Discovered { get; set; }
+    public float Health { get; set; }
+    public bool Invincible { get; set; }
 
     // public override void _PhysicsProcess(double delta)
     // {
@@ -203,6 +210,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     }
 
     public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
+
+    public void TakeDamage(float amount, Vec3 knockback, Node3D damageSource)
+    {
+        throw new NotImplementedException();
+    }
 
     // ====================== INTERNAL HELPERS ======================
 

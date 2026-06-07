@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Yotf;
@@ -224,7 +225,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Image image = GetViewportImage();
         PhotoData photo = PhotoData.New(Name, subjects, image.Data);
         Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
-        FlashSFX();
+        FlashVFX();
         IMakeNoise.MakeNoise(this, 5, Sfx.CameraShutter, 5);
         AddPhoto(photo, grades, modifiers);
     }
@@ -325,7 +326,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         return [.. result];
     }
 
-    void FlashSFX()
+    void FlashVFX()
     {
         var tween = CreateTween();
         tween.Fn(() => FlashRect.Visible = true);
@@ -372,5 +373,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public void ClearPhotos()
     {
         Photos = [];
+    }
+
+    public static string StripNumbers(string name)
+    {
+        char[] digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        return name.TrimEnd(digits);
     }
 }

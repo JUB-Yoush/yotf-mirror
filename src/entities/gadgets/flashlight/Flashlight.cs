@@ -43,7 +43,9 @@ public partial class Flashlight : Item, IDroppable
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("toggle_flashlight"))
+        if (!CurrentItem)
+            return;
+        if (@event.IsActionPressed("take_photo"))
         {
             isOn = !isOn;
             SpotLight.LightEnergy = isOn ? 10 : 0;
