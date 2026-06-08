@@ -24,7 +24,7 @@ public partial class ShopUI : Control
     private List<ShopItem> Upgrades = [];
 
     private List<ShopItem> ItemQueue = []; //to purchase items
-    private List<ShopItem> UpgradeQueue = [];
+  
 
     // [Node]
     // public required HBoxContainer UpgradeView { set; get; }
@@ -116,7 +116,7 @@ public partial class ShopUI : Control
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${upgrade.Price}";
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = upgrade.Description;
-            view.GetNode<TextureButton>(".").Pressed += () => QueueUpgrade(upgrade);
+            view.GetNode<TextureButton>(".").Pressed += () => QueueItem(upgrade);
             view.GetNode<TextureButton>(".").Disabled = player.Money < upgrade.Price;
             CollectionUpgrades.AddChild(view);
         }
@@ -129,28 +129,44 @@ public partial class ShopUI : Control
         var queue = ShopItemQueue.Instantiate<Button>();
         queue.GetNode<Button>(".").Icon = item.Icon;
         queue.GetNode<Button>(".").Text = item.Name;
+        queue.GetNode<Button>(".").Pressed += () => RemoveCartItem(item, queue.GetNode<Button>("."));
         CartItemList.AddChild(queue);
     }
 
-    private void QueueUpgrade(ShopItem upgrade) {
-   
-        UpgradeQueue.Add(upgrade);
-
-        var queue = ShopItemQueue.Instantiate<Button>();
-        queue.GetNode<Button>(".").Icon = upgrade.Icon;
-        queue.GetNode<Button>(".").Text = upgrade.Name;
-        CartItemList.AddChild(queue);
+    private void RemoveCartItem(ShopItem item, Button thisButton) {
+        foreach (ShopItem CartItem in ItemQueue) {
+            if (CartItem == item) {
+                
+                ItemQueue.Remove(item);
+                 GD.Print("item removed!");
+            }
+            
+            thisButton.QueueFree();
+        }
+      
+     
     }
 
- 
+    private void ClearCart() {
+        ItemQueue.Clear();
+        CartItemList.RemoveAllChildren();
+    }
 
     private void BuyAll() {
         foreach (ShopItem item in ItemQueue) {
-            BuyItem(item);
+            if (item.ItemType == ShopItem.Type.Item)
+            {
+                BuyItem(item);
+            } 
+            else
+            {
+                BuyUpgrade(item);
+            }
+
+
+            ClearCart();
         }
-        foreach (ShopItem item in UpgradeQueue) {
-            BuyUpgrade(item);
-        }
+
     }
     private void BuyUpgrade(ShopItem upgrade)
     {
