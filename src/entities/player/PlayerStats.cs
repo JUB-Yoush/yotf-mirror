@@ -97,7 +97,7 @@ public partial class PlayerStats : Node
         }
     }
 
-    static int maxFilm = 12;
+    static int maxFilm = 999;
     public static int MaxFilm
     {
         set { maxFilm = value; }

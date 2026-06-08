@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://chj7s770vcrql"]
 
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_kksva"]
-[ext_resource type="PackedScene" uid="uid://dak3fnyveagr7" path="res://src/ui/net_ui.tscn" id="1_l4exj"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="4_6igj1"]
-[ext_resource type="PackedScene" uid="uid://dclgtcq541tkx" path="res://src/entities/fish/normal_fish/thwomp_fish.tscn" id="7_48c3q"]
+[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="7_48c3q"]
+[ext_resource type="Script" uid="uid://bgyveklptn51u" path="res://src/entities/cave/NavGraph.cs" id="8_208ij"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="20_bguta"]
 
@@ -109,9 +109,6 @@ show_checkered = true
 
 [node name="Main" type="Node3D" unique_id=1686587910]
 
-[node name="NetUi" parent="." unique_id=367554144 instance=ExtResource("1_l4exj")]
-unique_name_in_owner = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_deq46")
 camera_attributes = SubResource("CameraAttributesPractical_dikcb")
@@ -127,10 +124,14 @@ top_level = true
 metadata/_edit_lock_ = true
 
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("12_4ktrp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.006737, 0.50154495, 13.570477)
+transform = Transform3D(0.057198122, 0, -0.99836284, 0, 1, 0, 0.99836284, 0, 0.057198122, -25.723686, -3.4668741, -16.397976)
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("20_bguta")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.215076, 0.44916487, 20.054745)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.74151, 0.44916487, 2.0694962)
 
-[node name="ThwompFish" parent="." unique_id=711625347 instance=ExtResource("7_48c3q")]
-transform = Transform3D(-0.40388057, 0, 0.91481173, 0, 1, 0, -0.91481173, 0, -0.40388057, -26.350737, 0.46471214, 35.509876)
+[node name="Node3D" type="Node3D" parent="." unique_id=3621970]
+script = ExtResource("8_208ij")
+
+[node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("7_48c3q")]
+transform = Transform3D(0.48808813, 0, 0.87279433, 0, 1, 0, -0.87279433, 0, 0.48808813, -20.39573, 3.2742243, 9.721539)
+AIIsOn = false

@@ -136,6 +136,8 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _Process(double delta)
     {
+        if (!AIIsOn)
+            return;
         stateMachine.Update(delta);
     }
 

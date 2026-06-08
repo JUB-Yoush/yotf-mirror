@@ -30,6 +30,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public required MeshInstance3D NavBox { set; get; }
 
     [Export]
+    public bool AIIsOn = true;
+
+    [Export]
     public PathFollow3D? SplineFollower;
 
     [Export]
