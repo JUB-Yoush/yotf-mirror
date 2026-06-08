@@ -24,7 +24,6 @@ public interface IMakeNoise
             var listener = (IHearNoise)body;
             listener.OnNoiseHeard(audioArea, dB, sfx);
         }
-        Log.PrintLn("done playing noise");
     }
 
     public int GetRadiusFromdB(float dB)

@@ -30,12 +30,12 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
-        stateMachine.State = State.Wander;
+        //stateMachine.State = State.Wander;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        stateMachine.Update(delta);
+        //stateMachine.Update(delta);
         MoveAndSlide();
     }
 

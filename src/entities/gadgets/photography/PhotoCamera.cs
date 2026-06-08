@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -252,29 +253,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         {
             // TODO (j) where will fish be placed within the scene?
             var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
-
-            // how centered the fish is
-            var camToFish = subject.GlobalPosition - PhotoCameraCam.GlobalPosition;
-            var camFacing = PhotoCameraCam.GlobalTransform.Basis.Z;
-            var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
-            var angleScore = Math.Clamp((angle - 2.6) / (Math.PI - 2.6), 0, 1);
-
-            //If the Fish is facing the camera
-            var facingAngle = camFacing.AngleTo(-subject.GlobalTransform.Basis.Z); // from a range of 0 - PI
-            var facingScore = Math.Clamp(facingAngle / Math.PI, 0, 1);
-
-            // size of fish on the screen
-            // distance from camera scaled based on the size of the bounding box
-            var photographable = subject as IPhotographable;
-            var vis = photographable.SubjectBoundingMesh as VisualInstance3D;
-            var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
-            var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
+            var angleScore = CalcCenteredScore(subject);
+            var facingScore = CalcFacingScore(subject);
+            var sizeScore = CalcSizeScore(subject);
             var inAction = subject is IDoesAction actionable && actionable.InAction;
-
-            //fish lighting
-            // TODO (j) implement
-            var lightScore = ScoreLightForSubject(subject, photographable);
+            var lightScore = CalcLightScore(subject);
 
             result.Add(
                 subject.Name,
@@ -289,8 +272,62 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     false // fish can't die (yet)
                 )
             );
+            Log.PrintLn(result[subject.Name]);
         }
         return result;
+    }
+
+    float CalcCenteredScore(Node3D subject)
+    {
+        var targetDir = (subject.GlobalPosition - playerCamera.GlobalPosition).Normalized();
+        var subjectFacingDir = -playerCamera.GlobalTransform.Basis.Z;
+        var dot = subjectFacingDir.Dot(targetDir);
+        return Math.Clamp(dot, 0f, 1f);
+    }
+
+    float CalcFacingScore(Node3D subject)
+    {
+        var targetDir = -subject.GlobalTransform.Basis.Z.Normalized();
+        var subjectFacingDir = -playerCamera.GlobalTransform.Basis.Z;
+        var dot = subjectFacingDir.Dot(targetDir);
+        return Math.Clamp(dot, 0f, 1f);
+    }
+
+    float CalcSizeScore(Node3D subject)
+    {
+        var photographable = subject as IPhotographable;
+        var vis = photographable!.SubjectBoundingMesh as VisualInstance3D;
+        var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
+        //(Vec2 Min, Vec2 Max) bounding = new(new(float.MaxValue, float.MaxValue), new(0, 0));
+        var MinPoint = new Vec3(float.MaxValue, float.MaxValue, float.MaxValue);
+        var MaxPoint = new Vec3(0, 0, 0);
+        for (int i = 0; i < 8; i++)
+        {
+            var point = worldAabb.GetEndpoint(i);
+            if (point.LengthSquared() < MinPoint.LengthSquared())
+                MinPoint = point;
+
+            if (point.LengthSquared() > MaxPoint.LengthSquared())
+                MaxPoint = point;
+
+            // bounding.Min.X = Math.Min(point.X, bounding.Min.X);
+            // bounding.Min.Y = Math.Min(point.Y, bounding.Min.Y);
+            // bounding.Max.X = Math.Max(point.X, bounding.Max.X);
+            // bounding.Max.Y = Math.Max(point.Y, bounding.Max.Y);
+        }
+        //var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
+        var boundingSize =
+            PhotoCameraCam.UnprojectPosition(MinPoint) - PhotoCameraCam.UnprojectPosition(MaxPoint);
+
+        Log.PrintLn(
+            PhotoCameraCam.UnprojectPosition(MaxPoint),
+            PhotoCameraCam.UnprojectPosition(MinPoint),
+            boundingSize
+        );
+
+        var sizeInViewport = 1 - (PhotoViewport.Size - boundingSize).Length();
+        return sizeInViewport;
+        //return Math.Clamp(sizeInViewport, 0, 1);
     }
 
     private Image GetViewportImage()
@@ -378,9 +415,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Photos = [];
     }
 
-    private float ScoreLightForSubject(Node3D subject, IPhotographable photographable)
+    private float CalcLightScore(Node3D subject)
     {
-        GD.Print($"Found {photographable.NearbyLights.Count} nearby lights for {subject.Name}");
+        var photographable = subject as IPhotographable;
+        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
         var nearbyLights = photographable.NearbyLights.Where(l => l.IsActive).ToList();
         if (nearbyLights.Count == 0)
             return 0f;

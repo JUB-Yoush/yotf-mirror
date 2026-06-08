@@ -131,6 +131,7 @@ shape = SubResource("SphereShape3D_2c250")
 unique_name_in_owner = true
 
 [node name="Skin" type="Node3D" parent="." unique_id=200438149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13681947, -0.0867542)
 
 [node name="Mesh" type="MeshInstance3D" parent="Skin" unique_id=431815084]
 unique_name_in_owner = true
