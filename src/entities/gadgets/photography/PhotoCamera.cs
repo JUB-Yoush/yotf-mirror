@@ -197,14 +197,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         }
     }
 
-    // float CalcZoomRatio(float fov){
-    //     // var currentFov = PhotoCameraCam.Fov;
-    //     // var maxFov = Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10);
-    //     var minFov = DefaultFov;
-    //     return
-
-    // }
-
     public override void _Process(double delta)
     {
         Mesh.GlobalTransform = playerCamera.GlobalTransform;

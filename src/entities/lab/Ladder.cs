@@ -14,6 +14,9 @@ public partial class Ladder : Node3D, IInteractable
     [Export]
     float ladderLength = 3f;
 
+    [Export]
+    bool isTop = false;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -22,6 +25,8 @@ public partial class Ladder : Node3D, IInteractable
     public void OnInteraction()
     {
         var player = this.SceneRoot().GetNode<Player>()!;
+        if (isTop)
+            return;
         CreateTween()
             .AnimateProperty(
                 player,

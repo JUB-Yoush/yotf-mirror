@@ -160,6 +160,9 @@ public partial class Sonar : Item, IDroppable
         }
         var nameText = closest.Discovered ? closest.Name.ToString() : "UNKNOWN";
         Label.Text = $"{nameText}| {distanceText}m";
+
+        Mesh.GlobalTransform = playerCamera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
     }
 
     private void UpdateRetacleUI(ISonarable sonarable)

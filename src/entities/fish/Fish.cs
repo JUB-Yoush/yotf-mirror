@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Yotf;
 
@@ -37,6 +39,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     [Export]
     public FishRoom? CurrentRoom { get; set; }
+
+    [Export]
+    public int Layer = -1;
 
     [ExportCategory("FishProfile")]
     [Export]
@@ -179,6 +184,31 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public void TakeDamage(float amount, Vec3 knockback, Node3D source)
     {
         throw new System.NotImplementedException();
+    }
+
+    public override void _Ready()
+    {
+        Debug.Assert(Layer != -1, $"Fish {Name} created without assigning Layer");
+        Lab.CurrentLabUpdated += OnLabUpdated;
+    }
+
+    private void OnLabUpdated(Lab lab)
+    {
+        Log.PrintLn("hi i'm fish an a lab updated");
+        if (lab.Index == Layer)
+        {
+            ProcessMode = ProcessModeEnum.Pausable;
+        }
+        else
+        {
+            ProcessMode = ProcessModeEnum.Disabled;
+            Visible = false;
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        Lab.CurrentLabUpdated -= OnLabUpdated;
     }
 
     // ====================== INTERNAL HELPERS ======================

@@ -64,6 +64,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     public override void _Ready()
     {
+        base._Ready();
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate, FleeEnter);

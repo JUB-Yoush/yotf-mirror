@@ -196,7 +196,6 @@ public partial class Player : CharacterBody3D
         WalkingState.Enter(this);
         FirstPerson = true;
 
-        //if (Lab.Indicies.TryGetValue(CurrentLab, out var labIndex)) { }
         if (Lab.GetLabByIndex(CurrentLabIndex) is { } lab)
         {
             Lab.CurrentLab = lab;

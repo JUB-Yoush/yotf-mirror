@@ -76,6 +76,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _Ready()
     {
+        base._Ready();
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         CurrentRoom ??= AssignCurrentRoom();
 

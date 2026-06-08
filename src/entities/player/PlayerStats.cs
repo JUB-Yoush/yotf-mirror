@@ -128,7 +128,7 @@ public partial class PlayerStats : Node
         Oxygen = MaxOxygen;
         Battery = MaxBattery;
         Money = 100;
-        TotalGalleryScore = 0;
+        TotalGalleryScore = 10;
     }
 
     public void SpendOxygen(double delta)

@@ -20,6 +20,7 @@ public partial class Lab : Node3D
             field?.Toggle(false);
             field = value;
             field!.Toggle(true);
+            CurrentLabUpdated?.Invoke(field);
         }
         get;
     }

@@ -16,6 +16,7 @@ public partial class Ghost : Fish
 
     public override void _Ready()
     {
+        base._Ready();
         Skin.Visible = false;
         PhotoCamera.AimingChanged += SetVisibility;
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;

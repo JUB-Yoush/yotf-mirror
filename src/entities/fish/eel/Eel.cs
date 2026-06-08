@@ -49,6 +49,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _Ready()
     {
+        base._Ready();
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Electric, ElectricUpdate, ElectricEnter, ElectricExit);
         stateMachine.AddState(State.Bubbled, BubbledUpdate);
