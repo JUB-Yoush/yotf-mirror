@@ -218,7 +218,7 @@ shape = SubResource("BoxShape3D_1n4q7")
 debug_color = Color(0.77046335, 0.3335771, 0.75047326, 0.41960785)
 
 [node name="BottomLadder" parent="." unique_id=347027057 instance=ExtResource("11_4itu8")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.8263807, -1.8350016, -3.8884718)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2672143, 0.57327616, -3.8884718)
 
 [node name="TopLadder" parent="." unique_id=526113463 instance=ExtResource("11_4itu8")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 9.986265, 1.3670663, -4.330106)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.468633, 3.3535805, -4.330106)
