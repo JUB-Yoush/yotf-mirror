@@ -18,8 +18,13 @@ public partial class ShopUI : Control
         "res://src/ui/shop_item.tscn"
     );
 
+    public static readonly PackedScene ShopItemQueue = GD.Load<PackedScene>("res://src/ui/queued_item.tscn");
+
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
+
+    private List<ShopItem> ItemQueue = []; //to purchase items
+    private List<ShopItem> UpgradeQueue = [];
 
     // [Node]
     // public required HBoxContainer UpgradeView { set; get; }
@@ -33,6 +38,11 @@ public partial class ShopUI : Control
     [Node("%ShopItems/CollectionUpgrades")]
     public required GridContainer CollectionUpgrades { set; get; }
 
+    [Node("PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/BuyButton")]
+    public required TextureButton BuyButton { set; get; }
+
+    [Node("%CartItemsList")]
+    public required VBoxContainer CartItemList { set; get; }
 
     private ShopKiosk kiosk = null!;
 
@@ -56,6 +66,7 @@ public partial class ShopUI : Control
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
         ShopSortBtnGroup?.Pressed += OnSortGroupPressed;
+        BuyButton.Pressed += BuyAll;
         PopulateShop();
 
         
@@ -84,7 +95,7 @@ public partial class ShopUI : Control
        
         CollectionItems.RemoveAllChildren();
         CollectionUpgrades.RemoveAllChildren();
-        
+
         var player = this.SceneRoot().GetNode<Player>()!.GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
@@ -92,7 +103,8 @@ public partial class ShopUI : Control
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
           view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${item.Price}";
-            view.GetNode<TextureButton>(".").Pressed += () => BuyItem(item);
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = item.Description;
+            view.GetNode<TextureButton>(".").Pressed += () => QueueItem(item);
             view.GetNode<TextureButton>(".").Disabled = player.Money < item.Price;
             CollectionItems.AddChild(view);
         }
@@ -103,12 +115,43 @@ public partial class ShopUI : Control
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${upgrade.Price}";
-            view.GetNode<TextureButton>(".").Pressed += () => BuyUpgrade(upgrade);
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = upgrade.Description;
+            view.GetNode<TextureButton>(".").Pressed += () => QueueUpgrade(upgrade);
             view.GetNode<TextureButton>(".").Disabled = player.Money < upgrade.Price;
             CollectionUpgrades.AddChild(view);
         }
     }
 
+    private void QueueItem(ShopItem item) {
+    
+        ItemQueue.Add(item);
+
+        var queue = ShopItemQueue.Instantiate<Button>();
+        queue.GetNode<Button>(".").Icon = item.Icon;
+        queue.GetNode<Button>(".").Text = item.Name;
+        CartItemList.AddChild(queue);
+    }
+
+    private void QueueUpgrade(ShopItem upgrade) {
+   
+        UpgradeQueue.Add(upgrade);
+
+        var queue = ShopItemQueue.Instantiate<Button>();
+        queue.GetNode<Button>(".").Icon = upgrade.Icon;
+        queue.GetNode<Button>(".").Text = upgrade.Name;
+        CartItemList.AddChild(queue);
+    }
+
+ 
+
+    private void BuyAll() {
+        foreach (ShopItem item in ItemQueue) {
+            BuyItem(item);
+        }
+        foreach (ShopItem item in UpgradeQueue) {
+            BuyUpgrade(item);
+        }
+    }
     private void BuyUpgrade(ShopItem upgrade)
     {
         var player = this.SceneRoot().GetNode<Player>()!.Stats;

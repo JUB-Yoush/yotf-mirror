@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c2o4ckurhb65w"]
+
+[ext_resource type="Theme" uid="uid://bp82ndqjoevtv" path="res://assets/themes/shop_ui.tres" id="1_irrrd"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="2_jpkvw"]
+
+[node name="QueuedItem" type="Button" unique_id=371788194]
+theme = ExtResource("1_irrrd")
+text = "Camera"
+icon = ExtResource("2_jpkvw")
+expand_icon = true

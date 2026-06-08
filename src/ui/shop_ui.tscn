@@ -88,6 +88,7 @@ theme_override_constants/margin_bottom = 20
 [node name="CartItemsList" type="VBoxContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/Cart/MarginContainer" unique_id=1793887066]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="ShopPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems" unique_id=979054279]
 custom_minimum_size = Vector2(1000, 633)
@@ -118,8 +119,8 @@ layout_mode = 2
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("6_1fplp")
-texture_normal = ExtResource("7_7m58c")
-texture_pressed = ExtResource("8_jq0rg")
+texture_normal = ExtResource("8_jq0rg")
+texture_pressed = ExtResource("7_7m58c")
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting/SortBtnItems" unique_id=891918011]
 layout_mode = 1
@@ -143,8 +144,8 @@ vertical_alignment = 1
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("6_1fplp")
-texture_normal = ExtResource("7_7m58c")
-texture_pressed = ExtResource("8_jq0rg")
+texture_normal = ExtResource("8_jq0rg")
+texture_pressed = ExtResource("7_7m58c")
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting/SortBtnUpgrades" unique_id=988674054]
 layout_mode = 1
