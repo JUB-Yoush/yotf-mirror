@@ -86,12 +86,9 @@ public partial class Inventory : Node3D
         }
     }
 
-    //
-    //RMB -> Aim\nLMB (+ Aim) -> Take Photo\nScroll Wheel -> Change Zoom
     //TODO (j) consolidate these two functions.
     public void AddItem(Item item)
     {
-        Debug.Assert(Items[currentIndex] == null);
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);

@@ -14,6 +14,27 @@ public partial class Log : Control
     private static Log Instance { get; set; } = null!;
     public static int MsgCount = 0;
     public const int LOG_LIMIT = 500;
+    int[] maxFPS = [0, 60];
+
+    bool CappedFPS
+    {
+        set
+        {
+            field = value;
+            Engine.MaxFps = maxFPS[value.ToInt()];
+        }
+        get;
+    }
+
+    bool IsFullscreen
+    {
+        set
+        {
+            field = value;
+            DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, value);
+        }
+        get;
+    }
 
     [Node]
     public required VBoxContainer LogMessages { set; get; }
@@ -33,6 +54,16 @@ public partial class Log : Control
         if (@event.IsActionPressed("toggle_log"))
         {
             Instance.Visible = !Instance.Visible;
+        }
+
+        if (@event.IsActionPressed("toggle_fullscreen"))
+        {
+            IsFullscreen = !IsFullscreen;
+        }
+
+        if (@event.IsActionPressed("toggle_fps"))
+        {
+            CappedFPS = !CappedFPS;
         }
     }
 

@@ -92,6 +92,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!AIIsOn)
+            return;
         stateMachine.Update(delta);
         MoveAndSlide();
     }
@@ -200,12 +202,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
             tween = CreateTween();
 
-            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, 2f, true);
+            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, .7f, true);
             tween.TweenFn<Vec3>(
                 (target) => LookAt(target),
                 GlobalTransform.Basis.Z,
                 bubbleDir,
-                1f,
+                .5f,
                 true
             );
             tween.Fn(() =>

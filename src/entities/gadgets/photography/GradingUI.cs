@@ -103,6 +103,7 @@ public partial class GradingUI : Control
         PhotoRect.Texture = photo.Data.ToTexture();
 
         int sum = 0;
+        int addedPhotoScore = 0;
         HashSet<string> newRecords = [];
         foreach (var (subject, grade) in photo.SubjectGrades)
         {
@@ -112,17 +113,22 @@ public partial class GradingUI : Control
             var lightScore = CalculateScoreValue(grade.LightScore);
             var total = facingScore + centeredScore + sizeScore + lightScore;
 
-            MakeStyleLabel(subject, "Facing Score", facingScore);
-            MakeStyleLabel(subject, "Centered Score", centeredScore);
-            MakeStyleLabel(subject, "Size Score", sizeScore);
-            MakeStyleLabel(subject, "Light Score", lightScore);
+            // MakeStyleLabel(subject, "Facing Score", facingScore);
+            // MakeStyleLabel(subject, "Centered Score", centeredScore);
+            // MakeStyleLabel(subject, "Size Score", sizeScore);
+            // MakeStyleLabel(subject, "Light Score", lightScore);
+            MakeStyleLabel(
+                $"{subject}: face({facingScore})|center({centeredScore})|size({sizeScore})|light({lightScore})"
+            );
 
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore <= total)
             {
                 MakeStyleLabel(subject, "New Highest Scoring!", 0);
                 sum += total - highestScore;
+                addedPhotoScore = total - highestScore;
                 maxPhotoScores.TryAdd(subject, total);
+                maxPhotoScores[subject] = total;
                 newRecords.Add(subject);
             }
             else
@@ -152,6 +158,12 @@ public partial class GradingUI : Control
             LabelSettings = styleLabelSettings,
             Text = $"{subject}: {desc} ({score})",
         };
+        StyleLabels.AddChild(label);
+    }
+
+    private void MakeStyleLabel(string text)
+    {
+        var label = new Label { LabelSettings = styleLabelSettings, Text = text };
         StyleLabels.AddChild(label);
     }
 }

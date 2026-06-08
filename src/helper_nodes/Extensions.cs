@@ -240,6 +240,10 @@ public static class GDExt
             vec.Z = z;
         }
     }
+    extension(bool obj)
+    {
+        public int ToInt() => Convert.ToInt32(obj);
+    }
 
     static void TryMakeDir(string path)
     {

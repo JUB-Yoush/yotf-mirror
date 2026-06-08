@@ -11,8 +11,8 @@
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
+[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="14_rnp1b"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
-[ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjuom"]
 albedo_texture = ExtResource("9_rnp1b")
@@ -416,27 +416,27 @@ points = PackedVector3Array(60, 2.5, -12.5, 60, 2, -12.5, 59, 2.5, -12.5, 59, 2,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nd61s"]
 points = PackedVector3Array(56.5, 2.5, -12.5, 56.5, 2, -12.5, 21.5, 2.5, -12.5, 21.5, 2, -12.5, 56.5, 2.5, -15, 56.5, 2, -15, 21.5, 2.5, -15, 21.5, 2, -15)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t1ah"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2qppk"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rnp1b"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjuom"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_7t1ah")
+noise = SubResource("FastNoiseLite_2qppk")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3n2k3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihph0"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_rnp1b")
+refraction_texture = SubResource("NoiseTexture2D_sjuom")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -1369,13 +1369,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.025204, 9.657761, 30.68105
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("15_3n2k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.13556, 7.9508743, 6.4459534)
 size = Vector3(85.0166, 13.066666, 70.028625)
-material = SubResource("StandardMaterial3D_3n2k3")
+material = SubResource("StandardMaterial3D_ihph0")
 metadata/_edit_lock_ = true
 
-[node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.203253, 7.866131, -1.3688822)
-
-[node name="NormalFish2" parent="." unique_id=1208467565 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.802319, 7.866131, -3.0672042)
+[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("14_rnp1b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.522561, 7.866131, -5.474415)
+AIIsOn = false
 
 [editable path="Lab"]

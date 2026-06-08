@@ -117,8 +117,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
     }
 
-    public void UpdateZoomLabel()
+    public void UpdateZoom()
     {
+        PhotoCameraCam.Fov = playerCamera.Fov;
         ZoomLabel.Text = $"x{DefaultFov / ViewfinderFov:F1}/{DefaultFov / MaxFov:F1}";
     }
 
@@ -139,7 +140,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     public override void Removed()
     {
-        Log.PrintLn("dropping camera");
         Aiming = false;
         //CreateTween().AnimateProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
         playerCamera.Fov = DefaultFov;
@@ -210,7 +210,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
-        UpdateZoomLabel();
+        UpdateZoom();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -295,7 +295,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     false // fish can't die (yet)
                 )
             );
-            Log.PrintLn(result[subject.Name]);
         }
         return result;
     }
