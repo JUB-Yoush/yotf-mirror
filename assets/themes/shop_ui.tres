@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://bp82ndqjoevtv"]
+
+[ext_resource type="Texture2D" uid="uid://bfyd72l45ajj1" path="res://assets/2d/ui/shop/shop_panel.tres" id="1_2j2wn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ma51i"]
+texture = ExtResource("1_2j2wn")
+
+[resource]
+GridContainer/constants/h_separation = 7
+GridContainer/constants/v_separation = 4
+HBoxContainer/constants/separation = 10
+MarginContainer/constants/margin_bottom = 46
+MarginContainer/constants/margin_left = 180
+MarginContainer/constants/margin_right = 180
+MarginContainer/constants/margin_top = 46
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ma51i")
+RichTextLabel/colors/default_color = Color(0.5019608, 0.20784314, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 34

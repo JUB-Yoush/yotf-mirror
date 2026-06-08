@@ -7,6 +7,10 @@ namespace Yotf;
 [Meta(typeof(IAutoNode))]
 public partial class ShopUI : Control
 {
+
+    [Export]
+    public ButtonGroup ShopSortBtnGroup {get; set;}
+
     public override void _Notification(int what) => this.Notify(what);
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
@@ -25,6 +29,7 @@ public partial class ShopUI : Control
 
     private ShopKiosk kiosk = null!;
 
+
     public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
         var shop = Packed.Instantiate<ShopUI>();
@@ -36,14 +41,37 @@ public partial class ShopUI : Control
 
     public override void _Ready()
     {
-        this.GetNode<Button>()!.Pressed += CloseShop;
-        var player = this.SceneRoot().GetNode<Player>()!;
-        player.IsInMenu = true;
-        Input.SetMouseMode(Input.MouseModeEnum.Visible);
+     
+        // this.GetNode<Button>()!.Pressed += CloseShop;
+        // var player = this.SceneRoot().GetNode<Player>()!;
+        // player.IsInMenu = true;
+        // Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
-        PopulateShop();
+        // PopulateShop();
+
+        if (ShopSortBtnGroup != null) {
+            ShopSortBtnGroup.Pressed += OnSortGroupPressed;
+          
+        }
+    
     }
 
+    private void OnSortGroupPressed(BaseButton button)
+    {
+        Control shopItems = GetNode<Control>("%ShopItems/Items");
+        Control upgradeItems = GetNode<Control>("%ShopItems/Upgrades");
+
+        if (button.Name == "SortBtnItems")
+        {
+            GD.Print("SrtBtn");
+            shopItems.Visible = true;
+            upgradeItems.Visible = false;
+        } else if (button.Name == "SrtBtnUpgrades") {
+         
+            shopItems.Visible = false;
+            upgradeItems.Visible = true;
+         }
+    }
     private void PopulateShop()
     {
         ItemView.RemoveAllChildren();

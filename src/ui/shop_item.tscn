@@ -1,25 +1,389 @@
 [gd_scene format=3 uid="uid://c8frlegdjskm3"]
 
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="1_3nsa4"]
+[ext_resource type="Script" uid="uid://cmre07ys40ilu" path="res://src/ui/ShopUI.cs" id="1_bh5np"]
+[ext_resource type="Theme" uid="uid://bp82ndqjoevtv" path="res://assets/themes/shop_ui.tres" id="1_j08fd"]
+[ext_resource type="Texture2D" uid="uid://belss54glv05c" path="res://assets/2d/ui/shop/shop_cart_panel.tres" id="2_6qbc0"]
+[ext_resource type="Texture2D" uid="uid://d0omr135qyas" path="res://assets/2d/ui/shop/shop_total_price_panel.tres" id="3_abdid"]
+[ext_resource type="Texture2D" uid="uid://idw17rse3liq" path="res://assets/2d/ui/shop/shop_items_container.tres" id="3_acn0q"]
+[ext_resource type="Texture2D" uid="uid://cfnh3n357xqxh" path="res://assets/2d/ui/shop/shop_buy_button.tres" id="4_acn0q"]
+[ext_resource type="Texture2D" uid="uid://b06r7jg2flomw" path="res://assets/2d/ui/shop/shop_sort_icon.tres" id="4_khbdo"]
+[ext_resource type="ButtonGroup" uid="uid://bp72846hoetv1" path="res://assets/themes/shop_sorting_btn_group.tres" id="5_7ucqc"]
+[ext_resource type="Texture2D" uid="uid://cnxctm1x3uyxe" path="res://assets/2d/ui/shop/shop_sort_selected.tres" id="5_mkofb"]
+[ext_resource type="Texture2D" uid="uid://bh60dagywew60" path="res://assets/2d/ui/shop/shop_buy_button_hovered.tres" id="5_musq8"]
+[ext_resource type="Texture2D" uid="uid://ccs1adxeetepe" path="res://assets/2d/ui/shop/shop_sort_unselected.tres" id="6_hoxnr"]
+[ext_resource type="Theme" uid="uid://cqsul1fr45y86" path="res://assets/themes/shop_ui_items.tres" id="7_0lub0"]
+[ext_resource type="Texture2D" uid="uid://blmta3772wjwf" path="res://assets/2d/ui/shop/shop_items_container_deco.tres" id="8_acn0q"]
+[ext_resource type="PackedScene" uid="uid://dxm26t0tu5owx" path="res://src/ui/shop_item_purchasable.tscn" id="8_hoxnr"]
+[ext_resource type="Texture2D" uid="uid://dj5208uybol8g" path="res://assets/2d/battery_icon.png" id="9_0lub0"]
+[ext_resource type="Texture2D" uid="uid://b8xrfjmuesdsk" path="res://assets/2d/oxygen_icon.png" id="10_vc46t"]
+[ext_resource type="Texture2D" uid="uid://ou1ltj0g7lno" path="res://assets/2d/firecracker_icon.png" id="11_7ucqc"]
+[ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="12_bh5np"]
+[ext_resource type="Texture2D" uid="uid://bw43qw7ome6qw" path="res://assets/2d/sonar_icon.png" id="13_2aqtw"]
 
-[node name="ShopItemView" type="VBoxContainer" unique_id=1210477548]
-offset_right = 128.0
-offset_bottom = 182.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lbevl"]
+texture = ExtResource("2_6qbc0")
 
-[node name="Name" type="Label" parent="." unique_id=246786777]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_musq8"]
+texture = ExtResource("3_acn0q")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_khbdo"]
+texture = ExtResource("3_abdid")
+
+[node name="ShopUI" type="Control" unique_id=590097376]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bh5np")
+ShopSortBtnGroup = ExtResource("5_7ucqc")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1740422905]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_j08fd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1642229961]
+layout_mode = 2
+
+[node name="ShopBody" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1495108120]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="CartAndShopItems" type="HBoxContainer" parent="PanelContainer/MarginContainer/ShopBody" unique_id=1455483340]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Cart" type="PanelContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems" unique_id=1194964066]
+custom_minimum_size = Vector2(198.19, 588)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lbevl")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/Cart" unique_id=1485933218]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 110
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CartItemsList" type="VBoxContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/Cart/MarginContainer" unique_id=1793887066]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ShopPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems" unique_id=979054279]
+custom_minimum_size = Vector2(1000, 633)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_musq8")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel" unique_id=603272461]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 3
+
+[node name="ShopContents" type="VBoxContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer" unique_id=996160390]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Sorting" type="HBoxContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents" unique_id=2074090920]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting" unique_id=1836488482]
+layout_mode = 2
+texture = ExtResource("4_khbdo")
+expand_mode = 2
+
+[node name="SortBtnItems" type="TextureButton" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting" unique_id=351007823]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("5_7ucqc")
+texture_normal = ExtResource("6_hoxnr")
+texture_pressed = ExtResource("5_mkofb")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting/SortBtnItems" unique_id=891918011]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -11.5
+offset_right = 41.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SrtBtnUpgrades" type="TextureButton" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting" unique_id=755736734]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_7ucqc")
+texture_normal = ExtResource("6_hoxnr")
+texture_pressed = ExtResource("5_mkofb")
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/Sorting/SrtBtnUpgrades" unique_id=988674054]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -11.5
+offset_right = 41.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents" unique_id=1940992814]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_0lub0")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer" unique_id=1975296279]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 40
+
+[node name="ShopItems" type="GridContainer" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer" unique_id=1591906897]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("7_0lub0")
+columns = 2
+
+[node name="Items" type="Control" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems" unique_id=421125619]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemButton" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=2019430502 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_right = 425.0
+offset_bottom = 130.0
+
+[node name="ItemButton2" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=389881146 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_left = 435.0
+offset_right = 860.0
+offset_bottom = 130.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton2/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(389881146, 1072476745) index="0" unique_id=1283594270]
+text = "Pattery Pack"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton2" index="1" unique_id=927202921]
+texture = ExtResource("9_0lub0")
+
+[node name="ItemButton3" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=818146923 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 425.0
+offset_bottom = 290.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton3/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(818146923, 1072476745) index="0" unique_id=1283594270]
+text = "Oxygen Can"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton3" index="1" unique_id=927202921]
+texture = ExtResource("10_vc46t")
+
+[node name="ItemButton4" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=1332318663 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 160.0
+offset_right = 860.0
+offset_bottom = 290.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton4/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1332318663, 1072476745) index="0" unique_id=1283594270]
+text = "Firecracker"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton4" index="1" unique_id=927202921]
+texture = ExtResource("11_7ucqc")
+
+[node name="ItemButton5" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=256342043 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 425.0
+offset_bottom = 450.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton5/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(256342043, 1072476745) index="0" unique_id=1283594270]
+text = "Flashlight"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton5" index="1" unique_id=927202921]
+texture = ExtResource("12_bh5np")
+
+[node name="ItemButton6" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items" unique_id=1724001722 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 320.0
+offset_right = 860.0
+offset_bottom = 450.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton6/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1724001722, 1072476745) index="0" unique_id=1283594270]
+text = "Sonar"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton6" index="1" unique_id=927202921]
+texture = ExtResource("13_2aqtw")
+
+[node name="Upgrades" type="Control" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems" unique_id=1434797831]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemButton" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades" unique_id=1656252910 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_right = 425.0
+offset_bottom = 130.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1656252910, 1072476745) index="0" unique_id=1283594270]
+text = "Film Upgrade"
+
+[node name="ItemButton2" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades" unique_id=1573944568 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_left = 435.0
+offset_right = 860.0
+offset_bottom = 130.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton2/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1573944568, 1072476745) index="0" unique_id=1283594270]
+text = "Battery Upgrade"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton2" index="1" unique_id=927202921]
+texture = ExtResource("9_0lub0")
+
+[node name="ItemButton3" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades" unique_id=1408153412 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 425.0
+offset_bottom = 290.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton3/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1408153412, 1072476745) index="0" unique_id=1283594270]
+text = "Oxygen Upgrade"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton3" index="1" unique_id=927202921]
+texture = ExtResource("10_vc46t")
+
+[node name="ItemButton4" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades" unique_id=435953472 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 160.0
+offset_right = 860.0
+offset_bottom = 290.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton4/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(435953472, 1072476745) index="0" unique_id=1283594270]
+text = "Swim Upgrade"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton4" index="1" unique_id=927202921]
+texture = ExtResource("11_7ucqc")
+
+[node name="ItemButton5" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades" unique_id=244905383 instance=ExtResource("8_hoxnr")]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 425.0
+offset_bottom = 450.0
+
+[node name="ItemName" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton5/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(244905383, 1072476745) index="0" unique_id=1283594270]
+text = "Zoom Upgrade"
+
+[node name="TextureRect" parent="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton5" index="1" unique_id=927202921]
+texture = ExtResource("12_bh5np")
+
+[node name="CheckoutAndBuy" type="HBoxContainer" parent="PanelContainer/MarginContainer/ShopBody" unique_id=436936291]
+layout_mode = 2
+alignment = 1
+
+[node name="TotalAmount" type="PanelContainer" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy" unique_id=1216486932]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_khbdo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/TotalAmount" unique_id=1435179189]
+layout_mode = 2
+bbcode_enabled = true
+text = "Cost: 1 billlion dollars"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyButton" type="TextureButton" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy" unique_id=354182447]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_acn0q")
+texture_hover = ExtResource("5_musq8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/BuyButton" unique_id=138376966]
+layout_mode = 0
+offset_right = 322.0
+offset_bottom = 92.0
+mouse_filter = 2
+text = "Buy"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShopItemView" type="VBoxContainer" parent="PanelContainer" unique_id=1210477548]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="PanelContainer/ShopItemView" unique_id=246786777]
 layout_mode = 2
 text = "+Oxygen"
 
-[node name="Price" type="Label" parent="." unique_id=445552415]
+[node name="Price" type="Label" parent="PanelContainer/ShopItemView" unique_id=445552415]
 layout_mode = 2
 text = "$100"
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=518604224]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/ShopItemView" unique_id=518604224]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = ExtResource("1_3nsa4")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="." unique_id=829852770]
+[node name="Button" type="Button" parent="PanelContainer/ShopItemView" unique_id=829852770]
 layout_mode = 2
 text = "Buy"
+
+[node name="ShopDeco" type="TextureRect" parent="." unique_id=687731325]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 30.0
+offset_right = 1617.0
+offset_bottom = 934.0
+rotation = 0.00077522086
+mouse_filter = 2
+texture = ExtResource("8_acn0q")
+
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton2"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton3"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton4"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton5"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Items/ItemButton6"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton2"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton3"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton4"]
+[editable path="PanelContainer/MarginContainer/ShopBody/CartAndShopItems/ShopPanel/MarginContainer/ShopContents/ScrollContainer/MarginContainer/ShopItems/Upgrades/ItemButton5"]
