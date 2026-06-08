@@ -12,7 +12,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    readonly Routine routine = new();
+    public enum Size
+    {
+        Small,
+        Large,
+    }
 
     // ====================== REFERENCES ======================
 
@@ -75,9 +79,15 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public float NoiseTolerance = 0.4f;
 
     [Export]
+    public bool getsBaited = false;
+
+    [Export]
     public float MaxHp = 10f;
 
     public float Hp = 10f;
+
+    [Export]
+    public Size size = Fish.Size.Small;
 
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vec3 ThreatPosition { get; internal set; }
@@ -154,7 +164,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         {
             Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
         };
-
         return target.LengthSquared() < arrivalThreshold;
     }
 
@@ -194,7 +203,6 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     private void OnLabUpdated(Lab lab)
     {
-        Log.PrintLn("hi i'm fish an a lab updated");
         if (lab.Index == Layer)
         {
             ProcessMode = ProcessModeEnum.Pausable;
@@ -206,25 +214,10 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         }
     }
 
+    public virtual void FoundBait(Bait bait) { }
+
     public override void _ExitTree()
     {
         Lab.CurrentLabUpdated -= OnLabUpdated;
     }
-
-    // ====================== INTERNAL HELPERS ======================
-
-    // internal void SetState(IFishState newState)
-    // {
-    //     // if (CurrentState == newState)
-    //     //     return;
-    //     // CurrentState.Exit(this);
-    //     // CurrentState = newState;
-    //     // CurrentState.Enter(this);
-    // }
-
-    // ====================== IPHOTOGRAPHABLE ======================
-
-    // hidden fish are never photographable regardless of screen visibility
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
 }

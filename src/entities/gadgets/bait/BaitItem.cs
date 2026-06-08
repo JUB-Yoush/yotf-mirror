@@ -4,12 +4,12 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class FirecrackerItem : Item, IDroppable
+public partial class BaitItem : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>(
-        "res://src/entities/gadgets/firecracker/firecracker_item.tscn"
+        "res://src/entities/gadgets/bait/bait_item.tscn"
     );
 
     public new PackedScene PackedScene => Packed;
@@ -18,9 +18,6 @@ public partial class FirecrackerItem : Item, IDroppable
 
     [Node]
     public required MeshInstance3D Mesh { get; set; }
-
-    [Export]
-    float throwForce = 4f;
 
     [Export]
     int ammo = 5;
@@ -41,9 +38,8 @@ public partial class FirecrackerItem : Item, IDroppable
 
         if (@event.IsActionPressed("take_photo"))
         {
-            MakeFirecracker();
+            MakeBait();
             ammo--;
-            Log.PrintLn(ammo);
             if (ammo == 0)
             {
                 player.Inventory.RemoveCurrentItem();
@@ -51,20 +47,10 @@ public partial class FirecrackerItem : Item, IDroppable
         }
     }
 
-    public void MakeFirecracker()
+    private void MakeBait()
     {
-        var initialVelocity = -playerCamera.GlobalTransform.Basis.Z * throwForce;
-        var firecracker = Firecracker.New(this.SceneRoot(), initialVelocity);
-        //this.SceneRoot().AddChild(firecracker);
-        firecracker.GlobalPosition = GlobalPosition + -playerCamera.GlobalTransform.Basis.Z;
-    }
-
-    public override void _Process(double delta)
-    {
-        GlobalTransform = playerCamera.GlobalTransform;
-        if (!CurrentItem)
-            return;
-
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
+        var bait = Bait.Packed.Instantiate<Bait>();
+        this.SceneRoot().AddChild(bait);
+        bait.GlobalPosition = GlobalPosition + -playerCamera.GlobalTransform.Basis.Z;
     }
 }

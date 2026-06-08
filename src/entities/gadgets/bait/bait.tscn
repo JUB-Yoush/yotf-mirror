@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c4bs4qqgdvii0"]
+
+[ext_resource type="Texture2D" uid="uid://cpdsaj7jfqube" path="res://assets/2d/bait_icon.png" id="1_hx6ya"]
+[ext_resource type="Script" uid="uid://rqkr1khkuy1i" path="res://src/entities/gadgets/bait/Bait.cs" id="1_qyk1s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a3lof"]
+radius = 14.701433
+
+[node name="Bait" type="Area3D" unique_id=511604284]
+collision_layer = 1024
+collision_mask = 16
+script = ExtResource("1_qyk1s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=255605287]
+shape = SubResource("SphereShape3D_a3lof")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=107624815]
+billboard = 1
+texture = ExtResource("1_hx6ya")
+
+[node name="RayCast" type="RayCast3D" parent="." unique_id=1043335965]
+unique_name_in_owner = true
+hit_from_inside = true

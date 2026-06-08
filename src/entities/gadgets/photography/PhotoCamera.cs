@@ -267,7 +267,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         foreach (var subjectName in photo.Subjects)
         {
             // TODO (j) where will fish be placed within the scene?
-            var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
+            var subject = GetTree().CurrentScene.GetNode<Fish>(subjectName);
             var angleScore = CalcCenteredScore(subject);
             var facingScore = CalcFacingScore(subject);
             var sizeScore = CalcSizeScore(subject);
@@ -277,14 +277,15 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             result.Add(
                 subject.Name,
                 new(
-                    (float)angleScore,
+                    angleScore,
                     sizeScore,
-                    (float)facingScore,
+                    facingScore,
                     lightScore,
                     photo.Subjects.Length,
                     inAction,
                     modSet.Contains(IPhotographable.PhotoModifier.Ink),
-                    false // fish can't die (yet)
+                    false, // fish can't die (yet)
+                    subject.size == Fish.Size.Large
                 )
             );
         }

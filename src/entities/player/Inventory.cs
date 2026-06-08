@@ -33,6 +33,7 @@ public partial class Inventory : Node3D
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
+        AddItem(BaitItem.Packed.Instantiate<Item>(), 3);
         PhotoCamera.AimingChanged += OnAimingChanged;
         SetCurrentItem(0);
     }

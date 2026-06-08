@@ -67,6 +67,7 @@ collision_layer = 304
 collision_mask = 3
 script = ExtResource("1_0le65")
 ArrivalThreshold = 5.0
+getsBaited = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1894181027]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.0072705, 0.19709855, -0.008213316)
@@ -80,7 +81,7 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 [node name="DetectionZone" type="Area3D" parent="." unique_id=609334932]
 unique_name_in_owner = true
 collision_layer = 257
-collision_mask = 98
+collision_mask = 1122
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=464458426]
 shape = SubResource("SphereShape3D_xm5yq")

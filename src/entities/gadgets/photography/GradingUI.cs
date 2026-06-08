@@ -117,15 +117,16 @@ public partial class GradingUI : Control
             var inActionMul = grade.InAction ? 0.2 : 0;
             var inkMul = grade.ContainsInk ? -0.2 : 0;
             var deadMul = grade.IsDead ? -0.8 : 0;
+            var bigMul = grade.IsBig ? 1 : 0;
 
-            var mul = Math.Max(0, 1 + otherFishMul + inActionMul + inkMul + deadMul);
+            var mul = Math.Max(0, 1 + otherFishMul + inActionMul + inkMul + deadMul + bigMul);
 
             MakeStyleLabel(
                 $"{subject}: f({facingScore})+c({centeredScore})+s({sizeScore})+l({lightScore}) -> {total}"
             );
 
             MakeStyleLabel(
-                $"{subject}: other({otherFishMul:F1})+act({inActionMul:F1})+ink({inkMul:F1})+dead({deadMul:F1}) -> {mul}"
+                $"{subject}: other({otherFishMul:F1})+act({inActionMul:F1})+ink({inkMul:F1})+dead({deadMul:F1})+big({bigMul}) -> {mul}"
             );
 
             MakeStyleLabel($"{subject}: base({total})x mul({mul}) = {(total * mul):F1}");

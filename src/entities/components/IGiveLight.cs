@@ -10,12 +10,13 @@ public interface IGiveLight
 
     float LightEnergy => LightSource.LightEnergy;
 
-    float EffectiveRange => LightSource switch
-    {
-        OmniLight3D omni => omni.OmniRange,
-        SpotLight3D spot => spot.SpotRange,
-        _ => 10f,
-    };
+    float EffectiveRange =>
+        LightSource switch
+        {
+            OmniLight3D omni => omni.OmniRange,
+            SpotLight3D spot => spot.SpotRange,
+            _ => 10f,
+        };
 
     void OnReceivedObject(Node3D body);
 

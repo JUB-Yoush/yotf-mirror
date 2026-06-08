@@ -8,11 +8,11 @@
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
+[ext_resource type="PackedScene" uid="uid://c4bs4qqgdvii0" path="res://src/entities/gadgets/bait/bait.tscn" id="14_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="14_rnp1b"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="15_2qppk"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="16_ihph0"]
-[ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_7t1ah"]
 
@@ -1576,29 +1576,13 @@ size = Vector3(132.92311, 173.20341, 76.21321)
 material = SubResource("StandardMaterial3D_sjuom")
 metadata/_edit_lock_ = true
 
-[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.522561, 7.866131, -5.474415)
-Layer = 0
-
-[node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.600529, 7.857815, -2.766045)
-Layer = 0
-
-[node name="NormalFish2" parent="." unique_id=58857924 instance=ExtResource("16_sjuom")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.36461, 8.061607, -2.766045)
-Layer = 0
-
 [node name="Axolotl2" parent="." unique_id=1436847044 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.189613, 7.857815, -5.474415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.189613, 7.857815, -4.17097)
 Layer = 0
 
-[node name="Axolotl3" parent="." unique_id=2119767642 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.405422, 5.8040714, -5.474415)
+[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("14_rnp1b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.522561, 7.866131, -4.17097)
 Layer = 0
-
-[node name="Axolotl4" parent="." unique_id=1156508390 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.03829, 5.8040714, 0.60171986)
-Layer = 1
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=787583751]
 script = ExtResource("15_2qppk")
@@ -2493,3 +2477,11 @@ shape = SubResource("ConvexPolygonShape3D_fh6v2")
 
 [node name="entity_0_brush_28_collision_shape" type="CollisionShape3D" parent="FuncGodotMap3/entity_0_worldspawn" unique_id=2020473508]
 shape = SubResource("ConvexPolygonShape3D_wymbq")
+
+[node name="Bait" parent="." unique_id=511604284 instance=ExtResource("14_3n2k3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.609394, 8.081286, 10.392273)
+
+[node name="Sprite3D" parent="Bait" index="1" unique_id=107624815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8126717, 0, -4.7533712)
+
+[editable path="Bait"]
