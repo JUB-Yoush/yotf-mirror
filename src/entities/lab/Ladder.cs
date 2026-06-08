@@ -26,7 +26,7 @@ public partial class Ladder : Node3D, IInteractable
             .AnimateProperty(
                 player,
                 CharacterBody3D.PropertyName.GlobalPosition,
-                GlobalPosition,
+                GlobalPosition + Vec3.Up,
                 1
             );
     }
