@@ -109,12 +109,11 @@ public partial class ShopUI : Control
         var mesh = item.DropMesh;
         var itemDrop = DroppedItem.New(mesh, item.itemScene);
         itemDrop.restore = item.restore;
-        Log.PrintLn(itemDrop.restore, item.restore);
         GetTree().CurrentScene.AddChild(itemDrop);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;
-
-        if (item.restore != Disposable.Restore.None) { }
+        var randomDir = new Vec3((float)GD.RandRange(-.2f, .2f), 0, -.3f).Normalized();
+        itemDrop.ApplyImpulse(randomDir / 4);
         PopulateShop();
     }
 

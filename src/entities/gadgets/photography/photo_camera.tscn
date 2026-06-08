@@ -12,6 +12,7 @@ radius = 6.340579
 script = ExtResource("1_3b58u")
 ItemName = "Camera"
 Icon = ExtResource("2_vbjdg")
+Instructions = PackedStringArray("RMB -> Aim", "LMB (+Aim) -> Take Photo", "Scroll (+Aim) -> Change Zoom")
 
 [node name="PhotoViewport" type="SubViewport" parent="." unique_id=1322795823]
 unique_name_in_owner = true
@@ -53,7 +54,6 @@ grow_vertical = 2
 
 [node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,6 +71,15 @@ offset_right = 301.0
 offset_bottom = 1062.0
 theme_override_font_sizes/font_size = 48
 text = "100/100"
+
+[node name="ZoomLabel" type="Label" parent="Control/PhotoLetterBox" unique_id=320871416]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 118.0
+offset_top = 934.0
+offset_right = 301.0
+offset_bottom = 1001.0
+theme_override_font_sizes/font_size = 48
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1643549579]
 unique_name_in_owner = true

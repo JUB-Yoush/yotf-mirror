@@ -67,12 +67,13 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
-        HUD?.SelectSlot(index);
+        HUD.SelectSlot(index);
         Items[currentIndex]?.Unequipped();
         currentIndex = index;
         Items[currentIndex]?.CurrentItem = true;
         ClearItems(currentIndex);
         Items[currentIndex]?.Equipped();
+        HUD.InstructionLabel.Text = Items[currentIndex]?.GetInstructions();
     }
 
     private void ClearItems(int notThisOne = -1)
@@ -85,6 +86,8 @@ public partial class Inventory : Node3D
         }
     }
 
+    //
+    //RMB -> Aim\nLMB (+ Aim) -> Take Photo\nScroll Wheel -> Change Zoom
     //TODO (j) consolidate these two functions.
     public void AddItem(Item item)
     {

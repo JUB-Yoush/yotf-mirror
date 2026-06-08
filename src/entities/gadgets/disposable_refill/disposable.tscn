@@ -10,3 +10,5 @@ restoreAmount = 10.0
 OnlyDropMesh = ExtResource("2_2auvw")
 ItemName = "Oxygen Refill"
 Icon = ExtResource("3_eui86")
+restoreAmount = 10.0
+Instructions = PackedStringArray("LMB -> Use")

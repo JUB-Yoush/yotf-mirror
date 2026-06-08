@@ -30,6 +30,8 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     const float DefaultViewfinderFov = 70;
     private float ViewfinderFov = DefaultViewfinderFov;
 
+    float MaxFov => Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10);
+
     static readonly SubViewport.UpdateMode[] updateModes =
     [
         SubViewport.UpdateMode.Disabled,
@@ -56,6 +58,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     [Node]
     public required Label FilmLabel { set; get; }
+
+    [Node]
+    public required Label ZoomLabel { set; get; }
 
     [Node]
     public required AudioStreamPlayer3D AudioStreamPlayer { get; set; }
@@ -112,6 +117,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
     }
 
+    public void UpdateZoomLabel()
+    {
+        ZoomLabel.Text = $"x{DefaultFov / ViewfinderFov:F1}/{DefaultFov / MaxFov:F1}";
+    }
+
     public override void _ExitTree()
     {
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
@@ -141,19 +151,23 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         photoTerminal = newLab.PhotoTerminal;
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (!CurrentItem)
             return;
 
         if (@event.IsActionPressed("scroll_up"))
+        {
             ViewfinderFov = Math.Max(
                 ViewfinderFov - 2,
                 Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10)
             );
+        }
 
         if (@event.IsActionPressed("scroll_down"))
+        {
             ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
+        }
 
         if (@event.IsActionPressed("look_cam"))
         {
@@ -183,11 +197,20 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         }
     }
 
+    // float CalcZoomRatio(float fov){
+    //     // var currentFov = PhotoCameraCam.Fov;
+    //     // var maxFov = Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10);
+    //     var minFov = DefaultFov;
+    //     return
+
+    // }
+
     public override void _Process(double delta)
     {
         Mesh.GlobalTransform = playerCamera.GlobalTransform;
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
         PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
+        UpdateZoomLabel();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -298,7 +321,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var photographable = subject as IPhotographable;
         var vis = photographable!.SubjectBoundingMesh as VisualInstance3D;
         var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
-        //(Vec2 Min, Vec2 Max) bounding = new(new(float.MaxValue, float.MaxValue), new(0, 0));
         var MinPoint = new Vec3(float.MaxValue, float.MaxValue, float.MaxValue);
         var MaxPoint = new Vec3(0, 0, 0);
         for (int i = 0; i < 8; i++)
@@ -309,25 +331,14 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
             if (point.LengthSquared() > MaxPoint.LengthSquared())
                 MaxPoint = point;
-
-            // bounding.Min.X = Math.Min(point.X, bounding.Min.X);
-            // bounding.Min.Y = Math.Min(point.Y, bounding.Min.Y);
-            // bounding.Max.X = Math.Max(point.X, bounding.Max.X);
-            // bounding.Max.Y = Math.Max(point.Y, bounding.Max.Y);
         }
-        //var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
         var boundingSize =
             PhotoCameraCam.UnprojectPosition(MinPoint) - PhotoCameraCam.UnprojectPosition(MaxPoint);
 
-        Log.PrintLn(
-            PhotoCameraCam.UnprojectPosition(MaxPoint),
-            PhotoCameraCam.UnprojectPosition(MinPoint),
-            boundingSize
-        );
-
         var sizeInViewport = 1 - (PhotoViewport.Size - boundingSize).Length();
-        return sizeInViewport;
-        //return Math.Clamp(sizeInViewport, 0, 1);
+        //return sizeInViewport;
+        // TODO(j) FIX
+        return .5f;
     }
 
     private Image GetViewportImage()

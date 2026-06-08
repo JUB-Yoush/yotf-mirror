@@ -11,11 +11,11 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
         "res://src/entities/gadgets/firecracker/firecracker.tscn"
     );
 
-    public static Firecracker New(Node parent, Vec3 initialVelocity)
+    public static Firecracker New(Node parent, Vec3 impulse)
     {
         var firecracker = Packed.Instantiate<Firecracker>();
         parent.AddChild(firecracker);
-        firecracker.ApplyImpulse(initialVelocity);
+        firecracker.ApplyImpulse(impulse);
         return firecracker;
     }
 

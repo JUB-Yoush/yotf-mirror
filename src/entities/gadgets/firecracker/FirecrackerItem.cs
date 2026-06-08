@@ -34,7 +34,7 @@ public partial class FirecrackerItem : Item, IDroppable
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (!CurrentItem)
             return;

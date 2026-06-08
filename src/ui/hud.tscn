@@ -15,7 +15,7 @@
 [ext_resource type="Shader" uid="uid://du12686ff14wf" path="res://src/shaders/barometer_scroll.gdshader" id="12_w0r5e"]
 [ext_resource type="Texture2D" uid="uid://d0fxiftydxnpf" path="res://assets/2d/ui/hud/barometer_ruler.png" id="13_0m2ia"]
 [ext_resource type="Script" uid="uid://bxh3e6euxlwoy" path="res://src/ui/Minimap.cs" id="14_ipk1d"]
-[ext_resource type="Texture2D" uid="uid://ds0sik53rrrre" path="res://assets/2d/ui/radar_mask.png" id="15_e8jo1"]
+[ext_resource type="Texture2D" uid="uid://ds0sik53rrrre" path="res://assets/2d/ui/hud/radar_mask.png" id="15_e8jo1"]
 [ext_resource type="Texture2D" uid="uid://cckhpqpskymx" path="res://assets/2d/ui/death_screen_temp.png" id="17_vk5sl"]
 [ext_resource type="Texture2D" uid="uid://lwxk8sbn6380" path="res://assets/2d/ui/win_screen_temp.png" id="18_8576i"]
 
@@ -193,7 +193,6 @@ offset_left = 1154.0
 offset_top = 140.0
 offset_right = 1789.0
 offset_bottom = 168.0
-fill_mode = 1
 texture_under = ExtResource("5_vk5sl")
 texture_progress = ExtResource("6_8576i")
 
@@ -367,3 +366,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("18_8576i")
+
+[node name="InstructionLabel" type="Label" parent="." unique_id=330882942]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 418.0
+offset_top = -782.0
+offset_right = 945.0
+offset_bottom = -689.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "LoremIpsum"
+horizontal_alignment = 2

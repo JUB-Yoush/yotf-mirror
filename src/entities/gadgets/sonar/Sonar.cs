@@ -26,6 +26,9 @@ public partial class Sonar : Item, IDroppable
     [Export]
     float exponentFalloff = 1.5f;
 
+    [Export]
+    float batteryUseRate = 1f;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -47,6 +50,8 @@ public partial class Sonar : Item, IDroppable
 
     public override void _Ready()
     {
+        Removed();
+
         player = GetParent().GetParent<Player>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Label = player.HUD.SonarLabel;
@@ -117,8 +122,10 @@ public partial class Sonar : Item, IDroppable
 
     public override void _Process(double delta)
     {
-        if (!CurrentItem)
+        if (!CurrentItem || player.Stats.Battery == 0)
             return;
+
+        player.Stats.Battery -= (float)(batteryUseRate * delta);
 
         foreach (var sonarable in sonarItems)
         {

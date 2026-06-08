@@ -29,6 +29,9 @@ public partial class Hud : Control
     public required Label PhotoLabel { set; get; }
 
     [Node]
+    public required Label InstructionLabel { set; get; }
+
+    [Node]
     public required Label SonarLabel { set; get; }
 
     [Node]
