@@ -42,10 +42,10 @@ public partial class ShopUI : Control
     public override void _Ready()
     {
      
-        // this.GetNode<Button>()!.Pressed += CloseShop;
-        // var player = this.SceneRoot().GetNode<Player>()!;
-        // player.IsInMenu = true;
-        // Input.SetMouseMode(Input.MouseModeEnum.Visible);
+        this.GetNode<Button>()!.Pressed += CloseShop;
+        var player = this.SceneRoot().GetNode<Player>()!;
+        player.IsInMenu = true;
+        Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
         // PopulateShop();
 
