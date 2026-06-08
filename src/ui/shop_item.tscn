@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://dxm26t0tu5owx"]
 
-[ext_resource type="Theme" uid="uid://cqsul1fr45y86" path="res://assets/themes/shop_ui_items.tres" id="1_460x4"]
-[ext_resource type="Texture2D" uid="uid://ct28o1lsl3rwh" path="res://assets/2d/ui/shop/shop_item_container.tres" id="2_v3n8m"]
-[ext_resource type="Texture2D" uid="uid://blwm14dh34ntr" path="res://assets/2d/ui/shop/shop_item_container_hovered.tres" id="3_5gdan"]
-[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="4_3m5ig"]
+[ext_resource type="Theme" uid="uid://cqsul1fr45y86" path="res://assets/themes/shop_ui_items.tres" id="7_0lub0"]
+[ext_resource type="Texture2D" uid="uid://ct28o1lsl3rwh" path="res://assets/2d/ui/shop/shop_item_container.tres" id="8_pnipd"]
+[ext_resource type="Texture2D" uid="uid://blwm14dh34ntr" path="res://assets/2d/ui/shop/shop_item_container_hovered.tres" id="9_3ng1v"]
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="10_pnipd"]
 
 [node name="ItemButton" type="TextureButton" unique_id=2019430502]
-custom_minimum_size = Vector2(0, 130)
+custom_minimum_size = Vector2(425, 130)
 size_flags_horizontal = 3
-theme = ExtResource("1_460x4")
-texture_normal = ExtResource("2_v3n8m")
-texture_hover = ExtResource("3_5gdan")
+theme = ExtResource("7_0lub0")
+texture_normal = ExtResource("8_pnipd")
+texture_hover = ExtResource("9_3ng1v")
 stretch_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1333355537]
@@ -59,4 +59,4 @@ offset_right = 134.0
 offset_bottom = 86.0
 scale = Vector2(0.8, 0.8)
 mouse_filter = 2
-texture = ExtResource("4_3m5ig")
+texture = ExtResource("10_pnipd")

@@ -9,7 +9,7 @@ public partial class ShopUI : Control
 {
 
     [Export]
-    public ButtonGroup ShopSortBtnGroup {get; set;}
+    public required ButtonGroup ShopSortBtnGroup { set; get; }
 
     public override void _Notification(int what) => this.Notify(what);
 
@@ -21,11 +21,18 @@ public partial class ShopUI : Control
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
 
-    [Node]
-    public required HBoxContainer UpgradeView { set; get; }
+    // [Node]
+    // public required HBoxContainer UpgradeView { set; get; }
 
-    [Node]
-    public required HBoxContainer ItemView { set; get; }
+    // [Node]
+    // public required HBoxContainer ItemView { set; get; }
+
+    [Node("%ShopItems/CollectionItems")]
+    public required GridContainer CollectionItems { set; get; }
+
+    [Node("%ShopItems/CollectionUpgrades")]
+    public required GridContainer CollectionUpgrades { set; get; }
+
 
     private ShopKiosk kiosk = null!;
 
@@ -41,63 +48,64 @@ public partial class ShopUI : Control
 
     public override void _Ready()
     {
+      
      
         this.GetNode<Button>()!.Pressed += CloseShop;
         var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
-        // PopulateShop();
+        ShopSortBtnGroup?.Pressed += OnSortGroupPressed;
+        PopulateShop();
 
-        if (ShopSortBtnGroup != null) {
-            ShopSortBtnGroup.Pressed += OnSortGroupPressed;
-          
-        }
+        
     
     }
 
     private void OnSortGroupPressed(BaseButton button)
     {
-        Control shopItems = GetNode<Control>("%ShopItems/Items");
-        Control upgradeItems = GetNode<Control>("%ShopItems/Upgrades");
+    
 
         if (button.Name == "SortBtnItems")
         {
-            GD.Print("SrtBtn");
-            shopItems.Visible = true;
-            upgradeItems.Visible = false;
-        } else if (button.Name == "SrtBtnUpgrades") {
+           
+            CollectionItems.Visible = true;
+            CollectionUpgrades.Visible = false;
+        }
+        else if (button.Name == "SortBtnUpgrades")
+        {
          
-            shopItems.Visible = false;
-            upgradeItems.Visible = true;
+            CollectionItems.Visible = false;
+            CollectionUpgrades.Visible = true;
          }
     }
     private void PopulateShop()
     {
-        ItemView.RemoveAllChildren();
-        UpgradeView.RemoveAllChildren();
-
+       
+        CollectionItems.RemoveAllChildren();
+        CollectionUpgrades.RemoveAllChildren();
+        
         var player = this.SceneRoot().GetNode<Player>()!.GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
-            var view = ShopItemView.Instantiate<VBoxContainer>();
+            var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
-            view.GetNode<Label>("Name").Text = item.Name;
-            view.GetNode<Label>("Price").Text = $"${item.Price}";
-            view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
-            view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
-            ItemView.AddChild(view);
+          view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${item.Price}";
+            view.GetNode<TextureButton>(".").Pressed += () => BuyItem(item);
+            view.GetNode<TextureButton>(".").Disabled = player.Money < item.Price;
+            CollectionItems.AddChild(view);
         }
 
         foreach (var upgrade in Upgrades)
         {
-            var view = ShopItemView.Instantiate<VBoxContainer>();
+            var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
-            view.GetNode<Label>("Name").Text = upgrade.Name;
-            view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
-            view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
-            view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
-            UpgradeView.AddChild(view);
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${upgrade.Price}";
+            view.GetNode<TextureButton>(".").Pressed += () => BuyUpgrade(upgrade);
+            view.GetNode<TextureButton>(".").Disabled = player.Money < upgrade.Price;
+            CollectionUpgrades.AddChild(view);
         }
     }
 
@@ -154,4 +162,6 @@ public partial class ShopUI : Control
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();
     }
+
+ 
 }
