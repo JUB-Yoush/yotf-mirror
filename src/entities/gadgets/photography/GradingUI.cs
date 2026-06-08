@@ -113,13 +113,23 @@ public partial class GradingUI : Control
             var lightScore = CalculateScoreValue(grade.LightScore);
             var total = facingScore + centeredScore + sizeScore + lightScore;
 
-            // MakeStyleLabel(subject, "Facing Score", facingScore);
-            // MakeStyleLabel(subject, "Centered Score", centeredScore);
-            // MakeStyleLabel(subject, "Size Score", sizeScore);
-            // MakeStyleLabel(subject, "Light Score", lightScore);
+            var otherFishMul = (grade.Totalfish - 1) * 0.1;
+            var inActionMul = grade.InAction ? 0.2 : 0;
+            var inkMul = grade.ContainsInk ? -0.2 : 0;
+            var deadMul = grade.IsDead ? -0.8 : 0;
+
+            var mul = Math.Max(0, 1 + otherFishMul + inActionMul + inkMul + deadMul);
+
             MakeStyleLabel(
-                $"{subject}: face({facingScore})|center({centeredScore})|size({sizeScore})|light({lightScore})"
+                $"{subject}: f({facingScore})+c({centeredScore})+s({sizeScore})+l({lightScore}) -> {total}"
             );
+
+            MakeStyleLabel(
+                $"{subject}: other({otherFishMul:F1})+act({inActionMul:F1})+ink({inkMul:F1})+dead({deadMul:F1}) -> {mul}"
+            );
+
+            MakeStyleLabel($"{subject}: base({total})x mul({mul}) = {(total * mul):F1}");
+            total = (int)(total * mul);
 
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore <= total)
