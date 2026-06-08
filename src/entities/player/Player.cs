@@ -44,6 +44,9 @@ public partial class Player : CharacterBody3D
 
     public Vec3 CollisionPivot;
 
+    [Export]
+    int CurrentLabIndex = 0;
+
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
     [Export(PropertyHint.Range, "1,50")]
@@ -192,6 +195,13 @@ public partial class Player : CharacterBody3D
         CurrentState = WalkingState;
         WalkingState.Enter(this);
         FirstPerson = true;
+
+        //if (Lab.Indicies.TryGetValue(CurrentLab, out var labIndex)) { }
+        if (Lab.GetLabByIndex(CurrentLabIndex) is { } lab)
+        {
+            Lab.CurrentLab = lab;
+            GlobalPosition = lab.PlayerSpawn.GlobalPosition;
+        }
     }
 
 #if DEBUG
