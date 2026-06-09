@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 
 namespace Yotf;
@@ -54,6 +55,7 @@ public partial class Lab : Node3D
 
     public override void _Ready()
     {
+        Debug.Assert(Index != -1, $"Lab {Name} not given index");
         if (!Map.TryAdd(Index, this))
             GD.PrintErr($"Lab: {Name} and {Map[Index].Name} have duplicate Indicies");
         if (Index == 0)

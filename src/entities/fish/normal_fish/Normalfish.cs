@@ -13,7 +13,11 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
         Wander,
         Flee,
         Bubbled,
+        Baited,
     }
+
+    //baited
+    private Area3D? bait;
 
     //fleeing
     private float fleeTimer;
@@ -31,12 +35,65 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
-        //stateMachine.State = State.Wander;
+        stateMachine.AddState(State.Baited, BaitedUpdate, exit: BaitedExit);
+        stateMachine.State = State.Wander;
+
+        DetectionZone.BodyEntered += OnDetectionBodyEntered;
+        DetectionZone.BodyExited += OnDetectionBodyExited;
+        DetectionZone.AreaEntered += OnDetectionAreaEntered;
+        DetectionZone.AreaExited += OnDetectionAreaExited;
+    }
+
+    private void OnDetectionBodyEntered(Node3D body)
+    {
+        if (body is Player player && stateMachine.State != State.Bubbled)
+        {
+            stateMachine.State = State.Flee;
+            ThreatTarget = player;
+        }
+    }
+
+    private void OnDetectionBodyExited(Node3D body) { }
+
+    private void OnDetectionAreaEntered(Area3D area)
+    {
+        if (
+            area is Bait baitArea
+            && stateMachine.State != State.Flee
+            && stateMachine.State != State.Bubbled
+        )
+        {
+            stateMachine.State = State.Baited;
+            bait = baitArea;
+        }
+    }
+
+    private void OnDetectionAreaExited(Area3D area) { }
+
+    private void BaitedExit()
+    {
+        bait = null;
+    }
+
+    private void BaitedUpdate(float delta)
+    {
+        if (!bait!.IsValid())
+        {
+            stateMachine.State = State.Wander;
+            return;
+        }
+
+        if (SmoothMoveTo(bait!.GlobalPosition, WanderSpeed, delta, .1f))
+        {
+            bait.QueueFree();
+            stateMachine.State = State.Wander;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        //stateMachine.Update(delta);
+        if (AIIsOn)
+            stateMachine.Update(delta);
         MoveAndSlide();
     }
 
@@ -98,5 +155,10 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
         stateMachine.State = State.Wander;
         Mesh.Visible = true;
         DetectionZone.Monitoring = true;
+    }
+
+    public override void FoundBait(Bait bait)
+    {
+        OnDetectionAreaEntered(bait);
     }
 }

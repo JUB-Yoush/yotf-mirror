@@ -107,6 +107,7 @@ size = Vector3(12.95997, 2.9720058, 7.6858063)
 
 [node name="Lab" type="Node3D" unique_id=1680750340]
 script = ExtResource("1_5n85p")
+Index = -1
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=429934845]
 script = ExtResource("1_7i4wj")

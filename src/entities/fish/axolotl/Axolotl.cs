@@ -109,6 +109,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         if (!bait!.IsValid())
         {
             stateMachine.State = State.Wander;
+            return;
         }
 
         if (SmoothMoveTo(bait!.GlobalPosition, WanderSpeed, delta, .1f))
@@ -133,10 +134,10 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     private void OnDetectionAreaExited(Area3D area)
     {
-        if (area is Bait baitArea && stateMachine.State == State.Baited)
-        {
-            stateMachine.State = State.Wander;
-        }
+        // if (area is Bait && stateMachine.State == State.Baited)
+        // {
+        //     stateMachine.State = State.Wander;
+        // }
     }
 
     public override void _Process(double delta)
@@ -176,7 +177,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
             stateMachine.State = State.Chase;
         }
 
-        if (body is Player)
+        if (body is Player && stateMachine.State != State.Bubbled)
         {
             stateMachine.State = State.Flee;
         }

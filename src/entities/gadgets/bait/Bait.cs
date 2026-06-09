@@ -37,13 +37,7 @@ public partial class Bait : Area3D
         {
             var fish = body as Fish;
             if (fish!.getsBaited)
-            {
                 fish.FoundBait(this);
-            }
-            else
-            {
-                Log.PrintLn(fish!.getsBaited, ClearPathTo(fish.GlobalPosition));
-            }
         }
     }
 }

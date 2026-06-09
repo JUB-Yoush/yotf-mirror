@@ -7,36 +7,36 @@
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="6_c5kmb"]
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
+[ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="8_rnp1b"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
-[ext_resource type="PackedScene" uid="uid://c4bs4qqgdvii0" path="res://src/entities/gadgets/bait/bait.tscn" id="14_3n2k3"]
-[ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="14_rnp1b"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="15_2qppk"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="16_ihph0"]
+[ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_7t1ah"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_3n2k3"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2qppk"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2qppk"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjuom"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_3n2k3")
+noise = SubResource("FastNoiseLite_2qppk")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjuom"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41kwd"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_2qppk")
+refraction_texture = SubResource("NoiseTexture2D_sjuom")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -977,6 +977,7 @@ points = PackedVector3Array(0, -47.5, -2, 0, -48, -2, -16.5, -47.5, -2, -16.5, -
 
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
+Index = 0
 
 [node name="Lab2" parent="." unique_id=938565638 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
@@ -1573,15 +1574,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.025204, 9.657761, 30.68105
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("15_3n2k3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.130074, -63.570763, 4.429512)
 size = Vector3(132.92311, 173.20341, 76.21321)
-material = SubResource("StandardMaterial3D_sjuom")
+material = SubResource("StandardMaterial3D_41kwd")
 metadata/_edit_lock_ = true
 
-[node name="Axolotl2" parent="." unique_id=1436847044 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.189613, 7.857815, -4.17097)
+[node name="Inkfish" parent="." unique_id=192966336 instance=ExtResource("8_rnp1b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.176222, 7.866131, -7.9115257)
 Layer = 0
 
-[node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("14_rnp1b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.522561, 7.866131, -4.17097)
+[node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.787292, 7.866131, -4.8329244)
 Layer = 0
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=787583751]
@@ -2477,11 +2478,3 @@ shape = SubResource("ConvexPolygonShape3D_fh6v2")
 
 [node name="entity_0_brush_28_collision_shape" type="CollisionShape3D" parent="FuncGodotMap3/entity_0_worldspawn" unique_id=2020473508]
 shape = SubResource("ConvexPolygonShape3D_wymbq")
-
-[node name="Bait" parent="." unique_id=511604284 instance=ExtResource("14_3n2k3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.609394, 8.081286, 10.392273)
-
-[node name="Sprite3D" parent="Bait" index="1" unique_id=107624815]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8126717, 0, -4.7533712)
-
-[editable path="Bait"]
