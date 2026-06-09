@@ -288,6 +288,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     subject.size == Fish.Size.Large
                 )
             );
+            Log.PrintLn(result[subject.Name]);
         }
         return result;
     }
