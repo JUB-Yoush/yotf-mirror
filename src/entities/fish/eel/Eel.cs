@@ -128,6 +128,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
         InAction = false;
         AnimPlayer.Stop();
         ZapMesh.Visible = false;
+        zapped.Clear();
     }
 
     private void ElectricUpdate(float delta)

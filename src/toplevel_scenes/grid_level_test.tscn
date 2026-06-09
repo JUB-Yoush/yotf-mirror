@@ -8,8 +8,8 @@
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="8_7t1ah"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="8_41xod"]
 [ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="8_rnp1b"]
-[ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="9_3n2k3"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="9_rnp1b"]
+[ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="10_rnp1b"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="15_2qppk"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="16_ihph0"]
@@ -1578,12 +1578,12 @@ size = Vector3(132.92311, 173.20341, 76.21321)
 material = SubResource("StandardMaterial3D_41kwd")
 metadata/_edit_lock_ = true
 
-[node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("9_3n2k3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.993721, 7.866131, 17.223465)
-Layer = 0
-
 [node name="Inkfish" parent="." unique_id=192966336 instance=ExtResource("8_rnp1b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.176222, 7.866131, -7.9115257)
+Layer = 0
+
+[node name="Anglerfish" parent="." unique_id=391027566 instance=ExtResource("10_rnp1b")]
+transform = Transform3D(0.15283056, 0, -0.9882524, 0, 1, 0, 0.9882524, 0, 0.15283056, 4.4047203, 7.866131, 22.366247)
 Layer = 0
 
 [node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("16_sjuom")]
