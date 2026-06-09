@@ -4,7 +4,7 @@ using Godot;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
+public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -92,7 +92,12 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
 
     public override void _PhysicsProcess(double delta)
     {
-        if (AIIsOn)
+        if (Input.IsKeyPressed(Key.Space))
+        {
+            Log.PrintLn("dead");
+            IsDead = true;
+        }
+        if (AIIsOn && !IsDead)
             stateMachine.Update(delta);
         MoveAndSlide();
     }
@@ -160,5 +165,11 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable
     public override void FoundBait(Bait bait)
     {
         OnDetectionAreaEntered(bait);
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vec3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Flee;
+        ThreatTarget = source;
     }
 }

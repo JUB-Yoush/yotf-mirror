@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
+public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -12,7 +13,13 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
     public required CollisionShape3D ZapShape { set; get; }
 
     [Node]
+    public required MeshInstance3D ZapMesh { set; get; }
+
+    [Node]
     public required Area3D ZapArea { set; get; }
+
+    [Node]
+    public required AnimationPlayer AnimPlayer { set; get; }
 
     public float Period
     {
@@ -24,10 +31,10 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
     float zapDamage = 3f;
 
     [Export]
-    float zapDuration = 3f;
+    float zapDuration = 4f;
 
     [Export]
-    float zapKnockback = 3f;
+    float zapKnockback = 30f;
 
     public Bubble? BubbleJail { get; set; }
 
@@ -35,6 +42,11 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
     float IBubbleable.MeshScale => .3f;
 
     public bool InAction { get; set; }
+
+    HashSet<Node3D> zapped = [];
+
+    Node3D? zapTarget = null;
+    Tween? zapTween = null;
 
     enum State
     {
@@ -106,22 +118,32 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
     {
         ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, false);
         InAction = true;
+        AnimPlayer.Play("zap");
     }
 
     private void ElectricExit()
     {
+        zapTarget = null;
         ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, true);
         InAction = false;
+        AnimPlayer.Stop();
+        ZapMesh.Visible = false;
     }
 
     private void ElectricUpdate(float delta)
     {
+        if (zapTarget != null && zapTarget.IsValid())
+        {
+            SmoothMoveTo(zapTarget.GlobalPosition, WanderSpeed * 2, delta);
+        }
         foreach (var overlapper in ZapArea.GetOverlappingBodies())
         {
-            if (overlapper == this)
+            if (overlapper == this || zapped.Contains(overlapper))
                 continue;
             if (overlapper is ITakeDamage damageTaker)
             {
+                zapped.Add(overlapper);
+                Log.PrintLn(overlapper.Name);
                 var kb =
                     (damageTaker.Node.GlobalPosition - GlobalPosition).Normalized() * zapKnockback;
                 damageTaker.TakeDamage(3, kb, this);
@@ -133,6 +155,8 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
             stateMachine.State = State.Wander;
             zapDuration = 3f;
         }
+        if (zapTween != null)
+            return;
     }
 
     public override void _Process(double delta)
@@ -161,8 +185,15 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction
         DetectionZone.Monitoring = true;
     }
 
-    public void OnNoiseHeard(Node3D NoiseSource, float dB, string noise)
+    public void OnNoiseHeard(Node3D noiseSource, float dB, string noise)
     {
         stateMachine.State = State.Electric;
+        zapTarget = noiseSource;
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vector3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Electric;
+        zapTarget = source;
     }
 }

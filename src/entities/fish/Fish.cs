@@ -135,6 +135,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public List<IGiveLight> NearbyLights { get; set; } = [];
 
+    public bool IsDead { get; set; }
+
     public FishRoom AssignCurrentRoom()
     {
         FishRoom currentClosest = null!;
@@ -190,10 +192,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
 
-    public void TakeDamage(float amount, Vec3 knockback, Node3D source)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void TakeDamage(float amount, Vec3 knockback, Node3D source) { }
 
     public override void _Ready()
     {

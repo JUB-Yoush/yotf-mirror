@@ -3,7 +3,7 @@ using System;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Player : CharacterBody3D
+public partial class Player : CharacterBody3D, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -162,6 +162,22 @@ public partial class Player : CharacterBody3D
     public PlayerState State => CurrentState.Type;
     public float YawVelocity { get; private set; }
 
+    float ITakeDamage.Health
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+    bool ITakeDamage.Invincible
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+    bool ITakeDamage.IsDead
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
 
@@ -271,17 +287,11 @@ public partial class Player : CharacterBody3D
         return inputDir;
     }
 
-    internal void GetShocked(Vec3 ShockSource)
+    internal void GetShocked()
     {
         if (gettingShocked)
             return;
         gettingShocked = true;
-
-        //hit
-        Stats.Injuries += 3;
-        //kb
-        var dir = (GlobalPosition - ShockSource).Normalized();
-        Velocity += dir * 15;
 
         for (int i = 0; i < Inventory.Capacity; i++)
         {
@@ -332,5 +342,16 @@ public partial class Player : CharacterBody3D
             shockTween = null;
             gettingShocked = false;
         };
+    }
+
+    void ITakeDamage.TakeDamage(float amount, Vec3 knockback, Node3D source)
+    {
+        //hit
+        Stats.Injuries += amount;
+        Velocity += knockback;
+        if (source is Eel)
+        {
+            GetShocked();
+        }
     }
 }

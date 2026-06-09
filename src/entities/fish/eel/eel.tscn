@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0stkfp8rgced" path="res://assets/3d/fish/shinfish_LightningFishTexture.png" id="2_cm51b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rq6t1"]
-size = Vector3(0.31, 0.3, 0.4591626)
+size = Vector3(0.69426024, 0.5885986, 5.0683208)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rq6t1"]
 radius = 5.0
@@ -86,13 +86,82 @@ albedo_color = Color(0.8869811, 0.30556294, 0.57979774, 1)
 material = SubResource("StandardMaterial3D_cm51b")
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xbgle"]
+radius = 1.0
+height = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbgle"]
+transparency = 1
+albedo_color = Color(1, 0.9843137, 0.5568628, 0.35686275)
+
+[sub_resource type="Animation" id="Animation_xbgle"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ZapMesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZapMesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.07146561, -0.26158512)]
+}
+
+[sub_resource type="Animation" id="Animation_yn07c"]
+resource_name = "zap"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ZapMesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ZapMesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666665, 0.33333337, 0.39999998, 0.4666667, 0.523666, 0.6, 0.6666667, 0.73333335, 0.8, 0.8666667, 0.96666664),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.43256807, -0.15008318, -0.26158512), Vector3(-0.13718939, 0.17130435, -0.26158512), Vector3(0.39389038, 0.74610007, -0.2615851), Vector3(0, 0, 0), Vector3(0.43256807, -0.15008318, -0.26158512), Vector3(-0.13718939, 0.17130435, -0.26158512), Vector3(0.39389038, 0.74610007, -0.2615851), Vector3(0, 0, 0), Vector3(0, -0.25446793, -0.7714138), Vector3(0, 0, 0), Vector3(0.43256807, -0.15008318, -0.26158512), Vector3(-0.13718939, 0.17130435, -0.26158512), Vector3(0.39389038, 0.74610007, -0.2615851), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e7ejb"]
+_data = {
+&"RESET": SubResource("Animation_xbgle"),
+&"zap": SubResource("Animation_yn07c")
+}
+
 [node name="Eel" type="CharacterBody3D" unique_id=1200339281]
 collision_layer = 304
 script = ExtResource("1_cm51b")
 size = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060875252, 0.1442993, -0.3232286)
 shape = SubResource("BoxShape3D_rq6t1")
 
 [node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=1313346220]
@@ -207,6 +276,7 @@ skin = SubResource("Skin_gkl5q")
 
 [node name="ZapArea" type="Area3D" parent="." unique_id=608664291]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7516272)
 collision_layer = 0
 collision_mask = 530
 
@@ -221,3 +291,14 @@ debug_color = Color(0.5130227, 0.5767579, 0.058156997, 0.41960785)
 unique_name_in_owner = true
 top_level = true
 mesh = SubResource("BoxMesh_r2r6v")
+
+[node name="ZapMesh" type="MeshInstance3D" parent="." unique_id=464426730]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.07146561, -0.26158512)
+visible = false
+mesh = SubResource("CapsuleMesh_xbgle")
+surface_material_override/0 = SubResource("StandardMaterial3D_xbgle")
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="." unique_id=1801393681]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_e7ejb")

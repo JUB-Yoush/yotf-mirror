@@ -6,7 +6,7 @@ namespace Yotf;
 // we should probably use a growing visibility notifier to check if there is ink on the screen that is obscuring the camera?
 // not sure the best course of action.
 [Meta(typeof(IAutoNode))]
-public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
+public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -158,7 +158,8 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     public override void _PhysicsProcess(double delta)
     {
-        stateMachine.Update(delta);
+        if (AIIsOn && !IsDead)
+            stateMachine.Update(delta);
         MoveAndSlide();
     }
 
@@ -294,5 +295,11 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         InkEmitter.Visible = state;
         InkEmitter.Emitting = state;
         InAction = state;
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vec3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Flee;
+        ThreatTarget = source;
     }
 }

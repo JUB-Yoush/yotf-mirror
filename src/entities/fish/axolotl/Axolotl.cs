@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
+public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -142,9 +142,8 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _Process(double delta)
     {
-        if (!AIIsOn)
-            return;
-        stateMachine.Update(delta);
+        if (AIIsOn && !IsDead)
+            stateMachine.Update(delta);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -305,5 +304,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
     public override void FoundBait(Bait bait)
     {
         OnDetectionAreaEntered(bait);
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vec3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Flee;
+        ThreatTarget = source;
     }
 }
