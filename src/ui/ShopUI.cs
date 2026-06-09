@@ -104,8 +104,8 @@ public partial class ShopUI : Control
           view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${item.Price}";
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = item.Description;
-            view.GetNode<TextureButton>(".").Pressed += () => QueueItem(item);
-            view.GetNode<TextureButton>(".").Disabled = player.Money < item.Price;
+            view.Pressed += () => QueueItem(item);
+            view.Disabled = player.Money < item.Price;
             CollectionItems.AddChild(view);
         }
 
@@ -116,8 +116,8 @@ public partial class ShopUI : Control
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${upgrade.Price}";
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = upgrade.Description;
-            view.GetNode<TextureButton>(".").Pressed += () => QueueItem(upgrade);
-            view.GetNode<TextureButton>(".").Disabled = player.Money < upgrade.Price;
+            view.Pressed += () => QueueItem(upgrade);
+            view.Disabled = player.Money < upgrade.Price;
             CollectionUpgrades.AddChild(view);
         }
     }
@@ -127,9 +127,9 @@ public partial class ShopUI : Control
         ItemQueue.Add(item);
 
         var queue = ShopItemQueue.Instantiate<Button>();
-        queue.GetNode<Button>(".").Icon = item.Icon;
-        queue.GetNode<Button>(".").Text = item.Name;
-        queue.GetNode<Button>(".").Pressed += () => RemoveCartItem(item, queue.GetNode<Button>("."));
+        queue.Icon = item.Icon;
+        queue.Text = item.Name;
+        queue.Pressed += () => RemoveCartItem(item, queue.GetNode<Button>("."));
         CartItemList.AddChild(queue);
     }
 
@@ -138,7 +138,7 @@ public partial class ShopUI : Control
             if (CartItem == item) {
                 
                 ItemQueue.Remove(item);
-                 GD.Print("item removed!");
+              
             }
             
             thisButton.QueueFree();
