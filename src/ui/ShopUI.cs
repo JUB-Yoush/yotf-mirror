@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Yotf;
@@ -7,7 +8,6 @@ namespace Yotf;
 [Meta(typeof(IAutoNode))]
 public partial class ShopUI : Control
 {
-
     [Export]
     public required ButtonGroup ShopSortBtnGroup { set; get; }
 
@@ -18,13 +18,14 @@ public partial class ShopUI : Control
         "res://src/ui/shop_item.tscn"
     );
 
-    public static readonly PackedScene ShopItemQueue = GD.Load<PackedScene>("res://src/ui/queued_item.tscn");
+    public static readonly PackedScene ShopItemQueue = GD.Load<PackedScene>(
+        "res://src/ui/queued_item.tscn"
+    );
 
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
 
     private List<ShopItem> ItemQueue = []; //to purchase items
-  
 
     // [Node]
     // public required HBoxContainer UpgradeView { set; get; }
@@ -44,8 +45,15 @@ public partial class ShopUI : Control
     [Node("%CartItemsList")]
     public required VBoxContainer CartItemList { set; get; }
 
+    [Node]
+    public required RichTextLabel SumLabel { set; get; }
+
     private ShopKiosk kiosk = null!;
 
+    int CartPrice
+    {
+        get => ItemQueue.Sum(item => item.Price);
+    }
 
     public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
@@ -58,8 +66,6 @@ public partial class ShopUI : Control
 
     public override void _Ready()
     {
-      
-     
         this.GetNode<Button>()!.Pressed += CloseShop;
         var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = true;
@@ -68,31 +74,24 @@ public partial class ShopUI : Control
         ShopSortBtnGroup?.Pressed += OnSortGroupPressed;
         BuyButton.Pressed += BuyAll;
         PopulateShop();
-
-        
-    
     }
 
     private void OnSortGroupPressed(BaseButton button)
     {
-    
-
         if (button.Name == "SortBtnItems")
         {
-           
             CollectionItems.Visible = true;
             CollectionUpgrades.Visible = false;
         }
         else if (button.Name == "SortBtnUpgrades")
         {
-         
             CollectionItems.Visible = false;
             CollectionUpgrades.Visible = true;
-         }
+        }
     }
+
     private void PopulateShop()
     {
-       
         CollectionItems.RemoveAllChildren();
         CollectionUpgrades.RemoveAllChildren();
 
@@ -101,7 +100,7 @@ public partial class ShopUI : Control
         {
             var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
-          view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${item.Price}";
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = item.Description;
             view.Pressed += () => QueueItem(item);
@@ -114,60 +113,74 @@ public partial class ShopUI : Control
             var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
             view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
-            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${upgrade.Price}";
-            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = upgrade.Description;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text =
+                $"${upgrade.Price}";
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text =
+                upgrade.Description;
             view.Pressed += () => QueueItem(upgrade);
             view.Disabled = player.Money < upgrade.Price;
             CollectionUpgrades.AddChild(view);
         }
     }
 
-    private void QueueItem(ShopItem item) {
-    
+    private void QueueItem(ShopItem item)
+    {
         ItemQueue.Add(item);
 
         var queue = ShopItemQueue.Instantiate<Button>();
         queue.Icon = item.Icon;
         queue.Text = item.Name;
-        queue.Pressed += () => RemoveCartItem(item, queue.GetNode<Button>("."));
+        queue.Pressed += () => RemoveCartItem(item, queue);
         CartItemList.AddChild(queue);
+        SumLabel.Text = $"Total: ${CartPrice}";
     }
 
-    private void RemoveCartItem(ShopItem item, Button thisButton) {
-        foreach (ShopItem CartItem in ItemQueue) {
-            if (CartItem == item) {
-                
-                ItemQueue.Remove(item);
-              
-            }
-            
-            thisButton.QueueFree();
-        }
-      
-     
+    private void RemoveCartItem(ShopItem item, Button thisButton)
+    {
+        ItemQueue.Remove(item);
+        thisButton.QueueFree();
+        SumLabel.Text = $"Total: ${CartPrice}";
+        // foreach (ShopItem CartItem in ItemQueue)
+        // {
+        //     if (CartItem == item)
+        //     {
+        //         ItemQueue.Remove(item);
+        //     }
+
+        //     thisButton.QueueFree();
+        // }
     }
 
-    private void ClearCart() {
+    private void ClearCart()
+    {
         ItemQueue.Clear();
         CartItemList.RemoveAllChildren();
     }
 
-    private void BuyAll() {
-        foreach (ShopItem item in ItemQueue) {
+    private void BuyAll()
+    {
+        var player = this.SceneRoot().GetNode<Player>()!;
+        Log.PrintLn(CartPrice);
+        if (player.Stats.Money < CartPrice)
+        {
+            SumLabel.Text = "Too Poor!";
+            CreateTween().Fn(() => SumLabel.Text = $"Total: ${CartPrice}", 1);
+            return;
+        }
+        foreach (ShopItem item in ItemQueue)
+        {
             if (item.ItemType == ShopItem.Type.Item)
             {
                 BuyItem(item);
-            } 
+            }
             else
             {
                 BuyUpgrade(item);
             }
-
-
-            ClearCart();
         }
-
+        CloseShop();
     }
+
     private void BuyUpgrade(ShopItem upgrade)
     {
         var player = this.SceneRoot().GetNode<Player>()!.Stats;
@@ -220,6 +233,4 @@ public partial class ShopUI : Control
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();
     }
-
- 
 }
