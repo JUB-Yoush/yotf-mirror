@@ -3,6 +3,8 @@ namespace Yotf;
 public interface IGiveLight
 {
     Light3D LightSource { get; }
+    Area3D LightArea { get; }
+    RayCast3D LightRay { get; }
 
     Vec3 LightPosition => ((Node3D)this).GlobalPosition;
 

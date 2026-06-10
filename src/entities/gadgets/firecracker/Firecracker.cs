@@ -34,6 +34,9 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
 
     [Node]
     public required Area3D LightArea { set; get; }
+    
+    [Node]
+    public required RayCast3D LightRay { set; get; }
 
     [Export]
     float waitTime = 3f;
@@ -81,29 +84,27 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
             lifetime
         );
 
-        LightArea.AreaEntered += OnReceivedObject;
-        LightArea.AreaExited += OnRemovedObject;
+        LightArea.BodyEntered += OnReceivedObject;
+        LightArea.BodyExited += OnRemovedObject;
     }
 
     public void OnReceivedObject(Node3D body)
     {
-        GD.Print($"Firecracker detected {body}");
         if (body is IPhotographable p && !p.IsModifier)
         {
             trackedSubjects.Add(p);
             p.OnReceivedLight(this);
-            GD.Print($"Firecracker added light to {p}");
+            GD.Print($"Firecracker added light to {body.Name}");
         }
     }
 
     public void OnRemovedObject(Node3D body)
     {
-        GD.Print($"Firecracker lost track of {body}");
         if (body is IPhotographable p)
         {
             trackedSubjects.Remove(p);
             p.OnRemovedLight(this);
-            GD.Print($"Firecracker removed light from {p}");
+            GD.Print($"Firecracker removed light from {body.Name}");
         }
     }
 

@@ -333,6 +333,53 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         return .5f;
     }
 
+    private float CalcLightScore(Node3D subject)
+    {
+        var photographable = subject as IPhotographable;
+        if (photographable is null)
+            return 0f;
+
+        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
+        var nearbyLights = photographable.NearbyLights;
+        if (nearbyLights.Count == 0)
+            return 0f;
+
+        float closestDist = float.MaxValue;
+        IGiveLight? closestLight = null;
+
+        foreach (var light in nearbyLights)
+        {
+            var lightRay = light.LightRay;
+            lightRay.TargetPosition = lightRay.ToLocal(subject.GlobalPosition);
+            lightRay.ForceRaycastUpdate();
+
+            if (!lightRay.IsColliding())
+                continue;
+
+            GD.Print($"Light ray is colliding with {lightRay.GetCollider()}");
+            if (lightRay.GetCollider() is not Node collider || (collider != subject && !subject.IsAncestorOf(collider)))
+                continue;
+
+            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
+            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestLight = light;
+            }
+        }
+
+        if (closestLight is null)
+            return 0f;
+
+        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
+        float score = Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+        
+        GD.Print($"Light score of {score}");
+        return score;
+    }
+
     private Image GetViewportImage()
     {
         var img = PhotoViewport.GetTexture().GetImage();
@@ -416,52 +463,5 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public void ClearPhotos()
     {
         Photos = [];
-    }
-
-    private float CalcLightScore(Node3D subject)
-    {
-        var photographable = subject as IPhotographable;
-        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
-        var nearbyLights = photographable.NearbyLights.Where(l => l.IsActive).ToList();
-        if (nearbyLights.Count == 0)
-            return 0f;
-
-        var spaceState = subject.GetWorld3D().DirectSpaceState;
-        var excludeRids = new Godot.Collections.Array<Rid>();
-        if (subject is CollisionObject3D col)
-            excludeRids.Add(col.GetRid());
-
-        float closestDist = float.MaxValue;
-        IGiveLight? closestLight = null;
-
-        foreach (var light in nearbyLights)
-        {
-            var query = PhysicsRayQueryParameters3D.Create(
-                subject.GlobalPosition,
-                light.LightPosition
-            );
-            query.Exclude = excludeRids;
-            if (light is CollisionObject3D lightCol)
-                query.Exclude.Add(lightCol.GetRid());
-
-            var hit = spaceState.IntersectRay(query);
-            if (hit.Count > 0)
-                continue;
-
-            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
-            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
-            if (dist < closestDist)
-            {
-                closestDist = dist;
-                closestLight = light;
-            }
-        }
-
-        if (closestLight is null)
-            return 0f;
-
-        float t = 1f - (closestDist / closestLight.EffectiveRange);
-        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
-        return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
     }
 }
