@@ -31,7 +31,6 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable, ITa
     public override void _Ready()
     {
         base._Ready();
-        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);

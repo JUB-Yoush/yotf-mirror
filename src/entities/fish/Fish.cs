@@ -196,40 +196,49 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsInPhoto()
     {
-        if (VisibilityNotif.IsOnScreen() == false)
+        Log.PrintLn($"Is {Name} in photo?");
+        if (!VisibilityNotif.IsOnScreen())
+        {
+            Log.PrintLn("no, not visible");
             return false;
+        }
 
         var player = this.SceneRoot().GetNode<Player>()!;
-        var playerShape = player.GetNode<CollisionShape3D>("CollisionShapeBody");
-        //var playerCam = this.SceneRoot().GetNode<Player>().GetNode<CameraManager>().GetNode<Camera3D>(!;
+        var playerSeeArea = player.GetNode<Area3D>("PlayerCanSeeIt");
+        var playerCam = this.SceneRoot()
+            .GetNode<Player>()
+            .GetNode<CameraManager>()
+            .GetNode<Camera3D>()!;
         foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
         {
             ray.GlobalPosition = GlobalPosition;
-            ray.TargetPosition = (playerShape.GlobalPosition - ray.GlobalPosition) * 1.1f;
+            ray.TargetPosition = (playerCam.GlobalPosition - GlobalPosition) * 2f;
+            // if (this is Anglerfish)
+            // {
+            //     ray.TargetPosition = ((playerSeeArea.GlobalPosition - GlobalPosition) * 2f).Rotated(
+            //         Vec3.Up,
+            //         Mathf.DegToRad(90)
+            //     );
+            // }
             ray.ForceRaycastUpdate();
             if (ray.IsColliding())
             {
                 // var collider = ((Node3D)ray.GetCollider());
                 // Log.PrintLn($"{Name}'s rays Collided with {collider}");
                 // collidingRays++;
-                if (ray.GetCollider() is Player)
+                if (ray.GetCollider() is Area3D)
                 {
                     return true;
                 }
                 else
                 {
-                    if (Name == "NormalFish")
-                    {
-                        Log.PrintLn("not player");
-                    }
+                    Log.PrintLn("didn't colide with player");
+                    Log.PrintLn("collided with", ((Node3D)ray.GetCollider()).Name);
                 }
             }
             else
             {
-                if (Name == "NormalFish")
-                {
-                    Log.PrintLn("no collision");
-                }
+                Log.PrintLn("no collision");
             }
         }
         return false;
@@ -245,6 +254,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
         {
             ray.TopLevel = true;
+            ray.Rotation = Vector3.Zero;
+            ray.CollideWithAreas = true;
             ray.SetCollisionMaskValue(1, true);
             ray.SetCollisionMaskValue(2, true);
         }

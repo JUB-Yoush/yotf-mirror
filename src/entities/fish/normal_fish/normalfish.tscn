@@ -117,8 +117,8 @@ shape = SubResource("BoxShape3D_cg1xg")
 
 [node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=514532404]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.027611732, -0.67337775)
-aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.9458029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.2794783, -0.8106179)
+aabb = AABB(-0.20729196, 0.08449584, 0.25582707, 0.35891992, 0.51753175, 0.96661735)
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=533586528]
 unique_name_in_owner = true

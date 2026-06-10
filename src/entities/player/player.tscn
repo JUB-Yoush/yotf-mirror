@@ -35,6 +35,9 @@ shader = ExtResource("9_kc3pt")
 shader_parameter/radius = 4
 shader_parameter/offset = Vector3(0, 0, 0)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3c4mh"]
+size = Vector3(1, 1.5525055, 1)
+
 [node name="Player" type="CharacterBody3D" unique_id=678823562]
 collision_layer = 2
 floor_stop_on_slope = false
@@ -203,5 +206,15 @@ texture = ExtResource("11_kc3pt")
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 unique_name_in_owner = true
 script = ExtResource("8_tk761")
+
+[node name="PlayerCanSeeIt" type="Area3D" parent="." unique_id=1897556294]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2626129, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCanSeeIt" unique_id=413908224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24775529, 0)
+shape = SubResource("BoxShape3D_3c4mh")
 
 [editable path="Skin"]

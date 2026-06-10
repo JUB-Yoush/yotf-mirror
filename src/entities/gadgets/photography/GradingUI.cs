@@ -6,7 +6,9 @@ namespace Yotf;
 [Meta(typeof(IAutoNode))]
 public partial class GradingUI : Control
 {
-    private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
+    private static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/grading_ui.tscn"
+    );
 
     public static readonly Dictionary<string, int> maxPhotoScores = [];
     private static int labLastRanIn = 0;
@@ -92,16 +94,18 @@ public partial class GradingUI : Control
     private void RenderPhotoGrade(int index)
     {
         StyleLabels.RemoveAllChildren();
+        if (uploadedPhotos.Count != 0)
+        {
+            PhotoRect.Texture = uploadedPhotos[index].Data.ToTexture();
+        }
 
         if (uploadedPhotos.Count == 0 || uploadedPhotos[index].SubjectGrades.Count == 0)
         {
-            MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
+            MakeStyleLabel("No Fish to grade in photo!");
             return;
         }
 
         var photo = uploadedPhotos[index];
-        PhotoRect.Texture = photo.Data.ToTexture();
-
         int sum = 0;
         int addedPhotoScore = 0;
         HashSet<string> newRecords = [];
@@ -146,8 +150,10 @@ public partial class GradingUI : Control
             {
                 MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
             }
+
+            MakeStyleLabel("---");
         }
-        PhotoTotalLabel.Text = $"TOTAL: {sum}";
+        PhotoTotalLabel.Text = $"Photo TOTAL: {sum}";
         var player = this.SceneRoot().GetNode<Player>()!;
         var stats = player.GetNode<PlayerStats>()!;
         if (viewedPhotos.Add(photo))
@@ -156,7 +162,7 @@ public partial class GradingUI : Control
             stats.Money += GalleryTotal;
             stats.TotalGalleryScore += GalleryTotal;
         }
-        GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
+        GalleryTotalLabel.Text = $"Gallery TOTAL: {GalleryTotal}";
     }
 
     private static int CalculateScoreValue(float score) =>

@@ -35,20 +35,20 @@ text = "Return"
 [node name="GalleryTotalLabel" type="Label" parent="." unique_id=1657279698]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 538.0
-offset_top = 659.0
-offset_right = 812.0
-offset_bottom = 704.0
+offset_left = 186.0
+offset_top = 933.0
+offset_right = 460.0
+offset_bottom = 978.0
 theme_override_font_sizes/font_size = 32
 text = "Total Points: 0000"
 
 [node name="PhotoTotalLabel" type="Label" parent="." unique_id=1216227524]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 856.0
-offset_top = 600.0
-offset_right = 1156.0
-offset_bottom = 645.0
+offset_left = 189.0
+offset_top = 881.0
+offset_right = 489.0
+offset_bottom = 926.0
 theme_override_font_sizes/font_size = 32
 text = "0000"
 
@@ -83,17 +83,180 @@ offset_bottom = 630.0
 texture = ExtResource("1_klsji")
 expand_mode = 1
 
-[node name="StyleLabels" type="VBoxContainer" parent="." unique_id=396776176]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
+[node name="StyleScroll" type="ScrollContainer" parent="." unique_id=266352858]
+custom_minimum_size = Vector2(1100, 0)
 layout_mode = 0
 offset_left = 750.0
 offset_top = 198.0
-offset_right = 1113.0
-offset_bottom = 243.0
-alignment = 2
+offset_right = 1227.0
+offset_bottom = 1037.0
 
-[node name="Label3" type="Label" parent="StyleLabels" unique_id=443982695]
+[node name="StyleLabels" type="VBoxContainer" parent="StyleScroll" unique_id=127667645]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="StyleScroll/StyleLabels" unique_id=443982695]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label4" type="Label" parent="StyleScroll/StyleLabels" unique_id=618750889]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label5" type="Label" parent="StyleScroll/StyleLabels" unique_id=1906653795]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label6" type="Label" parent="StyleScroll/StyleLabels" unique_id=2029186286]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label7" type="Label" parent="StyleScroll/StyleLabels" unique_id=560863231]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label8" type="Label" parent="StyleScroll/StyleLabels" unique_id=789281994]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label9" type="Label" parent="StyleScroll/StyleLabels" unique_id=341340503]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label10" type="Label" parent="StyleScroll/StyleLabels" unique_id=1952114205]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label11" type="Label" parent="StyleScroll/StyleLabels" unique_id=2124309377]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label12" type="Label" parent="StyleScroll/StyleLabels" unique_id=1545619460]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label13" type="Label" parent="StyleScroll/StyleLabels" unique_id=587764722]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label14" type="Label" parent="StyleScroll/StyleLabels" unique_id=524033485]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label15" type="Label" parent="StyleScroll/StyleLabels" unique_id=208894744]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label16" type="Label" parent="StyleScroll/StyleLabels" unique_id=686883368]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label17" type="Label" parent="StyleScroll/StyleLabels" unique_id=1895937676]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label18" type="Label" parent="StyleScroll/StyleLabels" unique_id=1250876775]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label19" type="Label" parent="StyleScroll/StyleLabels" unique_id=1211364831]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label20" type="Label" parent="StyleScroll/StyleLabels" unique_id=565598331]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label21" type="Label" parent="StyleScroll/StyleLabels" unique_id=543545016]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label22" type="Label" parent="StyleScroll/StyleLabels" unique_id=124240677]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label23" type="Label" parent="StyleScroll/StyleLabels" unique_id=198864334]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label24" type="Label" parent="StyleScroll/StyleLabels" unique_id=1946552086]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label25" type="Label" parent="StyleScroll/StyleLabels" unique_id=622668283]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "+Fish1: Centered Bonus (100)"
+label_settings = ExtResource("2_ekfni")
+vertical_alignment = 2
+
+[node name="Label26" type="Label" parent="StyleScroll/StyleLabels" unique_id=227189454]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "+Fish1: Centered Bonus (100)"
