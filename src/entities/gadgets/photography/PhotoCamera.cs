@@ -313,6 +313,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var photographable = subject as IPhotographable;
         var vis = photographable!.SubjectBoundingMesh as VisualInstance3D;
         var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
+        DebugDraw3D.DrawAabb(worldAabb, Colors.Red, 10.0f);
         var MinPoint = new Vec3(float.MaxValue, float.MaxValue, float.MaxValue);
         var MaxPoint = new Vec3(0, 0, 0);
         for (int i = 0; i < 8; i++)

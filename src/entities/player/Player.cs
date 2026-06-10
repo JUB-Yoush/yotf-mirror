@@ -84,7 +84,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
     public float Depth
     {
         set;
-        get => (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+        get => (Lab.CurrentLab == null) ? 0f : (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]
