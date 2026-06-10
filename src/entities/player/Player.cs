@@ -292,6 +292,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
         if (gettingShocked)
             return;
         gettingShocked = true;
+        Audio.PlaySfx(Sfx.PowerDown);
 
         for (int i = 0; i < Inventory.Capacity; i++)
         {
@@ -329,12 +330,16 @@ public partial class Player : CharacterBody3D, ITakeDamage
             true
         );
         shockTween.Fn(() => Alert.Visible = false);
-        shockTween.Fn(() => HUD.Visible = true);
+        shockTween.Fn(() =>
+        {
+            Audio.PlaySfx(Sfx.PowerUp);
+            HUD.Visible = true;
+        });
         shockTween.AnimateProperty(
             Alert,
             Control.PropertyName.Modulate,
             new Color(0xffffffff),
-            .5f,
+            1f,
             true
         );
         shockTween.Finished += () =>
@@ -381,6 +386,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
         Alert.Visible = true;
         Alert.RenderGradually(str);
+        Audio.PlaySfx(Sfx.Alert);
         CreateTween()
             .Fn(
                 () =>

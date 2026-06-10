@@ -29,6 +29,14 @@ public partial class Sonar : Item, IDroppable
     [Export]
     float batteryUseRate = 1f;
 
+    [Export]
+    float pingFrequency = 100f;
+
+    [Export]
+    float pingScale = 5f;
+
+    float pingTime = 100f;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -148,6 +156,13 @@ public partial class Sonar : Item, IDroppable
             return;
 
         var distance = (closest.GlobalPosition - playerCamera.GlobalPosition).Length();
+        pingTime = Math.Max(0, pingTime - (1 / distance) * pingScale);
+        if (pingTime <= 0)
+        {
+            Audio.PlaySfx(Sfx.Ping);
+            pingTime = pingFrequency;
+        }
+
         var distanceText = distance <= MinLabelDistance ? distance.ToString("F1") : "???";
         if (closest.Discovered)
         {

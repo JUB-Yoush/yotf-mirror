@@ -77,6 +77,11 @@ public partial class ShopUI : Control
         PopulateShop();
     }
 
+    private void CloseShop()
+    {
+        CloseShop(true);
+    }
+
     private void OnSortGroupPressed(BaseButton button)
     {
         if (button.Name == "SortBtnItems")
@@ -127,7 +132,7 @@ public partial class ShopUI : Control
     private void QueueItem(ShopItem item)
     {
         ItemQueue.Add(item);
-
+        Audio.PlaySfx(Sfx.UIIncrease);
         var queue = ShopItemQueue.Instantiate<Button>();
         queue.Icon = item.Icon;
         queue.Text = item.Name;
@@ -140,16 +145,8 @@ public partial class ShopUI : Control
     {
         ItemQueue.Remove(item);
         thisButton.QueueFree();
+        Audio.PlaySfx(Sfx.UIDecrease);
         SumLabel.Text = $"Total: ${CartPrice}";
-        // foreach (ShopItem CartItem in ItemQueue)
-        // {
-        //     if (CartItem == item)
-        //     {
-        //         ItemQueue.Remove(item);
-        //     }
-
-        //     thisButton.QueueFree();
-        // }
     }
 
     private void ClearCart()
@@ -166,8 +163,10 @@ public partial class ShopUI : Control
         {
             SumLabel.Text = "Too Poor!";
             CreateTween().Fn(() => SumLabel.Text = $"Total: ${CartPrice}", 1);
+            Audio.PlaySfx(Sfx.UIDecrease);
             return;
         }
+        Audio.PlaySfx(Sfx.UIIncrease, true);
         foreach (ShopItem item in ItemQueue)
         {
             if (item.ItemType == ShopItem.Type.Item)
@@ -226,8 +225,13 @@ public partial class ShopUI : Control
         PopulateShop();
     }
 
-    private void CloseShop()
+    private void CloseShop(bool manuallyClosed = false)
     {
+        if (manuallyClosed)
+        {
+            Audio.PlaySfx(Sfx.UIClose);
+        }
+
         kiosk.inShop = false;
         var player = GetTree().CurrentScene.GetNode<Player>("Player");
         player.IsInMenu = false;

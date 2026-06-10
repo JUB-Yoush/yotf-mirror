@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Yotf;
@@ -21,6 +22,9 @@ public partial class Bubble : CharacterBody3D
 
     [Node]
     public required Area3D BubbleableArea { set; get; }
+
+    [Node]
+    public required AudioStreamPlayer3D SfxSource { set; get; }
 
     private float shotSpeed = 1f;
 
@@ -57,9 +61,12 @@ public partial class Bubble : CharacterBody3D
 
     public override void _Ready()
     {
+        Audio.PlaySfx(Sfx.BubbleBlow, SfxSource);
         BubbleableArea.BodyEntered += OnBodyEntered;
         TopLevel = true;
     }
+
+    public override void _ExitTree() { }
 
     private void OnBodyEntered(Node3D body)
     {
@@ -85,6 +92,7 @@ public partial class Bubble : CharacterBody3D
     {
         capturedNode?.FreeFromBubble();
         capturedNode?.BubbleJail = null;
+        Audio.PlaySfxFrom(Sfx.BubblePop, SfxSource.GlobalPosition);
         this.DeferFree();
     }
 

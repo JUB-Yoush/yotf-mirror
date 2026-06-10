@@ -80,7 +80,7 @@ public static class GDExt
 
     extension(Label label)
     {
-        public void RenderGradually(string msg, float speed = 0.04f)
+        public void RenderGradually(string msg, float speed = 0.03f)
         {
             label.Text = "";
             var i = 0;

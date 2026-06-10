@@ -151,3 +151,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09455228)
 
 [node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=249756874]
+
+[node name="SfxSource" type="AudioStreamPlayer3D" parent="." unique_id=564440888]
+unique_name_in_owner = true

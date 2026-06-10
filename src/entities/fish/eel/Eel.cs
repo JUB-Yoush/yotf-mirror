@@ -21,6 +21,9 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
     [Node]
     public required AnimationPlayer AnimPlayer { set; get; }
 
+    [Node]
+    public required AudioStreamPlayer3D SfxSource { set; get; }
+
     public float Period
     {
         private set { field = (float)Mathf.Wrap(value, 0, 2 * Math.PI); }
@@ -119,6 +122,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
         ZapShape.SetDeferred(CollisionShape3D.PropertyName.Disabled, false);
         InAction = true;
         AnimPlayer.Play("zap");
+        Audio.PlaySfx(Sfx.Electric, SfxSource);
     }
 
     private void ElectricExit()
@@ -129,6 +133,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
         AnimPlayer.Stop();
         ZapMesh.Visible = false;
         zapped.Clear();
+        SfxSource.Stop();
     }
 
     private void ElectricUpdate(float delta)

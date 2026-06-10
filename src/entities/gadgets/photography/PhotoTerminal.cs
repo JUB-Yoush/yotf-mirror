@@ -42,6 +42,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
         if (inventory.GetItemIndex("Camera") == -1)
             return;
 
+        Audio.PlaySfx(Sfx.UIOpen);
         var cam = inventory.GetNode<PhotoCamera>(inventory.GetItemIndex("Camera").ToString());
         var lab = GetParent<Lab>();
         cam.Film = PlayerStats.MaxFilm;

@@ -29,6 +29,9 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
 
+    [Node]
+    public required AudioStreamPlayer3D SfxSource { set; get; }
+
     InkArea? InkArea = null;
 
     public float MeshScale
@@ -205,6 +208,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
         {
             Velocity = fleeDir * 10;
             ToggleInk(true);
+            Audio.PlaySfx(Sfx.InkSpray, SfxSource);
         });
 
         tween.TweenFn<float>(
@@ -228,6 +232,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
             () =>
             {
                 ToggleInk(false);
+                SfxSource.Stop();
                 stateMachine.State = State.Wander;
             },
             2f

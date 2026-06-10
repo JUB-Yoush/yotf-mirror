@@ -13,32 +13,31 @@
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="11_st1um"]
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="12_qu2sl"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="13_veojw"]
-[ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="15_t0760"]
 [ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="16_o1ln5"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_t0760"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_aw6sm"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ibkhf"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t0760"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6uy5a"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ibkhf"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_ibkhf")
+noise = SubResource("FastNoiseLite_t0760")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atfwa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uy5a"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_6uy5a")
+refraction_texture = SubResource("NoiseTexture2D_ibkhf")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -1183,7 +1182,7 @@ script = ExtResource("1_atfwa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph" unique_id=204889]
 material_override = ExtResource("2_g8yqg")
-mesh = SubResource("ImmediateMesh_t0760")
+mesh = SubResource("ImmediateMesh_aw6sm")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1547,7 +1546,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4762, 9.279371, 30.99307)
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("7_pwxqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.546997, -74.334854, 4.429512)
 size = Vector3(152.21326, 194.7316, 76.21321)
-material = SubResource("StandardMaterial3D_atfwa")
+material = SubResource("StandardMaterial3D_6uy5a")
 metadata/_edit_lock_ = true
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1407446890]
@@ -2663,17 +2662,5 @@ InsideChest = ExtResource("13_veojw")
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, -14.696756, 8.934772, -0.09720403)
 chaseDmg = 10.0
 LabLayer = NodePath("../Lab")
-
-[node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("15_t0760")]
-transform = Transform3D(0.78170556, 0, -0.6236477, 0, 1, 0, 0.6236477, 0, 0.78170556, -10.550108, 9.627918, -7.8306656)
-
-[node name="NormalFish2" parent="." unique_id=762085852 instance=ExtResource("15_t0760")]
-transform = Transform3D(0.78170556, 0, -0.6236477, 0, 1, 0, 0.6236477, 0, 0.78170556, -15.007825, 9.627918, -2.2431808)
-
-[node name="NormalFish3" parent="." unique_id=1954707993 instance=ExtResource("15_t0760")]
-transform = Transform3D(0.78170556, 0, -0.6236477, 0, 1, 0, 0.6236477, 0, 0.78170556, -18.357338, 9.627918, -4.9154344)
-
-[node name="NormalFish4" parent="." unique_id=1043139291 instance=ExtResource("15_t0760")]
-transform = Transform3D(0.78170556, 0, -0.6236477, 0, 1, 0, 0.6236477, 0, 0.78170556, -14.948762, 9.627918, -9.187883)
 
 [editable path="Lab"]

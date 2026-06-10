@@ -84,6 +84,7 @@ public partial class GradingUI : Control
 
     private void CloseShop()
     {
+        Audio.PlaySfx(Sfx.UIClose);
         photoTerminal.inShop = false;
         var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = false;
@@ -102,8 +103,11 @@ public partial class GradingUI : Control
         if (uploadedPhotos.Count == 0 || uploadedPhotos[index].SubjectGrades.Count == 0)
         {
             MakeStyleLabel("No Fish to grade in photo!");
+            Audio.PlaySfx(Sfx.UIDecrease);
             return;
         }
+
+        Audio.PlaySfx(Sfx.UIIncrease);
 
         var photo = uploadedPhotos[index];
         int sum = 0;
