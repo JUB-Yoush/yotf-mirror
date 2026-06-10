@@ -73,7 +73,7 @@ public partial class NavGraph : Node3D
         NavNodes = GetNavNodes();
         foreach (var node in NavNodes)
         {
-            //node.ClearMissingNeighbours();
+            node.ClearMissingNeighbours();
         }
 
         bool anyConnections = false;
