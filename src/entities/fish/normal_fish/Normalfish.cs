@@ -131,7 +131,7 @@ public partial class Normalfish : Fish, IHearNoise, IBubbleable, ISonarable, ITa
     public void WanderEnter()
     {
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
-        CurrentRoom = AssignCurrentRoom();
+        //CurrentRoom = AssignCurrentRoom();
     }
 
     private void WanderUpdate(float delta)

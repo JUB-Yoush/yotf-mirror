@@ -45,7 +45,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public FishRoom? CurrentRoom { get; set; }
 
     [Export]
-    public int Layer = -1;
+    public Lab LabLayer = null!;
 
     [ExportCategory("FishProfile")]
     [Export]
@@ -196,23 +196,27 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public override void _Ready()
     {
-        Debug.Assert(Layer != -1, $"Fish {Name} created without assigning Layer");
+        Debug.Assert(LabLayer != null, $"Fish {Name} created without assigning Layer");
         Lab.CurrentLabUpdated += OnLabUpdated;
-        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        //navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         //Debug.Assert(navGraph != null,"Navgraph is null, fish probably init'ed first or there is no nav graph")
     }
 
     private void OnLabUpdated(Lab lab)
     {
-        if (lab.Index == Layer)
+        if (lab == LabLayer)
         {
-            ProcessMode = ProcessModeEnum.Pausable;
+            Log.PrintLn("my time");
         }
-        else
-        {
-            ProcessMode = ProcessModeEnum.Disabled;
-            Visible = false;
-        }
+        // if (lab.Index == Layer)
+        // {
+        //     ProcessMode = ProcessModeEnum.Pausable;
+        // }
+        // else
+        // {
+        //     ProcessMode = ProcessModeEnum.Disabled;
+        //     Visible = false;
+        // }
     }
 
     public virtual void FoundBait(Bait bait) { }

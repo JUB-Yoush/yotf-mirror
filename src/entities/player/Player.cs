@@ -45,7 +45,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
     public Vec3 CollisionPivot;
 
     [Export]
-    int CurrentLabIndex = 0;
+    Marker3D? SpawnPos = null;
 
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
@@ -212,10 +212,9 @@ public partial class Player : CharacterBody3D, ITakeDamage
         WalkingState.Enter(this);
         FirstPerson = true;
 
-        if (Lab.GetLabByIndex(CurrentLabIndex) is { } lab)
+        if (SpawnPos != null)
         {
-            Lab.CurrentLab = lab;
-            GlobalPosition = lab.PlayerSpawn.GlobalPosition;
+            GlobalPosition = SpawnPos.GlobalPosition;
         }
     }
 

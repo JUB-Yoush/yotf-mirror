@@ -267,6 +267,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         foreach (var subjectName in photo.Subjects)
         {
             // TODO (j) where will fish be placed within the scene?
+            //var subject = GetTree().CurrentScene.GetNode<Node>("Fish").GetNode<Fish>(subjectName);
             var subject = GetTree().CurrentScene.GetNode<Fish>(subjectName);
             var angleScore = CalcCenteredScore(subject);
             var facingScore = CalcFacingScore(subject);

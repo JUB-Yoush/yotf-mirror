@@ -46,12 +46,11 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
     {
         base._Ready();
 
-        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         stateMachine.AddState(State.Idle, IdleUpdate, IdleEnter);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
         stateMachine.AddState(State.Chasing, ChasingUpdate, exit: ChasingExit);
         HitBox.BodyEntered += OnHitboxBodyEntered;
-        //stateMachine.State = State.Idle;
+        stateMachine.State = State.Idle;
     }
 
     private void BubbleUpdate(float delta)
@@ -109,7 +108,7 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
     public void IdleEnter()
     {
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
-        CurrentRoom = AssignCurrentRoom();
+        //CurrentRoom = AssignCurrentRoom();
     }
 
     private void IdleUpdate(float delta)
