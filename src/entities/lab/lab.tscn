@@ -94,7 +94,7 @@ points = PackedVector3Array(7.5, 3.3125, -3, 7.5, 3.25, -3, -2.9743168, 3.3125, 
 
 [sub_resource type="BoxMesh" id="BoxMesh_0ibs2"]
 material = SubResource("StandardMaterial3D_hrqa5")
-size = Vector3(3, 0.3, 3)
+size = Vector3(3, 0.6, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ibs2"]
 size = Vector3(3, 0.3, 3)
@@ -171,7 +171,7 @@ mesh = SubResource("BoxMesh_0ibs2")
 
 [node name="GateLabel" type="Label3D" parent="TopGate" unique_id=1730856950]
 unique_name_in_owner = true
-transform = Transform3D(1.9106855e-15, -1, -4.371139e-08, -4.371139e-08, -4.371139e-08, 1, -1, 0, -4.371139e-08, -0.014364243, 0.2281723, -0.19493055)
+transform = Transform3D(1.9106855e-15, -1, -4.371139e-08, -4.371139e-08, -4.371139e-08, 1, -1, 0, -4.371139e-08, -0.014364247, 0.32513094, -0.19493055)
 pixel_size = 0.01
 text = "999/999"
 
