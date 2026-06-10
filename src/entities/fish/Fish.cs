@@ -198,6 +198,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     {
         Debug.Assert(Layer != -1, $"Fish {Name} created without assigning Layer");
         Lab.CurrentLabUpdated += OnLabUpdated;
+        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        //Debug.Assert(navGraph != null,"Navgraph is null, fish probably init'ed first or there is no nav graph")
     }
 
     private void OnLabUpdated(Lab lab)
