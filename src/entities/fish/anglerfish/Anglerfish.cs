@@ -33,6 +33,8 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
 
     readonly HashSet<ITakeDamage> hit = [];
 
+    bool IBubbleable.AxolotlTargets => false;
+
     enum State
     {
         Idle,

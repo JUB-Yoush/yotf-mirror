@@ -44,6 +44,8 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
     Mesh IBubbleable.Mesh => Mesh.Mesh;
     float IBubbleable.MeshScale => .3f;
 
+    bool IBubbleable.AxolotlTargets => false;
+
     public bool InAction { get; set; }
     public int OnBodyEntered { get; private set; }
 

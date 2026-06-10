@@ -1759,22 +1759,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.364174, -44.11639, 8.23645
 neighbors = [NodePath("../NavNode48"), NodePath("../NavNode16"), NodePath("../NavNode18")]
 Room = NodePath("../../RoomMarkers1/FishRoom")
 
-[node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_c5kmb")]
+[node name="Lab0" parent="." unique_id=1680750340 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
 Index = 0
 
-[node name="Lab2" parent="." unique_id=938565638 instance=ExtResource("4_c5kmb")]
+[node name="Lab1" parent="." unique_id=938565638 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
 Index = 1
 OxygenScale = 0.0
 
-[node name="Lab3" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
+[node name="Lab2" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 81.22056, -89.220566, -7.740203)
 Index = 2
 OxygenScale = 0.0
 requiredGalleryScore = 10
 
-[node name="Lab4" parent="." unique_id=1913430621 instance=ExtResource("4_c5kmb")]
+[node name="Lab3" parent="." unique_id=1913430621 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 121.07384, -147.99278, 0.17813271)
 Index = 3
 OxygenScale = 0.0
@@ -1783,7 +1783,7 @@ FinalLab = true
 
 [node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("StartLab") instance=ExtResource("6_c5kmb")]
 transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -24.895155, 14.442931, -11.478544)
-StartLab = NodePath("../Lab2")
+StartLab = NodePath("../Lab1")
 
 [node name="RoomMarkers0" type="Node" parent="." unique_id=1267745214]
 
@@ -1817,7 +1817,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.30412, -26.91643, 22.34284
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.71073, -34.08145, 12.293374)
 
 [node name="FishRoom4" parent="RoomMarkers1" unique_id=170304711 instance=ExtResource("8_41xod")]
-transform = Transform3D(0.99989957, 0, 0.014171599, 0, 1, 0, -0.014171599, 0, 0.99989957, 70.049835, -52.825592, -8.338495)
+transform = Transform3D(0.99989957, 0, 0.014171599, 0, 1, 0, -0.014171599, 0, 0.99989957, 70.16173, -52.825592, -9.869202)
+
+[node name="FishRoom5" parent="RoomMarkers1" unique_id=943564758 instance=ExtResource("8_41xod")]
+transform = Transform3D(0.99989957, 0, 0.014171599, 0, 1, 0, -0.014171599, 0, 0.99989957, 71.59237, -59.732063, 4.0310655)
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1407446890]
 script = ExtResource("11_sjuom")
@@ -2935,124 +2938,145 @@ InsideChest = ExtResource("16_2qppk")
 [node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.467922, 9.549036, 30.625109)
 CurrentRoom = NodePath("../RoomMarkers0/Home6")
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Eel2" parent="." unique_id=1297256566 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.757355, 7.8508387, -9.044674)
 CurrentRoom = NodePath("../RoomMarkers0/Home5")
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Eel3" parent="." unique_id=1344413652 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.757355, 7.8508387, 1.3481474)
 CurrentRoom = NodePath("../RoomMarkers0/Home4")
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish" parent="." unique_id=711625347 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.63046, 8.253437, 0)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish2" parent="." unique_id=1769198976 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.899153, 6.7527304, 20.310053)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish3" parent="." unique_id=2129588686 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.201045, 6.6545277, 16.331036)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish5" parent="." unique_id=1447025267 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0648556, 6.6545277, -8.715663)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish4" parent="." unique_id=369953498 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.281545, 6.371264, -4.8080826)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Ghost" parent="." unique_id=1678250279 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_41kwd")]
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, 6.287442, 6.4354677, -7.6174517)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Ghost2" parent="." unique_id=120292926 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_41kwd")]
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, 31.794292, 6.85054, 34.706375)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Anglerfish" parent="." unique_id=521880383 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_rnp1b")]
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, 0.021412969, 5, 19.653252)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Axolotl" parent="." unique_id=283741704 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_3n2k3")]
 transform = Transform3D(-0.64053875, 0, -0.76792586, 0, 1, 0, 0.76792586, 0, -0.64053875, -3.7336264, 5.8959436, 26.4039)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Axolotl2" parent="." unique_id=1229659631 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_3n2k3")]
 transform = Transform3D(-0.64053875, 0, -0.76792586, 0, 1, 0, 0.76792586, 0, -0.64053875, 6.30868, 10.840972, -3.4009361)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Inkfish" parent="." unique_id=192966336 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("18_ihph0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.67011, 4, -3.8608646)
 CurrentRoom = NodePath("../RoomMarkers0/Home6")
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="Inkfish2" parent="." unique_id=775296809 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("18_ihph0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.67011, 4, -8.260919)
 CurrentRoom = NodePath("../RoomMarkers0/Home4")
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab0")
 
 [node name="NormalFish6" parent="." unique_id=1745145567 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.89204, -8.337406, -9.758171)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="Eel4" parent="." unique_id=1426913268 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.71194, -26.876938, 22.361452)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom2")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
+
+[node name="Inkfish4" parent="." unique_id=210751240 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("18_ihph0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.4832, -59.28452, 3.7201223)
+CurrentRoom = NodePath("../RoomMarkers1/FishRoom5")
+LabLayer = NodePath("../Lab1")
 
 [node name="Eel5" parent="." unique_id=1011491864 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.153595, -52.939636, -11.24039)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom4")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="NormalFish7" parent="." unique_id=795638933 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.79143, -17.956299, 17.32826)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="NormalFish8" parent="." unique_id=738058176 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.89017, -37.536858, 23.028048)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="NormalFish9" parent="." unique_id=1611975183 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(-0.99819714, 0, 0.060020715, 0, 1, 0, -0.060020715, 0, -0.99819714, 70.0596, -44.323006, 9.831799)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="NormalFish10" parent="." unique_id=1898664963 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("16_sjuom")]
 transform = Transform3D(-0.99819714, 0, 0.060020715, 0, 1, 0, -0.060020715, 0, -0.99819714, 74.026054, -53.749496, 8.92194)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="Ghost3" parent="." unique_id=1025679608 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_41kwd")]
 transform = Transform3D(-0.5756762, 0, 0.81767774, 0, 1, 0, -0.81767774, 0, -0.5756762, 68.24567, -29.85107, 28.228855)
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="Ghost4" parent="." unique_id=1053743690 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_41kwd")]
 transform = Transform3D(-0.04440394, 0, -0.99901366, 0, 1, 0, 0.99901366, 0, -0.04440394, 70.90215, -44.68655, 20.696201)
-LabLayer = NodePath("../Lab")
+LabLayer = NodePath("../Lab1")
+
+[node name="Ghost5" parent="." unique_id=824949708 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_41kwd")]
+transform = Transform3D(-0.04440394, 0, -0.99901366, 0, 1, 0, 0.99901366, 0, -0.04440394, 58.69081, -53.027233, 8.68179)
+LabLayer = NodePath("../Lab1")
 
 [node name="Inkfish3" parent="." unique_id=762454775 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("18_ihph0")]
 transform = Transform3D(-0.5756762, 0, 0.81767774, 0, 1, 0, -0.81767774, 0, -0.5756762, 68.61323, -36.85107, 7.616333)
 CurrentRoom = NodePath("../RoomMarkers1/FishRoom3")
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
 
 [node name="Axolotl3" parent="." unique_id=92939324 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_3n2k3")]
 transform = Transform3D(-0.5756762, 0, 0.81767774, 0, 1, 0, -0.81767774, 0, -0.5756762, 70.035866, -23.198042, 29.20286)
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
+
+[node name="NormalFish11" parent="." unique_id=333420325 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_sjuom")]
+transform = Transform3D(0.7478329, 0, 0.663887, 0, 1, 0, -0.663887, 0, 0.7478329, 69.677, -66.25107, -14.63049)
+LabLayer = NodePath("../Lab1")
+
+[node name="Axolotl4" parent="." unique_id=1851260390 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_3n2k3")]
+transform = Transform3D(-0.5756762, 0, 0.81767774, 0, 1, 0, -0.81767774, 0, -0.5756762, 69.4143, -63.39221, 7.2364597)
+LabLayer = NodePath("../Lab1")
 
 [node name="Anglerfish2" parent="." unique_id=391027566 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_rnp1b")]
 transform = Transform3D(-0.7507109, 0, -0.66063076, 0, 1, 0, 0.66063076, 0, -0.7507109, 72.88314, -56.90542, 33.800266)
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
+
+[node name="Anglerfish4" parent="." unique_id=815165812 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_rnp1b")]
+transform = Transform3D(-0.2170189, 0, -0.9761673, 0, 1, 0, 0.9761673, 0, -0.2170189, 78.31539, -75.7897, -3.2442698)
+LabLayer = NodePath("../Lab1")
 
 [node name="Anglerfish3" parent="." unique_id=1158783605 node_paths=PackedStringArray("LabLayer") instance=ExtResource("10_rnp1b")]
 transform = Transform3D(0.7333502, 0, 0.679851, 0, 1, 0, -0.679851, 0, 0.7333502, 69.56348, -56.8712, 24.110247)
-LabLayer = NodePath("../Lab2")
+LabLayer = NodePath("../Lab1")
