@@ -138,7 +138,8 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
         if (stateMachine.State != State.Bubbled)
         {
             stateMachine.State = State.Chasing;
-            NoisePosition = NoiseSource.GlobalPosition;
+            var direction = (NoiseSource.GlobalPosition - GlobalPosition).Normalized();
+            NoisePosition = NoiseSource.GlobalPosition + (direction * 2);
         }
     }
 }

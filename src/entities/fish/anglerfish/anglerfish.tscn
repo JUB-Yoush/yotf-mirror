@@ -647,3 +647,7 @@ collision_mask = 3
 
 [node name="RayCast3D2" type="RayCast3D" parent="RayCastContainer" unique_id=1111979808]
 collision_mask = 3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=929450661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6572223, 2.5572946)
+omni_range = 6.591
