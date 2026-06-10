@@ -178,6 +178,15 @@ public partial class NavNode : Node3D
         EditorInterface.Singleton.MarkSceneAsUnsaved();
     }
 
+    public override void _Ready()
+    {
+        if (!Engine.IsEditorHint())
+        {
+            Visible = false;
+            Debug.Assert(Room != null, $"No room provided for nav vertex {Name}");
+        }
+    }
+
     public void AddNeighbor(NavNode nei)
     {
         if (!neighbors.Contains<NavNode>(nei))

@@ -83,7 +83,11 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
 
     private void OnDetectionBodyEntered(Node3D body)
     {
-        if (body is Player player && stateMachine.State != State.Bubbled)
+        if (
+            body is Player player
+            && stateMachine.State != State.Bubbled
+            && stateMachine.State != State.Flee
+        )
         {
             ThreatTarget = player;
             stateMachine.State = State.Flee;
@@ -153,7 +157,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
 
     public void WanderEnter()
     {
-        //CurrentRoom = AssignCurrentRoom();
+        CurrentRoom = AssignCurrentRoom();
     }
 
     public override void _PhysicsProcess(double delta)

@@ -108,7 +108,7 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
     public void IdleEnter()
     {
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
-        //CurrentRoom = AssignCurrentRoom();
+        CurrentRoom = AssignCurrentRoom();
     }
 
     private void IdleUpdate(float delta)

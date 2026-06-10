@@ -302,3 +302,15 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xbgle")
 [node name="AnimPlayer" type="AnimationPlayer" parent="." unique_id=1801393681]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_e7ejb")
+
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=18756730]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.070664)
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=1346792910]
+
+[node name="RayCast3D2" type="RayCast3D" parent="RayCastContainer" unique_id=827186082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.580992)
+
+[node name="RayCast3D3" type="RayCast3D" parent="RayCastContainer" unique_id=1768079540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.7054977)

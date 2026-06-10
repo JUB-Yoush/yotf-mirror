@@ -33,4 +33,15 @@ unique_name_in_owner = true
 
 [node name="shinfish" parent="." unique_id=1966897904 instance=ExtResource("3_bubtx")]
 
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=436318057]
+unique_name_in_owner = true
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=1471890302]
+
+[node name="RayCast3D2" type="RayCast3D" parent="RayCastContainer" unique_id=1738944548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.580992)
+
+[node name="RayCast3D3" type="RayCast3D" parent="RayCastContainer" unique_id=809800173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.7054977)
+
 [editable path="shinfish"]

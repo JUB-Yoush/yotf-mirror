@@ -150,12 +150,14 @@ public static class GDExt
         /// <summary>
         /// Loops over scene tree to find all children of matching type.
         /// </summary>
-        public T[] GetNodes<T>(bool includeInternal = false)
+        public T[] GetNodes<T>(bool includeInternal = false, bool document = false)
             where T : class
         {
             var res = new List<T>();
             foreach (var child in node.GetChildren(includeInternal))
             {
+                if (document)
+                    Log.PrintLn(child.Name, includeInternal);
                 if (child is T t)
                     res.Add(t);
             }

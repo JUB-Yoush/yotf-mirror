@@ -268,7 +268,12 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         {
             // TODO (j) where will fish be placed within the scene?
             //var subject = GetTree().CurrentScene.GetNode<Node>("Fish").GetNode<Fish>(subjectName);
-            var subject = GetTree().CurrentScene.GetNode<Fish>(subjectName);
+
+            // var subject = this.SceneRoot()
+            //     .GetNode<Node>($"Fish{Lab.CurrentLab!.Index}")
+            //     .GetNode<Fish>(subjectName);
+            var subject = this.SceneRoot().GetNode<Fish>(subjectName);
+            Log.PrintLn(subject);
             var angleScore = CalcCenteredScore(subject);
             var facingScore = CalcFacingScore(subject);
             var sizeScore = CalcSizeScore(subject);
@@ -465,5 +470,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         float t = 1f - (closestDist / closestLight.EffectiveRange);
         float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
         return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+    }
+
+    Fish[] GetLayerFish()
+    {
+        var index = Lab.CurrentLab!.Index;
+        return this.SceneRoot().GetNode<Node>("Fish").GetChild(index).GetNodes<Fish>();
     }
 }

@@ -82,7 +82,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction, ITake
     public override void _Ready()
     {
         base._Ready();
-        //CurrentRoom ??= AssignCurrentRoom();
+        CurrentRoom ??= AssignCurrentRoom();
 
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
@@ -219,7 +219,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction, ITake
     {
         ThreatTarget = null;
         CurrentNode = navGraph.NodeClosestTo(GlobalPosition);
-        //CurrentRoom = AssignCurrentRoom();
+        CurrentRoom = AssignCurrentRoom();
     }
 
     public void WanderUpdate(float delta)

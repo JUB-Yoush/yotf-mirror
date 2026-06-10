@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Yotf;
 
@@ -34,6 +35,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     [Node]
     public required MeshInstance3D NavBox { set; get; }
+
+    [Node]
+    public required Node3D RayCastContainer { set; get; }
 
     [Export]
     public bool AIIsOn = true;
@@ -137,22 +141,22 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsDead { get; set; }
 
-    // public FishRoom AssignCurrentRoom()
-    // {
-    //     FishRoom currentClosest = null!;
-    //     foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
-    //     {
-    //         currentClosest ??= room;
-    //         if (
-    //             (room.GlobalPosition - GlobalPosition).LengthSquared()
-    //             <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
-    //         )
-    //         {
-    //             currentClosest = room;
-    //         }
-    //     }
-    //     return currentClosest;
-    // }
+    public FishRoom AssignCurrentRoom()
+    {
+        FishRoom currentClosest = null!;
+        foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
+        {
+            currentClosest ??= room;
+            if (
+                (room.GlobalPosition - GlobalPosition).LengthSquared()
+                <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
+            )
+            {
+                currentClosest = room;
+            }
+        }
+        return currentClosest;
+    }
 
     internal bool SmoothMoveTo(Vec3 target, float speed, float delta, float arrivalThreshold = 0.1f)
     {
@@ -169,7 +173,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         return target.LengthSquared() < arrivalThreshold;
     }
 
-    public NavNode PickWanderTarget(bool sameRoom = true, bool turnTowards = false)
+    public NavNode PickWanderTarget(bool sameRoom = false, bool turnTowards = false)
     {
         NavNode next = CurrentNode!.RandomNeighbor();
         while (next.Room != CurrentRoom && sameRoom)
@@ -190,13 +194,61 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         return next;
     }
 
-    public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
+    public bool IsInPhoto()
+    {
+        if (VisibilityNotif.IsOnScreen() == false)
+            return false;
+
+        var player = this.SceneRoot().GetNode<Player>()!;
+        var playerShape = player.GetNode<CollisionShape3D>("CollisionShapeBody");
+        //var playerCam = this.SceneRoot().GetNode<Player>().GetNode<CameraManager>().GetNode<Camera3D>(!;
+        foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
+        {
+            ray.GlobalPosition = GlobalPosition;
+            ray.TargetPosition = (playerShape.GlobalPosition - ray.GlobalPosition) * 1.1f;
+            ray.ForceRaycastUpdate();
+            if (ray.IsColliding())
+            {
+                // var collider = ((Node3D)ray.GetCollider());
+                // Log.PrintLn($"{Name}'s rays Collided with {collider}");
+                // collidingRays++;
+                if (ray.GetCollider() is Player)
+                {
+                    return true;
+                }
+                else
+                {
+                    if (Name == "NormalFish")
+                    {
+                        Log.PrintLn("not player");
+                    }
+                }
+            }
+            else
+            {
+                if (Name == "NormalFish")
+                {
+                    Log.PrintLn("no collision");
+                }
+            }
+        }
+        return false;
+        //return VisibilityNotif.IsOnScreen() && col;
+    }
 
     public void TakeDamage(float amount, Vec3 knockback, Node3D source) { }
 
     public override void _Ready()
     {
         Debug.Assert(LabLayer != null, $"Fish {Name} created without assigning Layer");
+
+        foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
+        {
+            ray.TopLevel = true;
+            ray.SetCollisionMaskValue(1, true);
+            ray.SetCollisionMaskValue(2, true);
+        }
+
         Lab.CurrentLabUpdated += OnLabUpdated;
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         // Debug.Assert(

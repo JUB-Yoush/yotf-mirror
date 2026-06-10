@@ -145,3 +145,9 @@ draw_pass_1 = SubResource("SphereMesh_u0sqe")
 unique_name_in_owner = true
 top_level = true
 mesh = SubResource("BoxMesh_46sav")
+
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=1273923163]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09455228)
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=249756874]
