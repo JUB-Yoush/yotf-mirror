@@ -14,8 +14,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
-
     public static readonly PackedScene Packed = GD.Load<PackedScene>(
         "res://src/entities/gadgets/photography/photo_camera.tscn"
     );
@@ -112,7 +110,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
-        photoTerminal = Lab.CurrentLab!.PhotoTerminal;
+        photoTerminal = Lab.CurrentLab?.PhotoTerminal;
 
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
     }
@@ -317,27 +315,102 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 
     float CalcSizeScore(Node3D subject)
     {
-        var photographable = subject as IPhotographable;
-        var vis = photographable!.SubjectBoundingMesh as VisualInstance3D;
-        var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
-        var MinPoint = new Vec3(float.MaxValue, float.MaxValue, float.MaxValue);
-        var MaxPoint = new Vec3(0, 0, 0);
-        for (int i = 0; i < 8; i++)
+        if (subject is not IPhotographable photographable)
+            return 0f;
+
+        if (photographable.SubjectBoundingMesh is not VisualInstance3D vis)
+            return 0f;
+
+        // use subject.GlobalPosition as center and vis.Scale to avoid pivot point screwery
+        var halfExtents = vis.GetAabb().Size * vis.Scale / 2f;
+        var rotation = vis.GlobalTransform.Basis.Orthonormalized();
+
+        float minX = float.MaxValue,
+            minY = float.MaxValue;
+        float maxX = float.MinValue,
+            maxY = float.MinValue;
+
+        // 8 points of OBB, not a real n^3 loop, don't worry
+        for (int ix = -1; ix <= 1; ix += 2)
+        for (int iy = -1; iy <= 1; iy += 2)
+        for (int iz = -1; iz <= 1; iz += 2)
         {
-            var point = worldAabb.GetEndpoint(i);
-            if (point.LengthSquared() < MinPoint.LengthSquared())
-                MinPoint = point;
-
-            if (point.LengthSquared() > MaxPoint.LengthSquared())
-                MaxPoint = point;
+            var worldCorner =
+                subject.GlobalPosition
+                + rotation * new Vec3(halfExtents.X * ix, halfExtents.Y * iy, halfExtents.Z * iz);
+            var screenPos = PhotoCameraCam.UnprojectPosition(worldCorner);
+            if (screenPos.X < minX)
+                minX = screenPos.X;
+            if (screenPos.Y < minY)
+                minY = screenPos.Y;
+            if (screenPos.X > maxX)
+                maxX = screenPos.X;
+            if (screenPos.Y > maxY)
+                maxY = screenPos.Y;
         }
-        var boundingSize =
-            PhotoCameraCam.UnprojectPosition(MinPoint) - PhotoCameraCam.UnprojectPosition(MaxPoint);
 
-        var sizeInViewport = 1 - (PhotoViewport.Size - boundingSize).Length();
-        //return sizeInViewport;
-        // TODO(j) FIX
-        return .5f;
+        var screenExtent = new Vec2(maxX - minX, maxY - minY);
+        var viewportSize = (Vec2)PhotoViewport.Size;
+        var score = Mathf.Clamp(
+            Mathf.Max(screenExtent.X / viewportSize.X, screenExtent.Y / viewportSize.Y),
+            0f,
+            1f
+        );
+
+        GD.Print(
+            $"Size score for {subject.Name}: {score} (extent: {screenExtent}, viewport: {viewportSize})"
+        );
+        return score;
+    }
+
+    private float CalcLightScore(Node3D subject)
+    {
+        var photographable = subject as IPhotographable;
+        if (photographable is null)
+            return 0f;
+
+        GD.Print($"Found {photographable.NearbyLights.Count} nearby lights for {subject.Name}");
+        var nearbyLights = photographable.NearbyLights;
+        if (nearbyLights.Count == 0)
+            return 0f;
+
+        float closestDist = float.MaxValue;
+        IGiveLight? closestLight = null;
+
+        foreach (var light in nearbyLights)
+        {
+            var lightRay = light.LightRay;
+            lightRay.TargetPosition = lightRay.ToLocal(subject.GlobalPosition);
+            lightRay.ForceRaycastUpdate();
+
+            if (!lightRay.IsColliding())
+                continue;
+
+            GD.Print($"Light ray is colliding with {lightRay.GetCollider()}");
+            if (
+                lightRay.GetCollider() is not Node collider
+                || (collider != subject && !subject.IsAncestorOf(collider))
+            )
+                continue;
+
+            float dist = subject.GlobalPosition.DistanceSquaredTo(light.LightPosition);
+            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestLight = light;
+            }
+        }
+
+        if (closestLight is null)
+            return 0f;
+
+        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
+        float score = Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+
+        GD.Print($"Light score of {score}");
+        return score;
     }
 
     private Image GetViewportImage()
@@ -425,7 +498,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         Photos = [];
     }
 
-    private float CalcLightScore(Node3D subject)
+    private float OtherCalcLightScore(Node3D subject)
     {
         var photographable = subject as IPhotographable;
         GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");

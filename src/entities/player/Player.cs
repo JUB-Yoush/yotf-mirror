@@ -88,7 +88,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
     public float Depth
     {
         set;
-        get => (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+        get => (Lab.CurrentLab == null) ? 0f : (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]
@@ -184,6 +184,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
+    public readonly NoClipState NoClipState = new();
 
     private RayCast3D raycast = null!;
 
@@ -224,10 +225,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
 #if DEBUG
     public override void _Process(double delta)
     {
-        if (Input.IsKeyPressed(Key.KpAdd) || Input.IsKeyPressed(Key.Equal))
-            MoveSpeed = Mathf.Clamp(MoveSpeed + 0.5f, 5, 9999);
-        if (Input.IsKeyPressed(Key.KpSubtract) || Input.IsKeyPressed(Key.Minus))
-            MoveSpeed = Mathf.Clamp(MoveSpeed - 0.5f, 5, 9999);
+        if (Input.IsActionJustPressed("noclip_on"))
+            SetState(NoClipState);
+        if (Input.IsActionJustPressed("noclip_off"))
+            SetState(WalkingState);
     }
 #endif
 
