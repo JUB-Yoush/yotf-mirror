@@ -35,6 +35,9 @@ shader = ExtResource("9_kc3pt")
 shader_parameter/radius = 4
 shader_parameter/offset = Vector3(0, 0, 0)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3c4mh"]
+size = Vector3(1, 1.5525055, 1)
+
 [node name="Player" type="CharacterBody3D" unique_id=678823562]
 collision_layer = 2
 floor_stop_on_slope = false
@@ -158,20 +161,10 @@ offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 32
+uppercase = true
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 layer = 3
-
-[node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
-unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-metadata/_edit_lock_ = true
 
 [node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
 unique_name_in_owner = true
@@ -203,5 +196,15 @@ texture = ExtResource("11_kc3pt")
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 unique_name_in_owner = true
 script = ExtResource("8_tk761")
+
+[node name="PlayerCanSeeIt" type="Area3D" parent="." unique_id=1897556294]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2626129, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCanSeeIt" unique_id=413908224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24775529, 0)
+shape = SubResource("BoxShape3D_3c4mh")
 
 [editable path="Skin"]

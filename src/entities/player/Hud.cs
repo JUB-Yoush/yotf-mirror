@@ -29,7 +29,13 @@ public partial class Hud : Control
     public required Label PhotoLabel { set; get; }
 
     [Node]
+    public required Label InstructionLabel { set; get; }
+
+    [Node]
     public required Label SonarLabel { set; get; }
+
+    [Node]
+    public required Label SonarLabel2 { set; get; }
 
     [Node]
     public required TextureProgressBar BatteryBar { set; get; }
@@ -54,6 +60,9 @@ public partial class Hud : Control
 
     [Node]
     public required TextureRect WinText { set; get; }
+
+    [Node]
+    public required ColorRect ScreenColor { set; get; }
 
     public TextureRect[] InventoryIcons
     {

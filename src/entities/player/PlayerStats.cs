@@ -14,11 +14,22 @@ public partial class PlayerStats : Node
 
     public Action<int>? GalleryScoreUpdated;
 
+    public bool isDead = false;
+
+    private bool oxygenWarningGiven = false;
+    private bool batteryWarningGiven = false;
+
     [Node]
     public required Hud HUD { set; get; }
 
     [Export]
     public float OxygenUseRate = 0f;
+
+    [Export]
+    public float LowOxygenPercentage = .3f;
+
+    [Export]
+    public float LowBatteryPercentage = .3f;
 
     public float Injuries
     {
@@ -55,8 +66,22 @@ public partial class PlayerStats : Node
         {
             field = Math.Clamp(value, 0, MaxOxygen - Injuries);
             HUD?.OxygenBar.Value = field;
+
+            if (field / MaxOxygen > LowOxygenPercentage)
+            {
+                oxygenWarningGiven = false;
+            }
+
+            if (field / MaxOxygen <= LowOxygenPercentage && !oxygenWarningGiven)
+            {
+                oxygenWarningGiven = true;
+                player?.MakeAlert("ALERT: LOW OXYGEN");
+            }
             if (field == 0)
+            {
+                isDead = true;
                 Drown();
+            }
         }
     }
     public float Battery
@@ -67,6 +92,16 @@ public partial class PlayerStats : Node
             field = Math.Clamp(value, 0, MaxBattery);
             HUD?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
             HUD?.BatteryBar.Value = value;
+
+            if (field / MaxBattery > LowBatteryPercentage)
+            {
+                batteryWarningGiven = false;
+            }
+            if (field / MaxBattery <= LowBatteryPercentage && !batteryWarningGiven)
+            {
+                batteryWarningGiven = true;
+                player?.MakeAlert("ALERT: LOW BATTERY");
+            }
         }
     }
     public int Money
@@ -97,7 +132,7 @@ public partial class PlayerStats : Node
         }
     }
 
-    static int maxFilm = 12;
+    static int maxFilm = 999;
     public static int MaxFilm
     {
         set { maxFilm = value; }
@@ -128,7 +163,7 @@ public partial class PlayerStats : Node
         Oxygen = MaxOxygen;
         Battery = MaxBattery;
         Money = 100;
-        TotalGalleryScore = 0;
+        TotalGalleryScore = 10;
     }
 
     public void SpendOxygen(double delta)
@@ -139,10 +174,13 @@ public partial class PlayerStats : Node
 
     public void Drown()
     {
-        var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
+        HUD.DeathText.ProcessMode = ProcessModeEnum.Always;
+        HUD.ScreenColor.ProcessMode = ProcessModeEnum.Always;
+        this.ProcessMode = ProcessModeEnum.Always;
+        GetTree().Paused = true;
+        var fadeRect = player.HUD.ScreenColor;
         fadeRect.Visible = true;
         var tween = CreateTween();
-        //HUD.DeathText.Visible;
         tween.AnimateProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 3f);
         tween.AnimateProperty(
             HUD.DeathText,

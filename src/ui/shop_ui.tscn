@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://c8frlegdjskm3"]
+[gd_scene format=3 uid="uid://pqjmq4icdsyr"]
 
 [ext_resource type="Script" uid="uid://cmre07ys40ilu" path="res://src/ui/ShopUI.cs" id="1_idu38"]
 [ext_resource type="Theme" uid="uid://bp82ndqjoevtv" path="res://assets/themes/shop_ui.tres" id="2_10d1m"]
 [ext_resource type="Texture2D" uid="uid://belss54glv05c" path="res://assets/2d/ui/shop/shop_cart_panel.tres" id="3_mxfs6"]
 [ext_resource type="Texture2D" uid="uid://idw17rse3liq" path="res://assets/2d/ui/shop/shop_items_container.tres" id="4_niqry"]
 [ext_resource type="Texture2D" uid="uid://b06r7jg2flomw" path="res://assets/2d/ui/shop/shop_sort_icon.tres" id="5_bfdmr"]
-[ext_resource type="ButtonGroup" uid="uid://c20yi7jda5lg3" path="res://assets/themes/shop_sorting_btn_group.tres" id="6_1fplp"]
+[ext_resource type="ButtonGroup" uid="uid://bp72846hoetv1" path="res://assets/themes/shop_sorting_btn_group.tres" id="6_1fplp"]
 [ext_resource type="Texture2D" uid="uid://ccs1adxeetepe" path="res://assets/2d/ui/shop/shop_sort_unselected.tres" id="7_7m58c"]
 [ext_resource type="Texture2D" uid="uid://cnxctm1x3uyxe" path="res://assets/2d/ui/shop/shop_sort_selected.tres" id="8_jq0rg"]
 [ext_resource type="Theme" uid="uid://cqsul1fr45y86" path="res://assets/themes/shop_ui_items.tres" id="9_05lss"]
@@ -199,7 +199,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_khbdo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/TotalAmount" unique_id=1435179189]
+[node name="SumLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/TotalAmount" unique_id=1435179189]
+unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Cost: 1 billlion dollars"

@@ -13,7 +13,7 @@ public interface IMakeNoise
     public static void MakeNoise(IMakeNoise node, float dB, string sfx, int radius = -1)
     {
         // play sound
-        Audio.PlaySfx(node.NoiseSource, sfx, 0);
+        Audio.PlaySfx(sfx, node.NoiseSource, 0);
         // check who heard it
         var streamPlayer = node.NoiseSource; // TODO (j) make this it's own scene to ensure the dependencies are there.
         var audioArea = streamPlayer.GetNode<Area3D>()!;
@@ -24,7 +24,6 @@ public interface IMakeNoise
             var listener = (IHearNoise)body;
             listener.OnNoiseHeard(audioArea, dB, sfx);
         }
-        Log.PrintLn("done playing noise");
     }
 
     public int GetRadiusFromdB(float dB)

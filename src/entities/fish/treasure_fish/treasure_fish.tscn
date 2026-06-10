@@ -146,3 +146,8 @@ skeleton = NodePath("")
 unique_name_in_owner = true
 top_level = true
 mesh = SubResource("BoxMesh_2c250")
+
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=706768385]
+unique_name_in_owner = true
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=734705248]

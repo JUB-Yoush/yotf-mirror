@@ -43,7 +43,7 @@ public partial class WaterVolume : CsgBox3D
     {
         if (Engine.IsEditorHint())
             return;
-        if (body is Player player)
+        if (body is Player player && !player.InNegationArea)
         {
             player.SetState(player.WalkingState);
         }
@@ -53,7 +53,7 @@ public partial class WaterVolume : CsgBox3D
     {
         if (Engine.IsEditorHint())
             return;
-        if (body is Player player)
+        if (body is Player player && !player.InNegationArea)
         {
             player.SetState(player.SwimmingState);
         }

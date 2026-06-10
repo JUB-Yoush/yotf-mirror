@@ -32,10 +32,12 @@ public partial class Flashlight : Item, IDroppable
 
     private PlayerStats PlayerStats = null!;
     private Camera3D Camera = null!;
+    private Player player = null!;
     private bool isOn = false;
 
     public override void _Ready()
     {
+        player = this.SceneRoot().GetNode<Player>()!;
         Camera = GetParent().GetParent().GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         PlayerStats = GetParent().GetParent().GetNode<PlayerStats>()!;
@@ -45,7 +47,7 @@ public partial class Flashlight : Item, IDroppable
     {
         if (!CurrentItem)
             return;
-        if (@event.IsActionPressed("take_photo"))
+        if (@event.IsActionPressed("take_photo") && !player.IsInMenu)
         {
             isOn = !isOn;
             SpotLight.LightEnergy = isOn ? 10 : 0;

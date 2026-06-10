@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bae0oqcddhho8" path="res://assets/2d/flashlight_icon.png" id="2_lwb6o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
-albedo_color = Color(0.3647059, 0.99607843, 0.44705883, 1)
+albedo_texture = ExtResource("2_lwb6o")
+uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y1wly"]
 material = SubResource("StandardMaterial3D_4q7ia")
@@ -15,6 +16,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 script = ExtResource("1_xosdy")
 ItemName = "FlashLight"
 Icon = ExtResource("2_lwb6o")
+Instructions = PackedStringArray("LMB -> Toggle")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=469956470]
 unique_name_in_owner = true
@@ -22,6 +24,6 @@ mesh = SubResource("BoxMesh_y1wly")
 
 [node name="SpotLight" type="SpotLight3D" parent="." unique_id=1211699694]
 unique_name_in_owner = true
-light_energy = 10.0
+light_energy = 0.0
 spot_range = 30.0
 spot_angle = 50.0

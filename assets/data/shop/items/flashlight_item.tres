@@ -5,7 +5,8 @@
 [ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="3_f62nj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4q7ia"]
-albedo_color = Color(0.3647059, 0.99607843, 0.44705883, 1)
+albedo_texture = ExtResource("1_n4081")
+uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y1wly"]
 material = SubResource("StandardMaterial3D_4q7ia")

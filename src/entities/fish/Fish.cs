@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Yotf;
 
@@ -10,7 +13,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    readonly Routine routine = new();
+    public enum Size
+    {
+        Small,
+        Large,
+    }
 
     // ====================== REFERENCES ======================
 
@@ -29,11 +36,20 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     [Node]
     public required MeshInstance3D NavBox { set; get; }
 
+    [Node]
+    public required Node3D RayCastContainer { set; get; }
+
+    [Export]
+    public bool AIIsOn = true;
+
     [Export]
     public PathFollow3D? SplineFollower;
 
     [Export]
     public FishRoom? CurrentRoom { get; set; }
+
+    [Export]
+    public Lab LabLayer = null!;
 
     [ExportCategory("FishProfile")]
     [Export]
@@ -67,9 +83,15 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public float NoiseTolerance = 0.4f;
 
     [Export]
+    public bool getsBaited = false;
+
+    [Export]
     public float MaxHp = 10f;
 
     public float Hp = 10f;
+
+    [Export]
+    public Size size = Fish.Size.Small;
 
     // last known position of a detected threat so FleeingState can continue fleeing after the threat leaves the detection area
     public Vec3 ThreatPosition { get; internal set; }
@@ -117,6 +139,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public List<IGiveLight> NearbyLights { get; set; } = [];
 
+    public bool IsDead { get; set; }
+
     public FishRoom AssignCurrentRoom()
     {
         FishRoom currentClosest = null!;
@@ -146,11 +170,10 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         {
             Y = Mathf.LerpAngle(GlobalRotation.Y, targetYaw, WanderRotationSpeed * delta),
         };
-
         return target.LengthSquared() < arrivalThreshold;
     }
 
-    public NavNode PickWanderTarget(bool sameRoom = true, bool turnTowards = false)
+    public NavNode PickWanderTarget(bool sameRoom = false, bool turnTowards = false)
     {
         NavNode next = CurrentNode!.RandomNeighbor();
         while (next.Room != CurrentRoom && sameRoom)
@@ -171,27 +194,91 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         return next;
     }
 
-    public bool IsInPhoto() => VisibilityNotif.IsOnScreen();
-
-    public void TakeDamage(float amount, Vec3 knockback, Node3D source)
+    public bool IsInPhoto()
     {
-        throw new System.NotImplementedException();
+        Log.PrintLn($"Is {Name} in photo?");
+        if (!VisibilityNotif.IsOnScreen())
+        {
+            Log.PrintLn("no, not visible");
+            return false;
+        }
+
+        var player = this.SceneRoot().GetNode<Player>()!;
+        var playerSeeArea = player.GetNode<Area3D>("PlayerCanSeeIt");
+        var playerCam = this.SceneRoot()
+            .GetNode<Player>()
+            .GetNode<CameraManager>()
+            .GetNode<Camera3D>()!;
+        foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
+        {
+            ray.GlobalPosition = GlobalPosition;
+            ray.TargetPosition = (playerCam.GlobalPosition - GlobalPosition) * 2f;
+            ray.ForceRaycastUpdate();
+            if (ray.IsColliding())
+            {
+                if (ray.GetCollider() is Area3D)
+                {
+                    return true;
+                }
+                else
+                {
+                    Log.PrintLn("didn't colide with player");
+                    Log.PrintLn("collided with", ((Node3D)ray.GetCollider()).Name);
+                }
+            }
+            else
+            {
+                Log.PrintLn("no collision");
+            }
+        }
+        return false;
+        //return VisibilityNotif.IsOnScreen() && col;
     }
 
-    // ====================== INTERNAL HELPERS ======================
+    public void TakeDamage(float amount, Vec3 knockback, Node3D source) { }
 
-    // internal void SetState(IFishState newState)
-    // {
-    //     // if (CurrentState == newState)
-    //     //     return;
-    //     // CurrentState.Exit(this);
-    //     // CurrentState = newState;
-    //     // CurrentState.Enter(this);
-    // }
+    public override void _Ready()
+    {
+        Debug.Assert(LabLayer != null, $"Fish {Name} created without assigning Layer");
 
-    // ====================== IPHOTOGRAPHABLE ======================
+        foreach (var ray in RayCastContainer.GetChildren().Cast<RayCast3D>())
+        {
+            ray.TopLevel = true;
+            ray.Rotation = Vector3.Zero;
+            ray.CollideWithAreas = true;
+            ray.SetCollisionMaskValue(1, true);
+            ray.SetCollisionMaskValue(2, true);
+        }
 
-    // hidden fish are never photographable regardless of screen visibility
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
-    // public bool IsInPhoto() => CurrentState.IsPhotographable && VisibilityNotif.IsOnScreen();
+        Lab.CurrentLabUpdated += OnLabUpdated;
+        navGraph = this.SceneRoot().GetNode<NavGraph>($"NavGraph{LabLayer.Index}")!;
+        // Debug.Assert(
+        //     navGraph != null,
+        //     "Navgraph is null, fish probably init'ed first or there is no nav graph"
+        // );
+    }
+
+    private void OnLabUpdated(Lab lab)
+    {
+        if (lab == LabLayer)
+        {
+            Log.PrintLn("my time");
+        }
+        // if (lab.Index == Layer)
+        // {
+        //     ProcessMode = ProcessModeEnum.Pausable;
+        // }
+        // else
+        // {
+        //     ProcessMode = ProcessModeEnum.Disabled;
+        //     Visible = false;
+        // }
+    }
+
+    public virtual void FoundBait(Bait bait) { }
+
+    public override void _ExitTree()
+    {
+        Lab.CurrentLabUpdated -= OnLabUpdated;
+    }
 }

@@ -33,6 +33,7 @@ public partial class Inventory : Node3D
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
+        AddItem(BaitItem.Packed.Instantiate<Item>(), 3);
         PhotoCamera.AimingChanged += OnAimingChanged;
         SetCurrentItem(0);
     }
@@ -67,12 +68,13 @@ public partial class Inventory : Node3D
 
     private void SetCurrentItem(int index)
     {
-        HUD?.SelectSlot(index);
+        HUD.SelectSlot(index);
         Items[currentIndex]?.Unequipped();
         currentIndex = index;
         Items[currentIndex]?.CurrentItem = true;
         ClearItems(currentIndex);
         Items[currentIndex]?.Equipped();
+        HUD.InstructionLabel.Text = Items[currentIndex]?.GetInstructions();
     }
 
     private void ClearItems(int notThisOne = -1)
@@ -88,7 +90,6 @@ public partial class Inventory : Node3D
     //TODO (j) consolidate these two functions.
     public void AddItem(Item item)
     {
-        Debug.Assert(Items[currentIndex] == null);
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);

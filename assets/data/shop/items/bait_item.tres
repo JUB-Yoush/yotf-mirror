@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://4484s7gl7e54"]
+
+[ext_resource type="PackedScene" uid="uid://d4k21yrdon3lu" path="res://src/entities/gadgets/bait/bait_item.tscn" id="2_6rtfs"]
+[ext_resource type="Texture2D" uid="uid://cpdsaj7jfqube" path="res://assets/2d/bait_icon.png" id="2_jhf4m"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="3_jhf4m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3br3"]
+albedo_texture = ExtResource("2_jhf4m")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iy8g0"]
+material = SubResource("StandardMaterial3D_i3br3")
+size = Vector3(0.2, 0.2, 0.2)
+
+[resource]
+script = ExtResource("3_jhf4m")
+Icon = ExtResource("2_jhf4m")
+Name = "Bait"
+Description = "Attracts small fish."
+Price = 10
+ItemType = 1
+ItemId = 5
+itemScene = ExtResource("2_6rtfs")
+DropMesh = SubResource("BoxMesh_iy8g0")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

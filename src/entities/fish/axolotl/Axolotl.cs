@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
+public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -15,6 +16,7 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         Chase,
         Flee,
         Bubbled,
+        Baited,
     }
 
     [Export]
@@ -50,6 +52,9 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
     //fleeing
     private float fleeTimer;
 
+    //baited
+    private Area3D? bait;
+
     public bool AxolotlTargets
     {
         get => false;
@@ -76,23 +81,72 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
     public override void _Ready()
     {
-        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        base._Ready();
         CurrentRoom ??= AssignCurrentRoom();
 
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate);
         stateMachine.AddState(State.Chase, ChaseUpdate);
+        stateMachine.AddState(State.Baited, BaitedUpdate, exit: BaitedExit);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
 
         stateMachine.State = State.Wander;
 
         DetectionZone.BodyEntered += OnDetectionBodyEntered;
         DetectionZone.BodyExited += OnDetectionBodyExited;
+        DetectionZone.AreaEntered += OnDetectionAreaEntered;
+        DetectionZone.AreaExited += OnDetectionAreaExited;
+    }
+
+    private void BaitedExit()
+    {
+        bait = null;
+    }
+
+    private void BaitedUpdate(float delta)
+    {
+        if (!bait!.IsValid())
+        {
+            stateMachine.State = State.Wander;
+            return;
+        }
+
+        if (SmoothMoveTo(bait!.GlobalPosition, WanderSpeed, delta, .1f))
+        {
+            bait.QueueFree();
+            stateMachine.State = State.Wander;
+        }
+    }
+
+    private void OnDetectionAreaEntered(Area3D area)
+    {
+        if (
+            area is Bait baitArea
+            && stateMachine.State != State.Flee
+            && stateMachine.State != State.Bubbled
+        )
+        {
+            stateMachine.State = State.Baited;
+            bait = baitArea;
+        }
+    }
+
+    private void OnDetectionAreaExited(Area3D area)
+    {
+        // if (area is Bait && stateMachine.State == State.Baited)
+        // {
+        //     stateMachine.State = State.Wander;
+        // }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (AIIsOn && !IsDead)
+            stateMachine.Update(delta);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        stateMachine.Update(delta);
         MoveAndSlide();
     }
 
@@ -119,6 +173,11 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         {
             bubbleTargets.Add(bubbleable);
             stateMachine.State = State.Chase;
+        }
+
+        if (body is Player && stateMachine.State != State.Bubbled)
+        {
+            stateMachine.State = State.Flee;
         }
     }
 
@@ -200,12 +259,12 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
 
             tween = CreateTween();
 
-            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, 2f, true);
+            tween.TweenFn<Vec3>((velocity) => Velocity = velocity, Velocity, Vec3.Zero, .7f, true);
             tween.TweenFn<Vec3>(
                 (target) => LookAt(target),
                 GlobalTransform.Basis.Z,
                 bubbleDir,
-                1f,
+                .5f,
                 true
             );
             tween.Fn(() =>
@@ -239,5 +298,16 @@ public partial class Axolotl : Fish, IBubbleable, IHearNoise, IDoesAction
         {
             stateMachine.State = State.Wander;
         }
+    }
+
+    public override void FoundBait(Bait bait)
+    {
+        OnDetectionAreaEntered(bait);
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vec3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Flee;
+        ThreatTarget = source;
     }
 }

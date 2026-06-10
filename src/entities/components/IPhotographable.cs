@@ -36,4 +36,5 @@ public interface IPhotographable
     {
         NearbyLights.Remove(light);
     }
+    public virtual void Photographed() { }
 }

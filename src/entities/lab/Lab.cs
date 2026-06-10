@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 
 namespace Yotf;
@@ -11,7 +12,7 @@ public partial class Lab : Node3D
 
     public static Action<Lab>? CurrentLabUpdated;
 
-    static readonly HashSet<int> labIndicies = [];
+    public static readonly Dictionary<int, Lab> Map = [];
 
     public static Lab? CurrentLab
     {
@@ -20,6 +21,7 @@ public partial class Lab : Node3D
             field?.Toggle(false);
             field = value;
             field!.Toggle(true);
+            CurrentLabUpdated?.Invoke(field);
         }
         get;
     }
@@ -48,10 +50,14 @@ public partial class Lab : Node3D
     [Node]
     public required ShopKiosk ShopKiosk { set; get; }
 
+    [Node]
+    public required Marker3D PlayerSpawn { set; get; }
+
     public override void _Ready()
     {
-        if (!labIndicies.Add(Index))
-            GD.PrintErr($"Lab: {Name} has duplicate Index");
+        Debug.Assert(Index != -1, $"Lab {Name} not given index");
+        if (!Map.TryAdd(Index, this))
+            GD.PrintErr($"Lab: {Name} and {Map[Index].Name} have duplicate Indicies");
         if (Index == 0)
             Lab.CurrentLab = this;
     }
@@ -62,5 +68,12 @@ public partial class Lab : Node3D
         BottomGate.GetNode<CollisionShape3D>()!.Disabled = state;
         TopGate.Visible = !state;
         BottomGate.Visible = !state;
+    }
+
+    public static Lab? GetLabByIndex(int index)
+    {
+        if (Map.TryGetValue(index, out var lab))
+            return lab;
+        return null;
     }
 }

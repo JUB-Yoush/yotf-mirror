@@ -19,6 +19,7 @@ public partial class ShopItem : Resource
         Flashlight,
         Sonar,
         Firecracker,
+        Bait,
         Refill,
     }
 

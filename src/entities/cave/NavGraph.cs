@@ -33,12 +33,11 @@ public partial class NavGraph : Node3D
 
     public override void _Ready()
     {
-        VerifyBiDirectionality();
-        EdgesView = this.GetNode<MeshInstance3D>()!;
-        EdgesView.MaterialOverride = EdgeMaterial;
-
         // if (!Engine.IsEditorHint())
         //     Visible = false;
+        //VerifyBiDirectionality();
+        EdgesView = this.GetNode<MeshInstance3D>()!;
+        EdgesView.MaterialOverride = EdgeMaterial;
     }
 
     private void VerifyBiDirectionality()
@@ -49,7 +48,15 @@ public partial class NavGraph : Node3D
             {
                 if (node.neighbors[i] == null)
                 {
-                    GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at position {i}");
+                    GD.PrintErr($"Nav Graph Node {node.Name} has null neighbor at index {i}");
+                    continue;
+                }
+
+                if (node.neighbors[i] == node)
+                {
+                    GD.PrintErr(
+                        $"Nav Graph Node {node.Name} has neighbor reference to itself at index{i}"
+                    );
                     continue;
                 }
                 node.AddNeighbor(node.neighbors[i]);
@@ -59,9 +66,10 @@ public partial class NavGraph : Node3D
 
     public override void _Process(double delta)
     {
-        // if (!Engine.IsEditorHint())
-        //     return;
+        if (!Engine.IsEditorHint())
+            return;
 
+        //EdgesView ??= this.GetNode<MeshInstance3D>()!;
         NavNodes = GetNavNodes();
         foreach (var node in NavNodes)
         {

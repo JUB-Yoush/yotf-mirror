@@ -6,7 +6,9 @@ namespace Yotf;
 [Meta(typeof(IAutoNode))]
 public partial class GradingUI : Control
 {
-    private static readonly PackedScene Packed = GD.Load<PackedScene>("uid://b627ai4x06ylo");
+    private static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/grading_ui.tscn"
+    );
 
     public static readonly Dictionary<string, int> maxPhotoScores = [];
     private static int labLastRanIn = 0;
@@ -82,6 +84,7 @@ public partial class GradingUI : Control
 
     private void CloseShop()
     {
+        Audio.PlaySfx(Sfx.UIClose);
         photoTerminal.inShop = false;
         var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = false;
@@ -92,17 +95,23 @@ public partial class GradingUI : Control
     private void RenderPhotoGrade(int index)
     {
         StyleLabels.RemoveAllChildren();
+        if (uploadedPhotos.Count != 0)
+        {
+            PhotoRect.Texture = uploadedPhotos[index].Data.ToTexture();
+        }
 
         if (uploadedPhotos.Count == 0 || uploadedPhotos[index].SubjectGrades.Count == 0)
         {
-            MakeStyleLabel("None", "Bro there's nothing in this one.", 0);
+            MakeStyleLabel("No Fish to grade in photo!");
+            Audio.PlaySfx(Sfx.UIDecrease);
             return;
         }
 
-        var photo = uploadedPhotos[index];
-        PhotoRect.Texture = photo.Data.ToTexture();
+        Audio.PlaySfx(Sfx.UIIncrease);
 
+        var photo = uploadedPhotos[index];
         int sum = 0;
+        int addedPhotoScore = 0;
         HashSet<string> newRecords = [];
         foreach (var (subject, grade) in photo.SubjectGrades)
         {
@@ -112,25 +121,43 @@ public partial class GradingUI : Control
             var lightScore = CalculateScoreValue(grade.LightScore);
             var total = facingScore + centeredScore + sizeScore + lightScore;
 
-            MakeStyleLabel(subject, "Facing Score", facingScore);
-            MakeStyleLabel(subject, "Centered Score", centeredScore);
-            MakeStyleLabel(subject, "Size Score", sizeScore);
-            MakeStyleLabel(subject, "Light Score", lightScore);
+            var otherFishMul = (grade.Totalfish - 1) * 0.1;
+            var inActionMul = grade.InAction ? 0.2 : 0;
+            var inkMul = grade.ContainsInk ? -0.2 : 0;
+            var deadMul = grade.IsDead ? -0.8 : 0;
+            var bigMul = grade.IsBig ? 1 : 0;
+
+            var mul = Math.Max(0, 1 + otherFishMul + inActionMul + inkMul + deadMul + bigMul);
+
+            MakeStyleLabel(
+                $"{subject}: f({facingScore})+c({centeredScore})+s({sizeScore})+l({lightScore}) -> {total}"
+            );
+
+            MakeStyleLabel(
+                $"{subject}: other({otherFishMul:F1})+act({inActionMul:F1})+ink({inkMul:F1})+dead({deadMul:F1})+big({bigMul}) -> {mul}"
+            );
+
+            MakeStyleLabel($"{subject}: base({total})x mul({mul}) = {(total * mul):F1}");
+            total = (int)(total * mul);
 
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore <= total)
             {
                 MakeStyleLabel(subject, "New Highest Scoring!", 0);
                 sum += total - highestScore;
+                addedPhotoScore = total - highestScore;
                 maxPhotoScores.TryAdd(subject, total);
+                maxPhotoScores[subject] = total;
                 newRecords.Add(subject);
             }
             else
             {
                 MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
             }
+
+            MakeStyleLabel("---");
         }
-        PhotoTotalLabel.Text = $"TOTAL: {sum}";
+        PhotoTotalLabel.Text = $"Photo TOTAL: {sum}";
         var player = this.SceneRoot().GetNode<Player>()!;
         var stats = player.GetNode<PlayerStats>()!;
         if (viewedPhotos.Add(photo))
@@ -139,7 +166,7 @@ public partial class GradingUI : Control
             stats.Money += GalleryTotal;
             stats.TotalGalleryScore += GalleryTotal;
         }
-        GalleryTotalLabel.Text = $"Gallery Total: {GalleryTotal}";
+        GalleryTotalLabel.Text = $"Gallery TOTAL: {GalleryTotal}";
     }
 
     private static int CalculateScoreValue(float score) =>
@@ -152,6 +179,12 @@ public partial class GradingUI : Control
             LabelSettings = styleLabelSettings,
             Text = $"{subject}: {desc} ({score})",
         };
+        StyleLabels.AddChild(label);
+    }
+
+    private void MakeStyleLabel(string text)
+    {
+        var label = new Label { LabelSettings = styleLabelSettings, Text = text };
         StyleLabels.AddChild(label);
     }
 }

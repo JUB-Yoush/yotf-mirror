@@ -68,7 +68,8 @@ public record struct PhotoGrade(
     int Totalfish,
     bool InAction,
     bool ContainsInk,
-    bool IsDead
+    bool IsDead,
+    bool IsBig
 );
 
 public record Photo(

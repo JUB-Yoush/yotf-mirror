@@ -113,6 +113,7 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=1409151943]
 unique_name_in_owner = true
+collision_mask = 1027
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1583239692]
 shape = SubResource("SphereShape3D_1m4vi")
@@ -144,3 +145,12 @@ draw_pass_1 = SubResource("SphereMesh_u0sqe")
 unique_name_in_owner = true
 top_level = true
 mesh = SubResource("BoxMesh_46sav")
+
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=1273923163]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.09455228)
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=249756874]
+
+[node name="SfxSource" type="AudioStreamPlayer3D" parent="." unique_id=564440888]
+unique_name_in_owner = true

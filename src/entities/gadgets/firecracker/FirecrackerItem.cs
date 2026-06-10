@@ -34,7 +34,7 @@ public partial class FirecrackerItem : Item, IDroppable
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (!CurrentItem)
             return;
@@ -65,8 +65,6 @@ public partial class FirecrackerItem : Item, IDroppable
         if (!CurrentItem)
             return;
 
-        //TODO(j) where does this mesh go bruh
-        Mesh.Scale = new(100, 100, 100);
         Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
     }
 }

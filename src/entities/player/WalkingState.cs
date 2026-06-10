@@ -4,9 +4,15 @@ public class WalkingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Walking;
 
-    public void Enter(Player player) { }
+    public void Enter(Player player)
+    {
+        Audio.PlaySfx(Sfx.Oxygen);
+    }
 
-    public void Exit(Player player) { }
+    public void Exit(Player player)
+    {
+        Audio.PlaySfx(Sfx.Dive);
+    }
 
     public void Update(Player player, float delta)
     {

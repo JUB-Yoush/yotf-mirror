@@ -109,6 +109,7 @@ size = Vector3(0.5, 0.5, 0.5)
 collision_layer = 304
 collision_mask = 3
 script = ExtResource("1_oo5s4")
+getsBaited = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=641768016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0634436)
@@ -116,13 +117,13 @@ shape = SubResource("BoxShape3D_cg1xg")
 
 [node name="VisibilityNotif" type="VisibleOnScreenNotifier3D" parent="." unique_id=514532404]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.027611732, -0.67337775)
-aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.9458029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0026296377, -0.2794783, -0.8106179)
+aabb = AABB(-0.20729196, 0.08449584, 0.25582707, 0.35891992, 0.51753175, 0.96661735)
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=533586528]
 unique_name_in_owner = true
 collision_layer = 256
-collision_mask = 274
+collision_mask = 1298
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=139306165]
 shape = SubResource("SphereShape3D_2c250")
@@ -131,6 +132,7 @@ shape = SubResource("SphereShape3D_2c250")
 unique_name_in_owner = true
 
 [node name="Skin" type="Node3D" parent="." unique_id=200438149]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.13681947, -0.0867542)
 
 [node name="Mesh" type="MeshInstance3D" parent="Skin" unique_id=431815084]
 unique_name_in_owner = true
@@ -142,3 +144,8 @@ unique_name_in_owner = true
 top_level = true
 visible = false
 mesh = SubResource("BoxMesh_2c250")
+
+[node name="RayCastContainer" type="Node3D" parent="." unique_id=1142575129]
+unique_name_in_owner = true
+
+[node name="RayCast3D" type="RayCast3D" parent="RayCastContainer" unique_id=51023675]

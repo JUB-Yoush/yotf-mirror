@@ -47,6 +47,7 @@ public partial class InkArea : Area3D, IPhotographable
 
     public override void _Ready()
     {
+        base._Ready();
         GlobalPosition = parent.GlobalPosition;
     }
 

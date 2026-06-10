@@ -6,7 +6,7 @@ namespace Yotf;
 // we should probably use a growing visibility notifier to check if there is ink on the screen that is obscuring the camera?
 // not sure the best course of action.
 [Meta(typeof(IAutoNode))]
-public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
+public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -29,6 +29,9 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
     [Node]
     public required GpuParticles3D InkEmitter { set; get; }
 
+    [Node]
+    public required AudioStreamPlayer3D SfxSource { set; get; }
+
     InkArea? InkArea = null;
 
     public float MeshScale
@@ -43,6 +46,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         Wander,
         Flee,
         Bubbled,
+        Baited,
     }
 
     public bool AxolotlTargets
@@ -60,15 +64,83 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     Mesh IBubbleable.Mesh => Mesh.Mesh;
 
+    //baited
+    private Area3D? bait;
+
     public bool InAction { get; set; }
 
     public override void _Ready()
     {
+        base._Ready();
         navGraph = this.SceneRoot().GetNode<NavGraph>()!;
         stateMachine.AddState(State.Wander, WanderUpdate, WanderEnter);
         stateMachine.AddState(State.Flee, FleeUpdate, FleeEnter);
         stateMachine.AddState(State.Bubbled, BubbleUpdate);
+        stateMachine.AddState(State.Baited, BaitedUpdate, exit: BaitedExit);
         stateMachine.State = State.Wander;
+
+        DetectionZone.BodyEntered += OnDetectionBodyEntered;
+        DetectionZone.AreaEntered += OnDetectionAreaEntered;
+        DetectionZone.AreaExited += OnDetectionAreaExited;
+    }
+
+    private void OnDetectionBodyEntered(Node3D body)
+    {
+        if (
+            body is Player player
+            && stateMachine.State != State.Bubbled
+            && stateMachine.State != State.Flee
+        )
+        {
+            ThreatTarget = player;
+            stateMachine.State = State.Flee;
+        }
+    }
+
+    public override void FoundBait(Bait bait)
+    {
+        OnDetectionAreaEntered(bait);
+    }
+
+    private void OnDetectionAreaEntered(Area3D area)
+    {
+        if (
+            area is Bait baitArea
+            && stateMachine.State != State.Flee
+            && stateMachine.State != State.Bubbled
+        )
+        {
+            stateMachine.State = State.Baited;
+            bait = baitArea;
+        }
+    }
+
+    private void OnDetectionAreaExited(Area3D area)
+    {
+        // if (area is Bait && stateMachine.State == State.Baited)
+        // {
+        //     stateMachine.State = State.Wander;
+        // }
+    }
+
+    private void BaitedExit()
+    {
+        bait = null;
+    }
+
+    private void BaitedUpdate(float delta)
+    {
+        if (!bait!.IsValid())
+        {
+            stateMachine.State = State.Wander;
+            return;
+        }
+
+        if (SmoothMoveTo(bait!.GlobalPosition, WanderSpeed, delta, .1f))
+        {
+            bait.QueueFree();
+            stateMachine.State = State.Wander;
+        }
     }
 
     private void BubbleUpdate(float delta)
@@ -93,7 +165,8 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     public override void _PhysicsProcess(double delta)
     {
-        stateMachine.Update(delta);
+        if (AIIsOn && !IsDead)
+            stateMachine.Update(delta);
         MoveAndSlide();
     }
 
@@ -121,6 +194,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
 
     public void FleeEnter()
     {
+        Log.PrintLn(ThreatTarget != null);
         var tween = CreateTween();
         var fleeDir = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized();
         tween.TweenFn<Vec3>(
@@ -134,6 +208,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         {
             Velocity = fleeDir * 10;
             ToggleInk(true);
+            Audio.PlaySfx(Sfx.InkSpray, SfxSource);
         });
 
         tween.TweenFn<float>(
@@ -152,6 +227,16 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         );
         var fleeVec = (GlobalPosition - ThreatTarget!.GlobalPosition).Normalized() * FleeDistance;
         CurrentNode = navGraph.NodeClosestTo(fleeVec);
+
+        tween.Fn(
+            () =>
+            {
+                ToggleInk(false);
+                SfxSource.Stop();
+                stateMachine.State = State.Wander;
+            },
+            2f
+        );
     }
 
     public void FleeUpdate(float delta)
@@ -164,6 +249,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         var fleeVec = (GlobalPosition - ThreatPosition).Normalized() * FleeDistance;
         if (SmoothMoveTo(CurrentNode!.GlobalPosition, FleeSpeed, delta, 10))
         {
+            Log.PrintLn((ThreatPosition - GlobalPosition).Length(), FleeDistance / 2);
             if ((ThreatPosition - GlobalPosition).Length() >= FleeDistance / 2)
             {
                 CreateTween().Fn(() => ToggleInk(false), 3);
@@ -218,5 +304,11 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction
         InkEmitter.Visible = state;
         InkEmitter.Emitting = state;
         InAction = state;
+    }
+
+    void ITakeDamage.OnDamageTaken(float amount, Vec3 knockback, Node3D source)
+    {
+        stateMachine.State = State.Flee;
+        ThreatTarget = source;
     }
 }

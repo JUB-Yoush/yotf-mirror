@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://dsuxvtnm8p4na"
+path="res://.godot/imported/grid_layer_2.map-eb3d0848c9f4f4f3cb33510748f062a9.tres"
+
+[deps]
+
+source_file="res://assets/maps/grid_layer_2.map"
+dest_files=["res://.godot/imported/grid_layer_2.map-eb3d0848c9f4f4f3cb33510748f062a9.tres"]
+
+[params]
+

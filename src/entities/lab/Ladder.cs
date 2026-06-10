@@ -11,6 +11,12 @@ public partial class Ladder : Node3D, IInteractable
     [Export]
     float climbForce = 10f;
 
+    [Export]
+    float ladderLength = 3f;
+
+    [Export]
+    bool isTop = false;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -19,6 +25,14 @@ public partial class Ladder : Node3D, IInteractable
     public void OnInteraction()
     {
         var player = this.SceneRoot().GetNode<Player>()!;
-        player.Velocity += Vec3.Up * climbForce;
+        if (isTop)
+            return;
+        CreateTween()
+            .AnimateProperty(
+                player,
+                CharacterBody3D.PropertyName.GlobalPosition,
+                GlobalPosition + Vec3.Up,
+                1
+            );
     }
 }

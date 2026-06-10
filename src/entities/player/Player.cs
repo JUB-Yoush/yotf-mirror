@@ -3,7 +3,7 @@ using System;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Player : CharacterBody3D
+public partial class Player : CharacterBody3D, ITakeDamage
 {
     public override void _Notification(int what) => this.Notify(what);
 
@@ -44,6 +44,13 @@ public partial class Player : CharacterBody3D
 
     public Vec3 CollisionPivot;
 
+    bool renderingAlert = false;
+
+    public bool InNegationArea = false;
+
+    [Export]
+    Marker3D? SpawnPos = null;
+
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
     [Export(PropertyHint.Range, "1,50")]
@@ -81,7 +88,7 @@ public partial class Player : CharacterBody3D
     public float Depth
     {
         set;
-        get => (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+        get => (Lab.CurrentLab == null) ? 0f : (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]
@@ -159,8 +166,25 @@ public partial class Player : CharacterBody3D
     public PlayerState State => CurrentState.Type;
     public float YawVelocity { get; private set; }
 
+    float ITakeDamage.Health
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+    bool ITakeDamage.Invincible
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+    bool ITakeDamage.IsDead
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+
     public readonly WalkingState WalkingState = new();
     public readonly SwimmingState SwimmingState = new();
+    public readonly NoClipState NoClipState = new();
 
     private RayCast3D raycast = null!;
 
@@ -178,7 +202,6 @@ public partial class Player : CharacterBody3D
 
     public override void _Ready()
     {
-        Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
         CollisionPivot = CollisionShapeBody.Position;
@@ -192,15 +215,20 @@ public partial class Player : CharacterBody3D
         CurrentState = WalkingState;
         WalkingState.Enter(this);
         FirstPerson = true;
+
+        if (SpawnPos != null)
+        {
+            GlobalPosition = SpawnPos.GlobalPosition;
+        }
     }
 
 #if DEBUG
     public override void _Process(double delta)
     {
-        if (Input.IsKeyPressed(Key.KpAdd) || Input.IsKeyPressed(Key.Equal))
-            MoveSpeed = Mathf.Clamp(MoveSpeed + 0.5f, 5, 9999);
-        if (Input.IsKeyPressed(Key.KpSubtract) || Input.IsKeyPressed(Key.Minus))
-            MoveSpeed = Mathf.Clamp(MoveSpeed - 0.5f, 5, 9999);
+        if (Input.IsActionJustPressed("noclip_on"))
+            SetState(NoClipState);
+        if (Input.IsActionJustPressed("noclip_off"))
+            SetState(WalkingState);
     }
 #endif
 
@@ -262,17 +290,12 @@ public partial class Player : CharacterBody3D
         return inputDir;
     }
 
-    internal void GetShocked(Vec3 ShockSource)
+    internal void GetShocked()
     {
         if (gettingShocked)
             return;
         gettingShocked = true;
-
-        //hit
-        Stats.Injuries += 3;
-        //kb
-        var dir = (GlobalPosition - ShockSource).Normalized();
-        Velocity += dir * 15;
+        Audio.PlaySfx(Sfx.PowerDown);
 
         for (int i = 0; i < Inventory.Capacity; i++)
         {
@@ -310,12 +333,16 @@ public partial class Player : CharacterBody3D
             true
         );
         shockTween.Fn(() => Alert.Visible = false);
-        shockTween.Fn(() => HUD.Visible = true);
+        shockTween.Fn(() =>
+        {
+            Audio.PlaySfx(Sfx.PowerUp);
+            HUD.Visible = true;
+        });
         shockTween.AnimateProperty(
             Alert,
             Control.PropertyName.Modulate,
             new Color(0xffffffff),
-            .5f,
+            1f,
             true
         );
         shockTween.Finished += () =>
@@ -323,5 +350,54 @@ public partial class Player : CharacterBody3D
             shockTween = null;
             gettingShocked = false;
         };
+    }
+
+    void ITakeDamage.TakeDamage(float amount, Vec3 knockback, Node3D source)
+    {
+        //hit
+        Stats.Oxygen -= amount;
+        Velocity += knockback;
+        if (source is Eel)
+        {
+            GetShocked();
+        }
+        var ScreenFlash = HUD.ScreenColor;
+        ScreenFlash.Visible = true;
+        var tween = CreateTween();
+        tween.AnimateProperty(
+            ScreenFlash,
+            ColorRect.PropertyName.Color,
+            new Color(1, 0, 0, 1),
+            .2f
+        );
+
+        tween.AnimateProperty(
+            ScreenFlash,
+            ColorRect.PropertyName.Color,
+            new Color(0, 0, 0, 0),
+            .2f
+        );
+    }
+
+    internal void MakeAlert(string str)
+    {
+        if (renderingAlert == true)
+        {
+            GD.PushWarning("Alert already rendering");
+            return;
+        }
+
+        Alert.Visible = true;
+        Alert.RenderGradually(str);
+        Audio.PlaySfx(Sfx.Alert);
+        CreateTween()
+            .Fn(
+                () =>
+                {
+                    Alert.Visible = false;
+                    renderingAlert = false;
+                },
+                2
+            );
     }
 }

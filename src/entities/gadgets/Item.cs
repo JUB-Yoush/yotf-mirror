@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Godot;
 
 namespace Yotf;
@@ -17,6 +18,9 @@ public partial class Item : Node3D, IDroppable
 
     [Export]
     float restoreAmount = 50;
+
+    [Export]
+    public string[] Instructions = [];
 
     public bool InInventory = false;
     public bool CurrentItem = false;
@@ -37,6 +41,16 @@ public partial class Item : Node3D, IDroppable
     public virtual void Unequipped()
     {
         Visible = false;
+    }
+
+    public string GetInstructions()
+    {
+        StringBuilder result = new();
+        Array.ForEach<string>(
+            Instructions,
+            (instruction) => result.Append(instruction).Append('\n')
+        );
+        return result.ToString();
     }
 
     public override void _Input(InputEvent @event) { }
