@@ -328,9 +328,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             PhotoCameraCam.UnprojectPosition(MinPoint) - PhotoCameraCam.UnprojectPosition(MaxPoint);
 
         var sizeInViewport = 1 - (PhotoViewport.Size - boundingSize).Length();
-        //return sizeInViewport;
-        // TODO(j) FIX
-        return .5f;
+        return sizeInViewport;
     }
 
     private float CalcLightScore(Node3D subject)
@@ -339,7 +337,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         if (photographable is null)
             return 0f;
 
-        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
+        GD.Print($"Found {photographable.NearbyLights.Count} nearby lights for {subject.Name}");
         var nearbyLights = photographable.NearbyLights;
         if (nearbyLights.Count == 0)
             return 0f;
@@ -360,7 +358,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             if (lightRay.GetCollider() is not Node collider || (collider != subject && !subject.IsAncestorOf(collider)))
                 continue;
 
-            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
+            float dist = subject.GlobalPosition.DistanceSquaredTo(light.LightPosition);
             GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
             if (dist < closestDist)
             {
