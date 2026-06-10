@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://debi4p1lul4wq"]
+
+[ext_resource type="Script" uid="uid://bgyveklptn51u" path="res://src/entities/cave/NavGraph.cs" id="1_2qo50"]
+[ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="2_akp5a"]
+[ext_resource type="Material" uid="uid://c7is05txhvb60" path="res://assets/materials/node_edge_material.tres" id="3_l82wf"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_l2ai8"]
+
+[node name="NavGraph" type="Node3D" unique_id=1023415838]
+script = ExtResource("1_2qo50")
+
+[node name="NavNode" parent="." unique_id=614728555 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_akp5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.070036, 8.22539, -3.4656234)
+neighbors = [NodePath("../NavNode2")]
+
+[node name="NavNode2" parent="." unique_id=890095318 node_paths=PackedStringArray("neighbors") instance=ExtResource("2_akp5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.070036, 8.22539, -5.4656234)
+neighbors = [NodePath("../NavNode")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=445396624]
+material_override = ExtResource("3_l82wf")
+mesh = SubResource("ImmediateMesh_l2ai8")

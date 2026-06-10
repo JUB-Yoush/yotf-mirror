@@ -145,6 +145,7 @@ public partial class NavNode : Node3D
         newNode.Owner = GetTree().EditedSceneRoot;
         newNode.Position = Position + Vec3.Forward;
         newNode.neighbors.Add(this);
+        newNode.Room = this.Room;
         this.neighbors.Add(newNode);
 
         EditorInterface.Singleton.MarkSceneAsUnsaved();
@@ -162,6 +163,8 @@ public partial class NavNode : Node3D
         neighbors.Add(newNode);
         other.neighbors.Remove(this);
         other.neighbors.Add(newNode);
+
+        newNode.Room = this.Room;
 
         var dist = Position - other.Position;
         newNode.Position = other.Position + (dist / 2);

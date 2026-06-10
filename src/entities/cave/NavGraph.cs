@@ -62,6 +62,7 @@ public partial class NavGraph : Node3D
         // if (!Engine.IsEditorHint())
         //     return;
 
+        EdgesView ??= this.GetNode<MeshInstance3D>()!;
         NavNodes = GetNavNodes();
         foreach (var node in NavNodes)
         {
