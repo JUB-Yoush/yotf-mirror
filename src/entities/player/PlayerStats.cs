@@ -14,11 +14,20 @@ public partial class PlayerStats : Node
 
     public Action<int>? GalleryScoreUpdated;
 
+    private bool oxygenWarningGiven = false;
+    private bool batteryWarningGiven = false;
+
     [Node]
     public required Hud HUD { set; get; }
 
     [Export]
     public float OxygenUseRate = 0f;
+
+    [Export]
+    public float LowOxygenPercentage = .3f;
+
+    [Export]
+    public float LowBatteryPercentage = .3f;
 
     public float Injuries
     {
@@ -55,6 +64,17 @@ public partial class PlayerStats : Node
         {
             field = Math.Clamp(value, 0, MaxOxygen - Injuries);
             HUD?.OxygenBar.Value = field;
+
+            if (field / MaxOxygen > LowOxygenPercentage)
+            {
+                oxygenWarningGiven = false;
+            }
+
+            if (field / MaxOxygen <= LowOxygenPercentage && !oxygenWarningGiven)
+            {
+                oxygenWarningGiven = true;
+                player?.MakeAlert("ALERT: LOW OXYGEN");
+            }
             if (field == 0)
                 Drown();
         }
@@ -67,6 +87,16 @@ public partial class PlayerStats : Node
             field = Math.Clamp(value, 0, MaxBattery);
             HUD?.BatteryLabel?.Text = $"Battery: {value}/{MaxBattery}";
             HUD?.BatteryBar.Value = value;
+
+            if (field / MaxBattery > LowBatteryPercentage)
+            {
+                batteryWarningGiven = false;
+            }
+            if (field / MaxBattery <= LowBatteryPercentage && !batteryWarningGiven)
+            {
+                batteryWarningGiven = true;
+                player?.MakeAlert("ALERT: LOW BATTERY");
+            }
         }
     }
     public int Money

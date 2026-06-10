@@ -197,6 +197,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     public override void _Ready()
     {
+        MakeAlert("MY BALLS ITCH");
         Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
@@ -352,5 +353,12 @@ public partial class Player : CharacterBody3D, ITakeDamage
         {
             GetShocked();
         }
+    }
+
+    internal void MakeAlert(string str)
+    {
+        Alert.Visible = true;
+        Alert.RenderGradually(str);
+        CreateTween().Fn(() => Alert.Visible = false, 2);
     }
 }

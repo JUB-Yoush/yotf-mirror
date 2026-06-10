@@ -47,6 +47,7 @@ public partial class Sonar : Item, IDroppable
 
     ISonarable? closest = null!;
     Label Label = null!;
+    Label Label2 = null!;
 
     public override void _Ready()
     {
@@ -55,6 +56,7 @@ public partial class Sonar : Item, IDroppable
         player = GetParent().GetParent<Player>();
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Label = player.HUD.SonarLabel;
+        Label2 = player.HUD.SonarLabel2;
 
         GetTree().NodeAdded += (node) =>
         {
@@ -92,18 +94,18 @@ public partial class Sonar : Item, IDroppable
     public override void Equipped()
     {
         Visible = true;
-        player.Alert.Visible = true;
         Reticles.Visible = true;
         Label.Visible = true;
-        player.Alert.RenderGradually("LOCATING...", 0.02f);
+        Label2.Visible = true;
+        Label2.RenderGradually("LOCATING...", 0.02f);
     }
 
     public override void Unequipped()
     {
         Visible = false;
         Reticles.Visible = false;
-        player.Alert.Visible = false;
         Label.Visible = false;
+        Label2.Visible = false;
     }
 
     public override void _Input(InputEvent @event)
@@ -151,11 +153,11 @@ public partial class Sonar : Item, IDroppable
         {
             if (GradingUI.maxPhotoScores.TryGetValue(closest.Name, out var score))
             {
-                player.Alert.Text = $"MAX PHOTO: {score}";
+                Label2.Text = $"MAX PHOTO: {score}";
             }
             else
             {
-                player.Alert.Text = $"UNPHOTOGRAPHED: {score}";
+                Label2.Text = $"UNPHOTOGRAPHED: {score}";
             }
         }
         var nameText = closest.Discovered ? closest.Name.ToString() : "UNKNOWN";

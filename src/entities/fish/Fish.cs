@@ -213,19 +213,9 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         {
             ray.GlobalPosition = GlobalPosition;
             ray.TargetPosition = (playerCam.GlobalPosition - GlobalPosition) * 2f;
-            // if (this is Anglerfish)
-            // {
-            //     ray.TargetPosition = ((playerSeeArea.GlobalPosition - GlobalPosition) * 2f).Rotated(
-            //         Vec3.Up,
-            //         Mathf.DegToRad(90)
-            //     );
-            // }
             ray.ForceRaycastUpdate();
             if (ray.IsColliding())
             {
-                // var collider = ((Node3D)ray.GetCollider());
-                // Log.PrintLn($"{Name}'s rays Collided with {collider}");
-                // collidingRays++;
                 if (ray.GetCollider() is Area3D)
                 {
                     return true;

@@ -16,29 +16,29 @@
 [ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="15_t0760"]
 [ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="16_o1ln5"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ibkhf"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_t0760"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6uy5a"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ibkhf"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_atfwa"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6uy5a"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_6uy5a")
+noise = SubResource("FastNoiseLite_ibkhf")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8yqg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atfwa"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_atfwa")
+refraction_texture = SubResource("NoiseTexture2D_6uy5a")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -1183,7 +1183,7 @@ script = ExtResource("1_atfwa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph" unique_id=204889]
 material_override = ExtResource("2_g8yqg")
-mesh = SubResource("ImmediateMesh_ibkhf")
+mesh = SubResource("ImmediateMesh_t0760")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1503,6 +1503,7 @@ Room = NodePath("../../Home2")
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_pmngp")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
 Index = 0
+OxygenScale = 20.0
 
 [node name="Lab2" parent="." unique_id=938565638 instance=ExtResource("4_pmngp")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
@@ -1547,7 +1548,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4762, 9.279371, 30.99307)
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("7_pwxqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.546997, -74.334854, 4.429512)
 size = Vector3(152.21326, 194.7316, 76.21321)
-material = SubResource("StandardMaterial3D_g8yqg")
+material = SubResource("StandardMaterial3D_atfwa")
 metadata/_edit_lock_ = true
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1407446890]

@@ -35,6 +35,9 @@ public partial class Hud : Control
     public required Label SonarLabel { set; get; }
 
     [Node]
+    public required Label SonarLabel2 { set; get; }
+
+    [Node]
     public required TextureProgressBar BatteryBar { set; get; }
 
     [Node]

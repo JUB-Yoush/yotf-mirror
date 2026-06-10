@@ -13,8 +13,9 @@ size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Sonar" type="Node3D" unique_id=1429263481]
 script = ExtResource("1_3vb5o")
+MinLabelDistance = 20.0
 range = 50.0
-batteryUseRate = 4.0
+batteryUseRate = 15.0
 Icon = ExtResource("2_3vb5o")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=263555658]

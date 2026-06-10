@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c78dfxk61qb4o"]
+
+[ext_resource type="Script" path="res://src/ui/GlobalNotif.cs" id="1_0w6v6"]
+
+[node name="GlobalNotif" type="Control" unique_id=691244539]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("1_0w6v6")
+
+[node name="Label" type="Label" parent="." unique_id=260339096]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.5
+offset_top = -220.0
+offset_right = 36.5
+offset_bottom = -197.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "ALERT: OXYGEN LOW"
+vertical_alignment = 1
