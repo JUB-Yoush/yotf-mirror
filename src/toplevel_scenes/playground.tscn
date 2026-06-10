@@ -5,6 +5,7 @@
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="4_6igj1"]
 [ext_resource type="PackedScene" uid="uid://dclgtcq541tkx" path="res://src/entities/fish/normal_fish/thwomp_fish.tscn" id="7_48c3q"]
+[ext_resource type="PackedScene" uid="uid://drpfa1114rfku" path="res://assets/3d/fish/Axolotl.glb" id="8_w1g40"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="20_bguta"]
 
@@ -134,3 +135,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.215076, 0.44916487, 20.05
 
 [node name="ThwompFish" parent="." unique_id=711625347 instance=ExtResource("7_48c3q")]
 transform = Transform3D(-0.40388057, 0, 0.91481173, 0, 1, 0, -0.91481173, 0, -0.40388057, -26.350737, 0.46471214, 35.509876)
+
+[node name="Axolotl" parent="." unique_id=1211388957 instance=ExtResource("8_w1g40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.069252, 0, 8.033712)
