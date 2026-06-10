@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="3_7t1ah"]
 [ext_resource type="Script" uid="uid://bgyveklptn51u" path="res://src/entities/cave/NavGraph.cs" id="4_8hels"]
+[ext_resource type="Script" uid="uid://vvkdhiibtom3" path="res://src/entities/cave/NavNode.cs" id="4_41kwd"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="4_c5kmb"]
 [ext_resource type="Material" uid="uid://c7is05txhvb60" path="res://assets/materials/node_edge_material.tres" id="5_2qppk"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="6_c5kmb"]
@@ -19,9 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="17_sjuom"]
 [ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="18_ihph0"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ihph0"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4kv4i"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_41kwd"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_7yoh0"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4kv4i"]
 resource_local_to_scene = true
@@ -1188,7 +1189,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph" unique_id=204889]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_ihph0")
+mesh = SubResource("ImmediateMesh_4kv4i")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1510,7 +1511,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=221061643]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_41kwd")
+mesh = SubResource("ImmediateMesh_7yoh0")
 
 [node name="NavNode" parent="NavGraph1" unique_id=320697809 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
@@ -1542,7 +1543,17 @@ neighbors = [NodePath("../NavNode6"), NodePath("../NavNode8")]
 
 [node name="NavNode8" parent="NavGraph1" unique_id=54639126 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.95738, -29.603857, 22.424698)
-neighbors = [NodePath("../NavNode7")]
+neighbors = [NodePath("../NavNode7"), NodePath("../NavNode9")]
+
+[node name="NavNode9" type="Node3D" parent="NavGraph1" unique_id=49124463 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_7t1ah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.39485, -33.0293, 7.95119)
+script = ExtResource("4_41kwd")
+neighbors = [NodePath("../NavNode8"), NodePath("../NavNode10")]
+
+[node name="NavNode10" type="Node3D" parent="NavGraph1" unique_id=1617339119 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_7t1ah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.427357, -33.0293, 8.0772295)
+script = ExtResource("4_41kwd")
+neighbors = [NodePath("../NavNode9")]
 
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)

@@ -4,7 +4,6 @@
 [ext_resource type="Material" uid="uid://c7is05txhvb60" path="res://assets/materials/node_edge_material.tres" id="2_g8yqg"]
 [ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="3_ttxmn"]
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="4_pmngp"]
-[ext_resource type="Script" uid="uid://vvkdhiibtom3" path="res://src/entities/cave/NavNode.cs" id="4_t0760"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="5_bhu1i"]
 [ext_resource type="PackedScene" uid="uid://dtirsygjr1xas" path="res://src/entities/cave/fish_room.tscn" id="6_y5dxa"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="7_pwxqr"]
@@ -16,31 +15,31 @@
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="13_veojw"]
 [ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="16_o1ln5"]
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_aw6sm"]
+
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_t0760"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ibkhf"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_t0760"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ibkhf"]
 resource_local_to_scene = true
 noise_type = 2
 frequency = 0.5
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ibkhf"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6uy5a"]
 resource_local_to_scene = true
 width = 128
 height = 128
-noise = SubResource("FastNoiseLite_t0760")
+noise = SubResource("FastNoiseLite_ibkhf")
 seamless = true
 as_normal_map = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uy5a"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atfwa"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
 depth_draw_mode = 1
 albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
 roughness = 0.0
-refraction_texture = SubResource("NoiseTexture2D_ibkhf")
+refraction_texture = SubResource("NoiseTexture2D_6uy5a")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -1185,7 +1184,7 @@ script = ExtResource("1_atfwa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph0" unique_id=204889]
 material_override = ExtResource("2_g8yqg")
-mesh = SubResource("ImmediateMesh_t0760")
+mesh = SubResource("ImmediateMesh_aw6sm")
 
 [node name="NavNode" parent="NavGraph0" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1507,7 +1506,7 @@ script = ExtResource("1_atfwa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=445396624]
 material_override = ExtResource("2_g8yqg")
-mesh = SubResource("ImmediateMesh_ibkhf")
+mesh = SubResource("ImmediateMesh_t0760")
 
 [node name="NavNode" parent="NavGraph1" unique_id=1071094409 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
@@ -1517,34 +1516,28 @@ neighbors = [NodePath("../NavNode2"), NodePath("../NavNode4"), NodePath("../NavN
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.20084, -4.928315, -12.290053)
 neighbors = [NodePath("../NavNode"), NodePath("../NavNode4"), NodePath("../NavNode3")]
 
-[node name="NavNode3" type="Node3D" parent="NavGraph1" unique_id=1463250792 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode3" parent="NavGraph1" unique_id=1463250792 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.121254, -12.74174, -7.3466477)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode4"), NodePath("../NavNode2"), NodePath("../NavNode5")]
 
-[node name="NavNode4" type="Node3D" parent="NavGraph1" unique_id=1629978893 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode4" parent="NavGraph1" unique_id=1629978893 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.121254, -4.7708435, -11.029429)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode3"), NodePath("../NavNode2"), NodePath("../NavNode")]
 
-[node name="NavNode5" type="Node3D" parent="NavGraph1" unique_id=1004910004 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode5" parent="NavGraph1" unique_id=1004910004 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.735954, -13.901909, -2.7494802)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode"), NodePath("../NavNode3"), NodePath("../NavNode6")]
 
-[node name="NavNode6" type="Node3D" parent="NavGraph1" unique_id=965847124 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode6" parent="NavGraph1" unique_id=965847124 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.735954, -16.183558, 10.529874)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode5"), NodePath("../NavNode7")]
 
-[node name="NavNode7" type="Node3D" parent="NavGraph1" unique_id=1653599572 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode7" parent="NavGraph1" unique_id=1653599572 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.95738, -20.273546, 32.913086)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode6"), NodePath("../NavNode8")]
 
-[node name="NavNode8" type="Node3D" parent="NavGraph1" unique_id=1392271226 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
+[node name="NavNode8" parent="NavGraph1" unique_id=1392271226 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.95738, -29.603857, 22.424698)
-script = ExtResource("4_t0760")
 neighbors = [NodePath("../NavNode7")]
 
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_pmngp")]
@@ -1594,7 +1587,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4762, 9.279371, 30.99307)
 [node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("7_pwxqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.546997, -74.334854, 4.429512)
 size = Vector3(152.21326, 194.7316, 76.21321)
-material = SubResource("StandardMaterial3D_6uy5a")
+material = SubResource("StandardMaterial3D_atfwa")
 metadata/_edit_lock_ = true
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1407446890]
