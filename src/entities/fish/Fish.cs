@@ -137,22 +137,22 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsDead { get; set; }
 
-    public FishRoom AssignCurrentRoom()
-    {
-        FishRoom currentClosest = null!;
-        foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
-        {
-            currentClosest ??= room;
-            if (
-                (room.GlobalPosition - GlobalPosition).LengthSquared()
-                <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
-            )
-            {
-                currentClosest = room;
-            }
-        }
-        return currentClosest;
-    }
+    // public FishRoom AssignCurrentRoom()
+    // {
+    //     FishRoom currentClosest = null!;
+    //     foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
+    //     {
+    //         currentClosest ??= room;
+    //         if (
+    //             (room.GlobalPosition - GlobalPosition).LengthSquared()
+    //             <= (currentClosest.GlobalPosition - GlobalPosition).LengthSquared()
+    //         )
+    //         {
+    //             currentClosest = room;
+    //         }
+    //     }
+    //     return currentClosest;
+    // }
 
     internal bool SmoothMoveTo(Vec3 target, float speed, float delta, float arrivalThreshold = 0.1f)
     {
@@ -198,8 +198,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     {
         Debug.Assert(LabLayer != null, $"Fish {Name} created without assigning Layer");
         Lab.CurrentLabUpdated += OnLabUpdated;
-        //navGraph = this.SceneRoot().GetNode<NavGraph>()!;
-        //Debug.Assert(navGraph != null,"Navgraph is null, fish probably init'ed first or there is no nav graph")
+        navGraph = this.SceneRoot().GetNode<NavGraph>()!;
+        // Debug.Assert(
+        //     navGraph != null,
+        //     "Navgraph is null, fish probably init'ed first or there is no nav graph"
+        // );
     }
 
     private void OnLabUpdated(Lab lab)

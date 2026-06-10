@@ -153,7 +153,7 @@ public partial class Inkfish : Fish, IHearNoise, IBubbleable, IDoesAction, ITake
 
     public void WanderEnter()
     {
-        CurrentRoom = AssignCurrentRoom();
+        //CurrentRoom = AssignCurrentRoom();
     }
 
     public override void _PhysicsProcess(double delta)

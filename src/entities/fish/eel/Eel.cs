@@ -79,8 +79,8 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
 
     private void WanderEnter()
     {
-        CurrentRoom = AssignCurrentRoom();
-        ReturningHome = true;
+        //CurrentRoom = AssignCurrentRoom();
+        ReturningHome = false;
     }
 
     private void WanderUpdate(float delta)
