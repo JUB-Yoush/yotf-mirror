@@ -204,7 +204,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     }
 
     public override void _PhysicsProcess(double delta)
-    {        
+    {
         if (!CurrentItem)
             return;
 
@@ -318,21 +318,28 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         var halfExtents = vis.GetAabb().Size * vis.Scale / 2f;
         var rotation = vis.GlobalTransform.Basis.Orthonormalized();
 
-        float minX = float.MaxValue, minY = float.MaxValue;
-        float maxX = float.MinValue, maxY = float.MinValue;
+        float minX = float.MaxValue,
+            minY = float.MaxValue;
+        float maxX = float.MinValue,
+            maxY = float.MinValue;
 
         // 8 points of OBB, not a real n^3 loop, don't worry
         for (int ix = -1; ix <= 1; ix += 2)
         for (int iy = -1; iy <= 1; iy += 2)
         for (int iz = -1; iz <= 1; iz += 2)
         {
-            var worldCorner = subject.GlobalPosition
+            var worldCorner =
+                subject.GlobalPosition
                 + rotation * new Vec3(halfExtents.X * ix, halfExtents.Y * iy, halfExtents.Z * iz);
             var screenPos = PhotoCameraCam.UnprojectPosition(worldCorner);
-            if (screenPos.X < minX) minX = screenPos.X;
-            if (screenPos.Y < minY) minY = screenPos.Y;
-            if (screenPos.X > maxX) maxX = screenPos.X;
-            if (screenPos.Y > maxY) maxY = screenPos.Y;
+            if (screenPos.X < minX)
+                minX = screenPos.X;
+            if (screenPos.Y < minY)
+                minY = screenPos.Y;
+            if (screenPos.X > maxX)
+                maxX = screenPos.X;
+            if (screenPos.Y > maxY)
+                maxY = screenPos.Y;
         }
 
         var screenExtent = new Vec2(maxX - minX, maxY - minY);
@@ -343,7 +350,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             1f
         );
 
-        GD.Print($"Size score for {subject.Name}: {score} (extent: {screenExtent}, viewport: {viewportSize})");
+        GD.Print(
+            $"Size score for {subject.Name}: {score} (extent: {screenExtent}, viewport: {viewportSize})"
+        );
         return score;
     }
 
@@ -371,7 +380,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                 continue;
 
             GD.Print($"Light ray is colliding with {lightRay.GetCollider()}");
-            if (lightRay.GetCollider() is not Node collider || (collider != subject && !subject.IsAncestorOf(collider)))
+            if (
+                lightRay.GetCollider() is not Node collider
+                || (collider != subject && !subject.IsAncestorOf(collider))
+            )
                 continue;
 
             float dist = subject.GlobalPosition.DistanceSquaredTo(light.LightPosition);
@@ -389,7 +401,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         float t = 1f - (closestDist / closestLight.EffectiveRange);
         float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
         float score = Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
-        
+
         GD.Print($"Light score of {score}");
         return score;
     }

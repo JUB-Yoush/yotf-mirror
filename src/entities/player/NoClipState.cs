@@ -20,9 +20,11 @@ public class NoClipState : IPlayerState
     public void Update(Player player, float delta)
     {
         Vec3 moveDir = Vec3.Zero;
-        moveDir -= player.Camera.GlobalTransform.Basis.Z
+        moveDir -=
+            player.Camera.GlobalTransform.Basis.Z
             * (Input.GetActionStrength("up") - Input.GetActionStrength("down"));
-        moveDir += player.Camera.GlobalTransform.Basis.X
+        moveDir +=
+            player.Camera.GlobalTransform.Basis.X
             * (Input.GetActionStrength("right") - Input.GetActionStrength("left"));
 
         float speed = Speed;

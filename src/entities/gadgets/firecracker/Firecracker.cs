@@ -34,7 +34,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
 
     [Node]
     public required Area3D LightArea { set; get; }
-    
+
     [Node]
     public required RayCast3D LightRay { set; get; }
 
