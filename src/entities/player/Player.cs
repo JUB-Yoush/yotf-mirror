@@ -46,6 +46,8 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     bool renderingAlert = false;
 
+    public bool InNegationArea = false;
+
     [Export]
     Marker3D? SpawnPos = null;
 

@@ -65,6 +65,16 @@ public partial class Log : Control
         {
             CappedFPS = !CappedFPS;
         }
+
+        if (@event.IsActionPressed("give_money"))
+        {
+            GetTree().CurrentScene.GetNode<Player>()!.Stats.Money += 50;
+        }
+
+        if (@event.IsActionPressed("give_gallery"))
+        {
+            GetTree().CurrentScene.GetNode<Player>()!.Stats.TotalGalleryScore += 50;
+        }
     }
 
     public static void Print(object msg)
