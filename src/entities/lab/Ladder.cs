@@ -27,12 +27,18 @@ public partial class Ladder : Node3D, IInteractable
         var player = this.SceneRoot().GetNode<Player>()!;
         if (isTop)
             return;
-        CreateTween()
-            .AnimateProperty(
-                player,
-                CharacterBody3D.PropertyName.GlobalPosition,
-                GlobalPosition + Vec3.Up,
-                1
-            );
+        var tween = CreateTween();
+        tween.AnimateProperty(
+            player,
+            CharacterBody3D.PropertyName.GlobalPosition,
+            GlobalPosition + Vec3.Up,
+            1
+        );
+        tween.AnimateProperty(
+            player,
+            CharacterBody3D.PropertyName.GlobalPosition,
+            GlobalPosition - GlobalTransform.Basis.Z,
+            .1f
+        );
     }
 }

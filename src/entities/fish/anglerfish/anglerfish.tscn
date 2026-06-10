@@ -530,6 +530,16 @@ _data = {
 &"Fish_Armature|Swimming_Normal": SubResource("Animation_k70va")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ay8m2"]
+emission_enabled = true
+emission = Color(0.18474048, 0.77573365, 0.9372431, 1)
+emission_energy_multiplier = 3.95
+
+[sub_resource type="SphereMesh" id="SphereMesh_ay8m2"]
+material = SubResource("StandardMaterial3D_ay8m2")
+radius = 0.15
+height = 0.4
+
 [node name="Anglerfish" type="CharacterBody3D" unique_id=391027566]
 collision_layer = 784
 collision_mask = 275
@@ -651,3 +661,7 @@ collision_mask = 3
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=929450661]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6572223, 2.5572946)
 omni_range = 6.591
+
+[node name="Blub" type="MeshInstance3D" parent="OmniLight3D" unique_id=876184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04304862, -0.041758537, -0.009121656)
+mesh = SubResource("SphereMesh_ay8m2")

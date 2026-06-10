@@ -171,6 +171,7 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=1371043951]
 unique_name_in_owner = true
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1214767733]
 shape = SubResource("SphereShape3D_rq6t1")

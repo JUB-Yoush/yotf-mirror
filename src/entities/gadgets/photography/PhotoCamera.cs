@@ -147,6 +147,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public void CurrentLabUpdated(Lab newLab)
     {
         photoTerminal = newLab.PhotoTerminal;
+        Photos = [];
     }
 
     public override void _UnhandledInput(InputEvent @event)

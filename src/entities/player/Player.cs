@@ -46,10 +46,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     bool renderingAlert = false;
 
-    public bool InNegationArea = false;
+    public bool InNegationArea = true;
 
     [Export]
-    Marker3D? SpawnPos = null;
+    Lab? StartLab = null;
 
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
@@ -216,9 +216,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
         WalkingState.Enter(this);
         FirstPerson = true;
 
-        if (SpawnPos != null)
+        if (StartLab != null)
         {
-            GlobalPosition = SpawnPos.GlobalPosition;
+            GlobalPosition = StartLab.PlayerSpawn.GlobalPosition;
+            Lab.CurrentLab = StartLab;
         }
     }
 

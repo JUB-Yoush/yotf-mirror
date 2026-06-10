@@ -144,7 +144,11 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
     public FishRoom AssignCurrentRoom()
     {
         FishRoom currentClosest = null!;
-        foreach (var room in this.SceneRoot().GetNodes<FishRoom>())
+        foreach (
+            var room in this.SceneRoot()
+                .GetNode($"RoomMarkers{LabLayer.Index}")
+                .GetNodes<FishRoom>()
+        )
         {
             currentClosest ??= room;
             if (

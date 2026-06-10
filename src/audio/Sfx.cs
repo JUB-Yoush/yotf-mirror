@@ -16,6 +16,7 @@ public static class Sfx
     public const string Oxygen = "oxygen.ogg";
     public const string Ping = "ping.mp3";
     public const string PowerDown = "power_down.ogg";
+    public const string Click = "flashlight.ogg";
     public const string PowerUp = "power_up.ogg";
     public const string UIOpen = "ui_open.mp3";
     public const string UIClose = "ui_close.mp3";

@@ -45,6 +45,7 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
     float IBubbleable.MeshScale => .3f;
 
     public bool InAction { get; set; }
+    public int OnBodyEntered { get; private set; }
 
     HashSet<Node3D> zapped = [];
 
@@ -69,6 +70,17 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
         stateMachine.AddState(State.Electric, ElectricUpdate, ElectricEnter, ElectricExit);
         stateMachine.AddState(State.Bubbled, BubbledUpdate);
         stateMachine.State = State.Wander;
+        DetectionZone.BodyEntered += OnDetectionBodyEntered;
+    }
+
+    private void OnDetectionBodyEntered(Node3D body)
+    {
+        Log.PrintLn("eel area entered");
+        if (body is Player player && stateMachine.State == State.Wander)
+        {
+            stateMachine.State = State.Electric;
+            zapTarget = player;
+        }
     }
 
     private void BubbledUpdate(float delta)

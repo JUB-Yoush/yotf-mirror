@@ -49,6 +49,7 @@ public partial class Flashlight : Item, IDroppable
             return;
         if (@event.IsActionPressed("take_photo") && !player.IsInMenu)
         {
+            Audio.PlaySfx(Sfx.Click);
             isOn = !isOn;
             SpotLight.LightEnergy = isOn ? 10 : 0;
         }
