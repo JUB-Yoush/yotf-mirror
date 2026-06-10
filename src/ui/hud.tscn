@@ -38,6 +38,17 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_fwgqd")
 
+[node name="ScreenColor" type="ColorRect" parent="." unique_id=312862497]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
 [node name="InventoryIcons" type="HBoxContainer" parent="." unique_id=690281121]
 unique_name_in_owner = true
 layout_mode = 0

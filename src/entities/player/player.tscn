@@ -166,17 +166,6 @@ uppercase = true
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
 layer = 3
 
-[node name="FadeToBlack" type="ColorRect" parent="FisheyeShader" unique_id=846698092]
-unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-metadata/_edit_lock_ = true
-
 [node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
 unique_name_in_owner = true
 material = ExtResource("21_fjj3i")

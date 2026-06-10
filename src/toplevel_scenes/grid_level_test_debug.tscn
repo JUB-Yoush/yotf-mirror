@@ -1503,7 +1503,6 @@ Room = NodePath("../../Home2")
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_pmngp")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
 Index = 0
-OxygenScale = 20.0
 
 [node name="Lab2" parent="." unique_id=938565638 instance=ExtResource("4_pmngp")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
@@ -2662,6 +2661,7 @@ InsideChest = ExtResource("13_veojw")
 
 [node name="Anglerfish" parent="." unique_id=391027566 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_o1ln5")]
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, -14.696756, 8.934772, -0.09720403)
+chaseDmg = 10.0
 LabLayer = NodePath("../Lab")
 
 [node name="NormalFish" parent="." unique_id=711625347 instance=ExtResource("15_t0760")]

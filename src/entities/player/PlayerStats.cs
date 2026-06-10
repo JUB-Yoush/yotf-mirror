@@ -14,6 +14,8 @@ public partial class PlayerStats : Node
 
     public Action<int>? GalleryScoreUpdated;
 
+    public bool isDead = false;
+
     private bool oxygenWarningGiven = false;
     private bool batteryWarningGiven = false;
 
@@ -76,7 +78,10 @@ public partial class PlayerStats : Node
                 player?.MakeAlert("ALERT: LOW OXYGEN");
             }
             if (field == 0)
+            {
+                isDead = true;
                 Drown();
+            }
         }
     }
     public float Battery
@@ -169,10 +174,13 @@ public partial class PlayerStats : Node
 
     public void Drown()
     {
-        var fadeRect = GetParent().GetNode<ColorRect>("%FadeToBlack");
+        HUD.DeathText.ProcessMode = ProcessModeEnum.Always;
+        HUD.ScreenColor.ProcessMode = ProcessModeEnum.Always;
+        this.ProcessMode = ProcessModeEnum.Always;
+        GetTree().Paused = true;
+        var fadeRect = player.HUD.ScreenColor;
         fadeRect.Visible = true;
         var tween = CreateTween();
-        //HUD.DeathText.Visible;
         tween.AnimateProperty(fadeRect, ColorRect.PropertyName.Color, new Color(0, 0, 0, 1), 3f);
         tween.AnimateProperty(
             HUD.DeathText,

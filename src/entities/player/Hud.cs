@@ -61,6 +61,9 @@ public partial class Hud : Control
     [Node]
     public required TextureRect WinText { set; get; }
 
+    [Node]
+    public required ColorRect ScreenColor { set; get; }
+
     public TextureRect[] InventoryIcons
     {
         get

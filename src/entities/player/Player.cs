@@ -44,6 +44,8 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     public Vec3 CollisionPivot;
 
+    bool renderingAlert = false;
+
     [Export]
     Marker3D? SpawnPos = null;
 
@@ -197,8 +199,6 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     public override void _Ready()
     {
-        MakeAlert("MY BALLS ITCH");
-        Log.PrintLn("player ready");
         SkinRestPosition = Skin.Position;
 
         CollisionPivot = CollisionShapeBody.Position;
@@ -347,18 +347,48 @@ public partial class Player : CharacterBody3D, ITakeDamage
     void ITakeDamage.TakeDamage(float amount, Vec3 knockback, Node3D source)
     {
         //hit
-        Stats.Injuries += amount;
+        Stats.Oxygen -= amount;
         Velocity += knockback;
         if (source is Eel)
         {
             GetShocked();
         }
+        var ScreenFlash = HUD.ScreenColor;
+        ScreenFlash.Visible = true;
+        var tween = CreateTween();
+        tween.AnimateProperty(
+            ScreenFlash,
+            ColorRect.PropertyName.Color,
+            new Color(1, 0, 0, 1),
+            .2f
+        );
+
+        tween.AnimateProperty(
+            ScreenFlash,
+            ColorRect.PropertyName.Color,
+            new Color(0, 0, 0, 0),
+            .2f
+        );
     }
 
     internal void MakeAlert(string str)
     {
+        if (renderingAlert == true)
+        {
+            GD.PushWarning("Alert already rendering");
+            return;
+        }
+
         Alert.Visible = true;
         Alert.RenderGradually(str);
-        CreateTween().Fn(() => Alert.Visible = false, 2);
+        CreateTween()
+            .Fn(
+                () =>
+                {
+                    Alert.Visible = false;
+                    renderingAlert = false;
+                },
+                2
+            );
     }
 }
