@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Yotf;
 
 public class SwimmingState : IPlayerState
@@ -11,32 +9,35 @@ public class SwimmingState : IPlayerState
 
     PlayerStats Stats = null!;
 
-    public void Enter(PlayerController player)
+    public void Enter(Player player)
     {
         player.Velocity = player.Velocity with { Y = 0f };
-        Stats = player.GetNode<PlayerStats>("Stats");
+        Stats = player.Stats;
+        player.UnderwaterRect.Visible = true;
     }
 
-    public void Exit(PlayerController player)
+    public void Exit(Player player)
     {
+        Stats.RestoreOxygen();
         Stats.Oxygen = Stats.MaxOxygen;
         Stats.Battery = Stats.MaxBattery;
-        player.UpdateBodyRotation(player.Skin.Rotation with { X = 0f });
+        player.UpdateBodySwimRotation(player.Skin.Rotation with { X = 0f });
+        player.UnderwaterRect.Visible = false;
     }
 
-    public void Update(PlayerController player, float delta)
+    public void Update(Player player, float delta)
     {
         Stats.SpendOxygen(delta);
 
         Basis cam = player.Camera.GlobalTransform.Basis;
-        Vector3 bodyUp = -cam.Z;
-        Vector3 bodyRight = cam.X;
-        Vector3 bodyBack = bodyUp.Cross(bodyRight);
-        player.UpdateBodyRotation(
+        Vec3 bodyUp = -cam.Z;
+        Vec3 bodyRight = cam.X;
+        Vec3 bodyBack = bodyUp.Cross(bodyRight);
+        player.UpdateBodySwimRotation(
             new Basis(bodyRight, bodyUp, bodyBack).Orthonormalized().GetEuler()
         );
 
-        Vector3 moveDir = Vector3.Zero;
+        Vec3 moveDir = Vec3.Zero;
         moveDir -=
             player.Camera.GlobalTransform.Basis.Z
             * (Input.GetActionStrength("up") - Input.GetActionStrength("down"));
@@ -44,14 +45,14 @@ public class SwimmingState : IPlayerState
             player.Camera.GlobalTransform.Basis.X
             * (Input.GetActionStrength("right") - Input.GetActionStrength("left"));
 
-        float speed = player.SwimSpeed;
+        float speed = player.SwimSpeed + PlayerStats.ExtraSwimSpeed;
         if (Input.IsActionJustPressed("jump"))
             speed *= player.SwimBoostMultiplier;
 
-        if (moveDir != Vector3.Zero)
+        if (moveDir != Vec3.Zero)
             player.Velocity = moveDir.Normalized() * speed;
         else
-            player.Velocity = player.Velocity.Lerp(Vector3.Zero, player.SwimDamping * delta);
+            player.Velocity = player.Velocity.Lerp(Vec3.Zero, player.SwimDamping * delta);
 
         player.MoveAndSlide();
     }

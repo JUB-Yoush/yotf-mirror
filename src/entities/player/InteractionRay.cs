@@ -14,6 +14,8 @@ public partial class InteractionRay : RayCast3D
     [Node]
     public required Inventory Inventory { set; get; }
 
+    bool firstTime = true;
+
     public override void _Ready()
     {
         TargetPosition = new(0, 0, -2f);
@@ -25,6 +27,7 @@ public partial class InteractionRay : RayCast3D
         if (@event.IsActionPressed("pickup"))
         {
             currentCollision?.OnInteraction();
+            currentCollision?.RemoveOutlineMesh();
             currentCollision = null;
         }
     }
@@ -36,6 +39,11 @@ public partial class InteractionRay : RayCast3D
             currentCollision?.RemoveOutlineMesh();
             currentCollision = null;
             return;
+        }
+        if (firstTime)
+        {
+            firstTime = false;
+            Inventory.GetParent<Player>().MakeAlert("PRESS F TO INTERACT");
         }
         currentCollision = ((Node)GetCollider()).GetParent<IInteractable>();
         currentCollision.OutlineMesh();

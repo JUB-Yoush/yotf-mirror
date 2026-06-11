@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d4k21yrdon3lu"]
+
+[ext_resource type="Texture2D" uid="uid://cpdsaj7jfqube" path="res://assets/2d/bait_icon.png" id="1_7ji70"]
+[ext_resource type="Script" uid="uid://dilxa0nwlkr6w" path="res://src/entities/gadgets/bait/BaitItem.cs" id="1_i3br3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3br3"]
+albedo_texture = ExtResource("1_7ji70")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iy8g0"]
+material = SubResource("StandardMaterial3D_i3br3")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="BaitItem" type="Node3D" unique_id=498839186]
+script = ExtResource("1_i3br3")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=983547099]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_iy8g0")

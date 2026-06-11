@@ -4,26 +4,37 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class PhotoCamera : Item
+public partial class PhotoCamera : Item, IMakeNoise, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    private static readonly Texture2D moonin = GD.Load<Texture2D>("res://assets/2d/mooninicon.png");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/gadgets/photography/photo_camera.tscn"
+    );
 
-    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://cgk7l4ybjl37y");
+    public static Action<bool>? AimingChanged;
 
     public List<Photo> Photos = [];
 
     private bool equipped = false;
     const float DefaultFov = 90;
     const float ViewfinderLerp = 20;
-    const float DefaultViewfinderFov = 50;
-    private float ViewfinderFov = 50;
+    const float DefaultViewfinderFov = 70;
+    private float ViewfinderFov = DefaultViewfinderFov;
+
+    float MaxFov => Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10);
+
+    static readonly SubViewport.UpdateMode[] updateModes =
+    [
+        SubViewport.UpdateMode.Disabled,
+        SubViewport.UpdateMode.Always,
+    ];
 
     [Node]
     public required Camera3D PhotoCameraCam { set; get; }
@@ -46,7 +57,21 @@ public partial class PhotoCamera : Item
     [Node]
     public required Label FilmLabel { set; get; }
 
-    private PlayerController player = null!;
+    [Node]
+    public required Label ZoomLabel { set; get; }
+
+    [Node]
+    public required AudioStreamPlayer3D AudioStreamPlayer { get; set; }
+
+    public AudioStreamPlayer3D NoiseSource
+    {
+        get => AudioStreamPlayer;
+    }
+
+    [Export]
+    public float LightFalloffExponent = 1.5f;
+
+    private Player player = null!;
 
     private Camera3D playerCamera = null!;
 
@@ -58,25 +83,42 @@ public partial class PhotoCamera : Item
     {
         set
         {
-            field = Math.Clamp(value, 0, maxFilm);
-            FilmLabel.Text = $"{field}/{maxFilm}";
+            field = Math.Clamp(value, 0, PlayerStats.MaxFilm);
+            FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
         }
         get;
     }
-    public int maxFilm = 100;
 
-    private bool aiming = false;
+    public new PackedScene PackedScene => Packed;
+
+    public new Mesh DropMesh => Mesh.Mesh;
+
+    private bool Aiming
+    {
+        get;
+        set
+        {
+            field = value;
+            AimingChanged?.Invoke(field);
+        }
+    }
 
     public override void _Ready()
     {
-        Film = maxFilm;
-        player = GetParent().GetParent<PlayerController>();
+        player = GetParent().GetParent<Player>();
+        Film = PlayerStats.MaxFilm;
         playerCamera = player.GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         Lab.CurrentLabUpdated += CurrentLabUpdated;
-        photoTerminal = Lab.CurrentLab!.PhotoTerminal;
+        photoTerminal = Lab.CurrentLab?.PhotoTerminal;
 
         PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+    }
+
+    public void UpdateZoom()
+    {
+        PhotoCameraCam.Fov = playerCamera.Fov;
+        ZoomLabel.Text = $"x{DefaultFov / ViewfinderFov:F1}/{DefaultFov / MaxFov:F1}";
     }
 
     public override void _ExitTree()
@@ -84,46 +126,81 @@ public partial class PhotoCamera : Item
         Lab.CurrentLabUpdated -= CurrentLabUpdated;
     }
 
+    public override void Equipped()
+    {
+        FilmLabel.Text = $"{Film}/{PlayerStats.MaxFilm}";
+    }
+
+    public override void Added()
+    {
+        Film = PlayerStats.MaxFilm;
+    }
+
+    public override void Removed()
+    {
+        Aiming = false;
+        //CreateTween().AnimateProperty(playerCamera, Camera3D.PropertyName.Fov, DefaultFov, .3f);
+        playerCamera.Fov = DefaultFov;
+        ToggleCameraAim(false);
+    }
+
     public void CurrentLabUpdated(Lab newLab)
     {
         photoTerminal = newLab.PhotoTerminal;
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (!CurrentItem)
             return;
 
         if (@event.IsActionPressed("scroll_up"))
-            ViewfinderFov = Math.Max(ViewfinderFov - 2, 20);
+        {
+            ViewfinderFov = Math.Max(
+                ViewfinderFov - 2,
+                Math.Max(DefaultViewfinderFov - PlayerStats.MaxZoom, 10)
+            );
+        }
 
         if (@event.IsActionPressed("scroll_down"))
+        {
             ViewfinderFov = Math.Min(ViewfinderFov + 2, 90);
+        }
 
         if (@event.IsActionPressed("look_cam"))
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsLookingInCamera = true;
-            aiming = true;
+            Aiming = true;
             Light.Visible = true;
+            ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionReleased("look_cam"))
         {
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
             player.IsLookingInCamera = false;
-            aiming = false;
+            Aiming = false;
             Light.Visible = false;
             ViewfinderFov = DefaultViewfinderFov;
         }
 
         if (@event.IsActionPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
-            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            var dropItem = DroppedItem.New(DropMesh, PackedScene, Photos);
             GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
             Inventory.RemoveCurrentItem();
         }
+    }
+
+    public override void _Process(double delta)
+    {
+        Mesh.GlobalTransform = playerCamera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vec3(0, 0, 2);
+        PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
+        UpdateZoom();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -131,9 +208,9 @@ public partial class PhotoCamera : Item
         if (!CurrentItem)
             return;
 
-        if (aiming)
+        if (Aiming)
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 ViewfinderFov,
                 (float)(ViewfinderLerp * delta)
@@ -142,7 +219,7 @@ public partial class PhotoCamera : Item
         }
         else
         {
-            playerCamera.Fov = MathExt.Lerp(
+            playerCamera.Fov = Mathf.Lerp(
                 playerCamera.Fov,
                 DefaultFov,
                 (float)(ViewfinderLerp * delta)
@@ -150,57 +227,190 @@ public partial class PhotoCamera : Item
             PhotoLetterBox.Visible = false;
         }
 
-        if (Input.IsActionJustPressed("take_photo") && aiming && Film > 0)
+        if (Input.IsActionJustPressed("take_photo") && Aiming && Film > 0)
         {
-            Film -= 1;
-            var subjects = GetPhotoSubjects();
-            Image image = GetViewportImage();
-            PhotoData photo = PhotoData.New(Name, subjects, image.Data);
-            Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo);
-            FlashSFX();
-            AddPhoto(photo, grades);
+            TakePhoto();
         }
-        Mesh.GlobalTransform = playerCamera.GlobalTransform;
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2); //+ new Vector3(0, 0, 2);
-        PhotoCameraCam.GlobalTransform = playerCamera.GlobalTransform;
     }
 
-    private Dictionary<string, PhotoGrade> GetSubjectGrades(PhotoData photo)
+    void TakePhoto()
+    {
+        Film -= 1;
+        var subjects = GetPhotoSubjects();
+        var modifiers = GetPhotoModifiers();
+        Image image = GetViewportImage();
+        PhotoData photo = PhotoData.New(Name, subjects, image.Data);
+        Dictionary<string, PhotoGrade> grades = GetSubjectGrades(photo, modifiers);
+        FlashVFX();
+        IMakeNoise.MakeNoise(this, 5, Sfx.CameraShutter, 5);
+        AddPhoto(photo, grades, modifiers);
+    }
+
+    private void ToggleCameraAim(bool state)
+    {
+        PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
+        player.IsLookingInCamera = state;
+        Aiming = state;
+        Light.Visible = state;
+    }
+
+    private Dictionary<string, PhotoGrade> GetSubjectGrades(
+        PhotoData photo,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
         Dictionary<string, PhotoGrade> result = [];
+        var modSet = modifiers.ToHashSet<IPhotographable.PhotoModifier>();
 
         foreach (var subjectName in photo.Subjects)
         {
             // TODO (j) where will fish be placed within the scene?
-            var subject = GetTree().CurrentScene.GetNode<Node3D>(subjectName);
+            //var subject = GetTree().CurrentScene.GetNode<Node>("Fish").GetNode<Fish>(subjectName);
 
-            // how centered the fish is
-            var camToFish = subject.GlobalPosition - PhotoCameraCam.GlobalPosition;
-            var camFacing = PhotoCameraCam.GlobalTransform.Basis.Z;
-            var angle = camFacing.AngleTo(camToFish); // from a range of abt 2.7 - PI
-            var angleScore = Math.Clamp((angle - 2.6) / (Math.PI - 2.6), 0, 1);
+            // var subject = this.SceneRoot()
+            //     .GetNode<Node>($"Fish{Lab.CurrentLab!.Index}")
+            //     .GetNode<Fish>(subjectName);
+            var subject = this.SceneRoot().GetNode<Fish>(subjectName);
+            Log.PrintLn(subject);
+            var angleScore = CalcCenteredScore(subject);
+            var facingScore = CalcFacingScore(subject);
+            var sizeScore = CalcSizeScore(subject);
+            var inAction = subject is IDoesAction actionable && actionable.InAction;
+            var lightScore = CalcLightScore(subject);
 
-            //If the Fish is facing the camera
-            var facingAngle = camFacing.AngleTo(-subject.GlobalTransform.Basis.Z); // from a range of 0 - PI
-            var facingScore = Math.Clamp(facingAngle / Math.PI, 0, 1);
-
-            // size of fish on the screen
-            // distance from camera scaled based on the size of the bounding box
-            var photographable = subject as IPhotographable;
-            var vis = photographable.SubjectBoundingMesh as VisualInstance3D;
-            var worldAabb = vis!.GetAabb() * vis.GlobalTransform;
-            var sizeInPhoto = worldAabb.Volume / camToFish.Length(); // from a range of 0 - 0.1?
-            var sizeScore = Math.Clamp(sizeInPhoto / 100, 0, 1);
-
-            //fish lighting
-            // TODO (j) implement
-            var lightScore = 1f;
             result.Add(
                 subject.Name,
-                new((float)angleScore, sizeScore, (float)facingScore, lightScore)
+                new(
+                    angleScore,
+                    sizeScore,
+                    facingScore,
+                    lightScore,
+                    photo.Subjects.Length,
+                    inAction,
+                    modSet.Contains(IPhotographable.PhotoModifier.Ink),
+                    false, // fish can't die (yet)
+                    subject.size == Fish.Size.Large
+                )
             );
+            Log.PrintLn(result[subject.Name]);
         }
         return result;
+    }
+
+    float CalcCenteredScore(Node3D subject)
+    {
+        var targetDir = (subject.GlobalPosition - playerCamera.GlobalPosition).Normalized();
+        var subjectFacingDir = -playerCamera.GlobalTransform.Basis.Z;
+        var dot = subjectFacingDir.Dot(targetDir);
+        return Math.Clamp(dot, 0f, 1f);
+    }
+
+    float CalcFacingScore(Node3D subject)
+    {
+        var targetDir = -subject.GlobalTransform.Basis.Z.Normalized();
+        var subjectFacingDir = -playerCamera.GlobalTransform.Basis.Z;
+        var dot = subjectFacingDir.Dot(targetDir);
+        return Math.Clamp(dot, 0f, 1f);
+    }
+
+    float CalcSizeScore(Node3D subject)
+    {
+        if (subject is not IPhotographable photographable)
+            return 0f;
+
+        if (photographable.SubjectBoundingMesh is not VisualInstance3D vis)
+            return 0f;
+
+        // use subject.GlobalPosition as center and vis.Scale to avoid pivot point screwery
+        var halfExtents = vis.GetAabb().Size * vis.Scale / 2f;
+        var rotation = vis.GlobalTransform.Basis.Orthonormalized();
+
+        float minX = float.MaxValue,
+            minY = float.MaxValue;
+        float maxX = float.MinValue,
+            maxY = float.MinValue;
+
+        // 8 points of OBB, not a real n^3 loop, don't worry
+        for (int ix = -1; ix <= 1; ix += 2)
+        for (int iy = -1; iy <= 1; iy += 2)
+        for (int iz = -1; iz <= 1; iz += 2)
+        {
+            var worldCorner =
+                subject.GlobalPosition
+                + rotation * new Vec3(halfExtents.X * ix, halfExtents.Y * iy, halfExtents.Z * iz);
+            var screenPos = PhotoCameraCam.UnprojectPosition(worldCorner);
+            if (screenPos.X < minX)
+                minX = screenPos.X;
+            if (screenPos.Y < minY)
+                minY = screenPos.Y;
+            if (screenPos.X > maxX)
+                maxX = screenPos.X;
+            if (screenPos.Y > maxY)
+                maxY = screenPos.Y;
+        }
+
+        var screenExtent = new Vec2(maxX - minX, maxY - minY);
+        var viewportSize = (Vec2)PhotoViewport.Size;
+        var score = Mathf.Clamp(
+            Mathf.Max(screenExtent.X / viewportSize.X, screenExtent.Y / viewportSize.Y),
+            0f,
+            1f
+        );
+
+        GD.Print(
+            $"Size score for {subject.Name}: {score} (extent: {screenExtent}, viewport: {viewportSize})"
+        );
+        return score;
+    }
+
+    private float CalcLightScore(Node3D subject)
+    {
+        var photographable = subject as IPhotographable;
+        if (photographable is null)
+            return 0f;
+
+        GD.Print($"Found {photographable.NearbyLights.Count} nearby lights for {subject.Name}");
+        var nearbyLights = photographable.NearbyLights;
+        if (nearbyLights.Count == 0)
+            return 0f;
+
+        float closestDist = float.MaxValue;
+        IGiveLight? closestLight = null;
+
+        foreach (var light in nearbyLights)
+        {
+            var lightRay = light.LightRay;
+            lightRay.TargetPosition = lightRay.ToLocal(subject.GlobalPosition);
+            lightRay.ForceRaycastUpdate();
+
+            if (!lightRay.IsColliding())
+                continue;
+
+            GD.Print($"Light ray is colliding with {lightRay.GetCollider()}");
+            if (
+                lightRay.GetCollider() is not Node collider
+                || (collider != subject && !subject.IsAncestorOf(collider))
+            )
+                continue;
+
+            float dist = subject.GlobalPosition.DistanceSquaredTo(light.LightPosition);
+            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestLight = light;
+            }
+        }
+
+        if (closestLight is null)
+            return 0f;
+
+        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
+        float score = Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+
+        GD.Print($"Light score of {score}");
+        return score;
     }
 
     private Image GetViewportImage()
@@ -212,13 +422,34 @@ public partial class PhotoCamera : Item
     private string[] GetPhotoSubjects()
     {
         List<string> result = [];
-        foreach (var child in GetTree().CurrentScene.GetChildren(true))
-            if (child is IPhotographable photographable && photographable.IsInPhoto())
-                result.Add(child.Name);
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+        {
+            if (photographable.IsInPhoto() && !photographable.IsModifier)
+                result.Add(photographable.Subject.Name);
+        }
         return [.. result];
     }
 
-    void FlashSFX()
+    private IPhotographable.PhotoModifier[] GetPhotoModifiers()
+    {
+        List<IPhotographable.PhotoModifier> result = [];
+
+        foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
+            if (photographable.IsInPhoto() && photographable.IsModifier)
+            {
+                if (photographable.Modifier == IPhotographable.PhotoModifier.Treasure)
+                {
+                    player.Stats.Money += TreasureFish.Value;
+                }
+                else
+                {
+                    result.Add(photographable.Modifier);
+                }
+            }
+        return [.. result];
+    }
+
+    void FlashVFX()
     {
         var tween = CreateTween();
         tween.Fn(() => FlashRect.Visible = true);
@@ -231,24 +462,13 @@ public partial class PhotoCamera : Item
         GetViewport().GetTexture().GetImage().SavePng($"user://live-camera-roll/{id}.png");
     }
 
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void AddPhoto(string photoJson, string photoTaker)
+    public void AddPhoto(
+        PhotoData photoData,
+        Dictionary<string, PhotoGrade> grades,
+        IPhotographable.PhotoModifier[] modifiers
+    )
     {
-        Rpc(MethodName.UpdateTerminalImage, photoJson);
-        if (photoTaker == Name && player.IsMultiplayerAuthority())
-            Log.Print("I took this photo");
-        else
-            Log.Print("I didn't take this photo");
-    }
-
-    public void AddPhoto(PhotoData photoData, Dictionary<string, PhotoGrade> grades)
-    {
-        var photo = new Photo(photoData, grades);
+        var photo = new Photo(photoData, grades, modifiers);
         Photos.Add(photo);
         UpdateTerminalImage(photo);
     }
@@ -268,29 +488,66 @@ public partial class PhotoCamera : Item
         photoTerminal!.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
     }
 
-    [Rpc(
-        MultiplayerApi.RpcMode.AnyPeer,
-        CallLocal = true,
-        TransferMode = MultiplayerPeer.TransferModeEnum.Reliable,
-        TransferChannel = 0
-    )]
-    public void UpdateTerminalImage(string photoJson)
+    public override void Unequipped()
     {
-        PhotoData imgData = PhotoData.FromJson(photoJson);
-        var photoImg = Image.CreateFromData(
-            imgData.Width,
-            imgData.Height,
-            imgData.Mipmaps,
-            Image.Format.Rgb8,
-            imgData.Bytes
-        );
-        var imgTex = new ImageTexture();
-        imgTex.SetImage(photoImg);
-        photoTerminal?.GetNode<Sprite3D>("Sprite3D").Texture = imgTex;
+        Visible = false;
     }
 
     public void ClearPhotos()
     {
         Photos = [];
+    }
+
+    private float OtherCalcLightScore(Node3D subject)
+    {
+        var photographable = subject as IPhotographable;
+        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
+        var nearbyLights = photographable.NearbyLights.Where(l => l.IsActive).ToList();
+        if (nearbyLights.Count == 0)
+            return 0f;
+
+        var spaceState = subject.GetWorld3D().DirectSpaceState;
+        var excludeRids = new Godot.Collections.Array<Rid>();
+        if (subject is CollisionObject3D col)
+            excludeRids.Add(col.GetRid());
+
+        float closestDist = float.MaxValue;
+        IGiveLight? closestLight = null;
+
+        foreach (var light in nearbyLights)
+        {
+            var query = PhysicsRayQueryParameters3D.Create(
+                subject.GlobalPosition,
+                light.LightPosition
+            );
+            query.Exclude = excludeRids;
+            if (light is CollisionObject3D lightCol)
+                query.Exclude.Add(lightCol.GetRid());
+
+            var hit = spaceState.IntersectRay(query);
+            if (hit.Count > 0)
+                continue;
+
+            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
+            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestLight = light;
+            }
+        }
+
+        if (closestLight is null)
+            return 0f;
+
+        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
+        return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+    }
+
+    Fish[] GetLayerFish()
+    {
+        var index = Lab.CurrentLab!.Index;
+        return this.SceneRoot().GetNode<Node>("Fish").GetChild(index).GetNodes<Fish>();
     }
 }

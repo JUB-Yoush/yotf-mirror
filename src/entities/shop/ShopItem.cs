@@ -6,17 +6,21 @@ namespace Yotf;
 [GlobalClass]
 public partial class ShopItem : Resource
 {
-    public enum ItemType
+    public enum Type
     {
         Upgrade,
         Item,
     }
 
-    public enum Item
+    public enum Id
     {
         None,
         Camera,
         Flashlight,
+        Sonar,
+        Firecracker,
+        Bait,
+        Refill,
     }
 
     public enum Upgrade
@@ -24,26 +28,41 @@ public partial class ShopItem : Resource
         None,
         Oxygen,
         Battery,
+        Film,
+        CameraZoom,
+        SwimSpeed,
     }
 
     [Export]
     public Texture2D Icon = null!;
 
     [Export]
-    public string ItemName = "unnamed";
+    public string Name = "unnamed";
+
+    [Export]
+    public string Description = "unnamed";
 
     [Export]
     public int Price = 0;
 
     [Export]
-    public ItemType itemType;
+    public Type ItemType;
 
     [Export]
-    public Item item;
+    public Id ItemId;
 
     [Export]
     public Upgrade upgrade;
 
     [Export]
+    public Disposable.Restore restore;
+
+    [Export]
+    public float RestoreAmount;
+
+    [Export]
     public PackedScene itemScene = null!;
+
+    [Export]
+    public Mesh DropMesh = null!;
 }

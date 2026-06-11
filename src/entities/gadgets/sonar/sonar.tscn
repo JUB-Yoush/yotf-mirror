@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://buv0hms3lnb5r"]
+
+[ext_resource type="Script" uid="uid://cfbhckj5fgycp" path="res://src/entities/gadgets/sonar/Sonar.cs" id="1_3vb5o"]
+[ext_resource type="Texture2D" uid="uid://bw43qw7ome6qw" path="res://assets/2d/sonar_icon.png" id="2_3vb5o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te1v2"]
+albedo_texture = ExtResource("2_3vb5o")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3vb5o"]
+material = SubResource("StandardMaterial3D_te1v2")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Sonar" type="Node3D" unique_id=1429263481]
+script = ExtResource("1_3vb5o")
+MinLabelDistance = 20.0
+range = 35.0
+batteryUseRate = 3.0
+Icon = ExtResource("2_3vb5o")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=263555658]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_3vb5o")
+
+[node name="Reticles" type="Control" parent="." unique_id=1152976397]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

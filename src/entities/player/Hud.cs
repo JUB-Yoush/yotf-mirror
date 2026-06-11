@@ -11,7 +11,7 @@ public partial class Hud : Control
 
     public const int InventorySize = 4;
 
-    PlayerController player = null!;
+    Player player = null!;
 
     [Node]
     public required Camera3D Camera { set; get; }
@@ -27,6 +27,15 @@ public partial class Hud : Control
 
     [Node]
     public required Label PhotoLabel { set; get; }
+
+    [Node]
+    public required Label InstructionLabel { set; get; }
+
+    [Node]
+    public required Label SonarLabel { set; get; }
+
+    [Node]
+    public required Label SonarLabel2 { set; get; }
 
     [Node]
     public required TextureProgressBar BatteryBar { set; get; }
@@ -46,6 +55,15 @@ public partial class Hud : Control
     [Node]
     public required TextureRect Ruler { set; get; }
 
+    [Node]
+    public required TextureRect DeathText { set; get; }
+
+    [Node]
+    public required TextureRect WinText { set; get; }
+
+    [Node]
+    public required ColorRect ScreenColor { set; get; }
+
     public TextureRect[] InventoryIcons
     {
         get
@@ -62,15 +80,30 @@ public partial class Hud : Control
     private float smoothedSpeed = 0f;
     private float prevDepth;
 
-    public Vector2 slotMinSize = new(200, 200);
-    public Vector2 slotMaxSize = new(250, 250);
+    public Vec2 slotMinSize = new(200, 200);
+    public Vec2 slotMaxSize = new(250, 250);
     ShaderMaterial barometerShader = null!;
 
     public override void _Ready()
     {
-        player = this.SceneRoot().GetNode<PlayerController>()!;
+        player = this.SceneRoot().GetNode<Player>()!;
         prevDepth = player.Depth;
         barometerShader = (ShaderMaterial)Ruler.Material;
+        Lab.CurrentLabUpdated += LabUpdated;
+    }
+
+    private void LabUpdated(Lab lab)
+    {
+        if (lab.FinalLab)
+        {
+            CreateTween()
+                .AnimateProperty(
+                    WinText,
+                    TextureRect.PropertyName.Modulate,
+                    new Color(1, 1, 1, 1),
+                    1f
+                );
+        }
     }
 
     public override void _Process(double delta)
@@ -86,7 +119,7 @@ public partial class Hud : Control
         prevDepth = player.Depth;
         var alpha = 1f - Mathf.Exp(-delta / RulerSmoothing);
         smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
-        var shaderSpeed = new Vector2(0, smoothedSpeed);
+        var shaderSpeed = new Vec2(0, smoothedSpeed);
         barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
     }
 

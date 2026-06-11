@@ -15,15 +15,15 @@ public partial class Minimap : Control
     [Export]
     float miniMapZoom = 5f;
 
-    Vector2 origin;
+    Vec2 origin;
 
     private readonly List<IOnMiniMap> miniMapItems = [];
     private readonly Dictionary<IOnMiniMap, ColorRect> MapIcons = [];
-    private PlayerController player = null!;
+    private Player player = null!;
 
     public override void _Ready()
     {
-        player = this.SceneRoot().GetNode<PlayerController>()!;
+        player = this.SceneRoot().GetNode<Player>()!;
         origin = MiniMapRect.Size / 2;
         GetTree().NodeAdded += (node) =>
         {

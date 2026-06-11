@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Yotf;
@@ -8,6 +9,9 @@ namespace Yotf;
 public partial class ShopKiosk : Node3D, IInteractable
 {
     public override void _Notification(int what) => this.Notify(what);
+
+    const string shopItemPath = "res://assets/data/shop/items";
+    const string shopUpgradePath = "res://assets/data/shop/upgrades";
 
     private static readonly PackedScene shopUI = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
 
@@ -26,21 +30,32 @@ public partial class ShopKiosk : Node3D, IInteractable
     }
 
     // TODO(j) pass these in from a resource to make unique shop stocks simple
-    List<ShopItem> Items = [];
+    static readonly Dictionary<StringName, ShopItem> ShopItems = GDExt.LoadFromFolder<ShopItem>(
+        shopItemPath
+    );
+    static readonly Dictionary<StringName, ShopItem> ShopUpgrades = GDExt.LoadFromFolder<ShopItem>(
+        shopUpgradePath
+    );
+
     List<ShopItem> Upgrades = [];
+    List<ShopItem> Items = [];
 
     public override void _Ready()
     {
-        Items = [(GD.Load<ShopItem>("uid://b23k3n6uvsqhm"))];
-        Upgrades = [(GD.Load<ShopItem>("uid://dkxdiu2kqqy1k"))];
+        //ShopItems.ForEach((item) => Log.PrintLn(item.ItemName));
     }
+
+    public static List<ShopItem> GetAllItems() => [.. ShopItems.Values];
+
+    public static List<ShopItem> GetAllUpgrades() => [.. ShopUpgrades.Values];
 
     public void OnInteraction()
     {
         if (inShop)
             return;
         inShop = true;
-        var shop = ShopUI.New(Items, Upgrades, this);
+        Audio.PlaySfx(Sfx.UIOpen);
+        var shop = ShopUI.New(GetAllItems(), GetAllUpgrades(), this);
         AddChild(shop);
     }
 }

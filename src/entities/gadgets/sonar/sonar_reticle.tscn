@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ci0s0h3u1v25b"]
+
+[ext_resource type="Texture2D" uid="uid://dthytrxd5jcp7" path="res://assets/2d/ui/sonar_reticle1.png" id="1_uehq8"]
+[ext_resource type="Texture2D" uid="uid://c8jkxqbrnf4ub" path="res://assets/2d/ui/sonar_reticle2.png" id="2_fvibe"]
+
+[node name="Control" type="Control" unique_id=1993386987]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Left" type="TextureRect" parent="." unique_id=1977312943]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 128.0
+texture = ExtResource("1_uehq8")
+
+[node name="Right" type="TextureRect" parent="." unique_id=393632824]
+layout_mode = 0
+texture = ExtResource("2_fvibe")

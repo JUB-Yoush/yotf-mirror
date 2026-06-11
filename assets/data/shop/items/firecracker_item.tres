@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ShopItem" format=3 uid="uid://7pbeqlj3rux8"]
+
+[ext_resource type="Texture2D" uid="uid://ou1ltj0g7lno" path="res://assets/2d/firecracker_icon.png" id="1_u7o3f"]
+[ext_resource type="PackedScene" uid="uid://dowwb7t51dwg3" path="res://src/entities/gadgets/firecracker/firecracker_item.tscn" id="2_whrjb"]
+[ext_resource type="Script" uid="uid://jp2vrs56sra4" path="res://src/entities/shop/ShopItem.cs" id="3_yc21w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7o3f"]
+albedo_texture = ExtResource("1_u7o3f")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_whrjb"]
+material = SubResource("StandardMaterial3D_u7o3f")
+size = Vector3(0.2, 0.2, 0.2)
+
+[resource]
+script = ExtResource("3_yc21w")
+Icon = ExtResource("1_u7o3f")
+Name = "Firecracker"
+Description = "Makes light and sound. Scares fish away."
+Price = 10
+ItemType = 1
+ItemId = 4
+itemScene = ExtResource("2_whrjb")
+DropMesh = SubResource("BoxMesh_whrjb")
+metadata/_custom_type_script = "uid://jp2vrs56sra4"

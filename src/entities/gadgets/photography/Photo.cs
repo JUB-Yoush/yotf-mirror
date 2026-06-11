@@ -57,18 +57,23 @@ public record PhotoData(
     }
 };
 
-// each parameter is a float from 0-1
+/// <summary>
+/// Each float is on a scale of 0-1
+/// </summary>
 public record struct PhotoGrade(
     float CenterScore,
     float SizeScore,
     float FacingScore,
-    float LightScore
-)
-{
-    internal void Deconstruct(out object subject, out object grade)
-    {
-        throw new NotImplementedException();
-    }
-}
+    float LightScore,
+    int Totalfish,
+    bool InAction,
+    bool ContainsInk,
+    bool IsDead,
+    bool IsBig
+);
 
-public record Photo(PhotoData Data, Dictionary<string, PhotoGrade> SubjectGrades);
+public record Photo(
+    PhotoData Data,
+    Dictionary<string, PhotoGrade> SubjectGrades,
+    IPhotographable.PhotoModifier[] Modifiers
+);

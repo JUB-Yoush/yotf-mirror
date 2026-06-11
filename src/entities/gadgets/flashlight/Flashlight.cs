@@ -6,17 +6,21 @@ using DependencyAttribute = Chickensoft.AutoInject.DependencyAttribute;
 namespace Yotf;
 
 [Meta(typeof(IAutoNode))]
-public partial class Flashlight : Item
+public partial class Flashlight : Item, IDroppable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    public static new readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
+    public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://d34ehugbf1dk7");
 
     [Node]
     public required SpotLight3D SpotLight { set; get; }
 
     [Node]
     public required MeshInstance3D Mesh { set; get; }
+
+    public new PackedScene PackedScene => Packed;
+
+    public new Mesh DropMesh => Mesh.Mesh;
 
     [Export]
     private float batteryUseRate = 10;
@@ -28,10 +32,12 @@ public partial class Flashlight : Item
 
     private PlayerStats PlayerStats = null!;
     private Camera3D Camera = null!;
+    private Player player = null!;
     private bool isOn = false;
 
     public override void _Ready()
     {
+        player = this.SceneRoot().GetNode<Player>()!;
         Camera = GetParent().GetParent().GetNode<CameraManager>().GetNode<Camera3D>()!;
         Inventory = GetParent<Inventory>();
         PlayerStats = GetParent().GetParent().GetNode<PlayerStats>()!;
@@ -39,11 +45,19 @@ public partial class Flashlight : Item
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("toggle_flashlight"))
+        if (!CurrentItem)
+            return;
+        if (@event.IsActionPressed("take_photo") && !player.IsInMenu)
         {
             isOn = !isOn;
             SpotLight.LightEnergy = isOn ? 10 : 0;
         }
+    }
+
+    public override void _Process(double delta)
+    {
+        Mesh.GlobalTransform = Camera.GlobalTransform;
+        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -65,14 +79,11 @@ public partial class Flashlight : Item
 
         if (Input.IsActionJustPressed("drop_item"))
         {
-            var dropItem = MakeDropItem(Mesh.Mesh, Packed);
+            var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = Camera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
             Inventory.RemoveCurrentItem();
         }
-
-        Mesh.GlobalTransform = Camera.GlobalTransform;
-        Mesh.GlobalPosition += (-Mesh.GlobalBasis.Z / 2) + (Mesh.GlobalBasis.X / 2);
     }
 
     public override void Equipped()

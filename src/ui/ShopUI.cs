@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Yotf;
@@ -7,6 +9,9 @@ namespace Yotf;
 [Meta(typeof(IAutoNode))]
 public partial class ShopUI : Control
 {
+    [Export]
+    public required ButtonGroup ShopSortBtnGroup { set; get; }
+
     public override void _Notification(int what) => this.Notify(what);
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("res://src/ui/shop_ui.tscn");
@@ -14,16 +19,42 @@ public partial class ShopUI : Control
         "res://src/ui/shop_item.tscn"
     );
 
+    public static readonly PackedScene ShopItemQueue = GD.Load<PackedScene>(
+        "res://src/ui/queued_item.tscn"
+    );
+
     private List<ShopItem> Items = [];
     private List<ShopItem> Upgrades = [];
 
-    [Node]
-    public required HBoxContainer UpgradeView { set; get; }
+    private List<ShopItem> ItemQueue = []; //to purchase items
+
+    // [Node]
+    // public required HBoxContainer UpgradeView { set; get; }
+
+    // [Node]
+    // public required HBoxContainer ItemView { set; get; }
+
+    [Node("%ShopItems/CollectionItems")]
+    public required GridContainer CollectionItems { set; get; }
+
+    [Node("%ShopItems/CollectionUpgrades")]
+    public required GridContainer CollectionUpgrades { set; get; }
+
+    [Node("PanelContainer/MarginContainer/ShopBody/CheckoutAndBuy/BuyButton")]
+    public required TextureButton BuyButton { set; get; }
+
+    [Node("%CartItemsList")]
+    public required VBoxContainer CartItemList { set; get; }
 
     [Node]
-    public required HBoxContainer ItemView { set; get; }
+    public required RichTextLabel SumLabel { set; get; }
 
     private ShopKiosk kiosk = null!;
+
+    int CartPrice
+    {
+        get => ItemQueue.Sum(item => item.Price);
+    }
 
     public static ShopUI New(List<ShopItem> items, List<ShopItem> upgrades, ShopKiosk kiosk)
     {
@@ -37,45 +68,122 @@ public partial class ShopUI : Control
     public override void _Ready()
     {
         this.GetNode<Button>()!.Pressed += CloseShop;
-        var player = this.SceneRoot().GetNode<PlayerController>()!;
+        var player = this.SceneRoot().GetNode<Player>()!;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
+        ShopSortBtnGroup?.Pressed += OnSortGroupPressed;
+        BuyButton.Pressed += BuyAll;
         PopulateShop();
+    }
+
+    private void CloseShop()
+    {
+        CloseShop(true);
+    }
+
+    private void OnSortGroupPressed(BaseButton button)
+    {
+        if (button.Name == "SortBtnItems")
+        {
+            CollectionItems.Visible = true;
+            CollectionUpgrades.Visible = false;
+        }
+        else if (button.Name == "SortBtnUpgrades")
+        {
+            CollectionItems.Visible = false;
+            CollectionUpgrades.Visible = true;
+        }
     }
 
     private void PopulateShop()
     {
-        ItemView.RemoveAllChildren();
-        UpgradeView.RemoveAllChildren();
+        CollectionItems.RemoveAllChildren();
+        CollectionUpgrades.RemoveAllChildren();
 
-        var player = this.SceneRoot().GetNode<PlayerController>()!.GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.GetNode<PlayerStats>(true)!;
         foreach (var item in Items)
         {
-            var view = ShopItemView.Instantiate<VBoxContainer>();
+            var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = item.Icon;
-            view.GetNode<Label>("Name").Text = item.ItemName;
-            view.GetNode<Label>("Price").Text = $"${item.Price}";
-            view.GetNode<Button>("Button").Pressed += () => BuyItem(item);
-            view.GetNode<Button>("Button").Disabled = player.Money < item.Price;
-            ItemView.AddChild(view);
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = item.Name;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text = $"${item.Price}";
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text = item.Description;
+            view.Pressed += () => QueueItem(item);
+            view.Disabled = player.Money < item.Price;
+            CollectionItems.AddChild(view);
         }
 
         foreach (var upgrade in Upgrades)
         {
-            var view = ShopItemView.Instantiate<VBoxContainer>();
+            var view = ShopItemView.Instantiate<TextureButton>();
             view.GetNode<TextureRect>("TextureRect").Texture = upgrade.Icon;
-            view.GetNode<Label>("Name").Text = upgrade.ItemName;
-            view.GetNode<Label>("Price").Text = $"${upgrade.Price}";
-            view.GetNode<Button>("Button").Pressed += () => BuyUpgrade(upgrade);
-            view.GetNode<Button>("Button").Disabled = player.Money < upgrade.Price;
-            UpgradeView.AddChild(view);
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemName").Text = upgrade.Name;
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemPrice").Text =
+                $"${upgrade.Price}";
+            view.GetNode<Label>("MarginContainer/VBoxContainer/ItemDesc").Text =
+                upgrade.Description;
+            view.Pressed += () => QueueItem(upgrade);
+            view.Disabled = player.Money < upgrade.Price;
+            CollectionUpgrades.AddChild(view);
         }
+    }
+
+    private void QueueItem(ShopItem item)
+    {
+        ItemQueue.Add(item);
+        Audio.PlaySfx(Sfx.UIIncrease);
+        var queue = ShopItemQueue.Instantiate<Button>();
+        queue.Icon = item.Icon;
+        queue.Text = item.Name;
+        queue.Pressed += () => RemoveCartItem(item, queue);
+        CartItemList.AddChild(queue);
+        SumLabel.Text = $"Total: ${CartPrice}";
+    }
+
+    private void RemoveCartItem(ShopItem item, Button thisButton)
+    {
+        ItemQueue.Remove(item);
+        thisButton.QueueFree();
+        Audio.PlaySfx(Sfx.UIDecrease);
+        SumLabel.Text = $"Total: ${CartPrice}";
+    }
+
+    private void ClearCart()
+    {
+        ItemQueue.Clear();
+        CartItemList.RemoveAllChildren();
+    }
+
+    private void BuyAll()
+    {
+        var player = this.SceneRoot().GetNode<Player>()!;
+        Log.PrintLn(CartPrice);
+        if (player.Stats.Money < CartPrice)
+        {
+            SumLabel.Text = "Too Poor!";
+            CreateTween().Fn(() => SumLabel.Text = $"Total: ${CartPrice}", 1);
+            Audio.PlaySfx(Sfx.UIDecrease);
+            return;
+        }
+        Audio.PlaySfx(Sfx.UIIncrease, true);
+        foreach (ShopItem item in ItemQueue)
+        {
+            if (item.ItemType == ShopItem.Type.Item)
+            {
+                BuyItem(item);
+            }
+            else
+            {
+                BuyUpgrade(item);
+            }
+        }
+        CloseShop();
     }
 
     private void BuyUpgrade(ShopItem upgrade)
     {
-        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.Stats;
         player.Money -= upgrade.Price;
 
         switch (upgrade.upgrade)
@@ -88,6 +196,15 @@ public partial class ShopUI : Control
                 player.MaxBattery += 25;
                 player.Battery = player.MaxBattery;
                 break;
+            case ShopItem.Upgrade.Film:
+                PlayerStats.MaxFilm += 3;
+                break;
+            case ShopItem.Upgrade.CameraZoom:
+                PlayerStats.MaxZoom += 10;
+                break;
+            case ShopItem.Upgrade.SwimSpeed:
+                PlayerStats.ExtraSwimSpeed += 1;
+                break;
         }
 
         PopulateShop();
@@ -95,18 +212,28 @@ public partial class ShopUI : Control
 
     private void BuyItem(ShopItem item)
     {
-        var player = this.SceneRoot().GetNode<PlayerStats>(true)!;
+        var player = this.SceneRoot().GetNode<Player>()!.Stats;
         player.Money -= item.Price;
-        var itemDrop = DroppedItem.New(item.itemScene.Instantiate<Item>().DropMesh, item.itemScene);
-        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        var mesh = item.DropMesh;
+        var itemDrop = DroppedItem.New(mesh, item.itemScene);
+        itemDrop.restore = item.restore;
         GetTree().CurrentScene.AddChild(itemDrop);
+        itemDrop.GlobalTransform = kiosk.GlobalTransform;
+        itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;
+        var randomDir = new Vec3((float)GD.RandRange(-.2f, .2f), 0, -.3f).Normalized();
+        itemDrop.ApplyImpulse(randomDir / 4);
         PopulateShop();
     }
 
-    private void CloseShop()
+    private void CloseShop(bool manuallyClosed = false)
     {
+        if (manuallyClosed)
+        {
+            Audio.PlaySfx(Sfx.UIClose);
+        }
+
         kiosk.inShop = false;
-        var player = GetTree().CurrentScene.GetNode<PlayerController>("Player");
+        var player = GetTree().CurrentScene.GetNode<Player>("Player");
         player.IsInMenu = false;
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
         QueueFree();

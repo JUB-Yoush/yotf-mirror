@@ -1,0 +1,11 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://ciqksjmsi3j4l"]
+
+[ext_resource type="Texture2D" uid="uid://dj5208uybol8g" path="res://assets/2d/battery_icon.png" id="1_y2s54"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0t62k"]
+albedo_texture = ExtResource("1_y2s54")
+uv1_scale = Vector3(2.2, 2.2, 2.2)
+
+[resource]
+material = SubResource("StandardMaterial3D_0t62k")
+size = Vector3(0.2, 0.2, 0.2)

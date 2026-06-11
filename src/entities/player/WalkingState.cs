@@ -1,23 +1,27 @@
-using Godot;
-
 namespace Yotf;
 
 public class WalkingState : IPlayerState
 {
     public PlayerState Type => PlayerState.Walking;
 
-    public void Enter(PlayerController player) { }
-
-    public void Exit(PlayerController player) { }
-
-    public void Update(PlayerController player, float delta)
+    public void Enter(Player player)
     {
-        Vector3 direction = player.GetCameraRelativeDirection();
-        Vector2 hVeloc = new Vector2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
+        Audio.PlaySfx(Sfx.Oxygen);
+    }
 
-        player.UpdateBodyDirection(direction, delta);
+    public void Exit(Player player)
+    {
+        Audio.PlaySfx(Sfx.Dive);
+    }
 
-        Vector3 velocity = player.Velocity;
+    public void Update(Player player, float delta)
+    {
+        Vec3 direction = player.GetCameraRelativeDirection();
+        Vec2 hVeloc = new Vec2(direction.X, direction.Z).Normalized() * player.MoveSpeed;
+
+        player.UpdateBodyWalkDirection(direction, delta);
+
+        Vec3 velocity = player.Velocity;
 
         if (Input.IsActionPressed("jump") && player.IsOnFloor())
             velocity.Y = player.JumpSpeed;

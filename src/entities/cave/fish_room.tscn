@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dtirsygjr1xas"]
+
+[ext_resource type="Script" uid="uid://cy1m8rh57xkjv" path="res://src/entities/cave/FishRoom.cs" id="1_b4btg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b4btg"]
+albedo_color = Color(0.8422541, 0.1477836, 4.813075e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b4btg"]
+material = SubResource("StandardMaterial3D_b4btg")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="FishRoom" type="Marker3D" unique_id=1044421178]
+script = ExtResource("1_b4btg")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1771107299]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_b4btg")

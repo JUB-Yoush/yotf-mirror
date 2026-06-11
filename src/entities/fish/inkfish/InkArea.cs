@@ -1,0 +1,60 @@
+using System.Collections.Generic;
+
+namespace Yotf;
+
+[Meta(typeof(IAutoNode))]
+public partial class InkArea : Area3D, IPhotographable
+{
+    public override void _Notification(int what) => this.Notify(what);
+
+    static readonly PackedScene Packed = GD.Load<PackedScene>(
+        "res://src/entities/fish/inkfish/ink_area.tscn"
+    );
+
+    Inkfish parent = null!;
+
+    [Node]
+    public required CollisionShape3D InkCollider { set; get; }
+
+    [Node]
+    public required VisibleOnScreenNotifier3D VisibilityNotifier { set; get; }
+
+    public required MeshInstance3D SubjectBoundingMesh
+    {
+        get => parent.SubjectBoundingMesh;
+        set;
+    }
+
+    public Node3D Subject
+    {
+        get => this;
+        set;
+    }
+    public IPhotographable.PhotoModifier Modifier
+    {
+        get => IPhotographable.PhotoModifier.Ink;
+        set;
+    }
+
+    public List<IGiveLight> NearbyLights { get; set; } = [];
+
+    public static InkArea New(Inkfish parent)
+    {
+        var inkArea = Packed.Instantiate<InkArea>();
+        inkArea.parent = parent;
+        return inkArea;
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+        GlobalPosition = parent.GlobalPosition;
+    }
+
+    public override void _Process(double delta)
+    {
+        GlobalTransform = parent.GlobalTransform;
+    }
+
+    public bool IsInPhoto() => VisibilityNotifier.IsOnScreen();
+}

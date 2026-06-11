@@ -27,13 +27,13 @@ public partial class Gate : StaticBody3D, IInteractable
     public override void _Ready()
     {
         lab = GetParent<Lab>();
-        var playerstats = this.SceneRoot().GetNode<PlayerController>().GetNode<PlayerStats>()!;
+        var playerstats = this.SceneRoot().GetNode<Player>().GetNode<PlayerStats>()!;
         playerstats.GalleryScoreUpdated += GalleryScoreUpdated;
     }
 
     public override void _ExitTree()
     {
-        var playerstats = this.SceneRoot().GetNode<PlayerController>().GetNode<PlayerStats>()!;
+        var playerstats = this.SceneRoot().GetNode<Player>().GetNode<PlayerStats>()!;
         playerstats.GalleryScoreUpdated -= GalleryScoreUpdated;
     }
 
@@ -47,8 +47,21 @@ public partial class Gate : StaticBody3D, IInteractable
     {
         if (canOpen)
         {
-            //Lab.SetCurrentLab(lab);
             Lab.CurrentLab = lab;
+
+            var player = this.SceneRoot().GetNode<Player>()!;
+            var tween = CreateTween();
+            tween.AnimateProperty(
+                player,
+                CharacterBody3D.PropertyName.GlobalPosition,
+                GlobalPosition + (Vec3.Down * 2),
+                1
+            );
+            tween.Fn(() =>
+            {
+                this.GetNode<CollisionShape3D>()!.Disabled = false;
+                Visible = true;
+            });
         }
     }
 }

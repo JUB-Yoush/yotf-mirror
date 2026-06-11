@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dr0civo2wgpok"]
+
+[ext_resource type="Script" uid="uid://vvkdhiibtom3" path="res://src/entities/cave/NavNode.cs" id="1_ku0mr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ku0mr"]
+albedo_color = Color(0.9159725, 0.7498844, 1.1551381e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y8q8o"]
+material = SubResource("StandardMaterial3D_ku0mr")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="NavNode" type="Node3D" unique_id=614728555]
+script = ExtResource("1_ku0mr")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=533114041]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_y8q8o")

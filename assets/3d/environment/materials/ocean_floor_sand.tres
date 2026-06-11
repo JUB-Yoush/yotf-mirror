@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cl0p8w21u0sku"]
+
+[ext_resource type="Texture2D" uid="uid://h8f5hm3wpym7" path="res://assets/3d/environment/textures/ocean_floor_sand.png" id="1_hhe1i"]
+
+[resource]
+albedo_texture = ExtResource("1_hhe1i")
+metallic_specular = 0.0
+roughness_texture_channel = 4
+normal_enabled = true
+normal_scale = 16.0
+uv1_scale = Vector3(5, 5, 5)

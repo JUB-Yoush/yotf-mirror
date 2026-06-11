@@ -1,6 +1,11 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://by8w6o2ynh8n6"]
 
-[ext_resource type="Texture2D" uid="uid://da4us00e6lf4i" path="res://assets/3d/set-dressing/cora_2l.jpg" id="1_vmgmo"]
+[ext_resource type="Texture2D" uid="uid://db4mypq32gsn8" path="res://assets/3d/set-dressing/cora_2l.png" id="1_cvwy2"]
 
 [resource]
-albedo_texture = ExtResource("1_vmgmo")
+albedo_texture = ExtResource("1_cvwy2")
+metallic_specular = 0.0
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("1_cvwy2")
+texture_filter = 1

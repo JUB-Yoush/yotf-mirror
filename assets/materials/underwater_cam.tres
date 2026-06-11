@@ -4,3 +4,4 @@
 
 [resource]
 shader = ExtResource("1_td0vi")
+shader_parameter/blur_scale = 0.0

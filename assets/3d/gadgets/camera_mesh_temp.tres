@@ -1,0 +1,11 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://bfbyt62mwtns0"]
+
+[ext_resource type="Texture2D" uid="uid://djrwly0mfuwn5" path="res://assets/2d/camera_icon.png" id="1_u5lg3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jg0tx"]
+albedo_texture = ExtResource("1_u5lg3")
+uv1_scale = Vector3(3, 3, 3)
+
+[resource]
+material = SubResource("StandardMaterial3D_jg0tx")
+size = Vector3(0.2, 0.2, 0.2)

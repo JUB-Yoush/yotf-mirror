@@ -4,13 +4,13 @@ namespace Yotf;
 
 public partial class InputManager : Node
 {
-    private PlayerController player = null!;
+    private Player player = null!;
     private PackedScene pauseMenu = GD.Load<PackedScene>("res://src/ui/pause_menu.tscn");
     private Node instance = null!;
 
     public override void _Ready()
     {
-        player = GetParent<PlayerController>();
+        player = GetParent<Player>();
 
         if (player.IsMultiplayerAuthority())
         {
@@ -54,35 +54,36 @@ public partial class InputManager : Node
                 //GetViewport().SetInputAsHandled();
             }
 
-            switch (mouseEvent.ButtonIndex)
-            {
-                case MouseButton.WheelUp:
-                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed + 5, 2, 500);
-                    break;
-                case MouseButton.WheelDown:
-                    player.MoveSpeed = Mathf.Clamp(player.MoveSpeed - 5, 2, 500);
-                    break;
-            }
+            // switch (mouseEvent.ButtonIndex)
+            // {
+            //     case MouseButton.WheelUp:
+            //         player.MoveSpeed = Mathf.Clamp(player.MoveSpeed + 5, 2, 500);
+            //         break;
+            //     case MouseButton.WheelDown:
+            //         player.MoveSpeed = Mathf.Clamp(player.MoveSpeed - 5, 2, 500);
+            //         break;
+            // }
         }
 
-        if (@event is InputEventKey keyEvent && keyEvent.Pressed)
-        {
-            switch (keyEvent.Keycode)
-            {
-                case Key.V:
-                    player.FirstPerson = !player.FirstPerson;
-                    break;
-                case Key.C:
-                    player.CollisionEnabled = !player.CollisionEnabled;
-                    break;
-                case Key.F:
-                    player.SetState(
-                        player.CurrentState == player.SwimmingState
-                            ? player.WalkingState
-                            : player.SwimmingState
-                    );
-                    break;
-            }
-        }
+        //TODO (j) wrap this in some debug mode checker
+        // if (@event is InputEventKey keyEvent && keyEvent.Pressed)
+        // {
+        //     switch (keyEvent.Keycode)
+        //     {
+        //         case Key.V:
+        //             player.FirstPerson = !player.FirstPerson;
+        //             break;
+        //         case Key.C:
+        //             player.CollisionEnabled = !player.CollisionEnabled;
+        //             break;
+        //         case Key.F:
+        //             player.SetState(
+        //                 player.CurrentState == player.SwimmingState
+        //                     ? player.WalkingState
+        //                     : player.SwimmingState
+        //             );
+        //             break;
+        //     }
+        // }
     }
 }

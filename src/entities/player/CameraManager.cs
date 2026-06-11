@@ -31,7 +31,7 @@ public partial class CameraManager : Node3D
     public override void _Ready()
     {
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
-        PlayerController.StateChanged += StateChanged;
+        Player.StateChanged += StateChanged;
     }
 
     public void StateChanged(IPlayerState prevState, IPlayerState newState)
@@ -63,7 +63,7 @@ public partial class CameraManager : Node3D
         rolling = Input.IsActionPressed("roll");
 
         // Apply deadzone
-        Vector2 joyInput = new(x, y);
+        Vec2 joyInput = new(x, y);
         if (joyInput.LengthSquared() > 0.04f) // ~0.2 deadzone
         {
             if (freeCam)
@@ -96,7 +96,7 @@ public partial class CameraManager : Node3D
         }
     }
 
-    private void RollCamera(Vector2 mouseMotion)
+    private void RollCamera(Vec2 mouseMotion)
     {
         Rotation = Rotation with
         {
@@ -104,7 +104,7 @@ public partial class CameraManager : Node3D
         };
     }
 
-    private void RotateCameraClamped(Vector2 pRelative)
+    private void RotateCameraClamped(Vec2 pRelative)
     {
         Rotation = Rotation with { Y = Rotation.Y - pRelative.X * MouseSensitivity };
         Orthonormalize();
@@ -118,7 +118,7 @@ public partial class CameraManager : Node3D
         };
     }
 
-    private void RotateCameraFree(Vector2 mouseMotion)
+    private void RotateCameraFree(Vec2 mouseMotion)
     {
         // flip controls when upside down
         var upSign = Mathf.Sign(Camera.GlobalTransform.Basis.Y.Y);
