@@ -8,6 +8,6 @@ script = ExtResource("2_mggl4")
 Icon = ExtResource("1_df38l")
 Name = "Battery Up"
 Description = "Increase Max Battery"
-Price = 10
+Price = 750
 upgrade = 2
 metadata/_custom_type_script = "uid://jp2vrs56sra4"

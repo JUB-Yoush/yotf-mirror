@@ -15,7 +15,7 @@ public partial class Disposable : Item, IDroppable
     }
 
     [Export]
-    float restoreAmount = 50;
+    public float restoreAmount = 50;
 
     public Disposable.Restore restore = Disposable.Restore.None;
 

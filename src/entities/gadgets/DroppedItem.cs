@@ -36,6 +36,7 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     public List<Photo>? photosFromCamera;
 
     public Disposable.Restore restore = Disposable.Restore.None;
+    public float RestoreAmount;
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
@@ -91,6 +92,7 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         {
             var disposable = (Disposable)item;
             disposable.restore = restore;
+            disposable.restoreAmount = RestoreAmount;
         }
         else if (photosFromCamera != null)
         {

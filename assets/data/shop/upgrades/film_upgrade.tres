@@ -8,6 +8,6 @@ script = ExtResource("1_775lt")
 Icon = ExtResource("1_c751f")
 Name = "Film Upgrade"
 Description = "Increase Film Reel Capacity"
-Price = 10
+Price = 750
 upgrade = 3
 metadata/_custom_type_script = "uid://jp2vrs56sra4"

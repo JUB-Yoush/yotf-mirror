@@ -217,6 +217,7 @@ public partial class ShopUI : Control
         var mesh = item.DropMesh;
         var itemDrop = DroppedItem.New(mesh, item.itemScene);
         itemDrop.restore = item.restore;
+        itemDrop.RestoreAmount = item.RestoreAmount;
         GetTree().CurrentScene.AddChild(itemDrop);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;
