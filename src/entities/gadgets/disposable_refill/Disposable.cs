@@ -45,6 +45,8 @@ public partial class Disposable : Item, IDroppable
             var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = camera.GlobalTransform;
             dropItem.Position += -camera.GlobalTransform.Basis.Z;
+            dropItem.restore = restore;
+            dropItem.RestoreAmount = restoreAmount;
             GetTree().CurrentScene.AddChild(dropItem);
             player.Inventory.RemoveCurrentItem();
         }

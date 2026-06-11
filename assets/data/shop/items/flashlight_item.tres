@@ -10,7 +10,7 @@ uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y1wly"]
 material = SubResource("StandardMaterial3D_4q7ia")
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.3, 0.3, 0.3)
 
 [resource]
 script = ExtResource("3_f62nj")
