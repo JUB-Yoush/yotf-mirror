@@ -23,15 +23,10 @@ public partial class InputManager : Node
         if (@event.IsActionPressed("quit"))
         {
             if(!GetTree().Paused){
-                GetParent().GetNode<CanvasLayer>("HUDLayer").Visible = false;
+                GetParent().GetNode<Control>("HUDLayer/SubViewportContainer/SubViewport/HUD").Visible = false;
                 instance = pauseMenu.Instantiate();
                 AddChild(instance);
-                AudioManager.PlaySfx(SFX.MenuOpen);
-            }
-            else if(GetNode<PauseMenu>("PauseMenu") != null)
-            {
-                GetParent().GetNode<CanvasLayer>("HUDLayer").Visible = true;
-                GetNode<PauseMenu>("PauseMenu").Resume();
+                Audio.PlaySfx(Sfx.UIOpen);
             }
             // GetTree().Quit();
             // GetViewport().SetInputAsHandled();

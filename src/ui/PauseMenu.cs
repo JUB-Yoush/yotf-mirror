@@ -4,7 +4,6 @@ using Yotf;
 
 public partial class PauseMenu : Control
 {
-    private AudioManager Audio = null!;
     private Panel main = null!, settings = null!;
     private Button resume = null!, settingsBtn = null!, quit = null!, back = null!, testBtn = null!;
 
@@ -28,7 +27,8 @@ public partial class PauseMenu : Control
 
     public void Resume()
     {
-        ButtonPressed(SFX.MenuClose);
+        GetParent().GetParent().GetNode<Control>("HUDLayer/SubViewportContainer/SubViewport/HUD").Visible = true;
+        Audio.PlaySfx(Sfx.UIClose);
         Input.MouseMode = Input.MouseModeEnum.Captured;
         main.Visible = true;
         settings.Visible = false;
@@ -38,7 +38,7 @@ public partial class PauseMenu : Control
 
     void Quit()
     {
-        ButtonPressed(SFX.MenuClose);
+        Audio.PlaySfx(Sfx.UIOpen);
         GetTree().Paused = false;
         GetTree().Quit();
         GetViewport().SetInputAsHandled();
@@ -48,23 +48,18 @@ public partial class PauseMenu : Control
     {
         main.Visible = false;
         settings.Visible = true;
-        ButtonPressed(SFX.UIIncrease);
+        Audio.PlaySfx(Sfx.UIIncrease);
     }
 
     void Back()
     {
         main.Visible = true;
         settings.Visible = false;
-        ButtonPressed(SFX.UIDecrease);
+        Audio.PlaySfx(Sfx.UIDecrease);
     }
 
     void Test()
     {
-        ButtonPressed(SFX.UISelect);
-    }
-
-    void ButtonPressed(AudioStream btnSound)
-    {
-        AudioManager.PlaySfx(btnSound);
+        Audio.PlaySfx(Sfx.UISelect);
     }
 }

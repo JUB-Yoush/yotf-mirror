@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Yotf;
 
 public partial class Titlescreen : Control
 {
@@ -11,13 +12,12 @@ public partial class Titlescreen : Control
 		quitBtn = GetNode<Button>("Quit Button");
 		playBtn.Pressed += Play;
 		quitBtn.Pressed += Quit;
-		mainScene = ResourceLoader.Load<PackedScene>("res://src/toplevel_scenes/main.tscn").Instantiate();
-		AudioManager.PlayMusic(BGM.AquaticAmbience);
+		mainScene = ResourceLoader.Load<PackedScene>("res://src/toplevel_scenes/grid_level_test.tscn").Instantiate();
 	}
 
 	private void Play()
 	{
-		AudioManager.PlaySfx(SFX.UISelect);
+		Audio.PlaySfx(Sfx.UISelect);
 		GoToScene(mainScene);
 	}
 	
