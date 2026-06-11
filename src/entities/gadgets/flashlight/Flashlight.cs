@@ -18,6 +18,9 @@ public partial class Flashlight : Item, IDroppable
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required Area3D LightArea { set; get; }
+
     public new PackedScene PackedScene => Packed;
 
     public new Mesh DropMesh => Mesh.Mesh;
@@ -51,7 +54,7 @@ public partial class Flashlight : Item, IDroppable
         {
             Audio.PlaySfx(Sfx.Click);
             isOn = !isOn;
-            SpotLight.LightEnergy = isOn ? 10 : 0;
+            SpotLight.LightEnergy = isOn ? LightEnergy : 0;
         }
     }
 

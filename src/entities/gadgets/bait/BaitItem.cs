@@ -42,8 +42,7 @@ public partial class BaitItem : Item, IDroppable
                 player.Inventory.RemoveCurrentItem();
             }
 
-            player.HUD.InventoryText[currentIndex].Text =
-                $"[center][b]{currentIndex + 1} x{base.stock}";
+            player.HUD.InventoryText[Index].Text = $"[center][b]{Index + 1} x{base.stock}";
         }
     }
 

@@ -44,7 +44,7 @@ public partial class FirecrackerItem : Item, IDroppable
             {
                 player.Inventory.RemoveCurrentItem();
             }
-            player.HUD.InventoryText[currentIndex].Text = $"[center][b]{currentIndex + 1} x{stock}";
+            player.HUD.InventoryText[Index].Text = $"[center][b]{Index + 1} x{stock}";
         }
     }
 

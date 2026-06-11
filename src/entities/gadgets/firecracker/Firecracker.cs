@@ -50,6 +50,9 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
     [Export]
     float lifetime = 5f;
 
+    [Export]
+    float fadeOutTime = 1.5f;
+
     private List<IPhotographable> trackedSubjects = [];
 
     Vec3 InitialVelocity;
@@ -59,7 +62,7 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
     public override void _Ready()
     {
         Particles.TopLevel = true;
-        Particles.Lifetime = lifetime;
+        Particles.Lifetime = lifetime + fadeOutTime;
 
         OmniLight.LightEnergy = 0;
         OmniLight.OmniRange = 0;
@@ -70,19 +73,38 @@ public partial class Firecracker : RigidBody3D, IMakeNoise, IGiveLight
             {
                 Particles.Emitting = true;
                 IMakeNoise.MakeNoise(this, 0, Sfx.Firecracker);
+                Log.PrintLn("Turning On");
             },
             waitTime
         );
-        tween.TweenFn<float>((value) => OmniLight.LightEnergy = value, 0, lightEnergy, 1f, true);
-        tween.TweenFn<float>((value) => OmniLight.OmniRange = value, 0, lightEnergy, 1f, true);
-        tween.Fn(
-            () =>
-            {
-                AudioPlayer.Stop();
-                ran = true;
-            },
-            lifetime
+        tween.TweenFn<float>(
+            (value) => OmniLight.LightEnergy = value,
+            0,
+            lightEnergy,
+            fadeOutTime / 2
         );
+        tween.TweenFn<float>(
+            (value) => OmniLight.OmniRange = value,
+            0,
+            lightEnergy,
+            fadeOutTime / 2,
+            true
+        );
+        tween.TweenInterval(lifetime - fadeOutTime);
+        tween.TweenFn<float>((value) => OmniLight.LightEnergy = value, lightEnergy, 0, fadeOutTime);
+        tween.TweenFn<float>(
+            (value) => OmniLight.OmniRange = value,
+            lightEnergy,
+            0,
+            fadeOutTime,
+            true
+        );
+
+        tween.Fn(() =>
+        {
+            AudioPlayer.Stop();
+            ran = true;
+        });
 
         LightArea.BodyEntered += OnReceivedObject;
         LightArea.BodyExited += OnRemovedObject;

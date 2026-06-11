@@ -30,7 +30,7 @@ public partial class Item : Node3D, IDroppable
 
     public bool InInventory = false;
     public bool CurrentItem = false;
-    public int currentIndex = -1;
+    public int Index = -1;
 
     public PackedScene PackedScene => throw new NotImplementedException();
 

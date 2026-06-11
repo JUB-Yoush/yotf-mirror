@@ -33,6 +33,7 @@ public partial class Inventory : Node3D
         PhotoCamera.AimingChanged += OnAimingChanged;
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Sonar.Packed.Instantiate<Item>(), 1);
+        AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
         SetCurrentItem(0);
     }
 
@@ -91,7 +92,7 @@ public partial class Inventory : Node3D
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);
-        item.currentIndex = currentIndex;
+        item.Index = currentIndex;
         SetCurrentItem(currentIndex);
         HUD.SetItemSlot(currentIndex, item.Icon);
         HUD.SetItemText(currentIndex, item);
@@ -108,9 +109,9 @@ public partial class Inventory : Node3D
         item.Name = index.ToString();
         item.InInventory = true;
         AddChild(item);
-        item.currentIndex = index;
+        item.Index = index;
         HUD.SetItemSlot(index, item.Icon);
-        HUD.SetItemText(currentIndex, item);
+        HUD.SetItemText(index, item);
         item.Added();
     }
 

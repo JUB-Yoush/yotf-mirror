@@ -107,6 +107,10 @@ radius = 5.0
 [node name="Firecracker" type="RigidBody3D" unique_id=732387302]
 top_level = true
 script = ExtResource("1_5n23w")
+waitTime = 2.0
+lightEnergy = 20.0
+lightRange = 20.0
+lifetime = 4.0
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=837721938]
 unique_name_in_owner = true
@@ -119,6 +123,7 @@ unique_name_in_owner = true
 light_color = Color(1, 0, 0.003921569, 1)
 light_energy = 0.0
 omni_range = 0.0
+omni_attenuation = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=746421718]
 shape = SubResource("SphereShape3D_xfu2t")

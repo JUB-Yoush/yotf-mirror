@@ -72,6 +72,7 @@ script = ExtResource("1_2r8mt")
 ItemName = "firecracker"
 Icon = ExtResource("2_7xt6p")
 hasCount = true
+stock = 99
 Instructions = PackedStringArray("LMB -> Throw")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1476134952]
