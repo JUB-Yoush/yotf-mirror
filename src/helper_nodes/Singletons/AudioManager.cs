@@ -8,7 +8,7 @@ public static class BGM
 {
     //load BGM
     public static AudioStream AquaticAmbience = GD.Load<AudioStream>(
-        "res://assets/audio/sfx/Aquatic_Ambience.mp3"
+        "res://assets/audio/bgm/Aquatic_Ambience.wav"
     );
 }
 

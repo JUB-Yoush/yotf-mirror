@@ -8,14 +8,16 @@ public partial class Titlescreen : Control
 	public override void _Ready()
 	{
 		playBtn = GetNode<Button>("PlayButton");
-		quitBtn = GetNode<Button>("PlayButton");
+		quitBtn = GetNode<Button>("Quit Button");
 		playBtn.Pressed += Play;
 		quitBtn.Pressed += Quit;
 		mainScene = ResourceLoader.Load<PackedScene>("res://src/toplevel_scenes/main.tscn").Instantiate();
+		AudioManager.PlayMusic(BGM.AquaticAmbience);
 	}
 
 	private void Play()
 	{
+		AudioManager.PlaySfx(SFX.UISelect);
 		GoToScene(mainScene);
 	}
 	
