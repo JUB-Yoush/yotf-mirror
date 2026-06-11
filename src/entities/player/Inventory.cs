@@ -91,8 +91,10 @@ public partial class Inventory : Node3D
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);
+        item.currentIndex = currentIndex;
         SetCurrentItem(currentIndex);
         HUD.SetItemSlot(currentIndex, item.Icon);
+        HUD.SetItemText(currentIndex, item);
         item.Added();
     }
 
@@ -106,8 +108,9 @@ public partial class Inventory : Node3D
         item.Name = index.ToString();
         item.InInventory = true;
         AddChild(item);
-
+        item.currentIndex = index;
         HUD.SetItemSlot(index, item.Icon);
+        HUD.SetItemText(currentIndex, item);
         item.Added();
     }
 
@@ -118,6 +121,7 @@ public partial class Inventory : Node3D
 
         var item = GetNode<Item>(index.ToString());
         HUD.SetItemSlot(index, null);
+        HUD.InventoryText[index].Text = $"[center][b]{index + 1}";
         item.Unequipped();
         item.Removed();
         item.QueueFree();

@@ -22,9 +22,6 @@ public partial class FirecrackerItem : Item, IDroppable
     [Export]
     float throwForce = 4f;
 
-    [Export]
-    int ammo = 5;
-
     public Player player = null!;
     public Camera3D playerCamera = null!;
 
@@ -42,12 +39,12 @@ public partial class FirecrackerItem : Item, IDroppable
         if (@event.IsActionPressed("take_photo"))
         {
             MakeFirecracker();
-            ammo--;
-            Log.PrintLn(ammo);
-            if (ammo == 0)
+            stock--;
+            if (stock == 0)
             {
                 player.Inventory.RemoveCurrentItem();
             }
+            player.HUD.InventoryText[currentIndex].Text = $"[center][b]{currentIndex + 1} x{stock}";
         }
     }
 
