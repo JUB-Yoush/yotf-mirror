@@ -38,6 +38,9 @@ public partial class Hud : Control
     public required Label SonarLabel2 { set; get; }
 
     [Node]
+    public required Label DepthLabel { set; get; }
+
+    [Node]
     public required TextureProgressBar BatteryBar { set; get; }
 
     [Node]
@@ -121,6 +124,7 @@ public partial class Hud : Control
         smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
         var shaderSpeed = new Vec2(0, smoothedSpeed);
         barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
+        DepthLabel.Text = ((int)((player.Depth) * 10)).ToString("D4");
     }
 
     public void SetItemSlot(int index, Texture2D img)

@@ -26,10 +26,10 @@ public partial class PlayerStats : Node
     public float OxygenUseRate = 0f;
 
     [Export]
-    public float LowOxygenPercentage = .3f;
+    public float LowOxygenPercentage = .5f;
 
     [Export]
-    public float LowBatteryPercentage = .3f;
+    public float LowBatteryPercentage = .5f;
 
     public float Injuries
     {
@@ -223,9 +223,11 @@ public partial class PlayerStats : Node
         {
             case Restore.Oxygen:
                 Oxygen += amount;
+                Audio.PlaySfx(Sfx.Oxygen);
                 break;
 
             case Restore.Battery:
+                Audio.PlaySfx(Sfx.PowerUp);
                 Battery += amount;
                 break;
 

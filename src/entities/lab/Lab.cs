@@ -79,6 +79,7 @@ public partial class Lab : Node3D
                 fish.ProcessMode = ProcessModeEnum.Disabled;
             }
         }
+        this.SceneRoot().GetNode<Player>()!.Stats.TotalGalleryScore = 0;
     }
 
     public static Lab? GetLabByIndex(int index)

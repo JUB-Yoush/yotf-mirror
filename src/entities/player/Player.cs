@@ -68,7 +68,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
     internal float Gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     [ExportCategory("Swim Movement")]
-    [Export(PropertyHint.Range, "5,50")]
+    [Export(PropertyHint.Range, "1,50")]
     public float SwimSpeed = 5.0f;
 
     [Export]
@@ -88,7 +88,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
     public float Depth
     {
         set;
-        get => (Lab.CurrentLab == null) ? 0f : (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+        get =>
+            (Lab.Map.TryGetValue(0, out var lab) == false)
+                ? 0f
+                : (lab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]

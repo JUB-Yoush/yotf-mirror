@@ -8,6 +8,6 @@ script = ExtResource("2_cjb72")
 Icon = ExtResource("1_msxol")
 Name = "Oxygen Up"
 Description = "Increase Max Oxygen."
-Price = 750
+Price = 1000
 upgrade = 1
 metadata/_custom_type_script = "uid://jp2vrs56sra4"
