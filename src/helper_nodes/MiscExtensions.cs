@@ -9,41 +9,41 @@ namespace Yotf;
 
 public static class MiscExtensions
 {
-    extension(Tween tween)
-    {
-        public void Fn(Action action, float delay = 0, bool parallel = false)
-        {
-            if (parallel)
-            {
-                tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
-            }
-            else
-            {
-                tween.TweenCallback(Callable.From(action)).SetDelay(delay);
-            }
-        }
+	extension(Tween tween)
+	{
+		public void Fn(Action action, float delay = 0, bool parallel = false)
+		{
+			if (parallel)
+			{
+				tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
+			}
+			else
+			{
+				tween.TweenCallback(Callable.From(action)).SetDelay(delay);
+			}
+		}
 
         public void LerpProperty(Node node, StringName property, Variant value, float time)
         {
             tween.TweenProperty(node, property.ToString(), value, time);
         }
 
-        public void TweenFn<T>(Action<T> action, T from, T to, float time)
-            where T : struct
-        {
-            tween.TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
-        }
-    }
+		public void TweenFn<T>(Action<T> action, T from, T to, float time)
+			where T : struct
+		{
+			tween.TweenMethod(Callable.From(action), Variant.From(from), Variant.From(to), time);
+		}
+	}
 
     extension(Node node)
     {
         public Node SceneRoot() => node.GetTree().CurrentScene;
 
-        public void RemoveAllChildren()
-        {
-            foreach (var child in node.GetChildren())
-                child.QueueFree();
-        }
+		public void RemoveAllChildren()
+		{
+			foreach (var child in node.GetChildren())
+				child.QueueFree();
+		}
 
         public List<Node> GetChildrenRecursive()
         {
@@ -125,12 +125,12 @@ public static class MiscExtensions
         public Vector2 YZ() => new(vec.Y, vec.Z);
     }
 
-    static void TryMakeDir(string path)
-    {
-        using var dir = DirAccess.Open(path);
-        if (dir == null)
-        {
-            DirAccess.MakeDirAbsolute(path);
-        }
-    }
+	static void TryMakeDir(string path)
+	{
+		using var dir = DirAccess.Open(path);
+		if (dir == null)
+		{
+			DirAccess.MakeDirAbsolute(path);
+		}
+	}
 }
