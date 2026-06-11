@@ -49,7 +49,7 @@ public partial class PlayerStats : Node
             field = value;
             HUD.OxygenBar.MaxValue = field;
         }
-    }
+    } = 100;
     public float MaxBattery
     {
         get;
@@ -58,7 +58,7 @@ public partial class PlayerStats : Node
             field = value;
             HUD.BatteryBar.MaxValue = field;
         }
-    }
+    } = 100;
     public float Oxygen
     {
         get;
@@ -102,6 +102,28 @@ public partial class PlayerStats : Node
                 batteryWarningGiven = true;
                 player?.MakeAlert("ALERT: LOW BATTERY");
             }
+
+            if (field == 0 && HUD != null)
+            {
+                Audio.PlaySfx(Sfx.PowerDown);
+                var shockTween = CreateTween();
+                shockTween.AnimateProperty(
+                    HUD,
+                    Control.PropertyName.Modulate,
+                    new Color(0xffffff00),
+                    .5f
+                );
+            }
+            else if (HUD != null)
+            {
+                var shockTween = CreateTween();
+                shockTween.AnimateProperty(
+                    HUD,
+                    Control.PropertyName.Modulate,
+                    new Color(0xffffffff),
+                    .5f
+                );
+            }
         }
     }
     public int Money
@@ -116,7 +138,7 @@ public partial class PlayerStats : Node
                 lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
             }
         }
-    }
+    } = 2000;
     public int TotalGalleryScore
     {
         get;
@@ -158,11 +180,8 @@ public partial class PlayerStats : Node
         player = GetParent<Player>();
         HUD.OxygenBar.MaxValue = MaxOxygen;
         HUD.BatteryBar.MaxValue = MaxBattery;
-        MaxOxygen = 100;
-        MaxBattery = 100;
         Oxygen = MaxOxygen;
         Battery = MaxBattery;
-        Money = 100;
         TotalGalleryScore = 10;
     }
 

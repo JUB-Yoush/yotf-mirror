@@ -32,6 +32,9 @@ public partial class Disposable : Item, IDroppable
 
     public override void _Input(InputEvent @event)
     {
+        if (!CurrentItem)
+            return;
+
         if (@event.IsActionPressed("take_photo"))
             Use();
 

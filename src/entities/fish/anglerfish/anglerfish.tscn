@@ -660,7 +660,8 @@ collision_mask = 3
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=929450661]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6572223, 2.5572946)
-omni_range = 6.591
+omni_range = 10.0
+omni_attenuation = 0.5
 
 [node name="Blub" type="MeshInstance3D" parent="OmniLight3D" unique_id=876184]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04304862, -0.041758537, -0.009121656)
