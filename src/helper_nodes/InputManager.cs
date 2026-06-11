@@ -5,6 +5,8 @@ namespace Yotf;
 public partial class InputManager : Node
 {
     private Player player = null!;
+    private PackedScene pauseMenu = GD.Load<PackedScene>("res://src/ui/pause_menu.tscn");
+    private Node instance = null!;
 
     public override void _Ready()
     {
@@ -20,8 +22,14 @@ public partial class InputManager : Node
     {
         if (@event.IsActionPressed("quit"))
         {
-            GetTree().Quit();
-            GetViewport().SetInputAsHandled();
+            if(!GetTree().Paused){
+                GetParent().GetNode<Control>("HUDLayer/SubViewportContainer/SubViewport/HUD").Visible = false;
+                instance = pauseMenu.Instantiate();
+                AddChild(instance);
+                Audio.PlaySfx(Sfx.UIOpen);
+            }
+            // GetTree().Quit();
+            // GetViewport().SetInputAsHandled();
         }
         else if (@event.IsActionPressed("unfocus"))
         {

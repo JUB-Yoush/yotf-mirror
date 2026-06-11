@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://c28regt56derg"]
+
+[ext_resource type="Script" uid="uid://cggky647qhpk8" path="res://src/ui/PauseMenu.cs" id="1_yqfnv"]
+
+[node name="PauseMenu" type="Control" unique_id=834285844]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqfnv")
+
+[node name="Paused" type="CanvasLayer" parent="." unique_id=855008304]
+
+[node name="MainPaused" type="Panel" parent="Paused" unique_id=1343127479]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausedTxt" type="Label" parent="Paused/MainPaused" unique_id=107432165]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -245.0
+offset_top = 75.0
+offset_right = 254.99976
+offset_bottom = 246.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 125
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="Paused/MainPaused" unique_id=1384537384]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -190.0
+offset_right = 149.0
+offset_bottom = -78.99994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Resume"
+
+[node name="SettingsBtn" type="Button" parent="Paused/MainPaused" unique_id=1218565326]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -55.50003
+offset_right = 149.0
+offset_bottom = 55.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Settings"
+
+[node name="QuitBtn" type="Button" parent="Paused/MainPaused" unique_id=536426158]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = 85.0
+offset_right = 149.0
+offset_bottom = 196.00006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Quit
+"
+
+[node name="Settings" type="Panel" parent="Paused" unique_id=621889050]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsTxt" type="Label" parent="Paused/Settings" unique_id=1092851077]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -245.0
+offset_top = 75.0
+offset_right = 254.99976
+offset_bottom = 225.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 125
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="BackBtn" type="Button" parent="Paused/Settings" unique_id=1883357054]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = 225.5
+offset_right = 149.0
+offset_bottom = 336.50006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Back
+"
+
+[node name="TestBtn" type="Button" parent="Paused/Settings" unique_id=127552563]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -40.0
+offset_right = 331.0
+offset_bottom = 71.00006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = " No Settings Yet :( "
