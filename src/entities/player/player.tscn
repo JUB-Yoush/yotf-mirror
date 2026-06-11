@@ -43,6 +43,7 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
+SwimSpeed = 2.0
 FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]

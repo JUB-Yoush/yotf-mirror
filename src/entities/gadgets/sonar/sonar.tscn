@@ -15,7 +15,7 @@ size = Vector3(0.2, 0.2, 0.2)
 script = ExtResource("1_3vb5o")
 MinLabelDistance = 20.0
 range = 35.0
-batteryUseRate = 4.0
+batteryUseRate = 2.0
 Icon = ExtResource("2_3vb5o")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=263555658]
