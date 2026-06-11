@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="3_mpb8x"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_r36r8"]
-[ext_resource type="Script" uid="uid://iu0ndugcblqo" path="res://src/toplevel_scenes/Titlescreen.cs" id="9_7j5ul"]
+[ext_resource type="Script" path="res://src/toplevel_scenes/Titlescreen.cs" id="9_7j5ul"]
 [ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="9_fvxxr"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="10_0l4yl"]
 [ext_resource type="Texture2D" uid="uid://cewt6m00w10f3" path="res://assets/2d/ui/WAWA_Typography_Stacked.png" id="10_7j5ul"]
 [ext_resource type="Texture2D" uid="uid://6amy25elin8p" path="res://assets/2d/ui/BlueHour_Logo_Black.png" id="10_fvxxr"]
 [ext_resource type="PackedScene" uid="uid://da0xkdgkyvua6" path="res://src/entities/player/skrunko_skin.tscn" id="10_mpb8x"]
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="11_r36r8"]
-[ext_resource type="Script" uid="uid://ti54r8v7npin" path="res://src/helper_nodes/Singletons/AudioManager.cs" id="13_0l4yl"]
+[ext_resource type="Script" uid="uid://ctn0ffoi2lglr" path="res://src/audio/Audio.cs" id="13_0l4yl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
 render_priority = 1
