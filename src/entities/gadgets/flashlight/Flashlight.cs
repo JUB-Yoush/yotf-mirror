@@ -83,7 +83,7 @@ public partial class Flashlight : Item, IDroppable, IGiveLight
     {
         if (!CurrentItem)
             return;
-        if (@event.IsActionPressed("take_photo") && !player.IsInMenu)
+        if (@event.IsActionPressed("take_photo") && !player.IsInMenu && player.Stats.Battery > 0)
         {
             Audio.PlaySfx(Sfx.Click);
             isOn = !isOn;
@@ -105,6 +105,10 @@ public partial class Flashlight : Item, IDroppable, IGiveLight
         if (isOn)
         {
             PlayerStats.Battery -= (float)(batteryUseRate * delta);
+            if (player.Stats.Battery == 0)
+            {
+                isOn = false;
+            }
         }
 
         if (!CurrentItem)

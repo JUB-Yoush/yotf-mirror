@@ -14,14 +14,14 @@ size = Vector3(0.2, 0.2, 0.2)
 [sub_resource type="SphereShape3D" id="SphereShape3D_lwb6o"]
 radius = 5.484282
 
-[node name="Node3D" type="Node3D" unique_id=157541490]
+[node name="Flashlight" type="Node3D" unique_id=157541490]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_xosdy")
 batteryUseRate = 0.0
 LightEnergy = 10.0
 ItemName = "FlashLight"
 Icon = ExtResource("2_lwb6o")
-Instructions = PackedStringArray("LMB -> Toggle")
+Instructions = PackedStringArray("LMB -> Toggle", "(Works when not current item)")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=469956470]
 unique_name_in_owner = true

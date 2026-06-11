@@ -2005,7 +2005,7 @@ OxygenScale = 1.5
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
 Index = 1
 OxygenScale = 3.0
-requiredGalleryScore = 10000
+requiredGalleryScore = 10
 
 [node name="Lab2" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 81.22056, -89.220566, -7.740203)
