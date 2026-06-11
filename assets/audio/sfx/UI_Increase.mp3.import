@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://b0nnld1fv1tjg"
-path="res://.godot/imported/UI_Increase.mp3-8d2a49087a6ea5a8908102a4b5b26db4.mp3str"
+uid="uid://hjj0eearhanm"
+path="res://.godot/imported/ui_increase.mp3-0ef5a7ffa6d96996eeeccd0b68db9454.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/sfx/UI_Increase.mp3"
-dest_files=["res://.godot/imported/UI_Increase.mp3-8d2a49087a6ea5a8908102a4b5b26db4.mp3str"]
+source_file="res://assets/audio/sfx/ui_increase.mp3"
+dest_files=["res://.godot/imported/ui_increase.mp3-0ef5a7ffa6d96996eeeccd0b68db9454.mp3str"]
 
 [params]
 
