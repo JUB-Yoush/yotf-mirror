@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="2026-yotf"
-run/main_scene="uid://c4a35ioxnogm5"
+run/main_scene="uid://btfuhnflg1f2m"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
 config/icon="uid://bjsne24mfw3jm"
 

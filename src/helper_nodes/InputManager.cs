@@ -22,8 +22,11 @@ public partial class InputManager : Node
     {
         if (@event.IsActionPressed("quit"))
         {
-            if(!GetTree().Paused){
-                GetParent().GetNode<Control>("HUDLayer/SubViewportContainer/SubViewport/HUD").Visible = false;
+            if (!GetTree().Paused)
+            {
+                GetParent()
+                    .GetNode<Control>("HUDLayer/SubViewportContainer/SubViewport/HUD")
+                    .Visible = false;
                 instance = pauseMenu.Instantiate();
                 AddChild(instance);
                 Audio.PlaySfx(Sfx.UIOpen);
