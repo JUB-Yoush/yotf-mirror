@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
 [ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
+[ext_resource type="Script" uid="uid://ti54r8v7npin" path="res://src/helper_nodes/Singletons/AudioManager.cs" id="12_kc3pt"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 
@@ -156,5 +157,8 @@ metadata/_edit_lock_ = true
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 script = ExtResource("8_tk761")
+
+[node name="Audio" type="Node" parent="." unique_id=1117429342]
+script = ExtResource("12_kc3pt")
 
 [editable path="Skin"]
