@@ -544,8 +544,8 @@ height = 0.4
 collision_layer = 784
 collision_mask = 275
 script = ExtResource("1_ay8m2")
-chaseDmg = 0.0
 WanderSpeed = 0.5
+size = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2097519771]
 transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, -1, 0, 1, 2.9802322e-08, -0.056376085, 0.18941408, -0.17050274)

@@ -126,8 +126,9 @@ metadata/_edit_lock_ = true
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("12_4ktrp")]
 transform = Transform3D(0.057198122, 0, -0.99836284, 0, 1, 0, 0.99836284, 0, 0.057198122, -36.44892, 0.6142664, -2.7909164)
 
-[node name="Player" parent="." unique_id=678823562 instance=ExtResource("20_bguta")]
+[node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("StartLab") instance=ExtResource("20_bguta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.355946, 0.4491644, -1.603364)
+StartLab = NodePath("../Lab")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=3621970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.496178, 0, -2.0725079)

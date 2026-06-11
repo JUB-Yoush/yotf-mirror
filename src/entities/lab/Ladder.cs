@@ -20,6 +20,9 @@ public partial class Ladder : Node3D, IInteractable
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
+    [Node]
+    public required Marker3D BottomMarker { set; get; }
+
     public Mesh InteractionMesh => Mesh.Mesh;
 
     public void OnInteraction()
@@ -27,6 +30,24 @@ public partial class Ladder : Node3D, IInteractable
         var player = this.SceneRoot().GetNode<Player>()!;
         if (isTop)
             return;
+        if (player.InNegationArea)
+        {
+            var downTween = CreateTween();
+            downTween.AnimateProperty(
+                player,
+                CharacterBody3D.PropertyName.GlobalPosition,
+                BottomMarker.GlobalPosition,
+                1
+            );
+            downTween.AnimateProperty(
+                player,
+                CharacterBody3D.PropertyName.GlobalPosition,
+                BottomMarker.GlobalPosition + Vector3.Back,
+                .1f
+            );
+
+            return;
+        }
         var tween = CreateTween();
         tween.AnimateProperty(
             player,

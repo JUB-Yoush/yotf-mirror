@@ -200,10 +200,8 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
 
     public bool IsInPhoto()
     {
-        Log.PrintLn($"Is {Name} in photo?");
         if (!VisibilityNotif.IsOnScreen())
         {
-            Log.PrintLn("no, not visible");
             return false;
         }
 
@@ -224,15 +222,7 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
                 {
                     return true;
                 }
-                else
-                {
-                    Log.PrintLn("didn't colide with player");
-                    Log.PrintLn("collided with", ((Node3D)ray.GetCollider()).Name);
-                }
-            }
-            else
-            {
-                Log.PrintLn("no collision");
+                else { }
             }
         }
         return false;

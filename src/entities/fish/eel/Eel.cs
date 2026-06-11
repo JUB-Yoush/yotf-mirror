@@ -77,7 +77,6 @@ public partial class Eel : Fish, IBubbleable, IHearNoise, IDoesAction, ITakeDama
 
     private void OnDetectionBodyEntered(Node3D body)
     {
-        Log.PrintLn("eel area entered");
         if (body is Player player && stateMachine.State == State.Wander)
         {
             stateMachine.State = State.Electric;

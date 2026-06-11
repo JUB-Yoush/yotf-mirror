@@ -272,7 +272,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             //     .GetNode<Node>($"Fish{Lab.CurrentLab!.Index}")
             //     .GetNode<Fish>(subjectName);
             var subject = this.SceneRoot().GetNode<Fish>(subjectName);
-            Log.PrintLn(subject);
             var angleScore = CalcCenteredScore(subject);
             var facingScore = CalcFacingScore(subject);
             var sizeScore = CalcSizeScore(subject);
@@ -293,7 +292,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                     subject.size == Fish.Size.Large
                 )
             );
-            Log.PrintLn(result[subject.Name]);
         }
         return result;
     }
@@ -425,7 +423,11 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         List<string> result = [];
         foreach (var photographable in GetTree().CurrentScene.GetNodes<IPhotographable>(true))
         {
-            if (photographable.IsInPhoto() && !photographable.IsModifier)
+            if (
+                photographable.IsInPhoto()
+                && !photographable.IsModifier
+                && WithinFov(photographable.Subject)
+            )
                 result.Add(photographable.Subject.Name);
         }
         return [.. result];
@@ -544,6 +546,19 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         float t = 1f - (closestDist / closestLight.EffectiveRange);
         float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
         return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
+    }
+
+    bool WithinFov(Node3D subject, bool clamped = true)
+    {
+        var targetDir = (subject.GlobalPosition - PhotoCameraCam.GlobalPosition).Normalized();
+        var cameraDir = -PhotoCameraCam.GlobalTransform.Basis.Z;
+        var dot = cameraDir.Dot(targetDir);
+        var minimumDot = 1 - (ViewfinderFov / 180);
+        Log.PrintLn(dot >= minimumDot);
+        return dot >= minimumDot;
+        // if (clamped)
+        //     return Math.Clamp(dot, 0f, 1f);
+        // return dot;
     }
 
     Fish[] GetLayerFish()

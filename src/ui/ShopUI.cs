@@ -197,7 +197,7 @@ public partial class ShopUI : Control
                 player.Battery = player.MaxBattery;
                 break;
             case ShopItem.Upgrade.Film:
-                PlayerStats.MaxFilm += 3;
+                PlayerStats.MaxFilm += 5;
                 break;
             case ShopItem.Upgrade.CameraZoom:
                 PlayerStats.MaxZoom += 10;

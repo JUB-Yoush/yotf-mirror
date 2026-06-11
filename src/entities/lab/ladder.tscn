@@ -61,3 +61,7 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=859003014]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.110223e-16, 0.0076293945, -0.0128479)
 shape = SubResource("BoxShape3D_bko7y")
+
+[node name="BottomMarker" type="Marker3D" parent="." unique_id=28490875]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3969839e-09, -2.615908, 0.22065091)

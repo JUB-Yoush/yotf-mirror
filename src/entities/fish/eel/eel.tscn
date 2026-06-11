@@ -158,6 +158,7 @@ _data = {
 [node name="Eel" type="CharacterBody3D" unique_id=1200339281]
 collision_layer = 304
 script = ExtResource("1_cm51b")
+zapDamage = 10.0
 WanderSpeed = 2.0
 size = 1
 
@@ -291,6 +292,7 @@ debug_color = Color(0.5130227, 0.5767579, 0.058156997, 0.41960785)
 [node name="NavBox" type="MeshInstance3D" parent="." unique_id=1651130344]
 unique_name_in_owner = true
 top_level = true
+visible = false
 mesh = SubResource("BoxMesh_r2r6v")
 
 [node name="ZapMesh" type="MeshInstance3D" parent="." unique_id=464426730]

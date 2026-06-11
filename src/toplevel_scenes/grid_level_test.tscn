@@ -44,11 +44,11 @@ refraction_texture = SubResource("NoiseTexture2D_4kv4i")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_41kwd"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ov83m"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_4kv4i"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xqily"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_7yoh0"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_dynrg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqily"]
 albedo_texture = ExtResource("11_ihph0")
@@ -1285,7 +1285,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph0" unique_id=204889]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_41kwd")
+mesh = SubResource("ImmediateMesh_ov83m")
 
 [node name="NavNode" parent="NavGraph0" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1607,7 +1607,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=659538964]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_4kv4i")
+mesh = SubResource("ImmediateMesh_xqily")
 
 [node name="NavNode" parent="NavGraph1" unique_id=860771181 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
@@ -1854,7 +1854,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph2" unique_id=445396624]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_7yoh0")
+mesh = SubResource("ImmediateMesh_dynrg")
 
 [node name="NavNode" parent="NavGraph2" unique_id=1383443746 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.72701, -122.65349, -3.4656234)
@@ -2024,56 +2024,71 @@ FinalLab = true
 transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -24.895155, 14.442931, -11.478544)
 StartLab = NodePath("../Lab0")
 
-[node name="RoomMarkers0" type="Node" parent="." unique_id=1267745214]
+[node name="RoomMarkers0" type="Node3D" parent="." unique_id=1264782986]
 
 [node name="Home" parent="RoomMarkers0" unique_id=1044421178 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.712839, 8.241343, 18.775595)
+visible = false
 
 [node name="Home2" parent="RoomMarkers0" unique_id=1631665402 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.867132, 8.800207, -6.059361)
+visible = false
 
 [node name="Home3" parent="RoomMarkers0" unique_id=907676986 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5918756, 8.241343, -5.203663)
+visible = false
 
 [node name="Home4" parent="RoomMarkers0" unique_id=1408519087 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.858124, 7.324855, -0.75380564)
+visible = false
 
 [node name="Home6" parent="RoomMarkers0" unique_id=1680429697 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.858124, 7.324855, -9.461958)
+visible = false
 
 [node name="Home5" parent="RoomMarkers0" unique_id=29820246 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4762, 9.279371, 30.99307)
+visible = false
 
-[node name="RoomMarkers1" type="Node" parent="." unique_id=219007001]
+[node name="RoomMarkers1" type="Node3D" parent="." unique_id=1986180123]
 
 [node name="FishRoom" parent="RoomMarkers1" unique_id=1521622956 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.57178, -11.116805, -7.593825)
+visible = false
 
 [node name="FishRoom2" parent="RoomMarkers1" unique_id=497430467 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.30412, -26.91643, 22.342844)
+visible = false
 
 [node name="FishRoom3" parent="RoomMarkers1" unique_id=1938888159 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.71073, -34.08145, 12.293374)
+visible = false
 
 [node name="FishRoom4" parent="RoomMarkers1" unique_id=170304711 instance=ExtResource("8_41xod")]
 transform = Transform3D(0.99989957, 0, 0.014171599, 0, 1, 0, -0.014171599, 0, 0.99989957, 70.16173, -52.825592, -9.869202)
+visible = false
 
 [node name="FishRoom5" parent="RoomMarkers1" unique_id=943564758 instance=ExtResource("8_41xod")]
 transform = Transform3D(0.99989957, 0, 0.014171599, 0, 1, 0, -0.014171599, 0, 0.99989957, 71.59237, -59.732063, 4.0310655)
+visible = false
 
-[node name="RoomMarkers2" type="Node" parent="." unique_id=1391801395]
+[node name="RoomMarkers2" type="Node3D" parent="." unique_id=674871033]
 
 [node name="FishRoom6" parent="RoomMarkers2" unique_id=1088805992 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.77005, -93.866234, -2.791369)
+visible = false
 
 [node name="FishRoom7" parent="RoomMarkers2" unique_id=820428755 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.53088, -125.65192, 23.578505)
+visible = false
 
 [node name="FishRoom8" parent="RoomMarkers2" unique_id=1463836373 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.75769, -135.95209, 28.247179)
+visible = false
 
 [node name="FishRoom9" parent="RoomMarkers2" unique_id=493283131 instance=ExtResource("8_41xod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.24209, -135.95209, 20.77818)
+visible = false
 
 [node name="FuncGodotMap" type="Node3D" parent="." unique_id=1407446890]
 script = ExtResource("11_sjuom")

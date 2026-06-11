@@ -31,6 +31,9 @@ public partial class PlayerStats : Node
     [Export]
     public float LowBatteryPercentage = .5f;
 
+    [Export]
+    int startingMoney = 2000;
+
     public float Injuries
     {
         get;
@@ -138,7 +141,7 @@ public partial class PlayerStats : Node
                 lab.ShopKiosk.ScoreLabel.Text = $"{value:D6}";
             }
         }
-    } = 2000;
+    }
     public int TotalGalleryScore
     {
         get;
@@ -154,7 +157,7 @@ public partial class PlayerStats : Node
         }
     }
 
-    static int maxFilm = 999;
+    static int maxFilm = 10;
     public static int MaxFilm
     {
         set { maxFilm = value; }
@@ -177,6 +180,7 @@ public partial class PlayerStats : Node
 
     public override void _Ready()
     {
+        Money = startingMoney;
         player = GetParent<Player>();
         HUD.OxygenBar.MaxValue = MaxOxygen;
         HUD.BatteryBar.MaxValue = MaxBattery;

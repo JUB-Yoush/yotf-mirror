@@ -4,13 +4,13 @@
 [ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="2_2gdub"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0vdqr"]
-radius = 0.21857433
+radius = 0.3239124
 
 [sub_resource type="BoxMesh" id="BoxMesh_2gdub"]
 size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2lymx"]
-radius = 0.25566387
+radius = 0.3739936
 
 [node name="DroppedItem" type="RigidBody3D" unique_id=1652355677]
 collision_layer = 96

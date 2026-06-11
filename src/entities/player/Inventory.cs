@@ -32,6 +32,7 @@ public partial class Inventory : Node3D
     {
         PhotoCamera.AimingChanged += OnAimingChanged;
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
+        AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         SetCurrentItem(0);
     }
 
