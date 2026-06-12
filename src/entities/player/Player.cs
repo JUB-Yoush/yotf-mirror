@@ -225,6 +225,8 @@ public partial class Player : CharacterBody3D, ITakeDamage
             GlobalPosition = StartLab.PlayerSpawn.GlobalPosition;
             Lab.CurrentLab = StartLab;
         }
+
+        Audio.PlayBgm(Bgm.CaveTheme);
     }
 
 #if DEBUG
