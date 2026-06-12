@@ -22,29 +22,29 @@
 [ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="16_sjuom"]
 [ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="17_sjuom"]
 [ext_resource type="PackedScene" uid="uid://dt2y1nhb1amt5" path="res://src/entities/fish/inkfish/inkfish.tscn" id="18_ihph0"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/bulbous-coral.tscn" id="22_h2vdo"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/branch-coral.tscn" id="23_viewx"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/chubby-coral.tscn" id="24_nyuqw"]
+[ext_resource type="PackedScene" uid="uid://bt8heuqrwlqu8" path="res://assets/3d/set-dressing/bulbous-coral.tscn" id="22_h2vdo"]
+[ext_resource type="PackedScene" uid="uid://djypyeqh0dleh" path="res://assets/3d/set-dressing/branch-coral.tscn" id="23_viewx"]
+[ext_resource type="PackedScene" uid="uid://b5qeqfv772kui" path="res://assets/3d/set-dressing/chubby-coral.tscn" id="24_nyuqw"]
 [ext_resource type="PackedScene" uid="uid://bqoryj0d3akct" path="res://assets/3d/set-dressing/low_poly_rocks.glb" id="25_eekwi"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/dish-coral.tscn" id="26_y5g7w"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/ribbon-coral.tscn" id="27_qpdxx"]
+[ext_resource type="PackedScene" uid="uid://di3kg3g6jeess" path="res://assets/3d/set-dressing/dish-coral.tscn" id="26_y5g7w"]
+[ext_resource type="PackedScene" uid="uid://0kmwlqdmx1xg" path="res://assets/3d/set-dressing/ribbon-coral.tscn" id="27_qpdxx"]
 [ext_resource type="PackedScene" uid="uid://c1nme1ayurx1j" path="res://assets/3d/set-dressing/seaweed.tscn" id="28_st4oq"]
 [ext_resource type="PackedScene" uid="uid://thnybq8cvekt" path="res://assets/3d/set-dressing/rocks.tscn" id="29_hv5ms"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/hole-coral.tscn" id="30_sy8ik"]
+[ext_resource type="PackedScene" uid="uid://bn05yd7npdiqe" path="res://assets/3d/set-dressing/hole-coral.tscn" id="30_sy8ik"]
 [ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_1oemj"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/abalone-coral.tscn" id="32_m17fd"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/triple-ribbon-coral.tscn" id="33_xgsp8"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="34_c1vwc"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/brain-coral.tscn" id="35_r25ae"]
+[ext_resource type="PackedScene" uid="uid://drm12qa35nmna" path="res://assets/3d/set-dressing/abalone-coral.tscn" id="32_m17fd"]
+[ext_resource type="PackedScene" uid="uid://8uh1trcp48ry" path="res://assets/3d/set-dressing/triple-ribbon-coral.tscn" id="33_xgsp8"]
+[ext_resource type="PackedScene" uid="uid://cl7xacmxkfj0w" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="34_c1vwc"]
+[ext_resource type="PackedScene" uid="uid://ts6vgm681bi8" path="res://assets/3d/set-dressing/brain-coral.tscn" id="35_r25ae"]
 [ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_eka47"]
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="37_xfvkn"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="38_tutrh"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5q5bh"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_my6mb"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_h2vdo"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4ufgr"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_viewx"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_a1sqx"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tu5ok"]
 lightmap_size_hint = Vector2i(3706, 3722)
@@ -1435,7 +1435,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph0" unique_id=204889]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_5q5bh")
+mesh = SubResource("ImmediateMesh_my6mb")
 
 [node name="NavNode" parent="NavGraph0" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1757,7 +1757,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=659538964]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_h2vdo")
+mesh = SubResource("ImmediateMesh_4ufgr")
 
 [node name="NavNode" parent="NavGraph1" unique_id=860771181 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
@@ -2004,7 +2004,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph2" unique_id=445396624]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_viewx")
+mesh = SubResource("ImmediateMesh_a1sqx")
 
 [node name="NavNode" parent="NavGraph2" unique_id=1383443746 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.72701, -122.65349, -3.4656234)

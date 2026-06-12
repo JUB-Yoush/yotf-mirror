@@ -30,9 +30,11 @@ mesh = SubResource("BoxMesh_y1wly")
 
 [node name="SpotLight" type="SpotLight3D" parent="." unique_id=1211699694]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8700176e-08, 0, -1.0146117)
 spot_range = 20.0
 spot_attenuation = 2.0
 spot_angle = 50.0
+spot_angle_attenuation = 2.2973971
 
 [node name="LightArea" type="Area3D" parent="." unique_id=39877502]
 unique_name_in_owner = true

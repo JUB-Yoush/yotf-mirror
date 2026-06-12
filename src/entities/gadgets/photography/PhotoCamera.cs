@@ -173,7 +173,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             PhotoViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
             player.IsLookingInCamera = true;
             Aiming = true;
-            Light.Visible = false;
+            Light.Visible = true;
             ViewfinderFov = DefaultViewfinderFov;
         }
 
@@ -252,7 +252,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         PhotoViewport.RenderTargetUpdateMode = updateModes[Convert.ToInt32(state)];
         player.IsLookingInCamera = state;
         Aiming = state;
-        Light.Visible = false;
+        Light.Visible = state;
     }
 
     private Dictionary<string, PhotoGrade> GetSubjectGrades(

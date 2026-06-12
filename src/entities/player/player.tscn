@@ -171,6 +171,7 @@ metadata/_edit_lock_ = true
 [node name="PaperLayer" type="CanvasLayer" parent="." unique_id=2137586156]
 
 [node name="Kuwahara" type="ColorRect" parent="PaperLayer" unique_id=1135834312]
+visible = false
 material = ExtResource("8_3c4mh")
 anchors_preset = 15
 anchor_right = 1.0
