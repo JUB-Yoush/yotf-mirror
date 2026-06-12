@@ -48,7 +48,7 @@ public partial class PhotoTerminal : Node3D, IInteractable
         cam.Film = PlayerStats.MaxFilm;
         var gradeUI = GradingUI.New(cam.Photos, this, lab.Index);
         cam.ClearPhotos();
-        GetTree().CurrentScene.AddChild(gradeUI);
+        player.GetNode("%MenuCanvas").AddChild(gradeUI);
     }
 
     public Mesh GetMesh() => Mesh.Mesh;

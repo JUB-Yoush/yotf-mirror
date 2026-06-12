@@ -2155,19 +2155,19 @@ OxygenScale = 1.5
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
 Index = 1
 OxygenScale = 3.0
-requiredGalleryScore = 10
+requiredGalleryScore = 10000
 
 [node name="Lab2" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 81.22056, -89.220566, -7.740203)
 Index = 2
 OxygenScale = 4.5
-requiredGalleryScore = 10000
+requiredGalleryScore = 12000
 
 [node name="Lab3" parent="." unique_id=1913430621 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 121.07384, -147.99278, 0.17813271)
 Index = 3
 OxygenScale = 0.0
-requiredGalleryScore = 10
+requiredGalleryScore = 15000
 FinalLab = true
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
@@ -3543,6 +3543,10 @@ InsideChest = ExtResource("16_2qppk")
 
 [node name="Chest4" parent="." unique_id=869539614 instance=ExtResource("15_sjuom")]
 transform = Transform3D(-0.029718587, 0, 0.99955827, 0, 1, 0, -0.99955827, 0, -0.029718587, 109.097496, -143.25964, 27.353935)
+InsideChest = ExtResource("16_2qppk")
+
+[node name="Chest5" parent="." unique_id=2003381762 instance=ExtResource("15_sjuom")]
+transform = Transform3D(0.9568845, 0, 0.29046845, 0, 1, 0, -0.29046845, 0, 0.9568845, 100.39301, -143.25964, 30.527748)
 InsideChest = ExtResource("16_2qppk")
 
 [node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]

@@ -9,6 +9,10 @@ public partial class TreasureFish : Fish, IPhotographable
 {
     public override void _Notification(int what) => this.Notify(what);
 
+    public readonly PackedScene treasurePopup = GD.Load<PackedScene>(
+        "res://src/entities/fish/treasure_fish/money_popup.tscn"
+    );
+
     [Export]
     float WaitTimer = 1f;
 
@@ -58,5 +62,9 @@ public partial class TreasureFish : Fish, IPhotographable
         var player = this.SceneRoot().GetNode<Player>()!;
         player.Stats.Money += treasureValue;
         Audio.PlaySfx(Sfx.Sparkle);
+        var moneypopup = treasurePopup.Instantiate<RigidBody3D>();
+        AddChild(moneypopup);
+        moneypopup.TopLevel = true;
+        moneypopup.ApplyImpulse(new(GD.Randf() * 3, GD.Randf() * 3, GD.Randf() * 3));
     }
 }
