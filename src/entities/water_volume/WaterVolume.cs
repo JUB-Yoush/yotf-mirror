@@ -41,20 +41,27 @@ public partial class WaterVolume : CsgBox3D
 
     private void OnBodyExited(Node3D body)
     {
+        GD.Print($"Body exited water: {body.Name}");
         if (Engine.IsEditorHint())
             return;
         if (body is Player player && !player.InNegationArea)
         {
-            player.SetState(player.WalkingState);
+            // for handling overlapping water volumes, only set the player to walking state if they have no more water volumes affecting them
+            player.WaterVolumeCount = Mathf.Max(0, player.WaterVolumeCount - 1);
+            if (player.WaterVolumeCount == 0)
+                player.SetState(player.WalkingState);
         }
     }
 
     private void OnBodyEntered(Node3D body)
     {
+        GD.Print($"Body entered water: {body.Name}");
         if (Engine.IsEditorHint())
             return;
         if (body is Player player && !player.InNegationArea)
         {
+            // for handling overlapping water volumes, only set the player to walking state if they have no more water volumes affecting them
+            player.WaterVolumeCount++;
             player.SetState(player.SwimmingState);
         }
     }
