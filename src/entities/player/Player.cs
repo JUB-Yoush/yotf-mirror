@@ -369,6 +369,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
         //hit
         Stats.Oxygen -= amount;
         Velocity += knockback;
+        Audio.PlaySfx(Sfx.Hit);
         if (source is Eel)
         {
             GetShocked();

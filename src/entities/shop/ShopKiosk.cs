@@ -56,6 +56,7 @@ public partial class ShopKiosk : Node3D, IInteractable
         inShop = true;
         Audio.PlaySfx(Sfx.UIOpen);
         var shop = ShopUI.New(GetAllItems(), GetAllUpgrades(), this);
-        AddChild(shop);
+
+        this.SceneRoot().GetNode<Player>()!.GetNode("%MenuCanvas").AddChild(shop);
     }
 }

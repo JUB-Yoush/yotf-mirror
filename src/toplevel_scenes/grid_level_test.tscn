@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="10_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="10_rnp1b"]
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="10_sjuom"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_fresh.tres" id="10_yy7uy"]
+[ext_resource type="Material" uid="uid://kuox2k1ngjov" path="res://trenchbroom/textures/ocean_rock_fresh.tres" id="10_yy7uy"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="11_sjuom"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_rolling.tres" id="11_tutrh"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_weathered.tres" id="12_5q5bh"]
+[ext_resource type="Material" uid="uid://us60hxcodwoq" path="res://trenchbroom/textures/ocean_rock_rolling.tres" id="11_tutrh"]
+[ext_resource type="Material" uid="uid://dakvgnk0tu6wt" path="res://trenchbroom/textures/ocean_rock_weathered.tres" id="12_5q5bh"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="12_ihph0"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="15_sjuom"]
@@ -31,12 +31,12 @@
 [ext_resource type="PackedScene" uid="uid://c1nme1ayurx1j" path="res://assets/3d/set-dressing/seaweed.tscn" id="28_st4oq"]
 [ext_resource type="PackedScene" uid="uid://thnybq8cvekt" path="res://assets/3d/set-dressing/rocks.tscn" id="29_hv5ms"]
 [ext_resource type="PackedScene" uid="uid://bn05yd7npdiqe" path="res://assets/3d/set-dressing/hole-coral.tscn" id="30_sy8ik"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_1oemj"]
+[ext_resource type="PackedScene" uid="uid://r2sc5x3a2r62" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_1oemj"]
 [ext_resource type="PackedScene" uid="uid://drm12qa35nmna" path="res://assets/3d/set-dressing/abalone-coral.tscn" id="32_m17fd"]
 [ext_resource type="PackedScene" uid="uid://8uh1trcp48ry" path="res://assets/3d/set-dressing/triple-ribbon-coral.tscn" id="33_xgsp8"]
 [ext_resource type="PackedScene" uid="uid://cl7xacmxkfj0w" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="34_c1vwc"]
 [ext_resource type="PackedScene" uid="uid://ts6vgm681bi8" path="res://assets/3d/set-dressing/brain-coral.tscn" id="35_r25ae"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_eka47"]
+[ext_resource type="PackedScene" uid="uid://o47f5nibvcoy" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_eka47"]
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="37_xfvkn"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="38_tutrh"]
 
@@ -2155,19 +2155,19 @@ OxygenScale = 1.5
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
 Index = 1
 OxygenScale = 3.0
-requiredGalleryScore = 10
+requiredGalleryScore = 10000
 
 [node name="Lab2" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 81.22056, -89.220566, -7.740203)
 Index = 2
 OxygenScale = 4.5
-requiredGalleryScore = 10000
+requiredGalleryScore = 12000
 
 [node name="Lab3" parent="." unique_id=1913430621 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 121.07384, -147.99278, 0.17813271)
 Index = 3
 OxygenScale = 0.0
-requiredGalleryScore = 10
+requiredGalleryScore = 15000
 FinalLab = true
 
 [node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("StartLab") instance=ExtResource("6_c5kmb")]
@@ -3544,6 +3544,10 @@ InsideChest = ExtResource("16_2qppk")
 
 [node name="Chest4" parent="." unique_id=869539614 instance=ExtResource("15_sjuom")]
 transform = Transform3D(-0.029718587, 0, 0.99955827, 0, 1, 0, -0.99955827, 0, -0.029718587, 109.097496, -143.25964, 27.353935)
+InsideChest = ExtResource("16_2qppk")
+
+[node name="Chest5" parent="." unique_id=2003381762 instance=ExtResource("15_sjuom")]
+transform = Transform3D(0.9568845, 0, 0.29046845, 0, 1, 0, -0.29046845, 0, 0.9568845, 100.39301, -143.25964, 30.527748)
 InsideChest = ExtResource("16_2qppk")
 
 [node name="Eel" parent="." unique_id=1200339281 node_paths=PackedStringArray("CurrentRoom", "LabLayer") instance=ExtResource("17_sjuom")]
