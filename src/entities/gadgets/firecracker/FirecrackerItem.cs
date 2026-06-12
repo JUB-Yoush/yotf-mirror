@@ -46,6 +46,17 @@ public partial class FirecrackerItem : Item, IDroppable
             }
             player.HUD.InventoryText[Index].Text = $"[center][b]{Index + 1} x{stock}";
         }
+
+        if (@event.IsActionPressed("drop_item"))
+        {
+            var dropItem = IDroppable.MakeDropItem(this);
+            dropItem.stock = stock;
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
+            player.Inventory.RemoveCurrentItem();
+        }
     }
 
     public void MakeFirecracker()

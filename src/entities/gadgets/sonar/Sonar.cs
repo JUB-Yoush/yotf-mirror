@@ -126,6 +126,8 @@ public partial class Sonar : Item, IDroppable
             var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
             player.Inventory.RemoveCurrentItem();
         }
     }

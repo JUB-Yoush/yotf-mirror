@@ -311,6 +311,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
                 var randomDir = new Vec3(GD.Randf(), 0.5f, GD.Randf()).Normalized();
                 GetTree().CurrentScene.AddChild(dropItem);
                 dropItem.GlobalTransform = GlobalTransform;
+                dropItem.stock = item.stock;
                 if (item is Disposable dispose)
                 {
                     dropItem.restore = dispose.restore;

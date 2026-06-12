@@ -25,6 +25,7 @@ Instructions = PackedStringArray("LMB -> Toggle", "(Works when not current item)
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=469956470]
 unique_name_in_owner = true
+visible = false
 mesh = SubResource("BoxMesh_y1wly")
 
 [node name="SpotLight" type="SpotLight3D" parent="." unique_id=1211699694]
