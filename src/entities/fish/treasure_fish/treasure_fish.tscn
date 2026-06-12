@@ -111,7 +111,7 @@ material = SubResource("StandardMaterial3D_3732h")
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="TreasureFish" type="CharacterBody3D" unique_id=711625347]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_2c250")
 

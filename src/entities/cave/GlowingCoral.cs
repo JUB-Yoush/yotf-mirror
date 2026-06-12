@@ -27,6 +27,13 @@ public partial class GlowingCoral : Node3D, IGiveLight
     {
         LightArea.BodyEntered += OnReceivedObject;
         LightArea.BodyExited += OnRemovedObject;
+
+        // set the effective range to match radius of the light area
+        var collisionShape  = LightArea.GetNode<CollisionShape3D>("CollisionShape3D");
+        if (collisionShape != null && collisionShape.Shape is SphereShape3D sphereShape)
+        {
+            EffectiveRange = sphereShape.Radius * GlobalTransform.Basis.Scale.X; // account for scaling
+        } 
     }
 
     public void OnReceivedObject(Node3D body)
@@ -35,6 +42,7 @@ public partial class GlowingCoral : Node3D, IGiveLight
         {
             trackedSubjects.Add(p);
             p.OnReceivedLight(this);
+            GD.Print($"GlowingCoral added light to {body.Name}");
         }
     }
 
@@ -44,6 +52,7 @@ public partial class GlowingCoral : Node3D, IGiveLight
         {
             trackedSubjects.Remove(p);
             p.OnRemovedLight(this);
+            GD.Print($"GlowingCoral removed light from {body.Name}");
         }
     }
 

@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="12_4ktrp"]
 [ext_resource type="PackedScene" uid="uid://bqob51ra4hd8c" path="res://src/entities/fish/normal_fish/normalfish.tscn" id="12_agt0h"]
 [ext_resource type="PackedScene" uid="uid://ck2o6npojw64v" path="res://src/entities/fish/treasure_fish/treasure_fish.tscn" id="14_cpfrx"]
+[ext_resource type="PackedScene" uid="uid://c1nme1ayurx1j" path="res://assets/3d/set-dressing/seaweed.tscn" id="14_j0u2v"]
+[ext_resource type="PackedScene" uid="uid://cl7xacmxkfj0w" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="15_j0u2v"]
 [ext_resource type="PackedScene" uid="uid://btp1pisa8eq5g" path="res://src/entities/player/player.tscn" id="20_bguta"]
 
 [sub_resource type="Gradient" id="Gradient_7tb86"]
@@ -143,7 +145,7 @@ script = ExtResource("8_208ij")
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -12.295108, 5.721324, 5.232254)
 
 [node name="Axolotl" parent="." unique_id=283741704 instance=ExtResource("11_6igj1")]
-transform = Transform3D(1, 0, 0, 0, 0.97414577, 0.22592029, 0, -0.22592029, 0.97414577, 3.9357166, 4.631382, 3.913662)
+transform = Transform3D(1, 0, 0, 0, 0.97414577, 0.22592029, 0, -0.22592029, 0.97414577, 2.983261, 4.631382, 7.221825)
 
 [node name="Eel" parent="." unique_id=1200339281 instance=ExtResource("7_48c3q")]
 transform = Transform3D(0.8362863, -0.21074475, -0.5061738, 0.18029211, 0.97754115, -0.10912428, 0.5178031, 0, 0.85549986, -1.3360081, 5.294199, 22.16937)
@@ -158,4 +160,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.738399, 6.634343, -2.744680
 transform = Transform3D(0.19976126, 0, -0.9798446, 0, 1, 0, 0.9798446, 0, 0.19976126, -1.4419546, 3.7727528, 14.823618)
 
 [node name="TreasureFish" parent="." unique_id=1694688141 instance=ExtResource("14_cpfrx")]
-transform = Transform3D(0.80152524, 0, -0.59796095, 0, 1, 0, 0.59796095, 0, 0.80152524, 7.2102137, 1.3266668, -0.36659384)
+transform = Transform3D(0.80152524, 0, -0.59796095, 0, 1, 0, 0.59796095, 0, 0.80152524, 4.4111786, 3.7991788, 1.0022874)
+
+[node name="seaweed" parent="." unique_id=1657600218 instance=ExtResource("14_j0u2v")]
+transform = Transform3D(6.37, 0, 0, 0, 6.37, 0, 0, 0, 6.37, 1.2612915, 0, 8.138906)
+
+[node name="PipeCoral" parent="." unique_id=485379429 instance=ExtResource("15_j0u2v")]
+transform = Transform3D(2.56, 0, 0, 0, 2.56, 0, 0, 0, 2.56, 11.213666, 0, -1.6736714)

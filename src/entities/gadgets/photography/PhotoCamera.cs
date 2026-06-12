@@ -390,7 +390,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                 continue;
 
             float dist = subject.GlobalPosition.DistanceSquaredTo(light.LightPosition);
-            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
+
             if (dist < closestDist)
             {
                 closestDist = dist;
@@ -401,11 +401,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         if (closestLight is null)
             return 0f;
 
-        float t = 1f - (closestDist / closestLight.EffectiveRange);
+        float t = 1f - (closestDist / (closestLight.EffectiveRange * closestLight.EffectiveRange));
         float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
         float score = Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
 
-        GD.Print($"Light score of {score}");
         return score;
     }
 
