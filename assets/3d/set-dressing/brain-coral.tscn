@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://ts6vgm681bi8"]
 
-[ext_resource type="Material" uid="uid://bmbis47tdup0r" path="res://assets/3d/set-dressing/coral-set-mat.res" id="1_4ultp"]
-[ext_resource type="Script" uid="uid://wm5yw00nqfqj" path="res://src/entities/cave/GlowingCoral.cs" id="1_cxqpu"]
+[ext_resource type="Material" path="res://assets/3d/set-dressing/coral-set-mat.res" id="1_4ultp"]
+[ext_resource type="Script" path="res://src/entities/cave/GlowingCoral.cs" id="1_cxqpu"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_mg87e"]
 _surfaces = [{

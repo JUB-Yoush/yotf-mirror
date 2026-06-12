@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bfih3ux0pnq82"]
+
+[ext_resource type="Texture2D" uid="uid://bpdhpt082v2ni" path="res://assets/3d/set-dressing/low_poly_rocks_0.jpg" id="1_xjvd7"]
+[ext_resource type="Texture2D" uid="uid://cg80qi2gh80ly" path="res://assets/3d/set-dressing/low_poly_rocks_1.png" id="2_14pqo"]
+[ext_resource type="Texture2D" uid="uid://bsbckqv6003wy" path="res://assets/3d/set-dressing/low_poly_rocks_2.png" id="3_hjrk4"]
+
+[resource]
+resource_name = "DefaultMaterial"
+cull_mode = 2
+albedo_texture = ExtResource("1_xjvd7")
+metallic_texture = ExtResource("2_14pqo")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_14pqo")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_hjrk4")
+ao_enabled = true
+ao_texture = ExtResource("2_14pqo")
