@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccxxe666rfa66"
-path.s3tc="res://.godot/imported/ocean_floor_sand.png-237360aa29fcc4b7c536965b5be99185.s3tc.ctex"
+uid="uid://pqnisrr4lgx8"
+path.s3tc="res://.godot/imported/seaweed-tex.jpg-d5cbc645916b56dd425b16fe7f44fd0b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "92a30877b6333ae6a1a5592d9b7d099e"
+}
 
 [deps]
 
-source_file="res://trenchbroom/textures/ocean_floor_sand.png"
-dest_files=["res://.godot/imported/ocean_floor_sand.png-237360aa29fcc4b7c536965b5be99185.s3tc.ctex"]
+source_file="res://assets/3d/set-dressing/seaweed-tex.jpg"
+dest_files=["res://.godot/imported/seaweed-tex.jpg-d5cbc645916b56dd425b16fe7f44fd0b.s3tc.ctex"]
 
 [params]
 

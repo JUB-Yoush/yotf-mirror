@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccxxe666rfa66"
-path.s3tc="res://.godot/imported/ocean_floor_sand.png-237360aa29fcc4b7c536965b5be99185.s3tc.ctex"
+uid="uid://bpdhpt082v2ni"
+path.s3tc="res://.godot/imported/low_poly_rocks_0.jpg-f86da06eed9d8cc055529ae406e77b03.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "3291484ba9dcf80d46b9ac07e65b93e2"
+}
 
 [deps]
 
-source_file="res://trenchbroom/textures/ocean_floor_sand.png"
-dest_files=["res://.godot/imported/ocean_floor_sand.png-237360aa29fcc4b7c536965b5be99185.s3tc.ctex"]
+source_file="res://assets/3d/set-dressing/low_poly_rocks_0.jpg"
+dest_files=["res://.godot/imported/low_poly_rocks_0.jpg-f86da06eed9d8cc055529ae406e77b03.s3tc.ctex"]
 
 [params]
 

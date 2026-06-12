@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://c1nme1ayurx1j"]
 
-[ext_resource type="Texture2D" uid="uid://pqnisrr4lgx8" path="res://assets/3d/set-dressing/seaweed_lambert3_baseColor.jpg" id="1_ue50n"]
+[ext_resource type="Texture2D" uid="uid://pqnisrr4lgx8" path="res://assets/3d/set-dressing/seaweed-tex.jpg" id="1_ue50n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cemu"]
 resource_name = "lambert3"

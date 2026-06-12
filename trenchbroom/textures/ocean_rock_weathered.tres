@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dakvgnk0tu6wt"]
+
+[ext_resource type="Texture2D" uid="uid://b6xkhg7hfang4" path="res://trenchbroom/textures/ocean_rock_weathered.png" id="1_c3i4a"]
+
+[resource]
+albedo_texture = ExtResource("1_c3i4a")
