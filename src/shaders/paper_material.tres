@@ -4,5 +4,5 @@
 
 [resource]
 shader = ExtResource("1_w7vsa")
-shader_parameter/radius = 5
+shader_parameter/radius = 4
 shader_parameter/offset = Vector3(0, 0, 0)
