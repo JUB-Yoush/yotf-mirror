@@ -33,7 +33,10 @@ spot_angle = 50.0
 unique_name_in_owner = true
 mesh = ExtResource("3_jvh7c")
 
-[node name="Control" type="Control" parent="." unique_id=1657750311]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=458996196]
+layer = 5
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1657750311]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="FlashRect" type="ColorRect" parent="Control" unique_id=1979790315]
+[node name="FlashRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1979790315]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -52,7 +55,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PhotoLetterBox" type="TextureRect" parent="Control" unique_id=447880600]
+[node name="PhotoLetterBox" type="TextureRect" parent="CanvasLayer/Control" unique_id=447880600]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -62,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_r51j2")
 
-[node name="FilmLabel" type="Label" parent="Control/PhotoLetterBox" unique_id=1859295132]
+[node name="FilmLabel" type="Label" parent="CanvasLayer/Control/PhotoLetterBox" unique_id=1859295132]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 118.0
@@ -72,7 +75,7 @@ offset_bottom = 1062.0
 theme_override_font_sizes/font_size = 48
 text = "100/100"
 
-[node name="ZoomLabel" type="Label" parent="Control/PhotoLetterBox" unique_id=320871416]
+[node name="ZoomLabel" type="Label" parent="CanvasLayer/Control/PhotoLetterBox" unique_id=320871416]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 118.0
