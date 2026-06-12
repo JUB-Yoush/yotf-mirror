@@ -23,4 +23,5 @@ public static class Sfx
     public const string UIIncrease = "ui_increase.mp3";
     public const string UIDecrease = "ui_decrease.mp3";
     public const string Sparkle = "sparkle.ogg";
+    public const string Hit = "thud.ogg";
 }
