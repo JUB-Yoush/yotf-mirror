@@ -226,6 +226,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
 #if DEBUG
     public override void _Process(double delta)
     {
+        DebugDraw2D.SetText("Water Volume Count", WaterVolumeCount.ToString());
         if (Input.IsActionJustPressed("noclip_on"))
             SetState(NoClipState);
         if (Input.IsActionJustPressed("noclip_off"))

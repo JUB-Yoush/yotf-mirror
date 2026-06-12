@@ -41,7 +41,6 @@ public partial class WaterVolume : CsgBox3D
 
     private void OnBodyExited(Node3D body)
     {
-        GD.Print($"Body exited water: {body.Name}");
         if (Engine.IsEditorHint())
             return;
         if (body is Player player && !player.InNegationArea)
@@ -55,7 +54,6 @@ public partial class WaterVolume : CsgBox3D
 
     private void OnBodyEntered(Node3D body)
     {
-        GD.Print($"Body entered water: {body.Name}");
         if (Engine.IsEditorHint())
             return;
         if (body is Player player && !player.InNegationArea)
