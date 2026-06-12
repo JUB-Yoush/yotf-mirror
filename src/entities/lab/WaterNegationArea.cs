@@ -20,6 +20,7 @@ public partial class WaterNegationArea : Area3D
         var player = (Player)body;
         player.InNegationArea = false;
         player.SetState(player.SwimmingState);
+        player.WaterVolumeCount += 1;
     }
 
     private void OnBodyEntered(Node3D body)
@@ -27,6 +28,7 @@ public partial class WaterNegationArea : Area3D
         var player = (Player)body;
         player.InNegationArea = true;
         player.SetState(player.WalkingState);
+        player.WaterVolumeCount -= 1;
     }
 
     public override void _ExitTree()

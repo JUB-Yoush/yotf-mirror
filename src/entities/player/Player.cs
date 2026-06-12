@@ -46,7 +46,8 @@ public partial class Player : CharacterBody3D, ITakeDamage
 
     bool renderingAlert = false;
 
-    public bool InNegationArea = true;
+    public bool InNegationArea = false;
+    public int WaterVolumeCount = 0; // for handling overlapping water volumes
 
     [Export]
     Lab? StartLab = null;
@@ -229,6 +230,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
 #if DEBUG
     public override void _Process(double delta)
     {
+        DebugDraw2D.SetText("Water Volume Count", WaterVolumeCount.ToString());
         if (Input.IsActionJustPressed("noclip_on"))
             SetState(NoClipState);
         if (Input.IsActionJustPressed("noclip_off"))

@@ -191,6 +191,9 @@ public partial class PlayerStats : Node
 
     public void SpendOxygen(double delta)
     {
+        if (Lab.CurrentLab is null)
+            return;
+            
         OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
