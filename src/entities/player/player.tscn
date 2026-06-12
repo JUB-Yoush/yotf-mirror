@@ -101,6 +101,10 @@ replication_config = SubResource("SceneReplicationConfig_6fkid")
 unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
+[node name="MenuCanvas" type="CanvasLayer" parent="." unique_id=932769097]
+unique_name_in_owner = true
+layer = 256
+
 [node name="UnderwaterShader" type="CanvasLayer" parent="." unique_id=154761363]
 layer = 2
 
@@ -129,6 +133,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="HUDLayer/SubViewportContainer" unique_id=2112670532]
+unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
@@ -171,7 +176,6 @@ metadata/_edit_lock_ = true
 [node name="PaperLayer" type="CanvasLayer" parent="." unique_id=2137586156]
 
 [node name="Kuwahara" type="ColorRect" parent="PaperLayer" unique_id=1135834312]
-visible = false
 material = ExtResource("8_3c4mh")
 anchors_preset = 15
 anchor_right = 1.0
