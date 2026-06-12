@@ -245,7 +245,12 @@ public partial class Fish : CharacterBody3D, IPhotographable, IOnMiniMap, ISonar
         }
 
         Lab.CurrentLabUpdated += OnLabUpdated;
-        navGraph = this.SceneRoot().GetNode<NavGraph>($"NavGraph{LabLayer.Index}")!;
+        
+        navGraph = this.SceneRoot().GetNode<NavGraph>($"NavGraph{LabLayer.Index}");
+        if (navGraph == null)
+        {
+            GD.PrintErr($"Navgraph for layer {LabLayer.Index} is null. Make sure it is named correctly and exists in the scene.");
+        }
         // Debug.Assert(
         //     navGraph != null,
         //     "Navgraph is null, fish probably init'ed first or there is no nav graph"

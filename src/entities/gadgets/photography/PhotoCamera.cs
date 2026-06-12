@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -320,9 +321,9 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
         if (photographable.SubjectBoundingMesh is not VisualInstance3D vis)
             return 0f;
 
-        // use subject.GlobalPosition as center and vis.Scale to avoid pivot point screwery
-        var halfExtents = vis.GetAabb().Size * vis.Scale / 2f;
-        var rotation = vis.GlobalTransform.Basis.Orthonormalized();
+        // use subject.GlobalPosition as center and AABB size to avoid pivot point screwery
+        var halfExtents = vis.GetAabb().Size * vis.GlobalTransform.Basis.Scale / 2f;
+        var rotation = subject.GlobalTransform.Basis.Orthonormalized();
 
         float minX = float.MaxValue,
             minY = float.MaxValue;
@@ -356,9 +357,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             1f
         );
 
-        GD.Print(
-            $"Size score for {subject.Name}: {score} (extent: {screenExtent}, viewport: {viewportSize})"
-        );
         return score;
     }
 
@@ -385,7 +383,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
             if (!lightRay.IsColliding())
                 continue;
 
-            GD.Print($"Light ray is colliding with {lightRay.GetCollider()}");
             if (
                 lightRay.GetCollider() is not Node collider
                 || (collider != subject && !subject.IsAncestorOf(collider))
@@ -503,53 +500,6 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
     public void ClearPhotos()
     {
         Photos = [];
-    }
-
-    private float OtherCalcLightScore(Node3D subject)
-    {
-        var photographable = subject as IPhotographable;
-        GD.Print($"Found {photographable!.NearbyLights.Count} nearby lights for {subject.Name}");
-        var nearbyLights = photographable.NearbyLights.Where(l => l.IsActive).ToList();
-        if (nearbyLights.Count == 0)
-            return 0f;
-
-        var spaceState = subject.GetWorld3D().DirectSpaceState;
-        var excludeRids = new Godot.Collections.Array<Rid>();
-        if (subject is CollisionObject3D col)
-            excludeRids.Add(col.GetRid());
-
-        float closestDist = float.MaxValue;
-        IGiveLight? closestLight = null;
-
-        foreach (var light in nearbyLights)
-        {
-            var query = PhysicsRayQueryParameters3D.Create(
-                subject.GlobalPosition,
-                light.LightPosition
-            );
-            query.Exclude = excludeRids;
-            if (light is CollisionObject3D lightCol)
-                query.Exclude.Add(lightCol.GetRid());
-
-            var hit = spaceState.IntersectRay(query);
-            if (hit.Count > 0)
-                continue;
-
-            float dist = subject.GlobalPosition.DistanceTo(light.LightPosition);
-            GD.Print($"Light at {light.LightPosition} is {dist} units from {subject.Name}");
-            if (dist < closestDist)
-            {
-                closestDist = dist;
-                closestLight = light;
-            }
-        }
-
-        if (closestLight is null)
-            return 0f;
-
-        float t = 1f - (closestDist / closestLight.EffectiveRange);
-        float distanceFactor = Mathf.Pow(Mathf.Clamp(t, 0f, 1f), LightFalloffExponent);
-        return Mathf.Clamp(closestLight.LightEnergy * distanceFactor, 0f, 1f);
     }
 
     bool WithinFov(Node3D subject, bool clamped = true)

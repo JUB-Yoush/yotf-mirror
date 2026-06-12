@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cqitgora4gc22"]
+[gd_scene format=4 uid="uid://btfuhnflg1f2m"]
 
 [ext_resource type="Material" uid="uid://dlgqa5wtmbhh5" path="res://assets/materials/water_volume_nosurface.tres" id="2_5q5bh"]
 [ext_resource type="PackedScene" uid="uid://dr0civo2wgpok" path="res://src/entities/cave/nav_node.tscn" id="3_7t1ah"]
@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://bd5qd2orbtbji" path="res://src/entities/fish/axolotl/axolotl.tscn" id="10_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://bs1o030vlhxl8" path="res://src/entities/fish/anglerfish/anglerfish.tscn" id="10_rnp1b"]
 [ext_resource type="Material" uid="uid://fgrxuxo58wnl" path="res://trenchbroom/textures/texture_08.tres" id="10_sjuom"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_fresh.tres" id="10_yy7uy"]
+[ext_resource type="Material" uid="uid://kuox2k1ngjov" path="res://trenchbroom/textures/ocean_rock_fresh.tres" id="10_yy7uy"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="11_sjuom"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_rolling.tres" id="11_tutrh"]
-[ext_resource type="Material" path="res://trenchbroom/textures/ocean_rock_weathered.tres" id="12_5q5bh"]
+[ext_resource type="Material" uid="uid://us60hxcodwoq" path="res://trenchbroom/textures/ocean_rock_rolling.tres" id="11_tutrh"]
+[ext_resource type="Material" uid="uid://dakvgnk0tu6wt" path="res://trenchbroom/textures/ocean_rock_weathered.tres" id="12_5q5bh"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="12_ihph0"]
 [ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="15_3n2k3"]
 [ext_resource type="PackedScene" uid="uid://b7b1jt133sx6u" path="res://src/entities/cave/chest.tscn" id="15_sjuom"]
@@ -31,12 +31,12 @@
 [ext_resource type="PackedScene" uid="uid://c1nme1ayurx1j" path="res://assets/3d/set-dressing/seaweed.tscn" id="28_st4oq"]
 [ext_resource type="PackedScene" uid="uid://thnybq8cvekt" path="res://assets/3d/set-dressing/rocks.tscn" id="29_hv5ms"]
 [ext_resource type="PackedScene" uid="uid://bn05yd7npdiqe" path="res://assets/3d/set-dressing/hole-coral.tscn" id="30_sy8ik"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_1oemj"]
+[ext_resource type="PackedScene" uid="uid://r2sc5x3a2r62" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_1oemj"]
 [ext_resource type="PackedScene" uid="uid://drm12qa35nmna" path="res://assets/3d/set-dressing/abalone-coral.tscn" id="32_m17fd"]
 [ext_resource type="PackedScene" uid="uid://8uh1trcp48ry" path="res://assets/3d/set-dressing/triple-ribbon-coral.tscn" id="33_xgsp8"]
 [ext_resource type="PackedScene" uid="uid://cl7xacmxkfj0w" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="34_c1vwc"]
 [ext_resource type="PackedScene" uid="uid://ts6vgm681bi8" path="res://assets/3d/set-dressing/brain-coral.tscn" id="35_r25ae"]
-[ext_resource type="PackedScene" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_eka47"]
+[ext_resource type="PackedScene" uid="uid://o47f5nibvcoy" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_eka47"]
 [ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="37_xfvkn"]
 [ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="38_tutrh"]
 
@@ -2170,9 +2170,8 @@ OxygenScale = 0.0
 requiredGalleryScore = 10
 FinalLab = true
 
-[node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("StartLab") instance=ExtResource("6_c5kmb")]
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]
 transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -24.895155, 14.442931, -11.478544)
-StartLab = NodePath("../Lab0")
 
 [node name="RoomMarkers0" type="Node3D" parent="." unique_id=1264782986]
 
@@ -3854,16 +3853,16 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 2.1162772, 8.197956, 19
 [node name="BulbousCoral26" parent="SetDressing" unique_id=558459309 instance=ExtResource("22_h2vdo")]
 transform = Transform3D(-3.4969112e-08, -0.8, 0, 0.6686076, -2.9225767e-08, 0.4392766, -0.4392766, 1.920139e-08, 0.6686076, 14.697337, 7.843744, 26.255606)
 
-[node name="Rocks" parent="SetDressing" unique_id=944440714 instance=ExtResource("25_eekwi")]
+[node name="Rocks" parent="SetDressing" unique_id=862175801 instance=ExtResource("25_eekwi")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 28.122387, 5.8936834, 26.163229)
 
-[node name="Rocks2" parent="SetDressing" unique_id=778895180 instance=ExtResource("25_eekwi")]
+[node name="Rocks2" parent="SetDressing" unique_id=1454666321 instance=ExtResource("25_eekwi")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 35.04161, 6.8000546, 26.638044)
 
-[node name="Rocks3" parent="SetDressing" unique_id=242814648 instance=ExtResource("25_eekwi")]
+[node name="Rocks3" parent="SetDressing" unique_id=685535548 instance=ExtResource("25_eekwi")]
 transform = Transform3D(1.9901665, -0.19808376, 0, 0.19808376, 1.9901665, 0, 0, 0, 2, 35.04161, 6.631158, 36.159184)
 
-[node name="Rocks4" parent="SetDressing" unique_id=404501267 instance=ExtResource("25_eekwi")]
+[node name="Rocks4" parent="SetDressing" unique_id=2095002256 instance=ExtResource("25_eekwi")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 27.802507, 5.898718, 36.159184)
 
 [node name="BulbousCoral27" parent="SetDressing" unique_id=541453165 instance=ExtResource("22_h2vdo")]
