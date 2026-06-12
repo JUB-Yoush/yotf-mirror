@@ -93,6 +93,8 @@ height = 6.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbgle"]
 transparency = 1
 albedo_color = Color(1, 0.9843137, 0.5568628, 0.35686275)
+emission_enabled = true
+emission = Color(0.55006844, 0.5012494, 0.23975468, 1)
 
 [sub_resource type="Animation" id="Animation_xbgle"]
 length = 0.001
