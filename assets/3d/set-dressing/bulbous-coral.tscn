@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bt8heuqrwlqu8"]
 
+[ext_resource type="Script" uid="uid://wm5yw00nqfqj" path="res://src/entities/cave/GlowingCoral.cs" id="1_d4pg4"]
 [ext_resource type="Material" uid="uid://bmbis47tdup0r" path="res://assets/3d/set-dressing/coral-set-mat.res" id="1_o0to1"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_njfya"]
@@ -36,9 +37,27 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_njfya")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_d4pg4"]
+radius = 3.0
+
 [node name="BulbousCoral" type="Node3D" unique_id=382129631]
+script = ExtResource("1_d4pg4")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=361077726]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65907645, 0)
 mesh = SubResource("ArrayMesh_cxqpu")
 skeleton = NodePath("")
+
+[node name="LightArea" type="Area3D" parent="." unique_id=1516015444]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 118
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightArea" unique_id=1340894913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56551147, 0)
+shape = SubResource("SphereShape3D_d4pg4")
+debug_color = Color(0.696279, 0.492723, 0.12169144, 0.41960785)
+
+[node name="LightRay" type="RayCast3D" parent="." unique_id=2032603088]
+unique_name_in_owner = true
+collision_mask = 1143

@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://c1nme1ayurx1j"]
 
+[ext_resource type="Script" uid="uid://wm5yw00nqfqj" path="res://src/entities/cave/GlowingCoral.cs" id="1_i1i7b"]
 [ext_resource type="Texture2D" uid="uid://pqnisrr4lgx8" path="res://assets/3d/set-dressing/seaweed-tex.jpg" id="1_ue50n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cemu"]
@@ -45,9 +46,28 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qnqb1")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_i1i7b"]
+radius = 1.0
+
 [node name="seaweed" type="Node3D" unique_id=1657600218]
+script = ExtResource("1_i1i7b")
 
 [node name="Cylinder" type="MeshInstance3D" parent="." unique_id=160321420]
 transform = Transform3D(1.1699828, 0, 0, 0, 1.1699828, 0, 0, 0, 1.1699828, 0, 0, 0)
 mesh = SubResource("ArrayMesh_txsa1")
 skeleton = NodePath("")
+
+[node name="LightArea" type="Area3D" parent="." unique_id=1246756556]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9124124, 0)
+collision_layer = 0
+collision_mask = 118
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightArea" unique_id=35453221]
+shape = SubResource("SphereShape3D_i1i7b")
+debug_color = Color(0.696279, 0.492723, 0.12169144, 0.41960785)
+
+[node name="LightRay" type="RayCast3D" parent="." unique_id=470351227]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9124124, 0)
+collision_mask = 1143

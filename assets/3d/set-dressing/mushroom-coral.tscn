@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://r2sc5x3a2r62"]
 
+[ext_resource type="Script" uid="uid://wm5yw00nqfqj" path="res://src/entities/cave/GlowingCoral.cs" id="1_q4xyx"]
 [ext_resource type="Material" uid="uid://dyrpjcai87jpf" path="res://assets/3d/set-dressing/coral-mushroom-mat.tres" id="1_y2ht1"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_beakr"]
@@ -36,9 +37,28 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_beakr")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_nmkpc"]
+radius = 7.0
+
 [node name="MushroomCoral" type="Node3D" unique_id=1989153044]
+script = ExtResource("1_q4xyx")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=789968182]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1770782, 0)
 mesh = SubResource("ArrayMesh_uqnv0")
 skeleton = NodePath("")
+
+[node name="LightArea" type="Area3D" parent="." unique_id=1753253284]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9768376, 0)
+collision_layer = 0
+collision_mask = 118
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightArea" unique_id=1483253955]
+shape = SubResource("SphereShape3D_nmkpc")
+debug_color = Color(0.696279, 0.492723, 0.12169144, 0.41960785)
+
+[node name="LightRay" type="RayCast3D" parent="." unique_id=2021050859]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9768376, 0)
+collision_mask = 1143

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b0vi43eiqnnvh" path="res://trenchbroom/textures/ocean_algae.png" id="1_qg5ar"]
 [ext_resource type="Texture2D" uid="uid://cg80qi2gh80ly" path="res://assets/3d/set-dressing/low_poly_rocks_1.png" id="2_tjoi1"]
 [ext_resource type="Texture2D" uid="uid://bsbckqv6003wy" path="res://assets/3d/set-dressing/low_poly_rocks_2.png" id="3_jr47k"]
-[ext_resource type="Material" uid="uid://bfih3ux0pnq82" path="res://assets/3d/set-dressing/DefaultMaterial.tres" id="4_hwfu5"]
+[ext_resource type="Material" uid="uid://bfih3ux0pnq82" path="res://assets/3d/set-dressing/algae-mat.tres" id="4_hwfu5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m8uij"]
 resource_name = "DefaultMaterial"

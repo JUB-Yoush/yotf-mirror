@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cl7xacmxkfj0w"]
 
 [ext_resource type="Material" uid="uid://bmbis47tdup0r" path="res://assets/3d/set-dressing/coral-set-mat.res" id="1_pn3iu"]
+[ext_resource type="Script" uid="uid://wm5yw00nqfqj" path="res://src/entities/cave/GlowingCoral.cs" id="1_tb1xd"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_g60y3"]
 _surfaces = [{
@@ -36,9 +37,28 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_g60y3")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_0mlle"]
+radius = 5.0
+
 [node name="PipeCoral" type="Node3D" unique_id=485379429]
+script = ExtResource("1_tb1xd")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=697315340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8220873, 0)
 mesh = SubResource("ArrayMesh_bqnsy")
 skeleton = NodePath("")
+
+[node name="LightArea" type="Area3D" parent="." unique_id=1725033729]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05694, 0)
+collision_layer = 0
+collision_mask = 118
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightArea" unique_id=2033282376]
+shape = SubResource("SphereShape3D_0mlle")
+debug_color = Color(0.696279, 0.492723, 0.12169144, 0.41960785)
+
+[node name="LightRay" type="RayCast3D" parent="." unique_id=224586605]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05694, 0)
+collision_mask = 1143

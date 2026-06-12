@@ -42,7 +42,7 @@ _subresources={
 "DefaultMaterial": {
 "use_external/enabled": true,
 "use_external/fallback_path": "res://assets/3d/set-dressing/DefaultMaterial.tres",
-"use_external/path": "uid://bfih3ux0pnq82"
+"use_external/path": "uid://03sssour3nyt"
 }
 }
 }

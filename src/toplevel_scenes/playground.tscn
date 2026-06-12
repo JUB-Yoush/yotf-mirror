@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chj7s770vcrql"]
 
 [ext_resource type="Shader" uid="uid://b018fnymj5vvr" path="res://assets/3d/environment/sky_with_stars.tres" id="1_kksva"]
+[ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="1_w1g40"]
 [ext_resource type="Terrain3DAssets" uid="uid://b2o2hlpw7px8q" path="res://terrain/terrain-assets.tres" id="3_l4exj"]
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="4_6igj1"]
 [ext_resource type="PackedScene" uid="uid://cm7pb6e0mhc6y" path="res://src/entities/fish/eel/eel.tscn" id="7_48c3q"]
@@ -109,6 +110,14 @@ show_checkered = true
 
 [node name="Main" type="Node3D" unique_id=1686587910]
 
+[node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("1_w1g40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6525879, 1.6483765, 1.8146973)
+size = Vector3(4.305176, 4.296753, 4.6293945)
+
+[node name="WaterVolume2" parent="." unique_id=1895679830 instance=ExtResource("1_w1g40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8677597, 1.6483765, 1.8146973)
+size = Vector3(4.305176, 4.296753, 4.6293945)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1118643712]
 environment = SubResource("Environment_deq46")
 camera_attributes = SubResource("CameraAttributesPractical_dikcb")
@@ -127,7 +136,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(0.057198122, 0, -0.99836284, 0, 1, 0, 0.99836284, 0, 0.057198122, -36.44892, 0.6142664, -2.7909164)
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("20_bguta")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.557983, 0.4491644, -1.603364)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.700947, 0.4491644, -1.603364)
 
 [node name="Node3D" type="Node3D" parent="." unique_id=3621970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.496178, 0, -2.0725079)

@@ -31,10 +31,15 @@
 [ext_resource type="PackedScene" uid="uid://thnybq8cvekt" path="res://assets/3d/set-dressing/rocks.tscn" id="29_4ay73"]
 [ext_resource type="PackedScene" uid="uid://bn05yd7npdiqe" path="res://assets/3d/set-dressing/hole-coral.tscn" id="30_0bjpx"]
 [ext_resource type="PackedScene" uid="uid://r2sc5x3a2r62" path="res://assets/3d/set-dressing/mushroom-coral.tscn" id="31_fc3oa"]
+[ext_resource type="PackedScene" uid="uid://drm12qa35nmna" path="res://assets/3d/set-dressing/abalone-coral.tscn" id="32_1vhg3"]
+[ext_resource type="PackedScene" uid="uid://8uh1trcp48ry" path="res://assets/3d/set-dressing/triple-ribbon-coral.tscn" id="33_nosw1"]
+[ext_resource type="PackedScene" uid="uid://cl7xacmxkfj0w" path="res://assets/3d/set-dressing/pipe-coral.tscn" id="34_42uku"]
+[ext_resource type="PackedScene" uid="uid://ts6vgm681bi8" path="res://assets/3d/set-dressing/brain-coral.tscn" id="35_pvpwx"]
+[ext_resource type="PackedScene" uid="uid://o47f5nibvcoy" path="res://assets/3d/set-dressing/mushroom-cap-coral.tscn" id="36_tui8w"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_fc3oa"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_tui8w"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_1vhg3"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_gyy5e"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_7yoh0"]
 lightmap_size_hint = Vector2i(3706, 3722)
@@ -1231,7 +1236,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph" unique_id=204889]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_fc3oa")
+mesh = SubResource("ImmediateMesh_tui8w")
 
 [node name="NavNode" parent="NavGraph" unique_id=614728555 node_paths=PackedStringArray("neighbors", "Room") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.980457, 8.570632, 1.3257811)
@@ -1553,7 +1558,7 @@ script = ExtResource("4_8hels")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=221061643]
 material_override = ExtResource("5_2qppk")
-mesh = SubResource("ImmediateMesh_1vhg3")
+mesh = SubResource("ImmediateMesh_gyy5e")
 
 [node name="NavNode" parent="NavGraph1" unique_id=320697809 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_7t1ah")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
@@ -2947,340 +2952,462 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.67011, 4, -8.260919)
 CurrentRoom = NodePath("../Home4")
 LabLayer = NodePath("../Lab")
 
-[node name="BulbousCoral" parent="." unique_id=382129631 instance=ExtResource("21_7yoh0")]
+[node name="SetDressing" type="Node3D" parent="." unique_id=2132186712]
+
+[node name="BulbousCoral" parent="SetDressing" unique_id=382129631 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(-0.055180266, 0.29488158, 0, -0.29488158, -0.055180266, 0, 0, 0, 0.3, -1.5997381, 11.4782295, -4.537175)
 
-[node name="BulbousCoral2" parent="." unique_id=1097836730 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral2" parent="SetDressing" unique_id=1097836730 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(-0.11036046, 0.58976316, -2.1295573e-08, 0.13862796, 0.025941022, 0.58318895, 0.5732389, 0.107268326, -0.14103422, -1.5997381, 11.023651, -6.4993563)
 
-[node name="BulbousCoral4" parent="." unique_id=1322741518 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral4" parent="SetDressing" unique_id=1322741518 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.119478166, -0.020452792, 0.33897877, -0.33870295, 0.018855397, 0.12051862, -0.02460146, -0.3589236, -0.012985026, 5.2728596, 8.685673, -1.5191927)
 
-[node name="BulbousCoral3" parent="." unique_id=1933978051 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral3" parent="SetDressing" unique_id=1933978051 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.12213928, -0.5851877, 0.05135554, -0.12837106, -0.07777469, -0.58092326, 0.5732389, 0.10726833, -0.14103422, 12.093155, 6.3031006, -7.617538)
 
-[node name="BulbousCoral5" parent="." unique_id=1785573911 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral5" parent="SetDressing" unique_id=1785573911 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.4313402, -0.07733639, -0.40983486, -0.41628474, -0.043721482, -0.4298782, 0.025544414, 0.59338653, -0.08508801, 10.650383, 7.593091, -12.658422)
 
-[node name="BulbousCoral6" parent="." unique_id=197002838 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral6" parent="SetDressing" unique_id=197002838 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 30.527557, 6.877087, -25.480795)
 
-[node name="BulbousCoral7" parent="." unique_id=122114022 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral7" parent="SetDressing" unique_id=122114022 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.015726935, 0, 0.29958752, 0, 0.3, 0, -0.29958752, 0, 0.015726935, 31.738409, 6.877087, -25.065496)
 
-[node name="BulbousCoral10" parent="." unique_id=1822737843 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral10" parent="SetDressing" unique_id=1822737843 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 17.263262, 6.877087, -26.19594)
 
-[node name="BulbousCoral11" parent="." unique_id=875722406 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral11" parent="SetDressing" unique_id=875722406 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.015726935, 0, 0.29958752, 0, 0.3, 0, -0.29958752, 0, 0.015726935, 18.474113, 6.877087, -25.780642)
 
-[node name="BulbousCoral8" parent="." unique_id=1817240717 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral8" parent="SetDressing" unique_id=1817240717 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 49.080944, 2.6669993, -14.095283)
 
-[node name="BulbousCoral9" parent="." unique_id=1203824819 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral9" parent="SetDressing" unique_id=1203824819 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.4935426, 0, 0.34119737, 0, 0.59999996, 0, -0.34119737, 0, 0.4935426, 46.372498, 2.6669993, -12.829979)
 
-[node name="BranchCoral" parent="." unique_id=1749260994 instance=ExtResource("22_ov83m")]
+[node name="BranchCoral" parent="SetDressing" unique_id=1749260994 instance=ExtResource("22_ov83m")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 40.536835, 3.7503412, -5.668347)
 
-[node name="BulbousCoral12" parent="." unique_id=1608525674 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral12" parent="SetDressing" unique_id=1608525674 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.42208913, 0.26803127, 0, -0.26803127, 0.42208913, 0, 0, 0, 0.5, -21.384298, 6.8561025, -2.0445924)
 
-[node name="BulbousCoral15" parent="." unique_id=260631125 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral15" parent="SetDressing" unique_id=260631125 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.49820304, -0.04235196, 0, 0.04235196, 0.49820304, 0, 0, 0, 0.5, -16.675297, 10.2061825, -12.186073)
 
-[node name="BulbousCoral16" parent="." unique_id=157902444 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral16" parent="SetDressing" unique_id=157902444 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.69758266, 0.058124024, 0, -0.058124024, 0.69758266, 0, 0, 0, 0.7, -15.64955, 8.904638, -12.186073)
 
-[node name="BulbousCoral13" parent="." unique_id=797830279 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral13" parent="SetDressing" unique_id=797830279 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -10.525189, 20.89272, -5.577006)
 
-[node name="BulbousCoral14" parent="." unique_id=1440973948 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral14" parent="SetDressing" unique_id=1440973948 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -10.59094, 14.451857, -6.811876)
 
-[node name="BulbousCoral17" parent="." unique_id=15070773 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral17" parent="SetDressing" unique_id=15070773 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.8, 0, 0, 0, 0.017996285, -0.79979753, 0, 0.79979753, 0.017996285, 9.286829, 8.056726, -28.354008)
 
-[node name="BranchCoral2" parent="." unique_id=1631024293 instance=ExtResource("22_ov83m")]
+[node name="BranchCoral2" parent="SetDressing" unique_id=1631024293 instance=ExtResource("22_ov83m")]
 transform = Transform3D(0.6478734, -0.26495966, -0.007513483, 0.26497492, 0.6479107, 2.7565714e-09, 0.0069543794, -0.0028441234, 0.6999597, 40.502037, 1.8568008, 12.469936)
 
-[node name="BulbousCoral18" parent="." unique_id=319591685 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral18" parent="SetDressing" unique_id=319591685 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 24.212332, 6.209507, 6.1003447)
 
-[node name="BulbousCoral19" parent="." unique_id=1071262761 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral19" parent="SetDressing" unique_id=1071262761 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 22.646145, 8.231157, 8.368065)
 
-[node name="BulbousCoral20" parent="." unique_id=1373697584 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral20" parent="SetDressing" unique_id=1373697584 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 45.8009, 6.19164, 4.120034)
 
-[node name="BulbousCoral21" parent="." unique_id=465188927 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral21" parent="SetDressing" unique_id=465188927 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.8, 0, 0, 0, 0.69873923, 0.38956842, 0, -0.38956842, 0.69873923, 44.070786, 7.9679546, 4.2522883)
 
-[node name="ChubbyCoral" parent="." unique_id=404694658 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral" parent="SetDressing" unique_id=404694658 instance=ExtResource("23_xqily")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34209645, 5.630669, -9.203088)
 
-[node name="ChubbyCoral2" parent="." unique_id=1903738857 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral2" parent="SetDressing" unique_id=1903738857 instance=ExtResource("23_xqily")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.983166, 6.4707155, 1.5645976)
 
-[node name="ChubbyCoral3" parent="." unique_id=80263212 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral3" parent="SetDressing" unique_id=80263212 instance=ExtResource("23_xqily")]
 transform = Transform3D(1.01224, -0.43054637, 0, 0.43054637, 1.01224, 0, 0, 0, 1.1, -8.663949, 8.236588, 0.9396682)
 
-[node name="BranchCoral3" parent="." unique_id=827213500 instance=ExtResource("22_ov83m")]
+[node name="BranchCoral3" parent="SetDressing" unique_id=827213500 instance=ExtResource("22_ov83m")]
 transform = Transform3D(0.5207324, 0, -0.46780095, 0, 0.7, 0, 0.46780095, 0, 0.5207324, -20.549921, 2.6873276, 18.836565)
 
-[node name="ChubbyCoral4" parent="." unique_id=304236429 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral4" parent="SetDressing" unique_id=304236429 instance=ExtResource("23_xqily")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 8.7135315, 11.439605, 34.538227)
 
-[node name="ChubbyCoral5" parent="." unique_id=915325830 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral5" parent="SetDressing" unique_id=915325830 instance=ExtResource("23_xqily")]
 transform = Transform3D(1, 0, 0, 0, 0.20001777, -0.97979224, 0, 0.97979224, 0.20001777, -5.395933, 7.005077, 8.37256)
 
-[node name="BulbousCoral22" parent="." unique_id=750036690 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral22" parent="SetDressing" unique_id=750036690 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 2.193356, 6.4210486, 19.327042)
 
-[node name="BulbousCoral24" parent="." unique_id=1334192142 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral24" parent="SetDressing" unique_id=1334192142 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.69856447, 0.04480685, 0, -0.04480685, 0.69856447, 0, 0, 0, 0.7, 2.3853245, 10.296858, 19.327042)
 
-[node name="BulbousCoral25" parent="." unique_id=618939969 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral25" parent="SetDressing" unique_id=618939969 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.69856447, 0.04480685, 0, -0.04480685, 0.69856447, 0, 0, 0, 0.7, 2.2154212, 3.8495603, 19.327042)
 
-[node name="BulbousCoral23" parent="." unique_id=1899012075 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral23" parent="SetDressing" unique_id=1899012075 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 2.1162772, 8.197956, 19.327042)
 
-[node name="BulbousCoral26" parent="." unique_id=1432265101 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral26" parent="SetDressing" unique_id=1432265101 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(-3.4969112e-08, -0.8, 0, 0.6686076, -2.9225767e-08, 0.4392766, -0.4392766, 1.920139e-08, 0.6686076, 14.697337, 7.843744, 26.255606)
 
-[node name="Rocks" parent="." unique_id=727363311 instance=ExtResource("24_dynrg")]
+[node name="Rocks" parent="SetDressing" unique_id=1832939589 instance=ExtResource("24_dynrg")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 28.122387, 5.8936834, 26.163229)
 
-[node name="Rocks2" parent="." unique_id=1654355680 instance=ExtResource("24_dynrg")]
+[node name="Rocks2" parent="SetDressing" unique_id=1052420181 instance=ExtResource("24_dynrg")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 35.04161, 6.8000546, 26.638044)
 
-[node name="Rocks3" parent="." unique_id=1679750844 instance=ExtResource("24_dynrg")]
+[node name="Rocks3" parent="SetDressing" unique_id=226313380 instance=ExtResource("24_dynrg")]
 transform = Transform3D(1.9901665, -0.19808376, 0, 0.19808376, 1.9901665, 0, 0, 0, 2, 35.04161, 6.631158, 36.159184)
 
-[node name="Rocks4" parent="." unique_id=1558744345 instance=ExtResource("24_dynrg")]
+[node name="Rocks4" parent="SetDressing" unique_id=847406056 instance=ExtResource("24_dynrg")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 27.802507, 5.898718, 36.159184)
 
-[node name="BulbousCoral27" parent="." unique_id=317460560 instance=ExtResource("21_7yoh0")]
+[node name="BulbousCoral27" parent="SetDressing" unique_id=317460560 instance=ExtResource("21_7yoh0")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 8.314433, -5.714258, 11.836259)
 
-[node name="ChubbyCoral6" parent="." unique_id=761672134 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral6" parent="SetDressing" unique_id=761672134 instance=ExtResource("23_xqily")]
 transform = Transform3D(0.6, 0, 0, 0, -0.6, 9.059749e-08, 0, -9.059749e-08, -0.6, 34.619915, 10.505737, -1.7689624)
 
-[node name="ChubbyCoral7" parent="." unique_id=1362289690 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral7" parent="SetDressing" unique_id=1362289690 instance=ExtResource("23_xqily")]
 transform = Transform3D(0.44055945, -3.430679e-08, -0.66776294, 1.2079664e-07, -0.8, 1.2079666e-07, -0.66776294, -1.6735203e-07, -0.44055945, 34.96025, 10.505737, 0.2821951)
 
-[node name="ChubbyCoral8" parent="." unique_id=2129981743 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral8" parent="SetDressing" unique_id=2129981743 instance=ExtResource("23_xqily")]
 transform = Transform3D(0.44055945, -3.430679e-08, -0.66776294, 1.2079664e-07, -0.8, 1.2079666e-07, -0.66776294, -1.6735203e-07, -0.44055945, 57.687458, 10.505737, -14.344494)
 
-[node name="ChubbyCoral9" parent="." unique_id=1835240269 instance=ExtResource("23_xqily")]
+[node name="ChubbyCoral9" parent="SetDressing" unique_id=1835240269 instance=ExtResource("23_xqily")]
 transform = Transform3D(-0.090435535, -1.03217864e-07, -0.5931454, 9.059751e-08, -0.6000001, 9.059752e-08, -0.5931454, -7.590707e-08, 0.090435535, 54.373615, 10.505737, -12.506346)
 
-[node name="DishCoral" parent="." unique_id=934958277 instance=ExtResource("25_56q04")]
+[node name="DishCoral" parent="SetDressing" unique_id=934958277 instance=ExtResource("25_56q04")]
 transform = Transform3D(4.690001e-10, 4.0912774e-08, -0.9, 0.78748494, -0.4357378, -1.9397678e-08, -0.4357378, -0.78748494, -3.6025064e-08, 71.402466, -5.6661015, -6.8696837)
 
-[node name="DishCoral2" parent="." unique_id=1505386575 instance=ExtResource("25_56q04")]
+[node name="DishCoral2" parent="SetDressing" unique_id=1505386575 instance=ExtResource("25_56q04")]
 transform = Transform3D(0.6788083, -0.04471988, -0.16498324, 0.13562426, -0.27033323, 0.6312891, -0.104045205, -0.6441429, -0.25348476, 67.79135, -6.4849653, -6.8696837)
 
-[node name="RibbonCoral" parent="." unique_id=1625455280 instance=ExtResource("26_k3dtw")]
+[node name="RibbonCoral" parent="SetDressing" unique_id=1625455280 instance=ExtResource("26_k3dtw")]
 transform = Transform3D(0.96177477, -0.2738417, 0, 0.2738417, 0.96177477, 0, 0, 0, 1, 73.39758, -15.341791, -7.3599625)
 
-[node name="RibbonCoral2" parent="." unique_id=1997860758 instance=ExtResource("26_k3dtw")]
+[node name="RibbonCoral2" parent="SetDressing" unique_id=1997860758 instance=ExtResource("26_k3dtw")]
 transform = Transform3D(-0.20907247, -0.97790015, 0, 0.97790015, -0.20907247, 0, 0, 0, 1, 76.55833, -16.020676, 8.912205)
 
-[node name="RibbonCoral3" parent="." unique_id=542085094 instance=ExtResource("26_k3dtw")]
+[node name="RibbonCoral3" parent="SetDressing" unique_id=542085094 instance=ExtResource("26_k3dtw")]
 transform = Transform3D(-0.20907247, -0.97790015, 0, -0.3451521, 0.07379261, 0.9356413, -0.9149638, 0.19561684, -0.3529523, 76.55833, -17.101349, 13.053848)
 
-[node name="seaweed" parent="." unique_id=1657600218 instance=ExtResource("27_5276a")]
+[node name="seaweed" parent="SetDressing" unique_id=1657600218 instance=ExtResource("27_5276a")]
 transform = Transform3D(13, 0, 0, 0, 10.41, 0, 0, 0, 13, 74.77074, -39.908405, 14.072862)
 
-[node name="seaweed2" parent="." unique_id=773551005 instance=ExtResource("27_5276a")]
+[node name="seaweed2" parent="SetDressing" unique_id=773551005 instance=ExtResource("27_5276a")]
 transform = Transform3D(5.4415464, 0, -11.806336, 0, 11.31, 0, 11.806336, 0, 5.4415464, 71.61823, -39.908405, 10.363149)
 
-[node name="DishCoral3" parent="." unique_id=1678409341 instance=ExtResource("25_56q04")]
+[node name="DishCoral3" parent="SetDressing" unique_id=1678409341 instance=ExtResource("25_56q04")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 70.94772, -44.868332, 28.763699)
 
-[node name="RibbonCoral4" parent="." unique_id=1964363853 instance=ExtResource("26_k3dtw")]
+[node name="RibbonCoral4" parent="SetDressing" unique_id=1964363853 instance=ExtResource("26_k3dtw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.56004, -39.916714, 21.22583)
 
-[node name="RibbonCoral5" parent="." unique_id=2018214143 instance=ExtResource("26_k3dtw")]
+[node name="RibbonCoral5" parent="SetDressing" unique_id=2018214143 instance=ExtResource("26_k3dtw")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 76.73777, -29.377384, 22.763481)
+
+[node name="Rocks5" parent="SetDressing" unique_id=2018080046 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.7609823, -0.372942, -1.1126053, 0, 2.8444552, -0.9534529, 1.1734462, 0.87748885, 2.61783, 65.00774, -19.60684, 21.32739)
+
+[node name="Rocks6" parent="SetDressing" unique_id=2029088316 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-2.045016, 2.0599551, -0.7579526, 1.9678422, 2.179545, 0.61414856, 0.9723703, -0.078529, -2.8369572, 65.2028, -39.597477, 21.165405)
+
+[node name="HoleCoral" parent="SetDressing" unique_id=1043409223 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(-3.4969112e-08, 0.8, 0, -0.8, -3.4969112e-08, 0, 0, 0, 0.8, 64.00602, -29.30225, 10.613907)
+
+[node name="HoleCoral2" parent="SetDressing" unique_id=1710563577 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 64.27483, -32.353928, 13.740532)
+
+[node name="HoleCoral3" parent="SetDressing" unique_id=1730587021 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(1.5285484e-15, -3.4969112e-08, -0.8, -0.8, -3.4969112e-08, 0, -3.4969112e-08, 0.8, -3.4969112e-08, 62.75013, -33.721783, 5.707894)
+
+[node name="HoleCoral4" parent="SetDressing" unique_id=395497126 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 57.245716, -40.94274, 7.023942)
+
+[node name="HoleCoral5" parent="SetDressing" unique_id=44994008 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 57.245716, -43.008305, 10.065008)
+
+[node name="RibbonCoral6" parent="SetDressing" unique_id=77255360 instance=ExtResource("26_k3dtw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.90076, -49.160057, 4.626057)
+
+[node name="seaweed3" parent="SetDressing" unique_id=1231039206 instance=ExtResource("27_5276a")]
+transform = Transform3D(7.96, 0, 0, 0, 7.96, 0, 0, 0, 7.96, 77.25861, -76.33053, -12.542659)
+
+[node name="seaweed4" parent="SetDressing" unique_id=482373892 instance=ExtResource("27_5276a")]
+transform = Transform3D(6.513593, 0, -2.6179197, 0.08725425, 7.0161, 0.21709555, 2.616465, -0.23397389, 6.509974, 73.69121, -74.93217, -15.032089)
+
+[node name="seaweed5" parent="SetDressing" unique_id=985401072 instance=ExtResource("27_5276a")]
+transform = Transform3D(6.9239697, 2.6263297e-08, 1.3270811, 0.119008034, 7.021595, -0.6209178, -1.3217343, 0.63221973, 6.896073, 76.538124, -74.93217, -15.371477)
+
+[node name="Rocks7" parent="SetDressing" unique_id=1343905783 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.3699982, 0.0010245631, -0.0020961517, -0.0016186552, 1.4999996, 0.00017677525, 0.0020874639, -0.00011051061, 2.3799992, 67.08862, -60.401947, -5.5066147)
+
+[node name="Rocks13" parent="SetDressing" unique_id=1143336723 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 65.11353, -60.400513, -4.333681)
+
+[node name="Rocks8" parent="SetDressing" unique_id=1393571481 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 69.00158, -60.401043, -4.260728)
+
+[node name="Rocks9" parent="SetDressing" unique_id=1085278547 instance=ExtResource("29_4ay73")]
+transform = Transform3D(0.8878495, 0, -0.88923085, 0, 1.5, 0, 0.77725357, 0, 1.0157601, 69.864174, -60.401043, -7.4383955)
+
+[node name="Rocks14" parent="SetDressing" unique_id=221727292 instance=ExtResource("29_4ay73")]
+transform = Transform3D(1.499999, 0.0010245587, -0.0013211071, -0.0010244653, 1.4999996, 0.00011137275, 0.0013211797, -0.00011051061, 1.4999995, 64.87493, -60.400665, -8.627277)
+
+[node name="Rocks10" parent="SetDressing" unique_id=1238570838 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 71.474434, -60.401043, -5.087203)
+
+[node name="Rocks30" parent="SetDressing" unique_id=694936824 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 65.12384, -54.066376, 3.11948)
+
+[node name="Rocks11" parent="SetDressing" unique_id=1038598060 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.0930321, 0, -1.1164987, 0, 1.5, 0, 1.1118075, 0, 2.1018636, 74.0583, -60.401043, -7.5352407)
+
+[node name="Rocks12" parent="SetDressing" unique_id=1827165356 instance=ExtResource("29_4ay73")]
+transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 74.82809, -60.401043, -4.8280263)
+
+[node name="Rocks15" parent="SetDressing" unique_id=484657178 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.3699982, 0.0010245631, -0.0020961517, -0.0016186552, 1.4999996, 0.00017677525, 0.0020874639, -0.00011051061, 2.3799992, 70.97024, -68.17627, 1.0658302)
+
+[node name="Rocks16" parent="SetDressing" unique_id=1480701417 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 68.99515, -68.174835, 2.2387638)
+
+[node name="Rocks29" parent="SetDressing" unique_id=843010629 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-1.1742461, 0.00015557329, 0.1331547, 4.2745516e-05, 1.5000002, -0.0009261627, -0.11638716, -0.0010186927, -1.3434169, 66.44831, -68.174835, 0.4833212)
+
+[node name="Rocks27" parent="SetDressing" unique_id=1519393382 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 75.84792, -68.174835, 7.7604294)
+
+[node name="Rocks17" parent="SetDressing" unique_id=2045868954 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 72.883194, -68.17537, 2.311717)
+
+[node name="Rocks23" parent="SetDressing" unique_id=111222154 instance=ExtResource("29_4ay73")]
+transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 80.88433, -68.17537, 0.615592)
+
+[node name="Rocks18" parent="SetDressing" unique_id=830108891 instance=ExtResource("29_4ay73")]
+transform = Transform3D(0.8878495, 0, -0.88923085, 0, 1.5, 0, 0.77725357, 0, 1.0157601, 73.74579, -68.17537, -0.8659506)
+
+[node name="Rocks19" parent="SetDressing" unique_id=1768661696 instance=ExtResource("29_4ay73")]
+transform = Transform3D(1.499999, 0.0010245587, -0.0013211071, -0.0010244653, 1.4999996, 0.00011137275, 0.0013211797, -0.00011051061, 1.4999995, 68.756546, -68.17499, -2.0548325)
+
+[node name="Rocks20" parent="SetDressing" unique_id=1458105238 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 75.35605, -68.17537, 1.4852419)
+
+[node name="Rocks24" parent="SetDressing" unique_id=841249815 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 69.19172, -68.17537, 6.145891)
+
+[node name="Rocks25" parent="SetDressing" unique_id=504131414 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 72.2729, -68.17537, -2.3179626)
+
+[node name="Rocks26" parent="SetDressing" unique_id=225439538 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 72.83936, -68.17537, 7.1710033)
+
+[node name="Rocks21" parent="SetDressing" unique_id=377855519 instance=ExtResource("29_4ay73")]
+transform = Transform3D(2.0930321, 0, -1.1164987, 0, 1.5, 0, 1.1118075, 0, 2.1018636, 77.93991, -68.17537, -0.96279573)
+
+[node name="Rocks22" parent="SetDressing" unique_id=527032735 instance=ExtResource("29_4ay73")]
+transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 78.7097, -68.17537, 1.7444186)
+
+[node name="Rocks28" parent="SetDressing" unique_id=931514153 instance=ExtResource("29_4ay73")]
+transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 80.54577, -68.17537, -3.1982875)
+
+[node name="RibbonCoral7" parent="SetDressing" unique_id=1111689318 instance=ExtResource("26_k3dtw")]
+transform = Transform3D(1, 0, 0, 0, 0.3643567, -0.93125945, 0, 0.93125945, 0.3643567, 72.94856, -52.60685, -14.92093)
+
+[node name="RibbonCoral8" parent="SetDressing" unique_id=546934955 instance=ExtResource("26_k3dtw")]
+transform = Transform3D(1.2, 0, 0, 0, 0.43722805, -1.1175114, 0, 1.1175114, 0.43722805, 69.00673, -54.150696, -14.435152)
+
+[node name="DishCoral4" parent="SetDressing" unique_id=2075868794 instance=ExtResource("25_56q04")]
+transform = Transform3D(1.64, 0, 0, 0, 1.64, 0, 0, 0, 1.64, 79.52503, -68.405624, 5.6071672)
+
+[node name="DishCoral5" parent="SetDressing" unique_id=2012243085 instance=ExtResource("25_56q04")]
+transform = Transform3D(-7.168668e-08, -1.64, 0, 1.3358638, -5.8392462e-08, 0.9513506, -0.9513506, 4.1584858e-08, 1.3358638, 83.27632, -64.24483, 5.6071672)
+
+[node name="HoleCoral6" parent="SetDressing" unique_id=1240724947 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.98048794, -0.19657935, 0, 0.19657935, 0.98048794, 0, 0, 0, 1, 65.41664, -70.08211, -16.476784)
+
+[node name="HoleCoral7" parent="SetDressing" unique_id=1811086193 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(1.2463188, 0.18517405, 0, -0.18517405, 1.2463188, 0, 0, 0, 1.26, 65.41664, -67.66751, -14.816404)
+
+[node name="HoleCoral8" parent="SetDressing" unique_id=1434019191 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.8562851, 0.15386945, 0, -0.15386945, 0.8562851, 0, 0, 0, 0.87, 65.41664, -70.47546, -11.650393)
+
+[node name="DishCoral6" parent="SetDressing" unique_id=2075299463 instance=ExtResource("25_56q04")]
+transform = Transform3D(1, 0, 0, 0, 0.6842926, 0.7292075, 0, -0.7292075, 0.6842926, 79.93365, -80.03471, -0.8679428)
+
+[node name="DishCoral7" parent="SetDressing" unique_id=1894292196 instance=ExtResource("25_56q04")]
+transform = Transform3D(0.12786515, -0.45038554, -1.7276871, 1.4685249, 1.0116792, -0.15504688, 1.0154725, -1.4063278, 0.4417659, 75.06017, -77.0129, 1.4328828)
+
+[node name="seaweed6" parent="SetDressing" unique_id=1021023860 instance=ExtResource("27_5276a")]
+transform = Transform3D(7.1485615, -0.01803153, -7.8267326, 0, 10.599973, -0.02442063, 7.8267546, 0.016469091, 7.148543, 71.82669, -70.90841, 33.53718)
+
+[node name="seaweed7" parent="SetDressing" unique_id=794046864 instance=ExtResource("27_5276a")]
+transform = Transform3D(10.6, 0, 0, 0, 10.6, 0, 0, 0, 10.6, 68.858284, -70.90841, 22.815205)
+
+[node name="HoleCoral9" parent="SetDressing" unique_id=1160754921 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.5795295, -0.023357358, 0, 0.023357358, 0.5795295, 0, 0, 0, 0.58000004, 71.74721, -63.1525, 27.2397)
+
+[node name="HoleCoral14" parent="SetDressing" unique_id=996604422 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.5795295, -0.023357358, 0, 0.023357358, 0.5795295, 0, 0, 0, 0.58000004, 71.40594, -65.79264, 29.403257)
+
+[node name="HoleCoral10" parent="SetDressing" unique_id=831395770 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.56855386, 0.061633162, -0.09668433, -0.06076087, 0.57671595, 0.010332573, 0.09723488, -6.439294e-17, 0.57179135, 69.536736, -65.769585, 27.104841)
+
+[node name="HoleCoral11" parent="SetDressing" unique_id=519147824 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 69.536736, -65.769585, 27.104841)
+
+[node name="HoleCoral12" parent="SetDressing" unique_id=1903293419 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.54, 0, 0, 0, 0.53060395, -0.10029702, 0, 0.10029702, 0.53060395, 69.569145, -62.592644, 29.298887)
+
+[node name="HoleCoral13" parent="SetDressing" unique_id=441853615 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.4712592, -0.091185324, 0, 0.091185324, 0.4712592, 0, 0, 0, 0.48, 69.662926, -67.81583, 29.298887)
+
+[node name="MushroomCoral" parent="SetDressing" unique_id=1989153044 instance=ExtResource("31_fc3oa")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 70.68062, -61.56066, 28.127083)
+
+[node name="RibbonCoral9" parent="SetDressing" unique_id=975776561 instance=ExtResource("26_k3dtw")]
+transform = Transform3D(0.57, 0, 0, 0, -0.57, 8.606761e-08, 0, -8.606761e-08, -0.57, 70.771416, -42.848705, 18.234325)
+
+[node name="RibbonCoral10" parent="SetDressing" unique_id=1099795722 instance=ExtResource("26_k3dtw")]
+transform = Transform3D(0.74, 0, 0, 0, -0.74, 1.11736895e-07, 0, -1.11736895e-07, -0.74, 71.118614, -42.83198, 15.433364)
+
+[node name="HoleCoral15" parent="SetDressing" unique_id=1687614339 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.77, 0, 0, 0, 0.7583019, -0.13370909, 0, 0.13370909, 0.7583019, 75.060646, -54.621853, 2.4941883)
+
+[node name="HoleCoral16" parent="SetDressing" unique_id=1530421306 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(1.0187544, 0.1250873, -0.8922403, -0.16574231, 1.3498628, 0, 0.8855897, 0.10873674, 1.0264051, 73.195145, -54.621853, 5.6906433)
+
+[node name="HoleCoral17" parent="SetDressing" unique_id=946746102 instance=ExtResource("30_0bjpx")]
+transform = Transform3D(0.8356648, 0.41312018, -0.36193374, -0.44316506, 0.89644, 0, 0.3244519, 0.16039638, 0.9322038, 56.75781, -54.77611, 7.076038)
+
+[node name="AbaloneCoral" parent="SetDressing" unique_id=771015926 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(0.5335407, -0.8457744, 0, 0.8457744, 0.5335407, 0, 0, 0, 1, 87.68323, -92.741394, -2.953456)
+
+[node name="AbaloneCoral2" parent="SetDressing" unique_id=1645816112 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(0.13368365, -0.84442055, -0.2812164, 0.4873006, 0.30740434, -0.6914049, 0.74475956, -0.04956376, 0.50286835, 86.81733, -94.838554, -5.612782)
+
+[node name="AbaloneCoral3" parent="SetDressing" unique_id=794893338 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(-1.35505305e-08, 0.31, 0, -0.31, -1.35505305e-08, 0, 0, 0, 0.31, 80.90463, -100.74475, -4.1411653)
+
+[node name="AbaloneCoral4" parent="SetDressing" unique_id=1695696467 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(-1.35505305e-08, 0.31, 0, -0.2716368, -1.1873623e-08, 0.14937682, 0.14937682, 6.5294685e-09, 0.2716368, 80.901245, -101.15848, -3.4222994)
+
+[node name="AbaloneCoral5" parent="SetDressing" unique_id=399529154 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(-1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0, 0, 0, 0.31, 83.6179, -107.81946, -4.1411653)
+
+[node name="AbaloneCoral6" parent="SetDressing" unique_id=1856308388 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(-1.35505305e-08, -0.31, 0, 0.2716368, -1.1873623e-08, 0.14937682, -0.14937682, 6.5294685e-09, 0.2716368, 83.61451, -108.233185, -3.4222994)
+
+[node name="TripleRibbonCoral" parent="SetDressing" unique_id=1825535112 instance=ExtResource("33_nosw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.95777, -138.0275, -7.107581)
+
+[node name="TripleRibbonCoral2" parent="SetDressing" unique_id=1404055874 instance=ExtResource("33_nosw1")]
+transform = Transform3D(1.3, 0, 0, 0, 0.1068367, -1.2956024, 0, 1.2956024, 0.1068367, 82.34651, -130.91676, -10.076284)
+
+[node name="PipeCoral" parent="SetDressing" unique_id=485379429 instance=ExtResource("34_42uku")]
+transform = Transform3D(1.4, 0, 0, 0, -1.85, 2.1139412e-07, 0, -2.7934223e-07, -1.4, 89.21175, -121.62728, -1.5703311)
+
+[node name="PipeCoral2" parent="SetDressing" unique_id=865820632 instance=ExtResource("34_42uku")]
+transform = Transform3D(1.4, 0, 0, 0, -1.85, 2.1139412e-07, 0, -2.7934223e-07, -1.4, 88.45317, -121.79573, 28.421577)
+
+[node name="PipeCoral3" parent="SetDressing" unique_id=16837040 instance=ExtResource("34_42uku")]
+transform = Transform3D(1.4, 0, 0, 0, -1.85, 2.1139412e-07, 0, -2.7934223e-07, -1.4, 118.07827, -121.79573, 29.317377)
+
+[node name="PipeCoral4" parent="SetDressing" unique_id=1223076913 instance=ExtResource("34_42uku")]
+transform = Transform3D(1.4, 0, 0, 0, -1.85, 2.1139412e-07, 0, -2.7934223e-07, -1.4, 102.69731, -145.3905, 28.227976)
+
+[node name="PipeCoral5" parent="SetDressing" unique_id=1830992586 instance=ExtResource("34_42uku")]
+transform = Transform3D(-1.6692126, -1.9758924e-07, 1.7105056, 0, -3.158, -2.0894045e-07, 1.7105056, -1.9281929e-07, 1.6692126, 102.80481, -144.78719, 21.765818)
+
+[node name="PipeCoral6" parent="SetDressing" unique_id=1641787292 instance=ExtResource("34_42uku")]
+transform = Transform3D(-1.6692126, -1.9758924e-07, 1.7105056, 0, -3.158, -2.0894045e-07, 1.7105056, -1.9281929e-07, 1.6692126, 121.591774, -144.78719, 30.380789)
+
+[node name="BrainCoral" parent="SetDressing" unique_id=1015190451 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(0.87573814, -0.32249025, -0.35928082, -0.37574434, 0.012007619, -0.9266456, 0.30314824, 0.9464966, -0.110658355, 90.539665, -134.99255, -7.4914474)
+
+[node name="BrainCoral2" parent="SetDressing" unique_id=1315819572 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(-0.35501465, -0.9255002, 0.13196167, -0.3757443, 0.012007626, -0.9266455, 0.8560261, -0.37855667, -0.3520143, 89.19072, -131.7604, 4.1958776)
+
+[node name="AbaloneCoral7" parent="SetDressing" unique_id=1040046126 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(0.6120379, 0.79082847, 0, -0.79082847, 0.6120379, 0, 0, 0, 1, 79.155685, -127.31567, 25.699211)
+
+[node name="AbaloneCoral8" parent="SetDressing" unique_id=1700488935 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(0.630184, 0.64901876, 0.42619583, -0.52825063, 0.7606678, -0.37727425, -0.56905174, 0.012613946, 0.82220525, 79.155685, -127.3165, 22.870352)
+
+[node name="TripleRibbonCoral3" parent="SetDressing" unique_id=316643406 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.50086135, -0.8655275, 0, 0.8655275, 0.50086135, 0, 0, 0, 1, 97.34463, -136.8305, 12.777703)
+
+[node name="AbaloneCoral9" parent="SetDressing" unique_id=41065167 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 89.35353, -134.39911, 10.070534)
+
+[node name="BrainCoral3" parent="SetDressing" unique_id=638389440 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(-0.10926588, 0, 0.99401253, -0.26944783, 0.9625594, -0.029618796, -0.9567961, -0.27107087, -0.1051749, 93.74311, -138.47766, 34.51468)
+
+[node name="TripleRibbonCoral4" parent="SetDressing" unique_id=1808192279 instance=ExtResource("33_nosw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.35191, -143.04274, 23.058918)
+
+[node name="BrainCoral4" parent="SetDressing" unique_id=748630253 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(0.64, 0, 0, 0, 0.26811463, -0.58113205, 0, 0.58113205, 0.26811463, 104.97937, -124.65717, 30.10228)
+
+[node name="BrainCoral5" parent="SetDressing" unique_id=1625053955 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(-0.32110578, 0.7439613, 0.34323844, 0, 0.3686576, -0.79905665, -0.81932354, -0.29157013, -0.13452055, 105.67696, -131.0253, 32.434753)
+
+[node name="BrainCoral6" parent="SetDressing" unique_id=1935868359 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(-0.6533398, -0.33442616, -0.15429282, -4.8480753e-09, 0.31419674, -0.68101424, 0.36830303, -0.59324497, -0.27370298, 102.924, -136.69678, 31.140678)
+
+[node name="BrainCoral7" parent="SetDressing" unique_id=509695496 instance=ExtResource("35_pvpwx")]
+transform = Transform3D(-0.5440458, 0.18254176, 0.08421855, -3.7491783e-09, 0.2429788, -0.526651, -0.20103295, -0.49400386, -0.22791654, 104.39603, -134.21356, 31.23529)
+
+[node name="AbaloneCoral10" parent="SetDressing" unique_id=1136667197 instance=ExtResource("32_1vhg3")]
+transform = Transform3D(0.1965965, -0.9804845, 0, 0.9804845, 0.1965965, 0, 0, 0, 1, 116.18094, -140.94347, 24.143421)
+
+[node name="MushroomCapCoral" parent="SetDressing" unique_id=900070768 instance=ExtResource("36_tui8w")]
+transform = Transform3D(0.46, 0, 0, 0, 0.4525469, 0.082470186, 0, -0.082470186, 0.4525469, 113.19325, -163.82521, 27.55376)
+
+[node name="MushroomCapCoral4" parent="SetDressing" unique_id=871432777 instance=ExtResource("36_tui8w")]
+transform = Transform3D(0.46, 0, 0, 0, 0.4599146, 0.008862928, 0, -0.008862928, 0.4599146, 106.80039, -163.82521, 21.544483)
+
+[node name="MushroomCapCoral2" parent="SetDressing" unique_id=495764715 instance=ExtResource("36_tui8w")]
+transform = Transform3D(0.73, 0, 0, 0, 0.71817225, 0.1308766, 0, -0.1308766, 0.71817225, 115.90047, -163.82521, 22.079802)
+
+[node name="MushroomCapCoral3" parent="SetDressing" unique_id=735636005 instance=ExtResource("36_tui8w")]
+transform = Transform3D(0.57, 0, 0, 0, 0.5607646, 0.102191314, 0, -0.102191314, 0.5607646, 108.61817, -163.82521, 28.690983)
+
+[node name="MushroomCoral2" parent="SetDressing" unique_id=914370410 instance=ExtResource("31_fc3oa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.06459, -164.74393, 24.304033)
+
+[node name="TripleRibbonCoral5" parent="SetDressing" unique_id=1298191360 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 111.75432, -157.04274, 3.519168)
+
+[node name="TripleRibbonCoral6" parent="SetDressing" unique_id=1268438698 instance=ExtResource("33_nosw1")]
+transform = Transform3D(-0.38710028, 0, -0.55906475, 0, 0.68, 0, 0.55906475, 0, -0.38710028, 113.01687, -157.04274, -1.4003601)
+
+[node name="TripleRibbonCoral7" parent="SetDressing" unique_id=581441055 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.39, 0, 0, 0, -1.704744e-08, -0.39, 0, 0.39, -1.704744e-08, 111.757416, -153.80247, -9.0034275)
+
+[node name="TripleRibbonCoral8" parent="SetDressing" unique_id=1456217909 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.0014157891, -1.7047327e-08, -0.3899974, -0.3899974, -6.18861e-11, -0.0014157891, 0, 0.39, -1.7047439e-08, 112.57679, -152.77753, -9.0034275)
+
+[node name="TripleRibbonCoral9" parent="SetDressing" unique_id=231759378 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.30535266, -1.060483e-08, -0.24261016, -0.24261016, -1.3347389e-08, -0.30535266, -5.0298934e-18, 0.39, -1.7047437e-08, 112.57679, -147.35747, -9.0034275)
+
+[node name="TripleRibbonCoral10" parent="SetDressing" unique_id=454279664 instance=ExtResource("33_nosw1")]
+transform = Transform3D(-0.1930337, -1.4812801e-08, -0.3388774, -0.3388774, 8.437772e-09, 0.1930337, 3.1447925e-16, 0.39, -1.7047435e-08, 111.80067, -145.77284, -9.0034275)
+
+[node name="TripleRibbonCoral11" parent="SetDressing" unique_id=771150356 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.58, 0, 0, 0, -0.58, 8.757756e-08, 0, -8.757756e-08, -0.58, 112.420525, -134.3218, -6.2110405)
+
+[node name="TripleRibbonCoral12" parent="SetDressing" unique_id=1848501227 instance=ExtResource("33_nosw1")]
+transform = Transform3D(0.37, 0, 0, 0, -1.6173214e-08, 0.37, 0, -0.37, -1.6173214e-08, 112.42357, -137.89496, 5.3924356)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=791617696]
 environment = ExtResource("28_17jqc")
-
-[node name="Rocks5" parent="." unique_id=2018080046 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.7609823, -0.372942, -1.1126053, 0, 2.8444552, -0.9534529, 1.1734462, 0.87748885, 2.61783, 65.00774, -19.60684, 21.32739)
-
-[node name="Rocks6" parent="." unique_id=2029088316 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-2.045016, 2.0599551, -0.7579526, 1.9678422, 2.179545, 0.61414856, 0.9723703, -0.078529, -2.8369572, 65.2028, -39.597477, 21.165405)
-
-[node name="HoleCoral" parent="." unique_id=1043409223 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(-3.4969112e-08, 0.8, 0, -0.8, -3.4969112e-08, 0, 0, 0, 0.8, 64.00602, -29.30225, 10.613907)
-
-[node name="HoleCoral2" parent="." unique_id=1710563577 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 64.27483, -32.353928, 13.740532)
-
-[node name="HoleCoral3" parent="." unique_id=1730587021 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(1.5285484e-15, -3.4969112e-08, -0.8, -0.8, -3.4969112e-08, 0, -3.4969112e-08, 0.8, -3.4969112e-08, 62.75013, -33.721783, 5.707894)
-
-[node name="HoleCoral4" parent="." unique_id=395497126 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 57.245716, -40.94274, 7.023942)
-
-[node name="HoleCoral5" parent="." unique_id=44994008 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(-2.6226834e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.6226834e-08, 57.245716, -43.008305, 10.065008)
-
-[node name="RibbonCoral6" parent="." unique_id=77255360 instance=ExtResource("26_k3dtw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.90076, -49.160057, 4.626057)
-
-[node name="seaweed3" parent="." unique_id=1231039206 instance=ExtResource("27_5276a")]
-transform = Transform3D(7.96, 0, 0, 0, 7.96, 0, 0, 0, 7.96, 77.25861, -76.33053, -12.542659)
-
-[node name="seaweed4" parent="." unique_id=482373892 instance=ExtResource("27_5276a")]
-transform = Transform3D(6.513593, 0, -2.6179197, 0.08725425, 7.0161, 0.21709555, 2.616465, -0.23397389, 6.509974, 73.69121, -74.93217, -15.032089)
-
-[node name="seaweed5" parent="." unique_id=985401072 instance=ExtResource("27_5276a")]
-transform = Transform3D(6.9239697, 2.6263297e-08, 1.3270811, 0.119008034, 7.021595, -0.6209178, -1.3217343, 0.63221973, 6.896073, 76.538124, -74.93217, -15.371477)
-
-[node name="Rocks7" parent="." unique_id=1343905783 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.3699982, 0.0010245631, -0.0020961517, -0.0016186552, 1.4999996, 0.00017677525, 0.0020874639, -0.00011051061, 2.3799992, 67.08862, -60.401947, -5.5066147)
-
-[node name="Rocks13" parent="." unique_id=1143336723 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 65.11353, -60.400513, -4.333681)
-
-[node name="Rocks8" parent="." unique_id=1393571481 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 69.00158, -60.401043, -4.260728)
-
-[node name="Rocks9" parent="." unique_id=1085278547 instance=ExtResource("29_4ay73")]
-transform = Transform3D(0.8878495, 0, -0.88923085, 0, 1.5, 0, 0.77725357, 0, 1.0157601, 69.864174, -60.401043, -7.4383955)
-
-[node name="Rocks14" parent="." unique_id=221727292 instance=ExtResource("29_4ay73")]
-transform = Transform3D(1.499999, 0.0010245587, -0.0013211071, -0.0010244653, 1.4999996, 0.00011137275, 0.0013211797, -0.00011051061, 1.4999995, 64.87493, -60.400665, -8.627277)
-
-[node name="Rocks10" parent="." unique_id=1238570838 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 71.474434, -60.401043, -5.087203)
-
-[node name="Rocks30" parent="." unique_id=694936824 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 65.12384, -54.066376, 3.11948)
-
-[node name="Rocks11" parent="." unique_id=1038598060 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.0930321, 0, -1.1164987, 0, 1.5, 0, 1.1118075, 0, 2.1018636, 74.0583, -60.401043, -7.5352407)
-
-[node name="Rocks12" parent="." unique_id=1827165356 instance=ExtResource("29_4ay73")]
-transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 74.82809, -60.401043, -4.8280263)
-
-[node name="Rocks15" parent="." unique_id=484657178 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.3699982, 0.0010245631, -0.0020961517, -0.0016186552, 1.4999996, 0.00017677525, 0.0020874639, -0.00011051061, 2.3799992, 70.97024, -68.17627, 1.0658302)
-
-[node name="Rocks16" parent="." unique_id=1480701417 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 68.99515, -68.174835, 2.2387638)
-
-[node name="Rocks29" parent="." unique_id=843010629 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-1.1742461, 0.00015557329, 0.1331547, 4.2745516e-05, 1.5000002, -0.0009261627, -0.11638716, -0.0010186927, -1.3434169, 66.44831, -68.174835, 0.4833212)
-
-[node name="Rocks27" parent="." unique_id=1519393382 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-0.18818265, 0.0010245654, 1.332722, 4.2745527e-05, 1.5000002, -0.00092616276, -1.1648979, -0.00011047073, -0.2152937, 75.84792, -68.174835, 7.7604294)
-
-[node name="Rocks17" parent="." unique_id=2045868954 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 72.883194, -68.17537, 2.311717)
-
-[node name="Rocks23" parent="." unique_id=111222154 instance=ExtResource("29_4ay73")]
-transform = Transform3D(-1.049436, 0, 0.61724985, 0, 1.4999999, 0, -0.53952205, 0, -1.200626, 80.88433, -68.17537, 0.615592)
-
-[node name="Rocks18" parent="." unique_id=830108891 instance=ExtResource("29_4ay73")]
-transform = Transform3D(0.8878495, 0, -0.88923085, 0, 1.5, 0, 0.77725357, 0, 1.0157601, 73.74579, -68.17537, -0.8659506)
-
-[node name="Rocks19" parent="." unique_id=1768661696 instance=ExtResource("29_4ay73")]
-transform = Transform3D(1.499999, 0.0010245587, -0.0013211071, -0.0010244653, 1.4999996, 0.00011137275, 0.0013211797, -0.00011051061, 1.4999995, 68.756546, -68.17499, -2.0548325)
-
-[node name="Rocks20" parent="." unique_id=1458105238 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 75.35605, -68.17537, 1.4852419)
-
-[node name="Rocks24" parent="." unique_id=841249815 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 69.19172, -68.17537, 6.145891)
-
-[node name="Rocks25" parent="." unique_id=504131414 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 72.2729, -68.17537, -2.3179626)
-
-[node name="Rocks26" parent="." unique_id=225439538 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.1116853, 0, 1.0804975, 0, 1.5, 0, -1.0759575, 0, 2.1205957, 72.83936, -68.17537, 7.1710033)
-
-[node name="Rocks21" parent="." unique_id=377855519 instance=ExtResource("29_4ay73")]
-transform = Transform3D(2.0930321, 0, -1.1164987, 0, 1.5, 0, 1.1118075, 0, 2.1018636, 77.93991, -68.17537, -0.96279573)
-
-[node name="Rocks22" parent="." unique_id=527032735 instance=ExtResource("29_4ay73")]
-transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 78.7097, -68.17537, 1.7444186)
-
-[node name="Rocks28" parent="." unique_id=931514153 instance=ExtResource("29_4ay73")]
-transform = Transform3D(1.3392798, 0, -0.6755217, 0, 1.5, 0, 0.6755217, 0, 1.3392798, 80.54577, -68.17537, -3.1982875)
-
-[node name="RibbonCoral7" parent="." unique_id=1111689318 instance=ExtResource("26_k3dtw")]
-transform = Transform3D(1, 0, 0, 0, 0.3643567, -0.93125945, 0, 0.93125945, 0.3643567, 72.94856, -52.60685, -14.92093)
-
-[node name="RibbonCoral8" parent="." unique_id=546934955 instance=ExtResource("26_k3dtw")]
-transform = Transform3D(1.2, 0, 0, 0, 0.43722805, -1.1175114, 0, 1.1175114, 0.43722805, 69.00673, -54.150696, -14.435152)
-
-[node name="DishCoral4" parent="." unique_id=2075868794 instance=ExtResource("25_56q04")]
-transform = Transform3D(1.64, 0, 0, 0, 1.64, 0, 0, 0, 1.64, 79.52503, -68.405624, 5.6071672)
-
-[node name="DishCoral5" parent="." unique_id=2012243085 instance=ExtResource("25_56q04")]
-transform = Transform3D(-7.168668e-08, -1.64, 0, 1.3358638, -5.8392462e-08, 0.9513506, -0.9513506, 4.1584858e-08, 1.3358638, 83.27632, -64.24483, 5.6071672)
-
-[node name="HoleCoral6" parent="." unique_id=1240724947 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.98048794, -0.19657935, 0, 0.19657935, 0.98048794, 0, 0, 0, 1, 65.41664, -70.08211, -16.476784)
-
-[node name="HoleCoral7" parent="." unique_id=1811086193 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(1.2463188, 0.18517405, 0, -0.18517405, 1.2463188, 0, 0, 0, 1.26, 65.41664, -67.66751, -14.816404)
-
-[node name="HoleCoral8" parent="." unique_id=1434019191 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.8562851, 0.15386945, 0, -0.15386945, 0.8562851, 0, 0, 0, 0.87, 65.41664, -70.47546, -11.650393)
-
-[node name="DishCoral6" parent="." unique_id=2075299463 instance=ExtResource("25_56q04")]
-transform = Transform3D(1, 0, 0, 0, 0.6842926, 0.7292075, 0, -0.7292075, 0.6842926, 79.93365, -80.03471, -0.8679428)
-
-[node name="DishCoral7" parent="." unique_id=1894292196 instance=ExtResource("25_56q04")]
-transform = Transform3D(0.12786515, -0.45038554, -1.7276871, 1.4685249, 1.0116792, -0.15504688, 1.0154725, -1.4063278, 0.4417659, 75.06017, -77.0129, 1.4328828)
-
-[node name="seaweed6" parent="." unique_id=1021023860 instance=ExtResource("27_5276a")]
-transform = Transform3D(7.1485615, -0.01803153, -7.8267326, 0, 10.599973, -0.02442063, 7.8267546, 0.016469091, 7.148543, 71.82669, -70.90841, 33.53718)
-
-[node name="seaweed7" parent="." unique_id=794046864 instance=ExtResource("27_5276a")]
-transform = Transform3D(10.6, 0, 0, 0, 10.6, 0, 0, 0, 10.6, 68.858284, -70.90841, 22.815205)
-
-[node name="HoleCoral9" parent="." unique_id=1160754921 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.5795295, -0.023357358, 0, 0.023357358, 0.5795295, 0, 0, 0, 0.58000004, 71.74721, -63.1525, 27.2397)
-
-[node name="HoleCoral14" parent="." unique_id=996604422 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.5795295, -0.023357358, 0, 0.023357358, 0.5795295, 0, 0, 0, 0.58000004, 71.40594, -65.79264, 29.403257)
-
-[node name="HoleCoral10" parent="." unique_id=831395770 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.56855386, 0.061633162, -0.09668433, -0.06076087, 0.57671595, 0.010332573, 0.09723488, -6.439294e-17, 0.57179135, 69.536736, -65.769585, 27.104841)
-
-[node name="HoleCoral11" parent="." unique_id=519147824 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 69.536736, -65.769585, 27.104841)
-
-[node name="HoleCoral12" parent="." unique_id=1903293419 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.54, 0, 0, 0, 0.53060395, -0.10029702, 0, 0.10029702, 0.53060395, 69.569145, -62.592644, 29.298887)
-
-[node name="HoleCoral13" parent="." unique_id=441853615 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.4712592, -0.091185324, 0, 0.091185324, 0.4712592, 0, 0, 0, 0.48, 69.662926, -67.81583, 29.298887)
-
-[node name="MushroomCoral" parent="." unique_id=1989153044 instance=ExtResource("31_fc3oa")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 70.68062, -61.56066, 28.127083)
-
-[node name="RibbonCoral9" parent="." unique_id=975776561 instance=ExtResource("26_k3dtw")]
-transform = Transform3D(0.57, 0, 0, 0, -0.57, 8.606761e-08, 0, -8.606761e-08, -0.57, 70.771416, -42.848705, 18.234325)
-
-[node name="RibbonCoral10" parent="." unique_id=1099795722 instance=ExtResource("26_k3dtw")]
-transform = Transform3D(0.74, 0, 0, 0, -0.74, 1.11736895e-07, 0, -1.11736895e-07, -0.74, 71.118614, -42.83198, 15.433364)
-
-[node name="HoleCoral15" parent="." unique_id=1687614339 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.77, 0, 0, 0, 0.7583019, -0.13370909, 0, 0.13370909, 0.7583019, 75.060646, -54.621853, 2.4941883)
-
-[node name="HoleCoral16" parent="." unique_id=1530421306 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(1.0187544, 0.1250873, -0.8922403, -0.16574231, 1.3498628, 0, 0.8855897, 0.10873674, 1.0264051, 73.195145, -54.621853, 5.6906433)
-
-[node name="HoleCoral17" parent="." unique_id=946746102 instance=ExtResource("30_0bjpx")]
-transform = Transform3D(0.8356648, 0.41312018, -0.36193374, -0.44316506, 0.89644, 0, 0.3244519, 0.16039638, 0.9322038, 56.75781, -54.77611, 7.076038)
 
 [editable path="Lab"]
