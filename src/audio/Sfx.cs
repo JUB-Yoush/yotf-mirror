@@ -4,7 +4,6 @@ public static class Sfx
     public static readonly AudioStream Defualt = GD.Load<AudioStream>(
         "res://assets/audio/sfx/photo.ogg"
     );
-
     public const string CameraShutter = "photo.ogg";
     public const string Firecracker = "firecracker.ogg";
     public const string Alert = "alert.ogg";
@@ -23,4 +22,5 @@ public static class Sfx
     public const string UISelect = "ui_select.mp3";
     public const string UIIncrease = "ui_increase.mp3";
     public const string UIDecrease = "ui_decrease.mp3";
+    public const string Sparkle = "sparkle.ogg";
 }

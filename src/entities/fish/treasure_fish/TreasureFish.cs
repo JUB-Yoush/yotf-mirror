@@ -9,12 +9,6 @@ public partial class TreasureFish : Fish, IPhotographable
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    public new IPhotographable.PhotoModifier Modifier
-    {
-        get => IPhotographable.PhotoModifier.Treasure;
-        set;
-    }
-
     [Export]
     float WaitTimer = 1f;
 
@@ -24,10 +18,13 @@ public partial class TreasureFish : Fish, IPhotographable
     [Export]
     float lifetime = 15f;
 
-    bool IPhotographable.IsModifier
-    {
-        get => true;
-    }
+    [Export]
+    int treasureValue = 50;
+
+    // bool IPhotographable.IsModifier
+    // {
+    //     get => true;
+    // }
 
     public const int Value = 2;
 
@@ -35,6 +32,7 @@ public partial class TreasureFish : Fish, IPhotographable
 
     public override void _Ready()
     {
+        base._Ready();
         var tween = CreateTween();
         tween.TweenFn<Vec3>(
             (target) => LookAt(GlobalPosition - target),
@@ -53,5 +51,12 @@ public partial class TreasureFish : Fish, IPhotographable
             Velocity = Vec3.Up * speed;
             MoveAndSlide();
         }
+    }
+
+    void IPhotographable.Photographed()
+    {
+        var player = this.SceneRoot().GetNode<Player>()!;
+        player.Stats.Money += treasureValue;
+        Audio.PlaySfx(Sfx.Sparkle);
     }
 }

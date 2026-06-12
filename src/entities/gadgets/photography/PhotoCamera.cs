@@ -428,7 +428,10 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                 && !photographable.IsModifier
                 && WithinFov(photographable.Subject)
             )
+            {
                 result.Add(photographable.Subject.Name);
+                photographable.Photographed();
+            }
         }
         return [.. result];
     }
@@ -443,6 +446,7 @@ public partial class PhotoCamera : Item, IMakeNoise, IDroppable
                 if (photographable.Modifier == IPhotographable.PhotoModifier.Treasure)
                 {
                     player.Stats.Money += TreasureFish.Value;
+                    Audio.PlaySfx(Sfx.Sparkle);
                 }
                 else
                 {
