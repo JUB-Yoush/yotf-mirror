@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dyrpjcai87jpf"]
+
+[ext_resource type="Texture2D" uid="uid://fquip6iug6ue" path="res://assets/3d/set-dressing/soft-coral-set_Big_coral_V2_Diff.png" id="1_6yt42"]
+[ext_resource type="Texture2D" uid="uid://c0l18abtnygpx" path="res://assets/3d/set-dressing/soft-coral-set_Big_coral_normal.png" id="2_sr4i2"]
+
+[resource]
+resource_name = "M_coral_02"
+cull_mode = 2
+albedo_texture = ExtResource("1_6yt42")
+roughness = 0.5
+emission_enabled = true
+emission_texture = ExtResource("1_6yt42")
+normal_enabled = true
+normal_texture = ExtResource("2_sr4i2")
+texture_filter = 1

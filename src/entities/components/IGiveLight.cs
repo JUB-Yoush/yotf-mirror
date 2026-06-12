@@ -2,15 +2,15 @@ namespace Yotf;
 
 public interface IGiveLight
 {
-    Light3D LightSource { get; }
+    Light3D? LightSource { get; }
     Area3D LightArea { get; }
     RayCast3D LightRay { get; }
 
     Vec3 LightPosition => ((Node3D)this).GlobalPosition;
 
-    bool IsActive => LightSource.LightEnergy > 0f;
+    bool IsActive => LightSource is null || LightSource.LightEnergy > 0f;
 
-    float LightEnergy => LightSource.LightEnergy;
+    float LightEnergy => LightSource?.LightEnergy ?? 1f;
 
     float EffectiveRange =>
         LightSource switch

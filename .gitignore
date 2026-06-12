@@ -80,3 +80,5 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 *.trx
+
+.DS_Store
