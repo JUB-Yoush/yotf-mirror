@@ -17,6 +17,8 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     [Export(PropertyHint.Range, "-1,1,")]
     float buoyancy = 0.0f;
 
+    public int stock = 0;
+
     [Node]
     public required MeshInstance3D Mesh { set; get; }
 
@@ -36,6 +38,7 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
     public List<Photo>? photosFromCamera;
 
     public Disposable.Restore restore = Disposable.Restore.None;
+    public float RestoreAmount;
 
     public static readonly PackedScene Packed = GD.Load<PackedScene>("uid://btgb7l7cdigqw");
 
@@ -87,10 +90,12 @@ public partial class DroppedItem : RigidBody3D, IInteractable, IOnMiniMap, IBubb
         if (inventory.GetEqippedItem() != null)
             return;
         var item = ItemRef.Instantiate<Item>();
+        item.stock = stock;
         if (restore != Disposable.Restore.None)
         {
             var disposable = (Disposable)item;
             disposable.restore = restore;
+            disposable.restoreAmount = RestoreAmount;
         }
         else if (photosFromCamera != null)
         {

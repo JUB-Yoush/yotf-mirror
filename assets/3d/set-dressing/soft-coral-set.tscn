@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d8jyqemg6uln"]
+
+[ext_resource type="PackedScene" uid="uid://bkv6swcjssqr6" path="res://assets/3d/set-dressing/soft-coral-set.glb" id="1_g2gon"]
+
+[node name="soft-coral-set" unique_id=294417906 instance=ExtResource("1_g2gon")]
+
+[node name="coral28_M_coral_01_0" parent="." index="8" unique_id=1967911407]
+transform = Transform3D(0.02478788, 0, 0, 0, 0.024787886, 0, 0, 0, 0.024787886, -0.013009469, 0.012919686, -0.10857546)

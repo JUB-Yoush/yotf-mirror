@@ -49,8 +49,8 @@ public partial class Sonar : Item, IDroppable
 
     Camera3D playerCamera = null!;
     Player player = null!;
-    List<ISonarable> sonarItems = [];
 
+    readonly List<ISonarable> sonarItems = [];
     readonly Dictionary<ISonarable, Control> ReticleMap = [];
 
     ISonarable? closest = null!;
@@ -95,7 +95,7 @@ public partial class Sonar : Item, IDroppable
     private void RemoveSonarItem(ISonarable sonarable)
     {
         sonarItems.Remove(sonarable);
-        ReticleMap[sonarable].QueueFree();
+        ReticleMap[sonarable]?.QueueFree();
         ReticleMap.Remove(sonarable);
     }
 
@@ -126,6 +126,8 @@ public partial class Sonar : Item, IDroppable
             var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = playerCamera.GlobalTransform;
             GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
             player.Inventory.RemoveCurrentItem();
         }
     }
@@ -133,8 +135,12 @@ public partial class Sonar : Item, IDroppable
     public override void _Process(double delta)
     {
         if (!CurrentItem || player.Stats.Battery == 0)
+        {
+            Reticles.Visible = false;
             return;
+        }
 
+        Reticles.Visible = true;
         player.Stats.Battery -= (float)(batteryUseRate * delta);
 
         foreach (var sonarable in sonarItems)

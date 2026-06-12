@@ -7,10 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://da0xkdgkyvua6" path="res://src/entities/player/skrunko_skin.tscn" id="5_a31ob"]
 [ext_resource type="Script" uid="uid://cqx1l2m6xenx0" path="res://src/helper_nodes/InputManager.cs" id="6_8fjmc"]
 [ext_resource type="Script" uid="uid://bmkvubfxs0mge" path="res://src/entities/player/Inventory.cs" id="8_1ljfj"]
+[ext_resource type="Material" uid="uid://bbhi27ogvfdgy" path="res://src/shaders/paper_material.tres" id="8_3c4mh"]
 [ext_resource type="Script" uid="uid://bl44t7cfvl6gd" path="res://src/entities/player/PlayerStats.cs" id="8_tk761"]
-[ext_resource type="Shader" uid="uid://c1fvyqvev4yor" path="res://src/shaders/kuwahara_shader.gdshader" id="9_kc3pt"]
 [ext_resource type="PackedScene" uid="uid://do8ry0vvt5ac3" path="res://src/ui/hud.tscn" id="9_n7e5a"]
-[ext_resource type="Texture2D" uid="uid://krgqtpe8bcyp" path="res://assets/2d/ui/reticle.png" id="11_kc3pt"]
 [ext_resource type="Material" uid="uid://xonfbeqeg7o" path="res://assets/materials/fisheye.tres" id="21_fjj3i"]
 [ext_resource type="Material" uid="uid://dnk7s4lc4mf3b" path="res://assets/materials/underwater_cam.tres" id="22_3d0mj"]
 
@@ -30,11 +29,6 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3c4mh"]
-shader = ExtResource("9_kc3pt")
-shader_parameter/radius = 4
-shader_parameter/offset = Vector3(0, 0, 0)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_3c4mh"]
 size = Vector3(1, 1.5525055, 1)
 
@@ -43,6 +37,7 @@ collision_layer = 2
 floor_stop_on_slope = false
 floor_constant_speed = true
 script = ExtResource("1_yw30f")
+SwimSpeed = 2.0
 FirstPerson = true
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=250692520]
@@ -107,6 +102,7 @@ unique_name_in_owner = true
 script = ExtResource("8_1ljfj")
 
 [node name="UnderwaterShader" type="CanvasLayer" parent="." unique_id=154761363]
+layer = 2
 
 [node name="UnderwaterRect" type="ColorRect" parent="UnderwaterShader" unique_id=788417647]
 unique_name_in_owner = true
@@ -121,12 +117,7 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1974037189]
-layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="HUDLayer" unique_id=487371966]
-material = SubResource("ShaderMaterial_3c4mh")
-offset_right = 40.0
-offset_bottom = 40.0
+layer = 3
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HUDLayer" unique_id=1650928401]
 anchors_preset = 15
@@ -164,7 +155,7 @@ theme_override_font_sizes/font_size = 32
 uppercase = true
 
 [node name="FisheyeShader" type="CanvasLayer" parent="." unique_id=1716511431]
-layer = 3
+layer = 4
 
 [node name="FishEyeRect" type="ColorRect" parent="FisheyeShader" unique_id=430145023]
 unique_name_in_owner = true
@@ -177,21 +168,18 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2137586156]
+[node name="PaperLayer" type="CanvasLayer" parent="." unique_id=2137586156]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=573255140]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+[node name="Kuwahara" type="ColorRect" parent="PaperLayer" unique_id=1135834312]
+visible = false
+material = ExtResource("8_3c4mh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_kc3pt")
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="Stats" type="Node" parent="." unique_id=1554359426]
 unique_name_in_owner = true

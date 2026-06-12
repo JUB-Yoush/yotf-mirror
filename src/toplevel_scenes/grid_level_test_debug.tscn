@@ -17,8 +17,6 @@
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_aw6sm"]
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_t0760"]
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ibkhf"]
 resource_local_to_scene = true
 noise_type = 2
@@ -1501,45 +1499,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.452024, 13.369292, -5.266
 neighbors = [NodePath("../NavNode62"), NodePath("../NavNode8"), NodePath("../NavNode9"), NodePath("../NavNode7")]
 Room = NodePath("../../Home2")
 
-[node name="NavGraph1" type="Node3D" parent="." unique_id=1023415838]
-script = ExtResource("1_atfwa")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavGraph1" unique_id=445396624]
-material_override = ExtResource("2_g8yqg")
-mesh = SubResource("ImmediateMesh_t0760")
-
-[node name="NavNode" parent="NavGraph1" unique_id=1071094409 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.350655, -12.74174, -6.941991)
-neighbors = [NodePath("../NavNode2"), NodePath("../NavNode4"), NodePath("../NavNode5")]
-
-[node name="NavNode2" parent="NavGraph1" unique_id=890095318 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.20084, -4.928315, -12.290053)
-neighbors = [NodePath("../NavNode"), NodePath("../NavNode4"), NodePath("../NavNode3")]
-
-[node name="NavNode3" parent="NavGraph1" unique_id=1463250792 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.121254, -12.74174, -7.3466477)
-neighbors = [NodePath("../NavNode4"), NodePath("../NavNode2"), NodePath("../NavNode5")]
-
-[node name="NavNode4" parent="NavGraph1" unique_id=1629978893 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.121254, -4.7708435, -11.029429)
-neighbors = [NodePath("../NavNode3"), NodePath("../NavNode2"), NodePath("../NavNode")]
-
-[node name="NavNode5" parent="NavGraph1" unique_id=1004910004 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.735954, -13.901909, -2.7494802)
-neighbors = [NodePath("../NavNode"), NodePath("../NavNode3"), NodePath("../NavNode6")]
-
-[node name="NavNode6" parent="NavGraph1" unique_id=965847124 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.735954, -16.183558, 10.529874)
-neighbors = [NodePath("../NavNode5"), NodePath("../NavNode7")]
-
-[node name="NavNode7" parent="NavGraph1" unique_id=1653599572 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.95738, -20.273546, 32.913086)
-neighbors = [NodePath("../NavNode6"), NodePath("../NavNode8")]
-
-[node name="NavNode8" parent="NavGraph1" unique_id=1392271226 node_paths=PackedStringArray("neighbors") instance=ExtResource("3_ttxmn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.95738, -29.603857, 22.424698)
-neighbors = [NodePath("../NavNode7")]
-
 [node name="Lab" parent="." unique_id=1680750340 instance=ExtResource("4_pmngp")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, -23.428392, 14.442931, -14.623071)
 Index = 0
@@ -1562,9 +1521,8 @@ OxygenScale = 0.0
 requiredGalleryScore = 10
 FinalLab = true
 
-[node name="Player" parent="." unique_id=678823562 node_paths=PackedStringArray("SpawnPos") instance=ExtResource("5_bhu1i")]
+[node name="Player" parent="." unique_id=678823562 instance=ExtResource("5_bhu1i")]
 transform = Transform3D(-0.8438037, 0, -0.5366518, 0, 1, 0, 0.5366518, 0, -0.8438037, -24.895155, 14.442931, -11.478544)
-SpawnPos = NodePath("../Lab/PlayerSpawn")
 
 [node name="Home" parent="." unique_id=1044421178 instance=ExtResource("6_y5dxa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.712839, 8.241343, 18.775595)
@@ -2702,6 +2660,7 @@ InsideChest = ExtResource("13_veojw")
 [node name="Anglerfish" parent="." unique_id=391027566 node_paths=PackedStringArray("LabLayer") instance=ExtResource("16_o1ln5")]
 transform = Transform3D(0.06996539, 0, -0.9975494, 0, 1, 0, 0.9975494, 0, 0.06996539, -14.696756, 8.934772, -0.09720403)
 chaseDmg = 10.0
+AIIsOn = false
 LabLayer = NodePath("../Lab")
 
 [editable path="Lab"]

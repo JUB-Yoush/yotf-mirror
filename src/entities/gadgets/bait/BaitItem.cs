@@ -19,9 +19,6 @@ public partial class BaitItem : Item, IDroppable
     [Node]
     public required MeshInstance3D Mesh { get; set; }
 
-    [Export]
-    int ammo = 5;
-
     public Player player = null!;
     public Camera3D playerCamera = null!;
 
@@ -39,11 +36,24 @@ public partial class BaitItem : Item, IDroppable
         if (@event.IsActionPressed("take_photo"))
         {
             MakeBait();
-            ammo--;
-            if (ammo == 0)
+            stock--;
+            if (stock == 0)
             {
                 player.Inventory.RemoveCurrentItem();
             }
+
+            player.HUD.InventoryText[Index].Text = $"[center][b]{Index + 1} x{base.stock}";
+        }
+
+        if (@event.IsActionPressed("drop_item"))
+        {
+            var dropItem = IDroppable.MakeDropItem(this);
+            dropItem.stock = stock;
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            GetTree().CurrentScene.AddChild(dropItem);
+            dropItem.GlobalTransform = playerCamera.GlobalTransform;
+            dropItem.GlobalPosition += -playerCamera.GlobalTransform.Basis.Z;
+            player.Inventory.RemoveCurrentItem();
         }
     }
 

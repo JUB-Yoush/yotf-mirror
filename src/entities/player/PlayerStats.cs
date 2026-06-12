@@ -26,10 +26,13 @@ public partial class PlayerStats : Node
     public float OxygenUseRate = 0f;
 
     [Export]
-    public float LowOxygenPercentage = .3f;
+    public float LowOxygenPercentage = .5f;
 
     [Export]
-    public float LowBatteryPercentage = .3f;
+    public float LowBatteryPercentage = .5f;
+
+    [Export]
+    int startingMoney = 2000;
 
     public float Injuries
     {
@@ -49,7 +52,7 @@ public partial class PlayerStats : Node
             field = value;
             HUD.OxygenBar.MaxValue = field;
         }
-    }
+    } = 100;
     public float MaxBattery
     {
         get;
@@ -58,7 +61,7 @@ public partial class PlayerStats : Node
             field = value;
             HUD.BatteryBar.MaxValue = field;
         }
-    }
+    } = 100;
     public float Oxygen
     {
         get;
@@ -102,6 +105,28 @@ public partial class PlayerStats : Node
                 batteryWarningGiven = true;
                 player?.MakeAlert("ALERT: LOW BATTERY");
             }
+
+            if (field == 0 && HUD != null)
+            {
+                Audio.PlaySfx(Sfx.PowerDown);
+                var shockTween = CreateTween();
+                shockTween.AnimateProperty(
+                    HUD,
+                    Control.PropertyName.Modulate,
+                    new Color(0xffffff00),
+                    .5f
+                );
+            }
+            else if (HUD != null)
+            {
+                var shockTween = CreateTween();
+                shockTween.AnimateProperty(
+                    HUD,
+                    Control.PropertyName.Modulate,
+                    new Color(0xffffffff),
+                    .5f
+                );
+            }
         }
     }
     public int Money
@@ -132,7 +157,7 @@ public partial class PlayerStats : Node
         }
     }
 
-    static int maxFilm = 999;
+    static int maxFilm = 10;
     public static int MaxFilm
     {
         set { maxFilm = value; }
@@ -155,19 +180,20 @@ public partial class PlayerStats : Node
 
     public override void _Ready()
     {
+        Money = startingMoney;
         player = GetParent<Player>();
         HUD.OxygenBar.MaxValue = MaxOxygen;
         HUD.BatteryBar.MaxValue = MaxBattery;
-        MaxOxygen = 100;
-        MaxBattery = 100;
         Oxygen = MaxOxygen;
         Battery = MaxBattery;
-        Money = 100;
         TotalGalleryScore = 10;
     }
 
     public void SpendOxygen(double delta)
     {
+        if (Lab.CurrentLab is null)
+            return;
+            
         OxygenUseRate = Lab.CurrentLab!.OxygenScale;
         Oxygen = Math.Max(Oxygen - (float)(OxygenUseRate * delta), 0);
     }
@@ -204,9 +230,11 @@ public partial class PlayerStats : Node
         {
             case Restore.Oxygen:
                 Oxygen += amount;
+                Audio.PlaySfx(Sfx.Oxygen);
                 break;
 
             case Restore.Battery:
+                Audio.PlaySfx(Sfx.PowerUp);
                 Battery += amount;
                 break;
 

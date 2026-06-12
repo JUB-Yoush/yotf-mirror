@@ -20,10 +20,17 @@ public partial class Item : Node3D, IDroppable
     float restoreAmount = 50;
 
     [Export]
+    public bool hasCount = false;
+
+    [Export]
+    public int stock = 5;
+
+    [Export]
     public string[] Instructions = [];
 
     public bool InInventory = false;
     public bool CurrentItem = false;
+    public int Index = -1;
 
     public PackedScene PackedScene => throw new NotImplementedException();
 

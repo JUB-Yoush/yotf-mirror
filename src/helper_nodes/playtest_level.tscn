@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://craudxlij2yxa" path="res://trenchbroom/textures/FLATSTONES.png" id="4_4nyqe"]
 [ext_resource type="PackedScene" uid="uid://ctvlk2rlfmrgv" path="res://assets/3d/set-dressing/coral.res" id="4_nixgk"]
 [ext_resource type="PackedScene" uid="uid://bkohmbfcqsr2u" path="res://assets/3d/set-dressing/seaweed.glb" id="4_vpr0w"]
-[ext_resource type="Material" uid="uid://bmbis47tdup0r" path="res://assets/3d/set-dressing/coral-set.res" id="6_x1nvn"]
+[ext_resource type="Material" uid="uid://bmbis47tdup0r" path="res://assets/3d/set-dressing/coral-set-mat.res" id="6_x1nvn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nixgk"]
 albedo_texture = ExtResource("3_vpr0w")

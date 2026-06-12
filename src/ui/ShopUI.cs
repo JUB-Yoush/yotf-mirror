@@ -197,7 +197,7 @@ public partial class ShopUI : Control
                 player.Battery = player.MaxBattery;
                 break;
             case ShopItem.Upgrade.Film:
-                PlayerStats.MaxFilm += 3;
+                PlayerStats.MaxFilm += 5;
                 break;
             case ShopItem.Upgrade.CameraZoom:
                 PlayerStats.MaxZoom += 10;
@@ -217,6 +217,7 @@ public partial class ShopUI : Control
         var mesh = item.DropMesh;
         var itemDrop = DroppedItem.New(mesh, item.itemScene);
         itemDrop.restore = item.restore;
+        itemDrop.RestoreAmount = item.RestoreAmount;
         GetTree().CurrentScene.AddChild(itemDrop);
         itemDrop.GlobalTransform = kiosk.GlobalTransform;
         itemDrop.GlobalPosition -= -kiosk.GlobalTransform.Basis.Z;

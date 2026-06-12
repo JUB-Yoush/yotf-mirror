@@ -4,17 +4,13 @@
 [ext_resource type="BoxMesh" uid="uid://bfbyt62mwtns0" path="res://assets/3d/gadgets/camera_mesh_temp.tres" id="2_2gdub"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0vdqr"]
-radius = 0.21857433
+radius = 0.3239124
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vdqr"]
-
-[sub_resource type="TorusMesh" id="TorusMesh_0vdqr"]
-material = SubResource("StandardMaterial3D_0vdqr")
-inner_radius = 0.1
-outer_radius = 0.2
+[sub_resource type="BoxMesh" id="BoxMesh_2gdub"]
+size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2lymx"]
-radius = 0.25566387
+radius = 0.3739936
 
 [node name="DroppedItem" type="RigidBody3D" unique_id=1652355677]
 collision_layer = 96
@@ -27,7 +23,7 @@ shape = SubResource("SphereShape3D_0vdqr")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=190850226]
 unique_name_in_owner = true
-mesh = SubResource("TorusMesh_0vdqr")
+mesh = SubResource("BoxMesh_2gdub")
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=341277874]
 collision_layer = 4

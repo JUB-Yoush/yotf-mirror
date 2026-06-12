@@ -8,6 +8,6 @@ script = ExtResource("1_sqtf4")
 Icon = ExtResource("1_wan4h")
 Name = "Zoom Up"
 Description = "Increases Max Zoom"
-Price = 10
+Price = 1500
 upgrade = 4
 metadata/_custom_type_script = "uid://jp2vrs56sra4"

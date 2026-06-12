@@ -203,7 +203,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_khbdo")
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
-text = "Cost: 1 billlion dollars"
+text = "Total:"
 horizontal_alignment = 1
 vertical_alignment = 1
 

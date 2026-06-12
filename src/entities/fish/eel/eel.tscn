@@ -158,6 +158,8 @@ _data = {
 [node name="Eel" type="CharacterBody3D" unique_id=1200339281]
 collision_layer = 304
 script = ExtResource("1_cm51b")
+zapDamage = 10.0
+WanderSpeed = 2.0
 size = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1781958389]
@@ -171,6 +173,7 @@ aabb = AABB(-0.5533419, -0.45106718, -0.3524015, 1.1076838, 0.90213436, 1.945802
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=1371043951]
 unique_name_in_owner = true
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1214767733]
 shape = SubResource("SphereShape3D_rq6t1")
@@ -289,6 +292,7 @@ debug_color = Color(0.5130227, 0.5767579, 0.058156997, 0.41960785)
 [node name="NavBox" type="MeshInstance3D" parent="." unique_id=1651130344]
 unique_name_in_owner = true
 top_level = true
+visible = false
 mesh = SubResource("BoxMesh_r2r6v")
 
 [node name="ZapMesh" type="MeshInstance3D" parent="." unique_id=464426730]

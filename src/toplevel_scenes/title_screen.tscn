@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://c4a35ioxnogm5"]
+
+[ext_resource type="PackedScene" uid="uid://cu861uvvh1ids" path="res://src/entities/lab/lab.tscn" id="3_mpb8x"]
+[ext_resource type="PackedScene" uid="uid://b8a84a1d42mkj" path="res://src/entities/water_volume/water_volume.tscn" id="6_r36r8"]
+[ext_resource type="Script" path="res://src/toplevel_scenes/Titlescreen.cs" id="9_7j5ul"]
+[ext_resource type="Script" uid="uid://b7dlpfu8do4aj" path="res://src/entities/player/InteractionRay.cs" id="9_fvxxr"]
+[ext_resource type="Shader" uid="uid://dumowel42g8qa" path="res://assets/3d/environment/water_surface.tres" id="10_0l4yl"]
+[ext_resource type="Texture2D" uid="uid://cewt6m00w10f3" path="res://assets/2d/ui/WAWA_Typography_Stacked.png" id="10_7j5ul"]
+[ext_resource type="Texture2D" uid="uid://6amy25elin8p" path="res://assets/2d/ui/BlueHour_Logo_Black.png" id="10_fvxxr"]
+[ext_resource type="PackedScene" uid="uid://da0xkdgkyvua6" path="res://src/entities/player/skrunko_skin.tscn" id="10_mpb8x"]
+[ext_resource type="Environment" uid="uid://bg4j78x8mb83o" path="res://assets/world_environments/cave_env.tres" id="11_r36r8"]
+[ext_resource type="Script" uid="uid://ctn0ffoi2lglr" path="res://src/audio/Audio.cs" id="13_0l4yl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_208ij"]
+render_priority = 1
+shader = ExtResource("10_0l4yl")
+shader_parameter/uv_scale = 2.5
+shader_parameter/direction_1 = Vector2(0.005, -0.005)
+shader_parameter/direction_2 = Vector2(0.02, 0.005)
+shader_parameter/highlight_threshold = 0.550000026125
+shader_parameter/shadow_threshold = 0.050000002375
+shader_parameter/base_colour = Color(0.17115179, 0.5324657, 0.8518921, 1)
+shader_parameter/base_alpha = 0.85
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tkq1m"]
+material = SubResource("ShaderMaterial_208ij")
+size = Vector2(50, 50)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hp726"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7j5ul"]
+resource_local_to_scene = true
+noise_type = 2
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0l4yl"]
+resource_local_to_scene = true
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_7j5ul")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r36r8"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+albedo_color = Color(0.17254902, 0.53333336, 0.8509804, 0.3882353)
+roughness = 0.0
+refraction_texture = SubResource("NoiseTexture2D_0l4yl")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="Main" type="Node3D" unique_id=1358548990]
+
+[node name="Lab" parent="." unique_id=425056557 instance=ExtResource("3_mpb8x")]
+transform = Transform3D(0.99999815, -0.0019198619, 0, 0.0019198619, 0.99999815, 0, 0, 0, 1, 48.188763, 9.255465, 53.47921)
+script = null
+
+[node name="ShopKiosk" parent="Lab" index="2" unique_id=1903364331]
+script = null
+
+[node name="PhotoTerminal" parent="Lab" index="3" unique_id=1904242734]
+script = null
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=466845896]
+unique_name_in_owner = true
+transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 57.96464, 12.453413, 52.841255)
+near = 0.25
+far = 16384.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=425378243]
+target_position = Vector3(0, 0, -2)
+collision_mask = 4
+collide_with_areas = true
+script = ExtResource("9_fvxxr")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" unique_id=1200029740]
+visible = false
+spot_range = 13.56
+spot_angle = 27.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1670759380]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2129193807]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_7j5ul")
+
+[node name="TitleImg" type="TextureRect" parent="CanvasLayer/Control" unique_id=696864753]
+layout_mode = 1
+offset_left = 1006.0001
+offset_top = 555.00006
+offset_right = 1718.0001
+offset_bottom = 959.00006
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("10_fvxxr")
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Control" unique_id=1690120332]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1208.0
+offset_top = 87.0
+offset_right = 1558.0
+offset_bottom = 198.0
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 75
+text = "PLAY"
+
+[node name="Quit Button" type="Button" parent="CanvasLayer/Control" unique_id=2130267416]
+layout_mode = 0
+offset_left = 1207.0
+offset_top = 302.0
+offset_right = 1557.0
+offset_bottom = 413.0
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 75
+text = "QUIT"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=2070791139]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 899.0
+offset_right = 414.0
+offset_bottom = 1099.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_7j5ul")
+
+[node name="SkrunkoSkin" parent="." unique_id=1969374302 instance=ExtResource("10_mpb8x")]
+transform = Transform3D(0.26419288, 0, 0.96446985, 0, 1, 0, -0.96446985, 0, 0.26419288, 52.632442, 9.477178, 51.846172)
+
+[node name="ProceduralAnimator" parent="SkrunkoSkin" index="0" unique_id=1973083571]
+script = null
+
+[node name="WaterSurface" type="MeshInstance3D" parent="." unique_id=9472829]
+transform = Transform3D(0.0198237, 0.0010422461, 0.99980295, 0.0017487968, 0.999998, -0.0010771123, -0.9998021, 0.0017698577, 0.01982186, 32.614925, 9.343002, 60.882286)
+mesh = SubResource("PlaneMesh_tkq1m")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1002644570]
+environment = ExtResource("11_r36r8")
+camera_attributes = SubResource("CameraAttributesPractical_hp726")
+
+[node name="WaterVolume" parent="." unique_id=1070499480 instance=ExtResource("6_r36r8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.801453, -17.755573, -0.25357056)
+size = Vector3(179.90964, 54.046265, 163.19116)
+material = SubResource("StandardMaterial3D_r36r8")
+script = null
+
+[node name="Audio" type="Node" parent="." unique_id=1467229025]
+script = ExtResource("13_0l4yl")
+
+[editable path="Lab"]
+[editable path="SkrunkoSkin"]

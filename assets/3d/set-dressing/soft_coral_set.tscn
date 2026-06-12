@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://d8jyqemg6uln"]
-
-[ext_resource type="PackedScene" uid="uid://bkv6swcjssqr6" path="res://assets/3d/set-dressing/soft-coral-set.glb" id="1_us7vr"]
-
-[node name="soft-coral-set" unique_id=294417906 instance=ExtResource("1_us7vr")]

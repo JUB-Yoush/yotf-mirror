@@ -8,4 +8,4 @@ uv1_scale = Vector3(3, 3, 3)
 
 [resource]
 material = SubResource("StandardMaterial3D_jg0tx")
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.3, 0.3, 0.3)

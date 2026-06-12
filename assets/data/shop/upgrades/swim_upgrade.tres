@@ -8,6 +8,6 @@ script = ExtResource("1_1utul")
 Icon = ExtResource("1_d1jfn")
 Name = "Swim Up"
 Description = "Increase Swim Speed"
-Price = 10
+Price = 1500
 upgrade = 5
 metadata/_custom_type_script = "uid://jp2vrs56sra4"

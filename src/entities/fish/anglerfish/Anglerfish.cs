@@ -33,6 +33,8 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
 
     readonly HashSet<ITakeDamage> hit = [];
 
+    bool IBubbleable.AxolotlTargets => false;
+
     enum State
     {
         Idle,
@@ -97,7 +99,8 @@ public partial class Anglerfish : Fish, IBubbleable, IHearNoise, IDoesAction, IT
 
     public override void _Process(double delta)
     {
-        stateMachine.Update(delta);
+        if (AIIsOn)
+            stateMachine.Update(delta);
     }
 
     public override void _PhysicsProcess(double delta)

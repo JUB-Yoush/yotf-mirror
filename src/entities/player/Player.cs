@@ -47,9 +47,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
     bool renderingAlert = false;
 
     public bool InNegationArea = false;
+    public int WaterVolumeCount = 0; // for handling overlapping water volumes
 
     [Export]
-    Marker3D? SpawnPos = null;
+    Lab? StartLab = null;
 
     // ====================== MOVEMENT CONFIG ======================
     [ExportCategory("Land Movement")]
@@ -68,7 +69,7 @@ public partial class Player : CharacterBody3D, ITakeDamage
     internal float Gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     [ExportCategory("Swim Movement")]
-    [Export(PropertyHint.Range, "5,50")]
+    [Export(PropertyHint.Range, "1,50")]
     public float SwimSpeed = 5.0f;
 
     [Export]
@@ -88,7 +89,10 @@ public partial class Player : CharacterBody3D, ITakeDamage
     public float Depth
     {
         set;
-        get => (Lab.CurrentLab == null) ? 0f : (Lab.CurrentLab.GlobalPosition.Y - GlobalPosition.Y);
+        get =>
+            (Lab.Map.TryGetValue(0, out var lab) == false)
+                ? 0f
+                : (lab.GlobalPosition.Y - GlobalPosition.Y);
     }
 
     [Export]
@@ -216,15 +220,17 @@ public partial class Player : CharacterBody3D, ITakeDamage
         WalkingState.Enter(this);
         FirstPerson = true;
 
-        if (SpawnPos != null)
+        if (StartLab != null)
         {
-            GlobalPosition = SpawnPos.GlobalPosition;
+            GlobalPosition = StartLab.PlayerSpawn.GlobalPosition;
+            Lab.CurrentLab = StartLab;
         }
     }
 
 #if DEBUG
     public override void _Process(double delta)
     {
+        //DebugDraw2D.SetText("Water Volume Count", WaterVolumeCount.ToString());
         if (Input.IsActionJustPressed("noclip_on"))
             SetState(NoClipState);
         if (Input.IsActionJustPressed("noclip_off"))
@@ -307,6 +313,12 @@ public partial class Player : CharacterBody3D, ITakeDamage
                 var randomDir = new Vec3(GD.Randf(), 0.5f, GD.Randf()).Normalized();
                 GetTree().CurrentScene.AddChild(dropItem);
                 dropItem.GlobalTransform = GlobalTransform;
+                dropItem.stock = item.stock;
+                if (item is Disposable dispose)
+                {
+                    dropItem.restore = dispose.restore;
+                    dropItem.RestoreAmount = dispose.restoreAmount;
+                }
                 dropItem.ApplyImpulse(randomDir * 5);
                 Inventory.RemoveItem(i);
             }

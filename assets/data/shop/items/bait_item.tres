@@ -10,14 +10,14 @@ uv1_scale = Vector3(3, 3, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_iy8g0"]
 material = SubResource("StandardMaterial3D_i3br3")
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.3, 0.3, 0.3)
 
 [resource]
 script = ExtResource("3_jhf4m")
 Icon = ExtResource("2_jhf4m")
 Name = "Bait"
 Description = "Attracts small fish."
-Price = 10
+Price = 500
 ItemType = 1
 ItemId = 5
 itemScene = ExtResource("2_6rtfs")

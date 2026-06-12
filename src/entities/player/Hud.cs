@@ -38,6 +38,9 @@ public partial class Hud : Control
     public required Label SonarLabel2 { set; get; }
 
     [Node]
+    public required Label DepthLabel { set; get; }
+
+    [Node]
     public required TextureProgressBar BatteryBar { set; get; }
 
     [Node]
@@ -71,6 +74,17 @@ public partial class Hud : Control
             field = new TextureRect[InventorySize];
             for (int i = 0; i < InventorySize; i++)
                 field[i] = GetNode<TextureRect>($"%InventoryIcons/Slot{i}/Border/{i}");
+            return field;
+        }
+    }
+
+    public RichTextLabel[] InventoryText
+    {
+        get
+        {
+            field = new RichTextLabel[InventorySize];
+            for (int i = 0; i < InventorySize; i++)
+                field[i] = GetNode<RichTextLabel>($"%InventoryIcons/Slot{i}/RichTextLabel");
             return field;
         }
     }
@@ -121,6 +135,7 @@ public partial class Hud : Control
         smoothedSpeed = alpha * instantSpeed + (1f - alpha) * smoothedSpeed;
         var shaderSpeed = new Vec2(0, smoothedSpeed);
         barometerShader.SetShaderParameter("scroll_speed", shaderSpeed / 100);
+        DepthLabel.Text = ((int)((player.Depth) * 10)).ToString("D4");
     }
 
     public void SetItemSlot(int index, Texture2D img)
@@ -150,5 +165,17 @@ public partial class Hud : Control
             Y = -Camera.GlobalRotation.Y,
             Z = Camera.GlobalRotation.Z,
         };
+    }
+
+    public void SetItemText(int index, Item item)
+    {
+        if (item.hasCount)
+        {
+            InventoryText[index].Text = $"[center][b]{index + 1} x{item.stock}";
+        }
+        else
+        {
+            InventoryText[index].Text = $"[center][b]{index + 1}";
+        }
     }
 }

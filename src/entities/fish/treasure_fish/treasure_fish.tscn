@@ -145,6 +145,7 @@ skeleton = NodePath("")
 [node name="NavBox" type="MeshInstance3D" parent="." unique_id=333117279]
 unique_name_in_owner = true
 top_level = true
+visible = false
 mesh = SubResource("BoxMesh_2c250")
 
 [node name="RayCastContainer" type="Node3D" parent="." unique_id=706768385]

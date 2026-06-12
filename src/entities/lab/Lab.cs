@@ -68,6 +68,18 @@ public partial class Lab : Node3D
         BottomGate.GetNode<CollisionShape3D>()!.Disabled = state;
         TopGate.Visible = !state;
         BottomGate.Visible = !state;
+        foreach (var fish in this.SceneRoot().GetNodes<Fish>())
+        {
+            if (fish.LabLayer == this)
+            {
+                fish.ProcessMode = ProcessModeEnum.Inherit;
+            }
+            else
+            {
+                fish.ProcessMode = ProcessModeEnum.Disabled;
+            }
+        }
+        this.SceneRoot().GetNode<Player>()!.Stats.TotalGalleryScore = 0;
     }
 
     public static Lab? GetLabByIndex(int index)

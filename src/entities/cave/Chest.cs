@@ -27,7 +27,8 @@ public partial class Chest : Node3D, IInteractable
     {
         if (InsideChest != null)
         {
-            var node = InsideChest.Instantiate<Node3D>();
+            var node = InsideChest.Instantiate<Fish>();
+            node.LabLayer = Lab.CurrentLab;
             this.SceneRoot().AddChild(node);
             node.GlobalPosition = GlobalPosition + Vec3.Up;
         }

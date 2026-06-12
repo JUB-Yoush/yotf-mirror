@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bmkf1pr71y8i8"]
+
+[ext_resource type="Texture2D" uid="uid://cieuig5mrkx6q" path="res://assets/2d/got_money.png" id="1_2umhm"]
+
+[node name="RigidBody3D" type="RigidBody3D" unique_id=1664204366]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2116615081]
+billboard = 1
+texture = ExtResource("1_2umhm")

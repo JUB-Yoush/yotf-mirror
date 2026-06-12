@@ -30,11 +30,10 @@ public partial class Inventory : Node3D
 
     public override void _Ready()
     {
+        PhotoCamera.AimingChanged += OnAimingChanged;
         AddItem(PhotoCamera.Packed.Instantiate<Item>(), 0);
         AddItem(Sonar.Packed.Instantiate<Item>(), 1);
         AddItem(FirecrackerItem.Packed.Instantiate<Item>(), 2);
-        AddItem(BaitItem.Packed.Instantiate<Item>(), 3);
-        PhotoCamera.AimingChanged += OnAimingChanged;
         SetCurrentItem(0);
     }
 
@@ -93,8 +92,10 @@ public partial class Inventory : Node3D
         item.Name = currentIndex.ToString();
         item.InInventory = true;
         AddChild(item);
+        item.Index = currentIndex;
         SetCurrentItem(currentIndex);
         HUD.SetItemSlot(currentIndex, item.Icon);
+        HUD.SetItemText(currentIndex, item);
         item.Added();
     }
 
@@ -108,8 +109,9 @@ public partial class Inventory : Node3D
         item.Name = index.ToString();
         item.InInventory = true;
         AddChild(item);
-
+        item.Index = index;
         HUD.SetItemSlot(index, item.Icon);
+        HUD.SetItemText(index, item);
         item.Added();
     }
 
@@ -120,6 +122,7 @@ public partial class Inventory : Node3D
 
         var item = GetNode<Item>(index.ToString());
         HUD.SetItemSlot(index, null);
+        HUD.InventoryText[index].Text = $"[center][b]{index + 1}";
         item.Unequipped();
         item.Removed();
         item.QueueFree();

@@ -130,7 +130,7 @@ public partial class GradingUI : Control
             var mul = Math.Max(0, 1 + otherFishMul + inActionMul + inkMul + deadMul + bigMul);
 
             MakeStyleLabel(
-                $"{subject}: f({facingScore})+c({centeredScore})+s({sizeScore})+l({lightScore}) -> {total}"
+                $"{subject}: face({facingScore})+center({centeredScore})+size({sizeScore})+light({lightScore}) -> {total}"
             );
 
             MakeStyleLabel(
@@ -143,7 +143,7 @@ public partial class GradingUI : Control
             // record highest scoring photo taken of this subject
             if (!maxPhotoScores.TryGetValue(subject, out var highestScore) || highestScore <= total)
             {
-                MakeStyleLabel(subject, "New Highest Scoring!", 0);
+                MakeStyleLabel("New Highest Scoring!");
                 sum += total - highestScore;
                 addedPhotoScore = total - highestScore;
                 maxPhotoScores.TryAdd(subject, total);
@@ -152,10 +152,10 @@ public partial class GradingUI : Control
             }
             else
             {
-                MakeStyleLabel(subject, "More Valuable Photo already taken...", 0);
+                MakeStyleLabel("More Valuable Photo already taken...");
             }
 
-            MakeStyleLabel("---");
+            MakeStyleLabel("<--->");
         }
         PhotoTotalLabel.Text = $"Photo TOTAL: {sum}";
         var player = this.SceneRoot().GetNode<Player>()!;

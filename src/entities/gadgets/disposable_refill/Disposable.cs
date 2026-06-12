@@ -15,7 +15,7 @@ public partial class Disposable : Item, IDroppable
     }
 
     [Export]
-    float restoreAmount = 50;
+    public float restoreAmount = 50;
 
     public Disposable.Restore restore = Disposable.Restore.None;
 
@@ -32,6 +32,9 @@ public partial class Disposable : Item, IDroppable
 
     public override void _Input(InputEvent @event)
     {
+        if (!CurrentItem)
+            return;
+
         if (@event.IsActionPressed("take_photo"))
             Use();
 
@@ -42,6 +45,8 @@ public partial class Disposable : Item, IDroppable
             var dropItem = IDroppable.MakeDropItem(this);
             dropItem.GlobalTransform = camera.GlobalTransform;
             dropItem.Position += -camera.GlobalTransform.Basis.Z;
+            dropItem.restore = restore;
+            dropItem.RestoreAmount = restoreAmount;
             GetTree().CurrentScene.AddChild(dropItem);
             player.Inventory.RemoveCurrentItem();
         }
