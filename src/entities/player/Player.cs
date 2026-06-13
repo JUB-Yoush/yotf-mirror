@@ -304,9 +304,9 @@ public partial class Player : CharacterBody3D, ITakeDamage
         gettingShocked = true;
         Audio.PlaySfx(Sfx.PowerDown);
 
-        for (int i = 0; i < Inventory.Capacity; i++)
-        {
-            var item = Inventory.Items[i];
+        //for (int i = 0; i < Inventory.Capacity; i++)
+        //{
+            var item = Inventory.GetEqippedItem();
             if (item != null && item.IsValid() && item is IDroppable droppable)
             {
                 Log.PrintLn($"{item.Name}");
@@ -321,9 +321,9 @@ public partial class Player : CharacterBody3D, ITakeDamage
                     dropItem.RestoreAmount = dispose.restoreAmount;
                 }
                 dropItem.ApplyImpulse(randomDir * 5);
-                Inventory.RemoveItem(i);
+                Inventory.RemoveItem(item.Index);
             }
-        }
+        //}
 
         shockTween = CreateTween();
         //disable HUD

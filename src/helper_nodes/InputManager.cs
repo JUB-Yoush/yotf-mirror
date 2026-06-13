@@ -20,7 +20,7 @@ public partial class InputManager : Node
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("quit"))
+        if (@event.IsActionPressed("quit") && !player.IsInMenu)
         {
             if (!GetTree().Paused)
             {

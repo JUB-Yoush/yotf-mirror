@@ -48,6 +48,8 @@ public partial class ShopUI : Control
 
     [Node]
     public required RichTextLabel SumLabel { set; get; }
+    [Node]
+    public required Label MoneyLabel { set; get; }
 
     private ShopKiosk kiosk = null!;
 
@@ -67,8 +69,9 @@ public partial class ShopUI : Control
 
     public override void _Ready()
     {
-        this.GetNode<Button>()!.Pressed += CloseShop;
         var player = this.SceneRoot().GetNode<Player>()!;
+        MoneyLabel.Text = $"MONEY: {player.Stats.Money}";
+        this.GetNode<Button>()!.Pressed += CloseShop;
         player.IsInMenu = true;
         Input.SetMouseMode(Input.MouseModeEnum.Visible);
 
@@ -178,6 +181,7 @@ public partial class ShopUI : Control
                 BuyUpgrade(item);
             }
         }
+
         CloseShop();
     }
 

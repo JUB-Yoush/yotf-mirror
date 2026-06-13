@@ -241,3 +241,14 @@ offset_top = 90.0
 offset_right = 295.0
 offset_bottom = 158.0
 text = "X"
+
+[node name="MoneyLabel" type="Label" parent="." unique_id=205807866]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 362.0
+offset_top = 925.0
+offset_right = 569.0
+offset_bottom = 970.0
+theme_override_font_sizes/font_size = 32
+text = "MONEY: 0000"

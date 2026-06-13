@@ -2155,19 +2155,19 @@ OxygenScale = 1.5
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 66.871635, -1.2752204, -17.949036)
 Index = 1
 OxygenScale = 3.0
-requiredGalleryScore = 10000
+requiredGalleryScore = 5000
 
 [node name="Lab2" parent="." unique_id=1137795225 instance=ExtResource("4_c5kmb")]
 transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 81.22056, -89.220566, -7.740203)
 Index = 2
 OxygenScale = 4.5
-requiredGalleryScore = 12000
+requiredGalleryScore = 6000
 
 [node name="Lab3" parent="." unique_id=1913430621 instance=ExtResource("4_c5kmb")]
-transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 121.07384, -147.99278, 0.17813271)
+transform = Transform3D(-0.99999684, 0, 0.0024957955, 0, 1, 0, -0.0024957955, 0, -0.99999684, 86.78432, -153.01796, 46.537262)
 Index = 3
 OxygenScale = 0.0
-requiredGalleryScore = 15000
+requiredGalleryScore = 7500
 FinalLab = true
 
 [node name="Player" parent="." unique_id=678823562 instance=ExtResource("6_c5kmb")]

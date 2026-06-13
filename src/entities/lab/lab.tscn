@@ -204,12 +204,17 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3437121, 0.40399355, -7.714729)
 
 [node name="BottomLadder" parent="." unique_id=347027057 instance=ExtResource("11_4itu8")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2672143, 0.57327616, -3.8884718)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2672143, 0.6632465, -3.8884718)
 
 [node name="TopLadder" parent="." unique_id=526113463 instance=ExtResource("11_4itu8")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.468633, 3.3535805, -4.330106)
+visible = false
 isTop = true
 
 [node name="PlayerSpawn" type="Marker3D" parent="." unique_id=673401429]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2302947, 1.5716759, -2.664959)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=909516574]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.4731936, 2.3228514, -3.8809698)
+light_color = Color(0.8627451, 0.7647059, 1, 1)

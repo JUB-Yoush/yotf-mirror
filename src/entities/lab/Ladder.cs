@@ -30,7 +30,7 @@ public partial class Ladder : Node3D, IInteractable
         var player = this.SceneRoot().GetNode<Player>()!;
         if (isTop)
             return;
-        if (player.InNegationArea)
+        if (player.WaterVolumeCount == 0)
         {
             var downTween = CreateTween();
             downTween.AnimateProperty(

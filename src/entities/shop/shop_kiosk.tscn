@@ -4,6 +4,8 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g65i8"]
 albedo_color = Color(0.32941177, 0.2784314, 1, 1)
+emission_enabled = true
+emission = Color(0.32941177, 0.2784314, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_g65i8"]
 material = SubResource("StandardMaterial3D_g65i8")
@@ -29,3 +31,8 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08245742, 0.6213691)
 pixel_size = 0.01
 text = "000000"
+
+[node name="Label3D" type="Label3D" parent="." unique_id=622551189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9495983, 0)
+pixel_size = 0.01
+text = "SHOP"

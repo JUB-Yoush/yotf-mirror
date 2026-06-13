@@ -203,7 +203,7 @@ public partial class PlayerStats : Node
         HUD.DeathText.ProcessMode = ProcessModeEnum.Always;
         HUD.ScreenColor.ProcessMode = ProcessModeEnum.Always;
         this.ProcessMode = ProcessModeEnum.Always;
-        GetTree().Paused = true;
+        //GetTree().Paused = true;
         var fadeRect = player.HUD.ScreenColor;
         fadeRect.Visible = true;
         var tween = CreateTween();

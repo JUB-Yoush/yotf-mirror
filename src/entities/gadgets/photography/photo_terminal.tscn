@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bjsne24mfw3jm" path="res://assets/2d/sprites/moomin.png" id="2_afks7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nbidk"]
+emission_enabled = true
+emission = Color(0.22490484, 0.22490484, 0.22490484, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ymhpo"]
 material = SubResource("StandardMaterial3D_nbidk")
@@ -42,3 +44,8 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3096757, 0.62054265)
 pixel_size = 0.01
 text = "000000"
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1932079785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39780855, 1.3548325)
+pixel_size = 0.01
+text = "SUBMIT PHOTOS"
